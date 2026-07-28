@@ -342,96 +342,21 @@ const TEAMS = [
 ];
 
 const CHAMPIONS = [
-  {
-    "year": 2011,
-    "key": "Wright",
-    "owner": "Sonny Wright",
-    "team": "George's Gangstas"
-  },
-  {
-    "year": 2012,
-    "key": "Prino",
-    "owner": "Joe Prino",
-    "team": "Prino's Powerhouse"
-  },
-  {
-    "year": 2013,
-    "key": "Clay",
-    "owner": "Tyler Clay",
-    "team": "Money Badgers"
-  },
-  {
-    "year": 2014,
-    "key": "Rapp",
-    "owner": "Luke Rapp",
-    "team": "ACLiens"
-  },
-  {
-    "year": 2015,
-    "key": "Prino",
-    "owner": "Joe Prino",
-    "team": "Prino's Powerhouse"
-  },
-  {
-    "year": 2016,
-    "key": "Rapp",
-    "owner": "Luke Rapp",
-    "team": "ACLiens"
-  },
-  {
-    "year": 2017,
-    "key": "Prino",
-    "owner": "Joe Prino",
-    "team": "Prino's Powerhouse"
-  },
-  {
-    "year": 2018,
-    "key": "Prino",
-    "owner": "Joe Prino",
-    "team": "Prino's Powerhouse"
-  },
-  {
-    "year": 2019,
-    "key": "West",
-    "owner": "Travis West",
-    "team": "Business as Usual"
-  },
-  {
-    "year": 2020,
-    "key": "Hickman",
-    "owner": "Z Hickman",
-    "team": "Free Agents"
-  },
-  {
-    "year": 2021,
-    "key": "West",
-    "owner": "Travis West",
-    "team": "Business as Usual"
-  },
-  {
-    "year": 2022,
-    "key": "Salameh",
-    "owner": "Walid Salameh",
-    "team": "Arabian Stallions"
-  },
-  {
-    "year": 2023,
-    "key": "Clay",
-    "owner": "Tyler Clay",
-    "team": "Money Badgers"
-  },
-  {
-    "year": 2024,
-    "key": "Rapp",
-    "owner": "Luke Rapp",
-    "team": "ACLiens"
-  },
-  {
-    "year": 2025,
-    "key": "Sizemore",
-    "owner": "Zach Sizemore",
-    "team": "The Deplorables"
-  }
+  { "year": 2011, "key": "Wright", "owner": "Sonny Wright", "team": "George's Gangstas" },
+  { "year": 2012, "key": "Prino", "owner": "Joe Prino", "team": "Prino's Powerhouse" },
+  { "year": 2013, "key": "Clay", "owner": "Tyler Clay", "team": "Money Badgers" },
+  { "year": 2014, "key": "Rapp", "owner": "Luke Rapp", "team": "ACLiens" },
+  { "year": 2015, "key": "Prino", "owner": "Joe Prino", "team": "Prino's Powerhouse" },
+  { "year": 2016, "key": "Rapp", "owner": "Luke Rapp", "team": "ACLiens" },
+  { "year": 2017, "key": "Prino", "owner": "Joe Prino", "team": "Prino's Powerhouse" },
+  { "year": 2018, "key": "Prino", "owner": "Joe Prino", "team": "Prino's Powerhouse" },
+  { "year": 2019, "key": "West", "owner": "Travis West", "team": "Business as Usual" },
+  { "year": 2020, "key": "Hickman", "owner": "Z Hickman", "team": "Free Agents" },
+  { "year": 2021, "key": "West", "owner": "Travis West", "team": "Business as Usual" },
+  { "year": 2022, "key": "Salameh", "owner": "Walid Salameh", "team": "Arabian Stallions" },
+  { "year": 2023, "key": "Clay", "owner": "Tyler Clay", "team": "Money Badgers" },
+  { "year": 2024, "key": "Rapp", "owner": "Luke Rapp", "team": "ACLiens" },
+  { "year": 2025, "key": "Sizemore", "owner": "Zach Sizemore", "team": "The Deplorables" }
 ];
 
 const NEWSLETTERS = [
@@ -450,28 +375,13 @@ const NEWSLETTERS = [
   { vol: 1, no: 13, year: 2018, title: "Vol. 1, No. 13", url: "https://mailchi.mp/d580ad625298/lon-newsletter-vol-1-no-13" },
   { vol: 1, no: 14, year: 2018, title: "It All Comes Down to One Week", url: "https://mailchi.mp/649f3c6f989c/it-all-comes-down-to-one-week" },
   { vol: 1, no: 15, year: 2018, title: "Vol. 1, No. 15", url: "https://mailchi.mp/ad1386e2a620/lon-newsletter-vol-1-no-15" },
-  { vol: 1, no: 16, year: 2018, title: "Semifinal Matchups", url: "https://mailchi.mp/f1613be584c0/semifinal-matchups" },
+  { vol: 1, no: 16, year: 2018, title: "Semifinal Matchups", url: "https://mailchi.mp/f1613be584c0/semifinal-matchups" }
 ];
 
 const SEASON_AVGS = [
-  {
-    "year": 2018,
-    "avg": 1453.175
-  },
-  {
-    "year": 2011,
-    "avg": 1431.875
-  },
-  {
-    "year": 2021,
-    "avg": 1397.475
-  },
-  {
-    "year": 2024,
-    "avg": 1374.308
-  },
-  {
-    "year": 2023,
-    "avg": 1356.783
-  }
+  { "year": 2018, "avg": 1453.175 },
+  { "year": 2011, "avg": 1431.875 },
+  { "year": 2021, "avg": 1397.475 },
+  { "year": 2024, "avg": 1374.308 },
+  { "year": 2023, "avg": 1356.783 }
 ];
