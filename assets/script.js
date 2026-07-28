@@ -188,6 +188,22 @@ function renderAwards(containerId){
     <div class="headline-stat">${c.stat}</div>
     <p>${c.body}</p>
   </div>`).join('');
+  // ---------- Newsletters ----------
+function renderNewsletters(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const sorted = NEWSLETTERS.slice().sort((a,b) => (a.vol - b.vol) || (a.no - b.no));
+  el.innerHTML = `<div class="table-scroll"><table>
+    <thead><tr><th>Issue</th><th>Title</th><th>Season</th><th></th></tr></thead>
+    <tbody>
+      ${sorted.map(n => `<tr>
+        <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
+        <td class="name-cell">${n.title}</td>
+        <td class="pos">${n.year}</td>
+        <td><a href="${n.url}" target="_blank" rel="noopener" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--field); white-space:nowrap;">Read →</a></td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div>`;
 }
 
 document.addEventListener('DOMContentLoaded', initNav);
