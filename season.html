@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Season — League of NARPS</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">League of NARPS <small>EST. 2011</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="champions.html">Champions</a>
+      <a href="standings.html">Standings</a>
+      <a href="seasons.html" aria-current="page">Seasons</a>
+      <a href="newsletters.html">Newsletters</a>
+      <a href="awards.html">Records</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:48px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" id="season-title">Season</h2>
+      <span class="section-sub"><a href="seasons.html" style="color:var(--field); text-decoration:underline;">← All Seasons</a></span>
+    </div>
+    <div id="season-detail-container"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+<script>renderSeasonDetail('season-detail-container');</script>
+</body>
+</html>

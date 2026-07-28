@@ -114,12 +114,14 @@ function renderAwards(containerId){
   const mostTitles = byMax('champs');
   const bestOffense = byMax('gameAvgPF');
 
+  // longest current title drought among teams with a past title
   const lastTitleYear = {};
   CHAMPIONS.forEach(c => { lastTitleYear[c.key] = Math.max(lastTitleYear[c.key]||0, c.year); });
   let droughtCandidates = TEAMS.filter(t=>t.champs>0).map(t => ({t, gap: LATEST_SEASON - lastTitleYear[t.key]}));
   droughtCandidates.sort((a,b)=>b.gap-a.gap);
   const longestDrought = droughtCandidates[0];
 
+  // never-champion with most playoff appearances (bad luck award)
   const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
 
   const cards = [
@@ -204,6 +206,108 @@ function renderNewsletters(containerId){
       </tr>`).join('')}
     </tbody>
   </table></div>`;
+}
+
+// ---------- Seasons ----------
+function renderSeasonsList(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(SEASONS).sort((a,b) => b - a);
+  el.innerHTML = `<div class="card-grid">` + years.map(y => {
+    const s = SEASONS[y];
+    return `<a class="nav-card" href="season.html?year=${y}">
+      <div class="card-eyebrow">${y} Season</div>
+      <h3>${s.champion.owner}</h3>
+      <p>${s.champion.team} — League Champion. Full standings, schedule, and playoff bracket inside.</p>
+    </a>`;
+  }).join('') + `</div>`;
+}
+
+function matchupRow(g){
+  const awayWin = g.awayScore > g.homeScore;
+  return `<tr>
+    <td class="${awayWin ? 'name-cell' : ''}" style="${awayWin ? 'font-weight:700;' : ''}">${g.away}</td>
+    <td class="pos">${g.awayScore}</td>
+    <td class="pos">–</td>
+    <td class="pos">${g.homeScore}</td>
+    <td class="${!awayWin ? 'name-cell' : ''}" style="${!awayWin ? 'font-weight:700;' : ''}">${g.home}</td>
+  </tr>`;
+}
+
+function renderSeasonDetail(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const year = params.get('year') || Object.keys(SEASONS).sort((a,b)=>b-a)[0];
+  const s = SEASONS[year];
+  if(!s){ el.innerHTML = `<p>No data found for ${year}.</p>`; return; }
+
+  document.title = `${year} Season — League of NARPS`;
+  const titleEl = document.getElementById('season-title');
+  if(titleEl) titleEl.textContent = `${year} Season`;
+
+  const podium = `<div class="trophy-case">
+    <div class="plaque" style="border-top-color:var(--gold);">
+      <div class="yr">CHAMPION</div>
+      <div class="owner">${s.champion.owner}</div>
+      <div class="team">${s.champion.team}</div>
+    </div>
+    <div class="plaque">
+      <div class="yr">RUNNER-UP</div>
+      <div class="owner">${s.second.owner}</div>
+      <div class="team">${s.second.team}</div>
+    </div>
+    <div class="plaque">
+      <div class="yr">THIRD PLACE</div>
+      <div class="owner">${s.third.owner}</div>
+      <div class="team">${s.third.team}</div>
+    </div>
+  </div>`;
+
+  const standingsTable = `<div class="table-scroll"><table>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th></tr></thead>
+    <tbody>${s.standings.map((t,i) => `<tr>
+      <td class="pos">${i+1}</td>
+      <td class="name-cell">${t.team}</td>
+      <td class="pos">${t.owner}</td>
+      <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
+      <td>${t.pct.toFixed(3)}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+
+  const playoffRounds = ['round1','round2','round3'].map(rk => {
+    const r = s.playoffs[rk];
+    if(!r) return '';
+    const byes = r.byes ? `<p class="muted" style="font-size:0.85rem;">Bye: ${r.byes.map(b=>`${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
+    return `<h3 style="font-family:var(--display); font-size:1.3rem; margin:24px 0 10px;">${r.label}</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
+      <tbody>${r.games.map(matchupRow).join('')}</tbody>
+    </table></div>
+    ${byes}`;
+  }).join('');
+
+  const scheduleWeeks = Object.keys(s.schedule).map(wk => {
+    const games = s.schedule[wk];
+    return `<details style="margin-bottom:8px;">
+      <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--parchment-2); border:1px solid var(--line); border-radius:var(--radius);">${wk}</summary>
+      <div class="table-scroll" style="margin-top:8px;"><table>
+        <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
+        <tbody>${games.map(matchupRow).join('')}</tbody>
+      </table></div>
+    </details>`;
+  }).join('');
+
+  el.innerHTML = `
+    ${podium}
+    <h2 class="section-title" style="margin-top:40px;">Final Regular Season Standings</h2>
+    ${standingsTable}
+    <h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
+    ${playoffRounds}
+    <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand. Bold indicates the winning team.</p>
+    ${scheduleWeeks}
+  `;
 }
 
 document.addEventListener('DOMContentLoaded', initNav);
