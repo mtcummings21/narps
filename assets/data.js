@@ -434,6 +434,25 @@ const CHAMPIONS = [
   }
 ];
 
+const NEWSLETTERS = [
+  { vol: 1, no: 1,  year: 2018, title: "League of NARPS Newsletter", url: "https://mailchi.mp/eda947156cd8/league-of-narps-newsletter" },
+  { vol: 1, no: 2,  year: 2018, title: "Vol. 1, No. 2", url: "https://mailchi.mp/9be397e69bc3/lon-newsletter-vol-1-no-2" },
+  { vol: 1, no: 3,  year: 2018, title: "Vol. 1, No. 3", url: "https://mailchi.mp/0ddcbe88a087/lon-newsletter-vol-1-no-3" },
+  { vol: 1, no: 4,  year: 2018, title: "Vol. 1, No. 4", url: "https://mailchi.mp/9443e0aecd7e/lon-newsletter-vol-1-no-4" },
+  { vol: 1, no: 5,  year: 2018, title: "Vol. 1, No. 5", url: "https://mailchi.mp/90a04c268bc6/lon-newsletter-vol-1-no-5" },
+  { vol: 1, no: 6,  year: 2018, title: "Scoring Is Up, Up, and Away", url: "https://mailchi.mp/c2689d977061/lon-newsletter-vol-1-no-6-scoring-is-up-up-and-away" },
+  { vol: 1, no: 7,  year: 2018, title: "Vol. 1, No. 7", url: "https://mailchi.mp/2c3bff17dd29/lon-newsletter-vol-1-no-7" },
+  { vol: 1, no: 8,  year: 2018, title: "Going Once, Going Twice, Sold!", url: "https://mailchi.mp/c81f21dab194/going-once-going-twice-sold" },
+  { vol: 1, no: 9,  year: 2018, title: "Vol. 1, No. 9", url: "https://mailchi.mp/0fc2a0721497/newsletter-vol-1-no-9" },
+  { vol: 1, no: 10, year: 2018, title: "Vol. 1, No. 10", url: "https://mailchi.mp/377848f02102/lon-newsletter-vol-1-no-10" },
+  { vol: 1, no: 11, year: 2018, title: "Vol. 1, No. 11", url: "https://mailchi.mp/486494fd03e4/lon-newsletter-vol-1-no-11" },
+  { vol: 1, no: 12, year: 2018, title: "2019 Potential Keeper Selections", url: "https://mailchi.mp/6c665269ae3f/lon-newsletter-2019-potential-keeper-selections" },
+  { vol: 1, no: 13, year: 2018, title: "Vol. 1, No. 13", url: "https://mailchi.mp/d580ad625298/lon-newsletter-vol-1-no-13" },
+  { vol: 1, no: 14, year: 2018, title: "It All Comes Down to One Week", url: "https://mailchi.mp/649f3c6f989c/it-all-comes-down-to-one-week" },
+  { vol: 1, no: 15, year: 2018, title: "Vol. 1, No. 15", url: "https://mailchi.mp/ad1386e2a620/lon-newsletter-vol-1-no-15" },
+  { vol: 1, no: 16, year: 2018, title: "Semifinal Matchups", url: "https://mailchi.mp/f1613be584c0/semifinal-matchups" },
+];
+
 const SEASON_AVGS = [
   {
     "year": 2018,
