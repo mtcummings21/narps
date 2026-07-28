@@ -114,14 +114,12 @@ function renderAwards(containerId){
   const mostTitles = byMax('champs');
   const bestOffense = byMax('gameAvgPF');
 
-  // longest current title drought among teams with a past title
   const lastTitleYear = {};
   CHAMPIONS.forEach(c => { lastTitleYear[c.key] = Math.max(lastTitleYear[c.key]||0, c.year); });
   let droughtCandidates = TEAMS.filter(t=>t.champs>0).map(t => ({t, gap: LATEST_SEASON - lastTitleYear[t.key]}));
   droughtCandidates.sort((a,b)=>b.gap-a.gap);
   const longestDrought = droughtCandidates[0];
 
-  // never-champion with most playoff appearances (bad luck award)
   const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
 
   const cards = [
@@ -188,7 +186,9 @@ function renderAwards(containerId){
     <div class="headline-stat">${c.stat}</div>
     <p>${c.body}</p>
   </div>`).join('');
-  // ---------- Newsletters ----------
+}
+
+// ---------- Newsletters ----------
 function renderNewsletters(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
