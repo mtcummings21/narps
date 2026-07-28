@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Champions — League of NARPS</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">League of NARPS <small>EST. 2011</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="champions.html" aria-current="page">Champions</a>
+      <a href="standings.html">Standings</a>
+      <a href="awards.html">Records</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:48px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">The Trophy Case</h2>
+      <span class="section-sub">15 Championships, 2011–2025</span>
+    </div>
+    <p class="muted" style="max-width:65ch;">Every League of NARPS champion, most recent first. The ×N tag marks a repeat title for that owner up through that season.</p>
+    <div class="trophy-case" id="full-trophy-case"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Full Timeline</h2>
+      <span class="section-sub">Chronological</span>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Year</th><th>Champion</th><th>Team</th></tr></thead>
+        <tbody id="champ-timeline-body"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+<script>
+  renderTrophyCase('full-trophy-case');
+
+  const tbody = document.getElementById('champ-timeline-body');
+  const chrono = CHAMPIONS.slice().sort((a,b) => a.year - b.year);
+  tbody.innerHTML = chrono.map(c => {
+    const titleCount = CHAMPIONS.filter(x => x.key === c.key && x.year <= c.year).length;
+    return `<tr>
+      <td class="pos">${c.year}</td>
+      <td class="name-cell">${c.owner}${titleCount > 1 ? ` <span class="pill">×${titleCount}</span>` : ''}</td>
+      <td>${c.team}</td>
+    </tr>`;
+  }).join('');
+</script>
+</body>
+</html>

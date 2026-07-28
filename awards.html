@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Records &amp; Awards — League of NARPS</title>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">League of NARPS <small>EST. 2011</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="champions.html">Champions</a>
+      <a href="standings.html">Standings</a>
+      <a href="awards.html" aria-current="page">Records</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:48px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Records &amp; Awards</h2>
+      <span class="section-sub">Hall of Fame &amp; Hall of Shame</span>
+    </div>
+    <p class="muted" style="max-width:65ch;">The superlatives — best and worst, glory and heartbreak, all pulled straight from 15 seasons of box scores.</p>
+    <div class="award-grid" id="awards-container"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+<script>renderAwards('awards-container');</script>
+</body>
+</html>

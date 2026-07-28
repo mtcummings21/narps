@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>League of NARPS — League History</title>
+<meta name="description" content="Fifteen seasons of the League of NARPS: champions, standings, rivalries, and records.">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html">League of NARPS <small>EST. 2011</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav">
+      <a href="index.html" aria-current="page">Home</a>
+      <a href="champions.html">Champions</a>
+      <a href="standings.html">Standings</a>
+      <a href="awards.html">Records</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">The Official Archive</p>
+    <h1>League of NARPS</h1>
+    <p class="lede">Fifteen seasons. Twelve franchises. A lot of questionable lineup decisions. This is the complete, spreadsheet-verified history of the league — every champion, every rivalry, every record.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="num">15</div><div class="label">Seasons Played</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Franchises</div></div>
+      <div class="stat"><div class="num">1,120</div><div class="label">Total Games</div></div>
+      <div class="stat"><div class="num">2011</div><div class="label">Founded</div></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">The Trophy Case</h2>
+      <span class="section-sub">Most Recent Champions</span>
+    </div>
+    <div class="trophy-case" id="home-trophy-case"></div>
+    <p style="margin-top:6px;"><a href="champions.html" style="font-family:var(--mono); font-size:0.85rem; text-decoration:underline; color:var(--field);">See all 15 champions →</a></p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Explore the Archive</h2>
+    </div>
+    <div class="card-grid">
+      <a class="nav-card" href="champions.html">
+        <div class="card-eyebrow">Timeline</div>
+        <h3>Champions</h3>
+        <p>Every title since 2011, in order, with a running count of dynasties and one-hit wonders.</p>
+      </a>
+      <a class="nav-card" href="standings.html">
+        <div class="card-eyebrow">Career Stats</div>
+        <h3>All-Time Standings</h3>
+        <p>Full career records, scoring averages, and playoff performance for all 12 franchises. Sortable.</p>
+      </a>
+      <a class="nav-card" href="awards.html">
+        <div class="card-eyebrow">Superlatives</div>
+        <h3>Records &amp; Awards</h3>
+        <p>Highest score ever, worst luck, longest title drought, and other hardware nobody asked for.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+<script>renderTrophyCase('home-trophy-case', 5);</script>
+</body>
+</html>
