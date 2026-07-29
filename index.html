@@ -38,6 +38,15 @@
   </div>
 </section>
 
+<section style="padding-top:0; padding-bottom:0; border-top:none;">
+  <div class="wrap">
+    <div class="countdown-card">
+      <div class="countdown-title">Kickoff — Wed, Sept 9, 2026 · 8:20 PM ET · Patriots @ Seahawks</div>
+      <div id="kickoff-countdown"></div>
+    </div>
+  </div>
+</section>
+
 <section>
   <div class="wrap">
     <div class="section-head">
@@ -90,6 +99,9 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderTrophyCase('home-trophy-case', 5);</script>
+<script>
+  renderTrophyCase('home-trophy-case', 5);
+  renderCountdown('kickoff-countdown', '2026-09-09T20:20:00-04:00');
+</script>
 </body>
 </html>

@@ -310,4 +310,32 @@ function renderSeasonDetail(containerId){
   `;
 }
 
+// ---------- Kickoff countdown ----------
+function renderCountdown(containerId, targetDateStr){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const target = new Date(targetDateStr).getTime();
+
+  function update(){
+    const diff = target - Date.now();
+    if(diff <= 0){
+      el.innerHTML = `<div class="kickoff-live">🏈 Kickoff is here — let's go!</div>`;
+      clearInterval(timer);
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff / 3600000) % 24);
+    const m = Math.floor((diff / 60000) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    el.innerHTML = `<div class="countdown-grid">
+      <div class="countdown-unit"><div class="countdown-num">${d}</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(h).padStart(2,'0')}</div><div class="countdown-label">Hrs</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(m).padStart(2,'0')}</div><div class="countdown-label">Min</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(s).padStart(2,'0')}</div><div class="countdown-label">Sec</div></div>
+    </div>`;
+  }
+  update();
+  const timer = setInterval(update, 1000);
+}
+
 document.addEventListener('DOMContentLoaded', initNav);
