@@ -338,4 +338,81 @@ function renderCountdown(containerId, targetDateStr){
   const timer = setInterval(update, 1000);
 }
 
+// ---------- Team pages ----------
+function renderTeamsList(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const sorted = TEAMS.slice().sort((a,b) => b.winPct - a.winPct);
+  el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
+    <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
+      <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Seasons`}</div>
+      <h3>${t.owner}</h3>
+      <p>${t.team} — ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
+    </a>`).join('') + `</div>`;
+}
+
+function renderTeamDetail(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get('team');
+  const t = TEAMS.find(x => x.key === key);
+  if(!t){ el.innerHTML = `<p>No team found. <a href="teams.html">Back to all teams</a></p>`; return; }
+
+  document.title = `${t.owner} — League of NARPS`;
+  const titleEl = document.getElementById('team-title');
+  if(titleEl) titleEl.textContent = `${t.owner}`;
+  const subEl = document.getElementById('team-subtitle');
+  if(subEl) subEl.textContent = t.team;
+
+  const titles = CHAMPIONS.filter(c => c.key === key).sort((a,b) => a.year - b.year);
+
+  const statCards = `<div class="card-grid" style="margin-bottom:32px;">
+    <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
+    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
+    <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
+    <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
+  </div>`;
+
+  const champGrid = titles.length ? `<div class="trophy-case">${titles.map(c => `
+    <div class="plaque">
+      <div class="yr">${c.year} CHAMPION</div>
+      <div class="owner">${c.owner}</div>
+      <div class="team">${c.team}</div>
+    </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
+
+  const years = Object.keys(SEASONS).sort((a,b) => b - a);
+  const seasonRows = years.map(y => {
+    const s = SEASONS[y];
+    const row = s.standings.find(r => r.team === t.team);
+    if(!row) return '';
+    const rank = s.standings.indexOf(row) + 1;
+    let finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
+    if(s.champion.team === t.team) finish = 'Champion 🏆';
+    else if(s.second.team === t.team) finish = 'Runner-up';
+    else if(s.third.team === t.team) finish = 'Third place';
+    return `<tr>
+      <td class="pos">${y}</td>
+      <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
+      <td>${row.pct.toFixed(3)}</td>
+      <td class="name-cell">${finish}</td>
+      <td><a href="season.html?year=${y}" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--blue);">View season →</a></td>
+    </tr>`;
+  }).join('');
+
+  const seasonTable = years.length ? `<div class="table-scroll"><table>
+    <thead><tr><th>Year</th><th>Record</th><th>Pct</th><th>Finish</th><th></th></tr></thead>
+    <tbody>${seasonRows}</tbody>
+  </table></div>` : `<p class="muted">Detailed season-by-season data not added yet.</p>`;
+
+  el.innerHTML = `
+    ${statCards}
+    <h2 class="section-title" style="margin-top:8px;">Championships</h2>
+    <div style="margin:20px 0 40px;">${champGrid}</div>
+    <h2 class="section-title">Season by Season</h2>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Only seasons with full data entered so far are shown here.</p>
+    ${seasonTable}
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', initNav);

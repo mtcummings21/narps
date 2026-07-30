@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Season — League of NARPS</title>
+<title>Team — League of NARPS</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -16,8 +16,8 @@
       <a href="index.html">Home</a>
       <a href="champions.html">Champions</a>
       <a href="standings.html">Standings</a>
-      <a href="seasons.html" aria-current="page">Seasons</a>
-      <a href="teams.html">Teams</a>
+      <a href="seasons.html">Seasons</a>
+      <a href="teams.html" aria-current="page">Teams</a>
       <a href="newsletters.html">Newsletters</a>
       <a href="awards.html">Records</a>
     </nav>
@@ -27,10 +27,13 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title" id="season-title">Season</h2>
-      <span class="section-sub"><a href="seasons.html" style="color:var(--blue); text-decoration:underline;">← All Seasons</a></span>
+      <div>
+        <h2 class="section-title" id="team-title">Team</h2>
+        <span class="section-sub" id="team-subtitle"></span>
+      </div>
+      <span class="section-sub"><a href="teams.html" style="color:var(--blue); text-decoration:underline;">← All Teams</a></span>
     </div>
-    <div id="season-detail-container"></div>
+    <div id="team-detail-container"></div>
   </div>
 </section>
 
@@ -40,6 +43,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderSeasonDetail('season-detail-container');</script>
+<script>renderTeamDetail('team-detail-container');</script>
 </body>
 </html>
