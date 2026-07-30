@@ -216,7 +216,6 @@ function renderSeasonsList(containerId){
   el.innerHTML = `<div class="card-grid">` + years.map(y => {
     const s = SEASONS[y];
     return `<a class="nav-card" href="season.html?year=${y}">
-      <div class="card-eyebrow">League Champion</div>
       <h3>${y}</h3>
       <p><strong>${s.champion.owner}</strong> — ${s.champion.team}. Full standings, schedule, and playoff bracket inside.</p>
     </a>`;
