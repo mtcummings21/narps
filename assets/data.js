@@ -476,6 +476,7 @@ const SEASON_AVGS = [
   }
 ];
 const SEASONS = {
+<<<<<<< HEAD
   2021: {
   "year": 2021,
   "champion": {
@@ -1454,6 +1455,8 @@ const SEASONS = {
     }
   }
 },
+=======
+>>>>>>> e09110158faa17f97785a672b01a9f9e2a9bd64f
   2022: {
   "year": 2022,
   "champion": {
