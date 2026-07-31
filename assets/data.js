@@ -476,6 +476,934 @@ const SEASON_AVGS = [
   }
 ];
 const SEASONS = {
+  2019: {
+  "year": 2019,
+  "champion": {
+    "team": "Business as Usual",
+    "owner": "Travis West"
+  },
+  "second": {
+    "team": "George's Gangstas",
+    "owner": "George Wright"
+  },
+  "third": {
+    "team": "The Deplorables",
+    "owner": "Zachary Sizemore"
+  },
+  "standings": [
+    {
+      "team": "The Deplorables",
+      "owner": "Zachary Sizemore",
+      "w": 9,
+      "l": 4,
+      "t": 0,
+      "pct": 0.692
+    },
+    {
+      "team": "George's Gangstas",
+      "owner": "George Wright",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Kareem Pie",
+      "owner": "Matt Geiger",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "Money Badgers",
+      "owner": "Tyler Clay",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "The Arabian Stallions",
+      "owner": "Walid Salameh",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Lincoln Legends",
+      "owner": "Tyler Cummings",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "The Glue Factory",
+      "owner": "Aaron Burns",
+      "w": 5,
+      "l": 8,
+      "t": 0,
+      "pct": 0.385
+    },
+    {
+      "team": "Route 2 Ravers Reunited",
+      "owner": "Joseph Garton",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    },
+    {
+      "team": "The ACLiens",
+      "owner": "Luke Rapp",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 87.6,
+        "homeScore": 117.0,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 116.7,
+        "homeScore": 126.4,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 113.3,
+        "homeScore": 95.3,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 97.4,
+        "homeScore": 95.6,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 110.6,
+        "homeScore": 103.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 125.7,
+        "homeScore": 76.0,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 71.5,
+        "homeScore": 93.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 85.4,
+        "homeScore": 89.9,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 134.3,
+        "homeScore": 128.8,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 110.7,
+        "homeScore": 86.1,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 122.3,
+        "homeScore": 71.9,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Deplorables",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 93.5,
+        "homeScore": 83.7,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 64.3,
+        "homeScore": 153.3,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 95.7,
+        "homeScore": 95.1,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 103.8,
+        "homeScore": 133.4,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 98.2,
+        "homeScore": 126.0,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 74.9,
+        "homeScore": 99.7,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 117.0,
+        "homeScore": 146.5,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 66.4,
+        "homeScore": 106.7,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 125.7,
+        "homeScore": 106.5,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 118.0,
+        "homeScore": 94.3,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 92.8,
+        "homeScore": 89.9,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 89.0,
+        "homeScore": 86.7,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 85.2,
+        "homeScore": 72.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 106.2,
+        "homeScore": 128.4,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 110.6,
+        "homeScore": 106.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 115.4,
+        "homeScore": 51.2,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 131.2,
+        "homeScore": 104.4,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 112.1,
+        "homeScore": 131.5,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 105.4,
+        "homeScore": 97.2,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 53.2,
+        "homeScore": 58.1,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 102.4,
+        "homeScore": 70.8,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 113.1,
+        "homeScore": 129.4,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Deplorables",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 116.3,
+        "homeScore": 101.1,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 83.5,
+        "homeScore": 128.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 105.8,
+        "homeScore": 126.6,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 83.1,
+        "homeScore": 70.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 94.3,
+        "homeScore": 126.3,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 109.3,
+        "homeScore": 77.7,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 63.4,
+        "homeScore": 87.6,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 106.1,
+        "homeScore": 81.7,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 100.7,
+        "homeScore": 95.1,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 86.7,
+        "homeScore": 149.8,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 89.5,
+        "homeScore": 114.4,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 85.6,
+        "homeScore": 111.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The Deplorables",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 112.9,
+        "homeScore": 72.5,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 110.1,
+        "homeScore": 101.8,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 64.0,
+        "homeScore": 145.5,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 98.7,
+        "homeScore": 84.2,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 130.1,
+        "homeScore": 130.9,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 82.0,
+        "homeScore": 120.1,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 99.8,
+        "homeScore": 114.3,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 101.8,
+        "homeScore": 97.3,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 70.7,
+        "homeScore": 89.9,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "The Deplorables",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 99.3,
+        "homeScore": 63.8,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 114.3,
+        "homeScore": 98.7,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 103.6,
+        "homeScore": 127.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 104.8,
+        "homeScore": 116.3,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 90.8,
+        "homeScore": 99.6,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 55.8,
+        "homeScore": 98.0,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 82.2,
+        "homeScore": 110.4,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers Reunited"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 90.8,
+        "homeScore": 108.7,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 64.7,
+        "homeScore": 99.1,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 107.7,
+        "homeScore": 87.7,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 80.1,
+        "homeScore": 91.9,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 89.9,
+        "homeScore": 92.1,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "The Deplorables",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 92.0,
+        "homeScore": 75.2,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 76.3,
+        "homeScore": 91.8,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 112.4,
+        "homeScore": 102.4,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The Glue Factory",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 80.4,
+        "homeScore": 95.1,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Lincoln Legends",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 86.1,
+        "homeScore": 79.7,
+        "homeMgr": "Matt Geiger",
+        "home": "Kareem Pie"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 77.5,
+        "homeScore": 70.5,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 13": [
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 100.1,
+        "homeScore": 115.8,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Route 2 Ravers Reunited",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 116.6,
+        "homeScore": 101.3,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Deplorables"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 81.4,
+        "homeScore": 73.0,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 87.3,
+        "homeScore": 109.9,
+        "homeMgr": "Aaron Burns",
+        "home": "The Glue Factory"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 80.3,
+        "homeScore": 98.5,
+        "homeMgr": "Tyler Cummings",
+        "home": "Lincoln Legends"
+      },
+      {
+        "away": "Kareem Pie",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 90.5,
+        "homeScore": 104.8,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 14)",
+      "games": [
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 108.5,
+          "homeScore": 128.6,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 118.4,
+          "homeScore": 80.3,
+          "homeMgr": "Matt Geiger",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 67.5,
+          "homeScore": 129.2,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "The Glue Factory",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 81.0,
+          "homeScore": 65.7,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "The ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 112.2,
+          "homeScore": 74.9,
+          "homeMgr": "Joseph Garton",
+          "home": "Route 2 Ravers Reunited"
+        }
+      ],
+      "byes": [
+        {
+          "team": "The Deplorables",
+          "pts": 125.6
+        },
+        {
+          "team": "George's Gangstas",
+          "pts": 87.6
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Week 15)",
+      "games": [
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 129.7,
+          "homeScore": 93.4,
+          "homeMgr": "Zachary Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 115.0,
+          "homeScore": 121.8,
+          "homeMgr": "George Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 95.8,
+          "homeScore": 77.6,
+          "homeMgr": "Matt Geiger",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "The Glue Factory",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 126.0,
+          "homeScore": 93.6,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "The ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 108.7,
+          "homeScore": 91.1,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Route 2 Ravers Reunited",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 101.9,
+          "homeScore": 128.8,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Week 16)",
+      "games": [
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 90.9,
+          "homeScore": 79.8,
+          "homeMgr": "George Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 72.8,
+          "homeScore": 139.9,
+          "homeMgr": "Zachary Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 61.1,
+          "homeScore": 73.4,
+          "homeMgr": "Matt Geiger",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "The ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 131.2,
+          "homeScore": 99.0,
+          "homeMgr": "Aaron Burns",
+          "home": "The Glue Factory"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 104.3,
+          "homeScore": 91.1,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "Route 2 Ravers Reunited",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 76.3,
+          "homeScore": 100.4,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        }
+      ]
+    }
+  }
+},
   2020: {
   "year": 2020,
   "champion": {
