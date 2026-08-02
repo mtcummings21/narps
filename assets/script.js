@@ -36,7 +36,7 @@ function standingsRowHTML(t, i){
     <td class="name-cell">${t.owner}<div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
     <td class="pos">${t.seasons} yrs</td>
     <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
-    <td class="pos">${t.playoffApp}/${t.seasons}</td>
+    <td class="pos">${t.playoffApp}</td>
     <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td>${fmtPct(t.winPct)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff}</td>
