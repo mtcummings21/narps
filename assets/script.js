@@ -378,17 +378,17 @@ function renderTeamDetail(containerId){
       <div class="owner" style="font-size:1.8rem; margin:6px 0;">${c.year}</div>
     </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
 
-  const norm = s => s.replace(/^The\s+/i, '').trim().toLowerCase();
+  const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
   const years = Object.keys(SEASONS).sort((a,b) => b - a);
   const seasonRows = years.map(y => {
     const s = SEASONS[y];
-    const row = s.standings.find(r => norm(r.team) === norm(t.team));
+    const row = s.standings.find(r => lastName(r.owner) === lastName(t.owner));
     if(!row) return '';
     const rank = s.standings.indexOf(row) + 1;
     let finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
-    if(norm(s.champion.team) === norm(t.team)) finish = 'Champion 🏆';
-    else if(norm(s.second.team) === norm(t.team)) finish = 'Runner-up';
-    else if(norm(s.third.team) === norm(t.team)) finish = 'Third place';
+    if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
+    else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
+    else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
     return `<tr>
       <td class="pos">${y}</td>
       <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
