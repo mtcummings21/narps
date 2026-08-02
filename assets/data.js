@@ -476,6 +476,4725 @@ const SEASON_AVGS = [
   }
 ];
 const SEASONS = {
+  2011: {
+  "year": 2011,
+  "champion": {
+    "team": "Rookie Sensations",
+    "owner": "George Wright"
+  },
+  "second": {
+    "team": "The Last of the Mehicans",
+    "owner": "Luke Rapp"
+  },
+  "third": {
+    "team": "The Hulk",
+    "owner": "Zachary Sizemore"
+  },
+  "standings": [
+    {
+      "team": "The Last of the Mehicans",
+      "owner": "Luke Rapp",
+      "w": 12,
+      "l": 1,
+      "t": 0,
+      "pct": 0.923
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 9,
+      "l": 4,
+      "t": 0,
+      "pct": 0.692
+    },
+    {
+      "team": "Rookie Sensations",
+      "owner": "George Wright",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "The Hulk",
+      "owner": "Zachary Sizemore",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "Arian Brotherhood",
+      "owner": "Tyler Cummings",
+      "w": 5,
+      "l": 8,
+      "t": 0,
+      "pct": 0.385
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 4,
+      "l": 8,
+      "t": 1,
+      "pct": 0.346
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    },
+    {
+      "team": "Greatest Show On Turf",
+      "owner": "Tyler Clay",
+      "w": 2,
+      "l": 10,
+      "t": 1,
+      "pct": 0.192
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 103,
+        "homeScore": 94,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 110,
+        "homeScore": 135,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 110,
+        "homeScore": 90,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 129,
+        "homeScore": 125,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 110,
+        "homeScore": 95,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 138,
+        "homeScore": 142,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 156,
+        "homeScore": 133,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 122,
+        "homeScore": 120,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 53,
+        "homeScore": 102,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 131,
+        "homeScore": 92,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 161,
+        "homeScore": 83,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 74,
+        "homeScore": 121,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 96,
+        "homeScore": 91,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 120,
+        "homeScore": 123,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 126,
+        "homeScore": 114,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 110,
+        "homeScore": 109,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 121,
+        "homeScore": 132,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 130,
+        "homeScore": 107,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 113,
+        "homeScore": 114,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 96,
+        "homeScore": 103,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 94,
+        "homeScore": 90,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 97,
+        "homeScore": 132,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 133,
+        "homeScore": 86,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 70,
+        "homeScore": 122,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 54,
+        "homeScore": 128,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 140,
+        "homeScore": 97,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 100,
+        "homeScore": 82,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 97,
+        "homeScore": 100,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 114,
+        "homeScore": 143,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 118,
+        "homeScore": 85,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 72,
+        "homeScore": 88,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 72,
+        "homeScore": 124,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 113,
+        "homeScore": 109,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 76,
+        "homeScore": 154,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 114,
+        "homeScore": 112,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 104,
+        "homeScore": 104,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 98,
+        "homeScore": 114,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 53,
+        "homeScore": 138,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 132,
+        "homeScore": 148,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 77,
+        "homeScore": 125,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 116,
+        "homeScore": 86,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 113,
+        "homeScore": 141,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 100,
+        "homeScore": 102,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 92,
+        "homeScore": 108,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 106,
+        "homeScore": 184,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Mehicans"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 132,
+        "homeScore": 75,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 91,
+        "homeScore": 101,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Arian Brotherhood",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 100,
+        "homeScore": 114,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 13": [
+      {
+        "away": "The Last of the Mehicans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 133,
+        "homeScore": 114,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 105,
+        "homeScore": 124,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 149,
+        "homeScore": 107,
+        "homeMgr": "Tyler Cummings",
+        "home": "Arian Brotherhood"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 99,
+        "homeScore": 120,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 14)",
+      "games": [
+        {
+          "away": "The Hulk",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 127,
+          "homeScore": 141,
+          "homeMgr": "Luke Rapp",
+          "home": "The Last of the Mehicans"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 115,
+          "homeScore": 118,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "Greatest Show On Turf",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 88,
+          "homeScore": 102,
+          "homeMgr": "Tyler Cummings",
+          "home": "Arian Brotherhood"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 117,
+          "homeScore": 122,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 / Championship (Week 15)",
+      "games": [
+        {
+          "away": "Rookie Sensations",
+          "awayMgr": "George Wright",
+          "awayScore": 153,
+          "homeScore": 129,
+          "homeMgr": "Luke Rapp",
+          "home": "The Last of the Mehicans"
+        },
+        {
+          "away": "The Hulk",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 113,
+          "homeScore": 104,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 100,
+          "homeScore": 116,
+          "homeMgr": "Tyler Cummings",
+          "home": "Arian Brotherhood"
+        },
+        {
+          "away": "Greatest Show On Turf",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 107,
+          "homeScore": 83,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        }
+      ]
+    }
+  }
+},
+  2012: {
+  "year": 2012,
+  "champion": {
+    "team": "Prino's Powerhouse",
+    "owner": "Joe Prino"
+  },
+  "second": {
+    "team": "Rookie Sensations",
+    "owner": "George Wright"
+  },
+  "third": {
+    "team": "Business as Usual",
+    "owner": "Travis West"
+  },
+  "standings": [
+    {
+      "team": "Rookie Sensations",
+      "owner": "George Wright",
+      "w": 11,
+      "l": 1,
+      "t": 0,
+      "pct": 0.917
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 9,
+      "l": 3,
+      "t": 0,
+      "pct": 0.75
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 8,
+      "l": 4,
+      "t": 0,
+      "pct": 0.667
+    },
+    {
+      "team": "Brady's Bunch",
+      "owner": "Tyler Cummings",
+      "w": 6,
+      "l": 6,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "The Hulk",
+      "owner": "Zachary Sizemore",
+      "w": 6,
+      "l": 6,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 6,
+      "l": 6,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "Greatest Show On Turf",
+      "owner": "Tyler Clay",
+      "w": 4,
+      "l": 8,
+      "t": 0,
+      "pct": 0.333
+    },
+    {
+      "team": "The 5 Star Stunnas",
+      "owner": "Joseph Garton",
+      "w": 4,
+      "l": 8,
+      "t": 0,
+      "pct": 0.333
+    },
+    {
+      "team": "The Last of the Meheecans",
+      "owner": "Luke Rapp",
+      "w": 3,
+      "l": 9,
+      "t": 0,
+      "pct": 0.25
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 3,
+      "l": 9,
+      "t": 0,
+      "pct": 0.25
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 84,
+        "homeScore": 99,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 120,
+        "homeScore": 80,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 89,
+        "homeScore": 87,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 106,
+        "homeScore": 99,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 105,
+        "homeScore": 133,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 100,
+        "homeScore": 76,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 117,
+        "homeScore": 115,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 103,
+        "homeScore": 71,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Meheecans"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 85,
+        "homeScore": 136,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 91,
+        "homeScore": 95,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 113,
+        "homeScore": 110,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 93,
+        "homeScore": 105,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 48,
+        "homeScore": 105,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 70,
+        "homeScore": 76,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 108,
+        "homeScore": 88,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 64,
+        "homeScore": 104,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 152,
+        "homeScore": 142,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 102,
+        "homeScore": 77,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 117,
+        "homeScore": 109,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 75,
+        "homeScore": 115,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 123,
+        "homeScore": 110,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 86,
+        "homeScore": 57,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Meheecans"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 71,
+        "homeScore": 125,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 96,
+        "homeScore": 123,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 89,
+        "homeScore": 106,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 106,
+        "homeScore": 97,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 63,
+        "homeScore": 98,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 107,
+        "homeScore": 77,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 101,
+        "homeScore": 96,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 95,
+        "homeScore": 106,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 92,
+        "homeScore": 117,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 116,
+        "homeScore": 81,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 63,
+        "homeScore": 116,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 97,
+        "homeScore": 73,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Meheecans"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 118,
+        "homeScore": 108,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 61,
+        "homeScore": 89,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 77,
+        "homeScore": 89,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 135,
+        "homeScore": 68,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 117,
+        "homeScore": 101,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 104,
+        "homeScore": 122,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 98,
+        "homeScore": 86,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 101,
+        "homeScore": 87,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 127,
+        "homeScore": 81,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 130,
+        "homeScore": 161,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 73,
+        "homeScore": 100,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 114,
+        "homeScore": 88,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 95,
+        "homeScore": 87,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 108,
+        "homeScore": 112,
+        "homeMgr": "Zachary Sizemore",
+        "home": "The Hulk"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 96,
+        "homeScore": 39,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Meheecans"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 93,
+        "homeScore": 86,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "Brady's Bunch",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 66,
+        "homeScore": 91,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 76,
+        "homeScore": 96,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "The Last of the Meheecans",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 87,
+        "homeScore": 79,
+        "homeMgr": "Joseph Garton",
+        "home": "The 5 Star Stunnas"
+      },
+      {
+        "away": "Greatest Show On Turf",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 87,
+        "homeScore": 92,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 79,
+        "homeScore": 126,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "The Hulk",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 85,
+        "homeScore": 99,
+        "homeMgr": "Tyler Cummings",
+        "home": "Brady's Bunch"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 106,
+        "homeScore": 81,
+        "homeMgr": "Luke Rapp",
+        "home": "The Last of the Meheecans"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 116,
+        "homeScore": 83,
+        "homeMgr": "Tyler Clay",
+        "home": "Greatest Show On Turf"
+      },
+      {
+        "away": "The 5 Star Stunnas",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 90,
+        "homeScore": 116,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 63,
+        "homeScore": 134,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 13)",
+      "games": [
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 126,
+          "homeScore": 53,
+          "homeMgr": "Zachary Sizemore",
+          "home": "The Hulk"
+        },
+        {
+          "away": "Brady's Bunch",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 73,
+          "homeScore": 89,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "The 5 Star Stunnas",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 77,
+          "homeScore": 126,
+          "homeMgr": "Tyler Clay",
+          "home": "Greatest Show On Turf"
+        },
+        {
+          "away": "The Last of the Meheecans",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 65,
+          "homeScore": 123,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        }
+      ],
+      "byes": [
+        {
+          "team": "Rookie Sensations",
+          "pts": 84
+        },
+        {
+          "team": "Plaxicolt's 45",
+          "pts": 75
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Week 14)",
+      "games": [
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 117,
+          "homeScore": 120,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 111,
+          "homeScore": 93,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        },
+        {
+          "away": "Brady's Bunch",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 72,
+          "homeScore": 91,
+          "homeMgr": "Zachary Sizemore",
+          "home": "The Hulk"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 172,
+          "homeScore": 56,
+          "homeMgr": "Tyler Clay",
+          "home": "Greatest Show On Turf"
+        },
+        {
+          "away": "The Last of the Meheecans",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 94,
+          "homeScore": 78,
+          "homeMgr": "Joseph Garton",
+          "home": "The 5 Star Stunnas"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Week 15)",
+      "games": [
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 100,
+          "homeScore": 94,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 111,
+          "homeScore": 96,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        },
+        {
+          "away": "Brady's Bunch",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 62,
+          "homeScore": 93,
+          "homeMgr": "Zachary Sizemore",
+          "home": "The Hulk"
+        },
+        {
+          "away": "The Last of the Meheecans",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 104,
+          "homeScore": 66,
+          "homeMgr": "Tyler Clay",
+          "home": "Greatest Show On Turf"
+        },
+        {
+          "away": "The 5 Star Stunnas",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 62,
+          "homeScore": 76,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        }
+      ]
+    }
+  }
+},
+  2013: {
+  "year": 2013,
+  "champion": {
+    "team": "Money Badgers",
+    "owner": "Tyler Clay"
+  },
+  "second": {
+    "team": "The ACLiens",
+    "owner": "Luke Rapp"
+  },
+  "third": {
+    "team": "Rookie Sensations",
+    "owner": "George Wright"
+  },
+  "standings": [
+    {
+      "team": "The ACLiens",
+      "owner": "Luke Rapp",
+      "w": 9,
+      "l": 3,
+      "t": 0,
+      "pct": 0.75
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 8,
+      "l": 4,
+      "t": 0,
+      "pct": 0.667
+    },
+    {
+      "team": "Money Badgers",
+      "owner": "Tyler Clay",
+      "w": 7,
+      "l": 5,
+      "t": 0,
+      "pct": 0.583
+    },
+    {
+      "team": "Rookie Sensations",
+      "owner": "George Wright",
+      "w": 7,
+      "l": 5,
+      "t": 0,
+      "pct": 0.583
+    },
+    {
+      "team": "Boston TE Party",
+      "owner": "Tyler Cummings",
+      "w": 6,
+      "l": 6,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 6,
+      "l": 6,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "When's Fantasy Baseball?",
+      "owner": "Zachary Sizemore",
+      "w": 5,
+      "l": 7,
+      "t": 0,
+      "pct": 0.417
+    },
+    {
+      "team": "Not Soon Enough",
+      "owner": "Joseph Garton",
+      "w": 5,
+      "l": 7,
+      "t": 0,
+      "pct": 0.417
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 4,
+      "l": 8,
+      "t": 0,
+      "pct": 0.333
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 3,
+      "l": 9,
+      "t": 0,
+      "pct": 0.25
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 112.0,
+        "homeScore": 73.7,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 74.7,
+        "homeScore": 103.5,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 89.0,
+        "homeScore": 123.6,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 181.0,
+        "homeScore": 78.0,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 155.1,
+        "homeScore": 89.7,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 70.5,
+        "homeScore": 146.4,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 92.7,
+        "homeScore": 67.9,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 131.8,
+        "homeScore": 83.4,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 132.4,
+        "homeScore": 87.3,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 128.5,
+        "homeScore": 92.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 115.6,
+        "homeScore": 83.5,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 114.2,
+        "homeScore": 73.9,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 119.4,
+        "homeScore": 123.8,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 87.8,
+        "homeScore": 49.9,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 62.5,
+        "homeScore": 71.3,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 132.5,
+        "homeScore": 108.4,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 67.4,
+        "homeScore": 124.0,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 87.7,
+        "homeScore": 107.7,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 146.2,
+        "homeScore": 133.2,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 63.2,
+        "homeScore": 160.2,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 99.5,
+        "homeScore": 69.7,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 107.6,
+        "homeScore": 132.1,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 119.4,
+        "homeScore": 98.6,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 76.2,
+        "homeScore": 119.6,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 106.7,
+        "homeScore": 109.2,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 117.8,
+        "homeScore": 66.7,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 109.6,
+        "homeScore": 95.1,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 91.6,
+        "homeScore": 101.3,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 110.0,
+        "homeScore": 95.8,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 71.2,
+        "homeScore": 85.8,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 87.6,
+        "homeScore": 116.8,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 79.5,
+        "homeScore": 77.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 100.3,
+        "homeScore": 103.3,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 73.7,
+        "homeScore": 89.7,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 104.2,
+        "homeScore": 112.2,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 101.3,
+        "homeScore": 109.9,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 82.9,
+        "homeScore": 103.4,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 118.9,
+        "homeScore": 91.1,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 95.4,
+        "homeScore": 67.0,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 102.0,
+        "homeScore": 74.2,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 123.4,
+        "homeScore": 109.4,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 128.0,
+        "homeScore": 78.7,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 97.5,
+        "homeScore": 96.8,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 73.1,
+        "homeScore": 86.4,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 122.0,
+        "homeScore": 79.0,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 108.4,
+        "homeScore": 101.4,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 83.4,
+        "homeScore": 64.5,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 71.0,
+        "homeScore": 80.5,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 90.7,
+        "homeScore": 131.9,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 76.9,
+        "homeScore": 129.2,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "Boston TE Party",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 91.4,
+        "homeScore": 149.7,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 78.7,
+        "homeScore": 73.7,
+        "homeMgr": "George Wright",
+        "home": "Rookie Sensations"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 106.3,
+        "homeScore": 126.4,
+        "homeMgr": "Joseph Garton",
+        "home": "Not Soon Enough"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 81.8,
+        "homeScore": 86.1,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 105.8,
+        "homeScore": 126.7,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 95.2,
+        "homeScore": 83.9,
+        "homeMgr": "Tyler Cummings",
+        "home": "Boston TE Party"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 76.5,
+        "homeScore": 136.4,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Rookie Sensations",
+        "awayMgr": "George Wright",
+        "awayScore": 93.9,
+        "homeScore": 120.5,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Not Soon Enough",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 81.3,
+        "homeScore": 109.1,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 72.1,
+        "homeScore": 34.1,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 13)",
+      "games": [
+        {
+          "away": "Boston TE Party",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 89.0,
+          "homeScore": 76.0,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 77.3,
+          "homeScore": 100.6,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "When's Fantasy Baseball?",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 114.0,
+          "homeScore": 138.0,
+          "homeMgr": "Joseph Garton",
+          "home": "Not Soon Enough"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 94.3,
+          "homeScore": 74.1,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ],
+      "byes": [
+        {
+          "team": "The ACLiens",
+          "pts": 139.6
+        },
+        {
+          "team": "Free Agents",
+          "pts": 90.0
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Week 14)",
+      "games": [
+        {
+          "away": "Boston TE Party",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 77.3,
+          "homeScore": 106.6,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 121.3,
+          "homeScore": 46.8,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 116.6,
+          "homeScore": 112.5,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 91.7,
+          "homeScore": 102.5,
+          "homeMgr": "Joseph Garton",
+          "home": "Not Soon Enough"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 85.5,
+          "homeScore": 96.6,
+          "homeMgr": "Zachary Sizemore",
+          "home": "When's Fantasy Baseball?"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Week 15)",
+      "games": [
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 157.7,
+          "homeScore": 100.9,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "Boston TE Party",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 93.0,
+          "homeScore": 63.0,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 79.0,
+          "homeScore": 124.3,
+          "homeMgr": "George Wright",
+          "home": "Rookie Sensations"
+        },
+        {
+          "away": "When's Fantasy Baseball?",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 120.0,
+          "homeScore": 106.4,
+          "homeMgr": "Joseph Garton",
+          "home": "Not Soon Enough"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 106.6,
+          "homeScore": 72.9,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ]
+    }
+  }
+},
+  2014: {
+  "year": 2014,
+  "champion": {
+    "team": "The ACLiens",
+    "owner": "Luke Rapp"
+  },
+  "second": {
+    "team": "Commish's Crusaders",
+    "owner": "Tyler Cummings"
+  },
+  "third": {
+    "team": "The Arabian Stallions",
+    "owner": "Walid Salameh"
+  },
+  "standings": [
+    {
+      "team": "The ACLiens",
+      "owner": "Luke Rapp",
+      "w": 9,
+      "l": 1,
+      "t": 0,
+      "pct": 0.9
+    },
+    {
+      "team": "The Arabian Stallions",
+      "owner": "Walid Salameh",
+      "w": 7,
+      "l": 3,
+      "t": 0,
+      "pct": 0.7
+    },
+    {
+      "team": "When's Fantasy Baseball?",
+      "owner": "Zachary Sizemore",
+      "w": 7,
+      "l": 3,
+      "t": 0,
+      "pct": 0.7
+    },
+    {
+      "team": "Route 2 Ravers",
+      "owner": "Joseph Garton",
+      "w": 6,
+      "l": 4,
+      "t": 0,
+      "pct": 0.6
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 6,
+      "l": 4,
+      "t": 0,
+      "pct": 0.6
+    },
+    {
+      "team": "Commish's Crusaders",
+      "owner": "Tyler Cummings",
+      "w": 5,
+      "l": 5,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "Winning Is My Forte",
+      "owner": "Aaron Burns",
+      "w": 5,
+      "l": 5,
+      "t": 0,
+      "pct": 0.5
+    },
+    {
+      "team": "Money Badgers",
+      "owner": "Tyler Clay",
+      "w": 4,
+      "l": 6,
+      "t": 0,
+      "pct": 0.4
+    },
+    {
+      "team": "George's Gangstas",
+      "owner": "George Wright",
+      "w": 4,
+      "l": 6,
+      "t": 0,
+      "pct": 0.4
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 4,
+      "l": 6,
+      "t": 0,
+      "pct": 0.4
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 2,
+      "l": 8,
+      "t": 0,
+      "pct": 0.2
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 1,
+      "l": 9,
+      "t": 0,
+      "pct": 0.1
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 95.5,
+        "homeScore": 107.0,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 138.3,
+        "homeScore": 116.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 124.1,
+        "homeScore": 64.6,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 93.1,
+        "homeScore": 63.0,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 104.4,
+        "homeScore": 77.3,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 74.5,
+        "homeScore": 72.7,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 127.2,
+        "homeScore": 113.1,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 91.3,
+        "homeScore": 63.3,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 106.5,
+        "homeScore": 82.9,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 102.3,
+        "homeScore": 58.1,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 73.3,
+        "homeScore": 76.8,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 71.7,
+        "homeScore": 104.2,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 100.2,
+        "homeScore": 95.2,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 102.7,
+        "homeScore": 58.9,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 70.7,
+        "homeScore": 62.0,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 93.9,
+        "homeScore": 118.0,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 86.0,
+        "homeScore": 106.4,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 58.8,
+        "homeScore": 78.2,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 87.2,
+        "homeScore": 119.6,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 98.9,
+        "homeScore": 91.1,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 115.5,
+        "homeScore": 105.9,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 103.9,
+        "homeScore": 72.7,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 59.3,
+        "homeScore": 109.3,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 84.3,
+        "homeScore": 121.4,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 56.5,
+        "homeScore": 145.1,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 80.2,
+        "homeScore": 120.1,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 134.4,
+        "homeScore": 87.7,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 76.4,
+        "homeScore": 58.6,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 97.0,
+        "homeScore": 91.6,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 108.0,
+        "homeScore": 90.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 96.9,
+        "homeScore": 83.1,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 74.0,
+        "homeScore": 78.9,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 139.9,
+        "homeScore": 102.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 132.1,
+        "homeScore": 150.2,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 112.0,
+        "homeScore": 101.3,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 55.5,
+        "homeScore": 122.5,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 73.1,
+        "homeScore": 81.3,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 56.4,
+        "homeScore": 77.1,
+        "homeMgr": "Joseph Garton",
+        "home": "Route 2 Ravers"
+      },
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 110.5,
+        "homeScore": 92.8,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 113.0,
+        "homeScore": 105.2,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 96.9,
+        "homeScore": 78.5,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 102.4,
+        "homeScore": 86.1,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 99.0,
+        "homeScore": 81.2,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 114.5,
+        "homeScore": 130.4,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 99.4,
+        "homeScore": 109.6,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 55.3,
+        "homeScore": 86.3,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 145.4,
+        "homeScore": 102.4,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 120.1,
+        "homeScore": 116.1,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 70.3,
+        "homeScore": 88.0,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 99.2,
+        "homeScore": 90.5,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 114.9,
+        "homeScore": 66.8,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 88.5,
+        "homeScore": 84.1,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 76.9,
+        "homeScore": 94.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 120.4,
+        "homeScore": 96.3,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 71.3,
+        "homeScore": 118.1,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Route 2 Ravers",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 91.7,
+        "homeScore": 97.5,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 100.5,
+        "homeScore": 58.6,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 97.9,
+        "homeScore": 86.2,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 82.5,
+        "homeScore": 129.4,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 154.2,
+        "homeScore": 136.5,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Weeks 11-12)",
+      "games": [
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 179.5,
+          "homeScore": 154.4,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Commish's Crusaders",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 248.2,
+          "homeScore": 196.5,
+          "homeMgr": "Zachary Sizemore",
+          "home": "When's Fantasy Baseball?"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 147.6,
+          "homeScore": 178.3,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 176.3,
+          "homeScore": 234.2,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 125.7,
+          "homeScore": 146.1,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ],
+      "byes": [
+        {
+          "team": "The ACLiens",
+          "pts": 164.7
+        },
+        {
+          "team": "The Arabian Stallions",
+          "pts": 159.5
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Weeks 13-14)",
+      "games": [
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 174.4,
+          "homeScore": 216.0,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "Commish's Crusaders",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 282.3,
+          "homeScore": 208.3,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 236.4,
+          "homeScore": 166.7,
+          "homeMgr": "Zachary Sizemore",
+          "home": "When's Fantasy Baseball?"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 265.5,
+          "homeScore": 207.3,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 159.8,
+          "homeScore": 141.7,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 134.9,
+          "homeScore": 177.8,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Weeks 15-16)",
+      "games": [
+        {
+          "away": "Commish's Crusaders",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 216.1,
+          "homeScore": 236.9,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 130.6,
+          "homeScore": 204.4,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 123.2,
+          "homeScore": 130.2,
+          "homeMgr": "Zachary Sizemore",
+          "home": "When's Fantasy Baseball?"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 188.8,
+          "homeScore": 186.2,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 157.9,
+          "homeScore": 161.4,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 114.4,
+          "homeScore": 151.4,
+          "homeMgr": "George Wright",
+          "home": "George's Gangstas"
+        }
+      ]
+    }
+  }
+},
+  2015: {
+  "year": 2015,
+  "champion": {
+    "team": "Prino's Powerhouse",
+    "owner": "Joe Prino"
+  },
+  "second": {
+    "team": "George's Gangstas",
+    "owner": "George Wright"
+  },
+  "third": {
+    "team": "Plaxicolt's 45",
+    "owner": "Matt Geiger"
+  },
+  "standings": [
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 9,
+      "l": 4,
+      "t": 0,
+      "pct": 0.692
+    },
+    {
+      "team": "I like to Cha Cha",
+      "owner": "Luke Rapp",
+      "w": 9,
+      "l": 4,
+      "t": 0,
+      "pct": 0.692
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 9,
+      "l": 4,
+      "t": 0,
+      "pct": 0.692
+    },
+    {
+      "team": "George's Gangstas",
+      "owner": "George Wright",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "That's a Baaaaaaad Man",
+      "owner": "Joseph Garton",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "Commish's Crusaders",
+      "owner": "Tyler Cummings",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Winning Is My Forte",
+      "owner": "Aaron Burns",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "The Arabian Stallions",
+      "owner": "Walid Salameh",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Money Badgers",
+      "owner": "Tyler Clay",
+      "w": 5,
+      "l": 8,
+      "t": 0,
+      "pct": 0.385
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    },
+    {
+      "team": "When's Fantasy Baseball?",
+      "owner": "Zachary Sizemore",
+      "w": 3,
+      "l": 10,
+      "t": 0,
+      "pct": 0.231
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 79.2,
+        "homeScore": 96.4,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 79.0,
+        "homeScore": 118.3,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 95.8,
+        "homeScore": 101.1,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 88.7,
+        "homeScore": 85.7,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 127.6,
+        "homeScore": 100.8,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 105.5,
+        "homeScore": 103.6,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 91.4,
+        "homeScore": 73.2,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 111.5,
+        "homeScore": 97.5,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 52.6,
+        "homeScore": 92.6,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 67.2,
+        "homeScore": 114.1,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 82.2,
+        "homeScore": 106.4,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 89.6,
+        "homeScore": 78.4,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 106.9,
+        "homeScore": 101.7,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 106.8,
+        "homeScore": 70.9,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 68.8,
+        "homeScore": 142.5,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 168.7,
+        "homeScore": 154.7,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 81.1,
+        "homeScore": 82.3,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 79.3,
+        "homeScore": 106.9,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 87.1,
+        "homeScore": 102.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 100.3,
+        "homeScore": 65.6,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 105.9,
+        "homeScore": 80.2,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 80.0,
+        "homeScore": 78.4,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 63.0,
+        "homeScore": 80.0,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 66.3,
+        "homeScore": 103.6,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 84.9,
+        "homeScore": 105.1,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 97.8,
+        "homeScore": 114.1,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 62.3,
+        "homeScore": 119.3,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 75.2,
+        "homeScore": 88.6,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 138.4,
+        "homeScore": 106.3,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 48.8,
+        "homeScore": 113.7,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 97.8,
+        "homeScore": 78.7,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 105.3,
+        "homeScore": 115.7,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 92.0,
+        "homeScore": 106.5,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 133.2,
+        "homeScore": 82.5,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 115.1,
+        "homeScore": 62.5,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 103.5,
+        "homeScore": 85.9,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 74.9,
+        "homeScore": 75.1,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 83.6,
+        "homeScore": 94.7,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 60.5,
+        "homeScore": 118.2,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 101.2,
+        "homeScore": 102.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 129.2,
+        "homeScore": 127.4,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 113.6,
+        "homeScore": 88.9,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 118.9,
+        "homeScore": 83.9,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 103.7,
+        "homeScore": 145.4,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 104.2,
+        "homeScore": 100.7,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 73.3,
+        "homeScore": 122.2,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 125.0,
+        "homeScore": 58.8,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 88.1,
+        "homeScore": 106.8,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 77.1,
+        "homeScore": 111.8,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 106.9,
+        "homeScore": 91.5,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 155.6,
+        "homeScore": 77.6,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 95.1,
+        "homeScore": 124.9,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 96.5,
+        "homeScore": 117.2,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 92.0,
+        "homeScore": 113.7,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 104.1,
+        "homeScore": 22.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 109.9,
+        "homeScore": 74.5,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 125.6,
+        "homeScore": 85.2,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 83.4,
+        "homeScore": 86.2,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 92.5,
+        "homeScore": 117.2,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 87.7,
+        "homeScore": 80.0,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 82.4,
+        "homeScore": 97.9,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 87.3,
+        "homeScore": 83.2,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "I like to Cha Cha",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 60.9,
+        "homeScore": 49.3,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 63.8,
+        "homeScore": 68.8,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 90.2,
+        "homeScore": 116.8,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 71.4,
+        "homeScore": 67.7,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 65.0,
+        "homeScore": 122.8,
+        "homeMgr": "Zachary Sizemore",
+        "home": "When's Fantasy Baseball?"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 59.2,
+        "homeScore": 78.0,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      },
+      {
+        "away": "Commish's Crusaders",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 87.8,
+        "homeScore": 80.9,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 68.4,
+        "homeScore": 94.6,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 79.7,
+        "homeScore": 118.9,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 104.3,
+        "homeScore": 122.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      }
+    ],
+    "Week 13": [
+      {
+        "away": "When's Fantasy Baseball?",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 85.6,
+        "homeScore": 123.8,
+        "homeMgr": "Luke Rapp",
+        "home": "I like to Cha Cha"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 107.6,
+        "homeScore": 106.4,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 86.2,
+        "homeScore": 85.8,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 68.7,
+        "homeScore": 117.5,
+        "homeMgr": "Tyler Cummings",
+        "home": "Commish's Crusaders"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 125.7,
+        "homeScore": 125.1,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 77.3,
+        "homeScore": 70.2,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 14)",
+      "games": [
+        {
+          "away": "That's a Baaaaaaad Man",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 65.8,
+          "homeScore": 95.2,
+          "homeMgr": "George Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "The Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 72.1,
+          "homeScore": 75.1,
+          "homeMgr": "Luke Rapp",
+          "home": "I like to Cha Cha"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 78.8,
+          "homeScore": 108.0,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 80.7,
+          "homeScore": 102.5,
+          "homeMgr": "Tyler Cummings",
+          "home": "Commish's Crusaders"
+        },
+        {
+          "away": "When's Fantasy Baseball?",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 70.6,
+          "homeScore": 96.8,
+          "homeMgr": "Zachary Hickman",
+          "home": "Free Agents"
+        }
+      ],
+      "byes": [
+        {
+          "team": "Plaxicolt's 45",
+          "pts": 101.1
+        },
+        {
+          "team": "Prino's Powerhouse",
+          "pts": 112.8
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Week 15)",
+      "games": [
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 137.4,
+          "homeScore": 106.2,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        },
+        {
+          "away": "I like to Cha Cha",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 71.7,
+          "homeScore": 95.2,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "The Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 127.5,
+          "homeScore": 95.2,
+          "homeMgr": "Joseph Garton",
+          "home": "That's a Baaaaaaad Man"
+        },
+        {
+          "away": "Commish's Crusaders",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 138.8,
+          "homeScore": 114.8,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 83.1,
+          "homeScore": 83.0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "When's Fantasy Baseball?",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 148.1,
+          "homeScore": 117.3,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Week 16)",
+      "games": [
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 82.3,
+          "homeScore": 124.0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "I like to Cha Cha",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 90.9,
+          "homeScore": 140.4,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        },
+        {
+          "away": "The Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 120.0,
+          "homeScore": 86.9,
+          "homeMgr": "Joseph Garton",
+          "home": "That's a Baaaaaaad Man"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 63.0,
+          "homeScore": 82.5,
+          "homeMgr": "Tyler Cummings",
+          "home": "Commish's Crusaders"
+        },
+        {
+          "away": "When's Fantasy Baseball?",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 64.0,
+          "homeScore": 83.0,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 92.9,
+          "homeScore": 66.7,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ]
+    }
+  }
+},
+  2016: {
+  "year": 2016,
+  "champion": {
+    "team": "The ACLiens",
+    "owner": "Luke Rapp"
+  },
+  "second": {
+    "team": "King of the NARPS",
+    "owner": "Zachary Sizemore"
+  },
+  "third": {
+    "team": "The Arabian Stallions",
+    "owner": "Walid Salameh"
+  },
+  "standings": [
+    {
+      "team": "The ACLiens",
+      "owner": "Luke Rapp",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "The Arabian Stallions",
+      "owner": "Walid Salameh",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Huntington Heroes",
+      "owner": "Tyler Cummings",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Free Agents",
+      "owner": "Zachary Hickman",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "King of the NARPS",
+      "owner": "Zachary Sizemore",
+      "w": 8,
+      "l": 5,
+      "t": 0,
+      "pct": 0.615
+    },
+    {
+      "team": "Money Badgers",
+      "owner": "Tyler Clay",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "Business as Usual",
+      "owner": "Travis West",
+      "w": 7,
+      "l": 6,
+      "t": 0,
+      "pct": 0.538
+    },
+    {
+      "team": "That's a Baaaaaaad Man",
+      "owner": "Joseph Garton",
+      "w": 6,
+      "l": 7,
+      "t": 0,
+      "pct": 0.462
+    },
+    {
+      "team": "Plaxicolt's 45",
+      "owner": "Matt Geiger",
+      "w": 5,
+      "l": 8,
+      "t": 0,
+      "pct": 0.385
+    },
+    {
+      "team": "Winning Is My Forte",
+      "owner": "Aaron Burns",
+      "w": 5,
+      "l": 8,
+      "t": 0,
+      "pct": 0.385
+    },
+    {
+      "team": "George's Gangstas",
+      "owner": "George Wright",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    },
+    {
+      "team": "Prino's Powerhouse",
+      "owner": "Joe Prino",
+      "w": 4,
+      "l": 9,
+      "t": 0,
+      "pct": 0.308
+    }
+  ],
+  "schedule": {
+    "Week 1": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 121.8,
+        "homeScore": 85.0,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 134.5,
+        "homeScore": 121.8,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 109.6,
+        "homeScore": 123.5,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 61.4,
+        "homeScore": 69.7,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 79.8,
+        "homeScore": 113.5,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 104.6,
+        "homeScore": 107.6,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 2": [
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 106.3,
+        "homeScore": 68.9,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 118.0,
+        "homeScore": 103.0,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 82.3,
+        "homeScore": 83.3,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 117.9,
+        "homeScore": 90.4,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 81.7,
+        "homeScore": 90.4,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 109.1,
+        "homeScore": 71.9,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      }
+    ],
+    "Week 3": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 126.4,
+        "homeScore": 101.8,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 88.0,
+        "homeScore": 98.2,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 80.7,
+        "homeScore": 81.7,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 64.2,
+        "homeScore": 85.3,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 112.6,
+        "homeScore": 77.8,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 82.4,
+        "homeScore": 110.1,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      }
+    ],
+    "Week 4": [
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 68.4,
+        "homeScore": 67.4,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 74.3,
+        "homeScore": 92.8,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 73.7,
+        "homeScore": 119.8,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 93.3,
+        "homeScore": 86.4,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 87.0,
+        "homeScore": 93.0,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 106.9,
+        "homeScore": 106.1,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      }
+    ],
+    "Week 5": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 134.3,
+        "homeScore": 102.7,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 68.7,
+        "homeScore": 53.5,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 65.8,
+        "homeScore": 83.2,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 83.1,
+        "homeScore": 123.5,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 129.5,
+        "homeScore": 94.6,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 101.6,
+        "homeScore": 104.8,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 6": [
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 84.8,
+        "homeScore": 117.2,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 85.3,
+        "homeScore": 44.8,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 77.3,
+        "homeScore": 81.6,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 107.6,
+        "homeScore": 101.2,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 128.4,
+        "homeScore": 86.6,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 95.6,
+        "homeScore": 73.4,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      }
+    ],
+    "Week 7": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 102.7,
+        "homeScore": 92.5,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 68.4,
+        "homeScore": 96.2,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 134.8,
+        "homeScore": 99.7,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 94.8,
+        "homeScore": 94.0,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 108.6,
+        "homeScore": 90.5,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 87.4,
+        "homeScore": 116.5,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      }
+    ],
+    "Week 8": [
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 104.2,
+        "homeScore": 93.5,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 94.0,
+        "homeScore": 92.1,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 78.1,
+        "homeScore": 78.7,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 83.4,
+        "homeScore": 108.7,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 127.5,
+        "homeScore": 73.8,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 110.8,
+        "homeScore": 89.4,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      }
+    ],
+    "Week 9": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 127.1,
+        "homeScore": 125.9,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 85.2,
+        "homeScore": 78.0,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 87.1,
+        "homeScore": 103.3,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 131.4,
+        "homeScore": 69.0,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 80.6,
+        "homeScore": 113.3,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 108.5,
+        "homeScore": 73.5,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 10": [
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 79.2,
+        "homeScore": 80.1,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 86.1,
+        "homeScore": 133.6,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 68.8,
+        "homeScore": 104.0,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 106.5,
+        "homeScore": 97.4,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 91.7,
+        "homeScore": 133.7,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 110.9,
+        "homeScore": 87.0,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      }
+    ],
+    "Week 11": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 75.4,
+        "homeScore": 128.3,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 62.9,
+        "homeScore": 108.7,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "The ACLiens",
+        "awayMgr": "Luke Rapp",
+        "awayScore": 121.7,
+        "homeScore": 103.2,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 70.0,
+        "homeScore": 78.1,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 85.3,
+        "homeScore": 90.7,
+        "homeMgr": "Zachary Hickman",
+        "home": "Free Agents"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 68.9,
+        "homeScore": 94.3,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      }
+    ],
+    "Week 12": [
+      {
+        "away": "That's a Baaaaaaad Man",
+        "awayMgr": "Joseph Garton",
+        "awayScore": 115.8,
+        "homeScore": 170.8,
+        "homeMgr": "Zachary Sizemore",
+        "home": "King of the NARPS"
+      },
+      {
+        "away": "The Arabian Stallions",
+        "awayMgr": "Walid Salameh",
+        "awayScore": 110.7,
+        "homeScore": 94.0,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Huntington Heroes",
+        "awayMgr": "Tyler Cummings",
+        "awayScore": 64.6,
+        "homeScore": 81.6,
+        "homeMgr": "Tyler Clay",
+        "home": "Money Badgers"
+      },
+      {
+        "away": "Winning Is My Forte",
+        "awayMgr": "Aaron Burns",
+        "awayScore": 70.3,
+        "homeScore": 97.6,
+        "homeMgr": "Joe Prino",
+        "home": "Prino's Powerhouse"
+      },
+      {
+        "away": "Business as Usual",
+        "awayMgr": "Travis West",
+        "awayScore": 106.9,
+        "homeScore": 65.3,
+        "homeMgr": "George Wright",
+        "home": "George's Gangstas"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 104.0,
+        "homeScore": 69.7,
+        "homeMgr": "Matt Geiger",
+        "home": "Plaxicolt's 45"
+      }
+    ],
+    "Week 13": [
+      {
+        "away": "King of the NARPS",
+        "awayMgr": "Zachary Sizemore",
+        "awayScore": 87.2,
+        "homeScore": 137.9,
+        "homeMgr": "Luke Rapp",
+        "home": "The ACLiens"
+      },
+      {
+        "away": "Money Badgers",
+        "awayMgr": "Tyler Clay",
+        "awayScore": 86.8,
+        "homeScore": 47.1,
+        "homeMgr": "Joseph Garton",
+        "home": "That's a Baaaaaaad Man"
+      },
+      {
+        "away": "Prino's Powerhouse",
+        "awayMgr": "Joe Prino",
+        "awayScore": 62.2,
+        "homeScore": 98.9,
+        "homeMgr": "Walid Salameh",
+        "home": "The Arabian Stallions"
+      },
+      {
+        "away": "George's Gangstas",
+        "awayMgr": "George Wright",
+        "awayScore": 77.0,
+        "homeScore": 132.2,
+        "homeMgr": "Tyler Cummings",
+        "home": "Huntington Heroes"
+      },
+      {
+        "away": "Plaxicolt's 45",
+        "awayMgr": "Matt Geiger",
+        "awayScore": 54.6,
+        "homeScore": 115.3,
+        "homeMgr": "Aaron Burns",
+        "home": "Winning Is My Forte"
+      },
+      {
+        "away": "Free Agents",
+        "awayMgr": "Zachary Hickman",
+        "awayScore": 85.3,
+        "homeScore": 74.9,
+        "homeMgr": "Travis West",
+        "home": "Business as Usual"
+      }
+    ]
+  },
+  "playoffs": {
+    "round1": {
+      "label": "Round 1 (Week 14)",
+      "games": [
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 75.5,
+          "homeScore": 57.9,
+          "homeMgr": "Tyler Cummings",
+          "home": "Huntington Heroes"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 86.1,
+          "homeScore": 126.5,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "That's a Baaaaaaad Man",
+          "awayMgr": "Joseph Garton",
+          "awayScore": 74.7,
+          "homeScore": 65.8,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 87.2,
+          "homeScore": 68.2,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 106.0,
+          "homeScore": 49.0,
+          "homeMgr": "George Wright",
+          "home": "George's Gangstas"
+        }
+      ],
+      "byes": [
+        {
+          "team": "The ACLiens",
+          "pts": 105.5
+        },
+        {
+          "team": "King of the NARPS",
+          "pts": 87.3
+        }
+      ]
+    },
+    "round2": {
+      "label": "Round 2 (Week 15)",
+      "games": [
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 47.8,
+          "homeScore": 82.3,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "The Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 95.4,
+          "homeScore": 111.8,
+          "homeMgr": "Zachary Sizemore",
+          "home": "King of the NARPS"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 113.8,
+          "homeScore": 100.1,
+          "homeMgr": "Tyler Cummings",
+          "home": "Huntington Heroes"
+        },
+        {
+          "away": "Plaxicolt's 45",
+          "awayMgr": "Matt Geiger",
+          "awayScore": 94.5,
+          "homeScore": 64.8,
+          "homeMgr": "Joseph Garton",
+          "home": "That's a Baaaaaaad Man"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 91.8,
+          "homeScore": 68.4,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 49.8,
+          "homeScore": 42.5,
+          "homeMgr": "Aaron Burns",
+          "home": "Winning Is My Forte"
+        }
+      ]
+    },
+    "round3": {
+      "label": "Round 3 / Championship (Week 16)",
+      "games": [
+        {
+          "away": "King of the NARPS",
+          "awayMgr": "Zachary Sizemore",
+          "awayScore": 108.0,
+          "homeScore": 114.5,
+          "homeMgr": "Luke Rapp",
+          "home": "The ACLiens"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Zachary Hickman",
+          "awayScore": 79.8,
+          "homeScore": 126.0,
+          "homeMgr": "Walid Salameh",
+          "home": "The Arabian Stallions"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 79.2,
+          "homeScore": 104.1,
+          "homeMgr": "Tyler Cummings",
+          "home": "Huntington Heroes"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 87.3,
+          "homeScore": 70.9,
+          "homeMgr": "Matt Geiger",
+          "home": "Plaxicolt's 45"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "George Wright",
+          "awayScore": 85.1,
+          "homeScore": 97.1,
+          "homeMgr": "Joseph Garton",
+          "home": "That's a Baaaaaaad Man"
+        },
+        {
+          "away": "Winning Is My Forte",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 84.6,
+          "homeScore": 82.1,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ]
+    }
+  }
+},
   2017: {
   "year": 2017,
   "champion": {
