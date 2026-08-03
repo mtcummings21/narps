@@ -39,10 +39,10 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.playoffApp}</td>
     <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td>${fmtPct(t.winPct)}</td>
-    <td>${t.diff > 0 ? '+' : ''}${t.diff}</td>
-    <td>${t.gameAvgPF}</td>
+    <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
+    <td>${t.gameAvgPF.toFixed(1)}</td>
     <td>${fmtPct(t.playoffWinPct)}</td>
-    <td>${t.highScore}</td>
+    <td>${t.highScore.toFixed(1)}</td>
   </tr>`;
 }
 
