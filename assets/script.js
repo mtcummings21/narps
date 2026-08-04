@@ -415,4 +415,68 @@ function renderTeamDetail(containerId){
   `;
 }
 
+// ---------- Survivor ----------
+function renderSurvivor(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(SURVIVOR).sort((a,b) => b - a);
+  const year = years[0];
+  const s = SURVIVOR[year];
+  if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
+
+  const sorted = s.players.slice().sort((a,b) => {
+    if(a.result === 'Winner') return -1;
+    if(b.result === 'Winner') return 1;
+    return (b.eliminatedWeek || 0) - (a.eliminatedWeek || 0);
+  });
+
+  const champCard = `<div class="trophy-case">
+    <div class="plaque">
+      <div class="yr">${year} SURVIVOR CHAMPION</div>
+      <div class="owner">${s.champion}</div>
+      <div class="team">Last one standing</div>
+    </div>
+  </div>`;
+
+  const leaderboardRows = sorted.map((p, i) => {
+    const result = p.result === 'Winner' ? 'Winner 🏆' : `Eliminated — Week ${p.eliminatedWeek}`;
+    const losingPick = p.result === 'Winner' ? '—' : (p.picks.find(pk => pk.week === p.eliminatedWeek) || {}).team || '—';
+    return `<tr>
+      <td class="pos">${i+1}</td>
+      <td class="name-cell">${p.name}</td>
+      <td>${result}</td>
+      <td class="pos">${losingPick}</td>
+      <td class="pos">${p.picks.length} picks made</td>
+    </tr>`;
+  }).join('');
+
+  const leaderboard = `<div class="table-scroll"><table>
+    <thead><tr><th>#</th><th>Player</th><th>Result</th><th>Losing Pick</th><th>Survived</th></tr></thead>
+    <tbody>${leaderboardRows}</tbody>
+  </table></div>`;
+
+  const pickDetails = sorted.map(p => {
+    const rows = p.picks.map(pk => `<tr>
+      <td class="pos">Week ${pk.week}</td>
+      <td class="${pk.loss ? '' : 'name-cell'}" style="${pk.loss ? 'color:var(--red); text-decoration:line-through;' : ''}">${pk.team}${pk.loss ? ' (loss)' : ''}</td>
+    </tr>`).join('');
+    return `<details style="margin-bottom:8px;">
+      <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);">${p.name} — ${p.result === 'Winner' ? 'Winner' : 'Eliminated Week ' + p.eliminatedWeek}</summary>
+      <div class="table-scroll" style="margin-top:8px;"><table>
+        <thead><tr><th>Week</th><th>Pick</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </details>`;
+  }).join('');
+
+  el.innerHTML = `
+    ${champCard}
+    <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
+    ${leaderboard}
+    <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a player to see every pick they made, week by week. Losses are struck through — two losses means elimination.</p>
+    ${pickDetails}
+  `;
+}
+
 document.addEventListener('DOMContentLoaded', initNav);
