@@ -507,6 +507,50 @@ footer{
 }
 footer a{ color: var(--blue-lt); text-decoration:none; }
 
+/* ---------- Head-to-head grid ----------*/
+.h2h-wrap{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
+.h2h-grid{
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  background: var(--panel);
+}
+.h2h-grid th, .h2h-grid td{
+  border: 1px solid var(--line);
+  text-align:center;
+  min-width: 54px;
+  padding: 6px 4px;
+}
+.h2h-grid thead th{
+  background: var(--navy);
+  color: var(--white);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.68rem;
+  padding: 8px 6px;
+  position: static;
+}
+.h2h-grid tbody th{
+  background: var(--bg);
+  text-align:left;
+  font-family: var(--body);
+  font-weight:600;
+  writing-mode: horizontal-tb;
+  white-space: nowrap;
+  padding: 8px 10px;
+}
+.h2h-grid td{ cursor: default; }
+.h2h-grid td.self{ background: repeating-linear-gradient(45deg, var(--line), var(--line) 4px, var(--panel) 4px, var(--panel) 8px); }
+.h2h-grid td.dominant{ background: rgba(47,111,237,0.12); font-weight:600; color: var(--navy); }
+.h2h-grid td.trouble{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
+.h2h-grid td:hover:not(.self){ outline: 2px solid var(--blue); outline-offset:-2px; }
+.h2h-legend{
+  display:flex; gap:18px; flex-wrap:wrap; margin-top:14px;
+  font-family: var(--mono); font-size: 0.75rem; color: var(--text-soft);
+}
+.h2h-legend span{ display:inline-flex; align-items:center; gap:6px; }
+.h2h-swatch{ width:12px; height:12px; border-radius:2px; display:inline-block; }
+
 /* ---------- utility ---------- */
 .muted{ color: var(--text-soft); }
 .center{ text-align:center; }

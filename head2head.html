@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Season — League of NARPS</title>
+<title>Head-to-Head — League of NARPS</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -16,9 +16,9 @@
       <a href="index.html">Home</a>
       <a href="champions.html">Champions</a>
       <a href="standings.html">Standings</a>
-      <a href="seasons.html" aria-current="page">Seasons</a>
+      <a href="seasons.html">Seasons</a>
       <a href="teams.html">Teams</a>
-      <a href="head2head.html">Head-to-Head</a>
+      <a href="head2head.html" aria-current="page">Head-to-Head</a>
       <a href="newsletters.html">Newsletters</a>
       <a href="survivor.html">Survivor</a>
     </nav>
@@ -28,10 +28,11 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title" id="season-title">Season</h2>
-      <span class="section-sub"><a href="seasons.html" style="color:var(--blue); text-decoration:underline;">← All Seasons</a></span>
+      <h2 class="section-title">Head-to-Head Records</h2>
+      <span class="section-sub">All-Time · Regular Season</span>
     </div>
-    <div id="season-detail-container"></div>
+    <p class="muted" style="max-width:65ch;">Every franchise's all-time record against every other franchise, computed directly from all 15 seasons (2011–2025) of verified regular-season matchups. Franchises are ordered by career wins. Hover a cell for the exact record.</p>
+    <div id="h2h-container"></div>
   </div>
 </section>
 
@@ -41,6 +42,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderSeasonDetail('season-detail-container');</script>
+<script>renderH2H('h2h-container');</script>
 </body>
 </html>

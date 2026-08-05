@@ -479,4 +479,65 @@ function renderSurvivor(containerId){
   `;
 }
 
+// ---------- Head-to-head (computed from verified season data) ----------
+function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
+
+function computeH2H(){
+  const keyByLastName = {};
+  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
+
+  const matrix = {};
+  TEAMS.forEach(t => { matrix[t.key] = {}; });
+
+  function record(g) {
+    const awayKey = keyByLastName[lastNameOf(g.awayMgr)];
+    const homeKey = keyByLastName[lastNameOf(g.homeMgr)];
+    if(!awayKey || !homeKey || awayKey === homeKey) return;
+    if(!matrix[awayKey][homeKey]) matrix[awayKey][homeKey] = {w:0,l:0,t:0};
+    if(!matrix[homeKey][awayKey]) matrix[homeKey][awayKey] = {w:0,l:0,t:0};
+    if(g.awayScore > g.homeScore){ matrix[awayKey][homeKey].w++; matrix[homeKey][awayKey].l++; }
+    else if(g.homeScore > g.awayScore){ matrix[homeKey][awayKey].w++; matrix[awayKey][homeKey].l++; }
+    else { matrix[awayKey][homeKey].t++; matrix[homeKey][awayKey].t++; }
+  }
+
+  Object.values(SEASONS).forEach(s => {
+    Object.values(s.schedule || {}).forEach(games => games.forEach(record));
+  });
+
+  return matrix;
+}
+
+function renderH2H(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const matrix = computeH2H();
+  const order = TEAMS.slice().sort((a,b) => b.gamesW - a.gamesW).map(t => t.key);
+
+  const headCells = order.map(k => `<th>${k}</th>`).join('');
+  const rows = order.map(rowKey => {
+    const cells = order.map(colKey => {
+      if(rowKey === colKey) return `<td class="self" title="—"></td>`;
+      const rec = matrix[rowKey][colKey];
+      if(!rec) return `<td>—</td>`;
+      const { w, l, t } = rec;
+      let cls = '';
+      if(w > l) cls = 'dominant';
+      else if(l > w) cls = 'trouble';
+      const label = t ? `${w}-${l}-${t}` : `${w}-${l}`;
+      return `<td class="${cls}" title="${rowKey} vs ${colKey}: ${label}">${label}</td>`;
+    }).join('');
+    return `<tr><th>${rowKey}</th>${cells}</tr>`;
+  }).join('');
+
+  el.innerHTML = `<div class="h2h-wrap"><table class="h2h-grid">
+    <thead><tr><th></th>${headCells}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+  <div class="h2h-legend">
+    <span><span class="h2h-swatch" style="background:rgba(47,111,237,0.3)"></span> Winning record vs opponent</span>
+    <span><span class="h2h-swatch" style="background:rgba(214,40,57,0.25)"></span> Losing record vs opponent</span>
+    <span>Read as: row's record vs. column · computed from all regular season and playoff games, 2011–2025</span>
+  </div>`;
+}
+
 document.addEventListener('DOMContentLoaded', initNav);
