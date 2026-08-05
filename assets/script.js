@@ -494,12 +494,14 @@ function computeAllTimeRecords(){
   const keyByLastName = {};
   TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
 
-  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {};
+  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {};
   let highestWeek = { key: null, score: -Infinity, opponentInfo: '' };
+  let bestSeasonWins = { key: null, wins: -Infinity, year: null };
+  let bestSeasonPoints = { key: null, points: -Infinity, year: null };
 
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
-    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0;
+    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0;
   });
 
   function addRegScore(mgr, score, week, year){
@@ -513,10 +515,15 @@ function computeAllTimeRecords(){
   }
 
   Object.entries(SEASONS).forEach(([year, s]) => {
+    const seasonPoints = {};
     Object.entries(s.schedule || {}).forEach(([week, games]) => {
       games.forEach(g => {
         addRegScore(g.awayMgr, g.awayScore, week, year);
         addRegScore(g.homeMgr, g.homeScore, week, year);
+        const ak = keyByLastName[lastNameOf(g.awayMgr)];
+        const hk = keyByLastName[lastNameOf(g.homeMgr)];
+        if(ak) seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore;
+        if(hk) seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore;
       });
     });
     Object.values(s.playoffs || {}).forEach(round => {
@@ -533,9 +540,26 @@ function computeAllTimeRecords(){
       const k = keyByLastName[lastNameOf(p.owner)];
       if(k) topThree[k]++;
     });
+
+    (s.standings || []).forEach(row => {
+      const k = keyByLastName[lastNameOf(row.owner)];
+      if(!k) return;
+      if(row.w > bestSeasonWins.wins){
+        bestSeasonWins = { key: k, wins: row.w, year };
+      }
+    });
+
+    const seasonLeaderEntry = Object.entries(seasonPoints).sort((a,b) => b[1]-a[1])[0];
+    if(seasonLeaderEntry){
+      const [leaderKey, leaderPoints] = seasonLeaderEntry;
+      scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
+      if(leaderPoints > bestSeasonPoints.points){
+        bestSeasonPoints = { key: leaderKey, points: leaderPoints, year };
+      }
+    }
   });
 
-  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek };
+  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek, bestSeasonWins, bestSeasonPoints, scoringTitles };
 }
 
 function renderAllTimeRecords(containerId){
@@ -556,10 +580,14 @@ function renderAllTimeRecords(containerId){
   const mostChamps = byMaxTeamsField('champs');
   const [mostTop3Key, mostTop3Val] = byMaxComputed(r.topThree);
   const [most100Key, most100Val] = byMaxComputed(r.hundredPlusWeeks);
+  const [mostScoringTitlesKey, mostScoringTitlesVal] = byMaxComputed(r.scoringTitles);
 
   const cards = [
     { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: fmtNum(mostRegWins.gamesW), body: `${mostRegWins.owner} has won more regular season games than anyone else in league history.` },
     { medal: 'Regular Season', title: 'Most Regular Season Points', stat: fmtNum(mostRegPtsVal), body: `${nameOf(mostRegPtsKey)} has scored more total regular season points than any other owner.` },
+    { medal: 'Single Season', title: 'Most Wins in a Season', stat: fmtNum(r.bestSeasonWins.wins), body: `${nameOf(r.bestSeasonWins.key)} won more regular season games in a single year than anyone else, in ${r.bestSeasonWins.year}.` },
+    { medal: 'Single Season', title: 'Most Points Scored in a Season', stat: fmtNum(r.bestSeasonPoints.points), body: `${nameOf(r.bestSeasonPoints.key)} scored more total regular season points in a single year than anyone else, in ${r.bestSeasonPoints.year}.` },
+    { medal: 'Single Season', title: 'Most Scoring Titles', stat: fmtNum(mostScoringTitlesVal), body: `${nameOf(mostScoringTitlesKey)} has led the league in total regular season points scored more times than anyone else.` },
     { medal: 'Playoffs', title: 'Most Playoff Appearances', stat: fmtNum(mostPlayoffAppTeam.playoffApp), body: `${mostPlayoffAppTeam.owner} has made the playoffs more times than anyone else.` },
     { medal: 'Playoffs', title: 'Most Playoff Wins', stat: fmtNum(mostPlayoffWinsTeam.playoffW), body: `${mostPlayoffWinsTeam.owner} has won more playoff games than anyone else.` },
     { medal: 'Playoffs', title: 'Most Playoff Points', stat: fmtNum(mostPlayoffPtsVal), body: `${nameOf(mostPlayoffPtsKey)} has scored more total points across all playoff games than any other owner.` },
