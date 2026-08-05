@@ -495,6 +495,32 @@ td.pos{ color: var(--text-soft); }
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
 
+/* ---------- Condensed records grid (All-Time Records section) ---------- */
+#records-container .award-grid{
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 12px;
+}
+#records-container .award-card{
+  padding: 14px 16px;
+}
+#records-container .award-card .medal{
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+}
+#records-container .award-card h3{
+  font-size: 0.95rem;
+  margin: 5px 0 6px;
+  line-height: 1.25;
+}
+#records-container .award-card .headline-stat{
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+#records-container .award-card p{
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+
 /* ---------- Footer ---------- */
 footer{
   background: var(--navy);
