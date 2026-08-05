@@ -280,7 +280,7 @@ function renderSeasonDetail(containerId){
     </tr>`).join('')}</tbody>
   </table></div>`;
 
-  const playoffRounds = ['round1','round2','round3'].map(rk => {
+  const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
     const r = s.playoffs[rk];
     if(!r) return '';
     const byes = r.byes ? `<p class="muted" style="font-size:0.85rem;">Bye: ${r.byes.map(b=>`${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
@@ -485,6 +485,91 @@ function renderSurvivor(containerId){
 
 // ---------- Head-to-head (computed from verified season data) ----------
 function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
+
+// ---------- All-Time Records (computed from verified season data) ----------
+function computeAllTimeRecords(){
+  const keyByLastName = {};
+  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
+
+  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {};
+  let highestWeek = { key: null, score: -Infinity, opponentInfo: '' };
+
+  TEAMS.forEach(t => {
+    regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
+    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0;
+  });
+
+  function addRegScore(mgr, score, week, year){
+    const k = keyByLastName[lastNameOf(mgr)];
+    if(!k) return;
+    regPoints[k] += score;
+    if(score >= 100) hundredPlusWeeks[k]++;
+    if(score > highestWeek.score){
+      highestWeek = { key: k, score, opponentInfo: `${year}, ${week}` };
+    }
+  }
+
+  Object.entries(SEASONS).forEach(([year, s]) => {
+    Object.entries(s.schedule || {}).forEach(([week, games]) => {
+      games.forEach(g => {
+        addRegScore(g.awayMgr, g.awayScore, week, year);
+        addRegScore(g.homeMgr, g.homeScore, week, year);
+      });
+    });
+    Object.values(s.playoffs || {}).forEach(round => {
+      (round.games || []).forEach(g => {
+        const ak = keyByLastName[lastNameOf(g.awayMgr)];
+        const hk = keyByLastName[lastNameOf(g.homeMgr)];
+        if(ak){ playoffPoints[ak] += g.awayScore; }
+        if(hk){ playoffPoints[hk] += g.homeScore; }
+        if(g.awayScore > g.homeScore && ak) playoffWins[ak]++;
+        else if(g.homeScore > g.awayScore && hk) playoffWins[hk]++;
+      });
+    });
+    [s.champion, s.second, s.third].forEach(p => {
+      const k = keyByLastName[lastNameOf(p.owner)];
+      if(k) topThree[k]++;
+    });
+  });
+
+  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek };
+}
+
+function renderAllTimeRecords(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const r = computeAllTimeRecords();
+  const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
+
+  const byMaxTeamsField = (field) => TEAMS.slice().sort((a,b) => b[field]-a[field])[0];
+  const byMaxComputed = (obj) => Object.entries(obj).sort((a,b) => b[1]-a[1])[0];
+
+  const mostRegWins = byMaxTeamsField('gamesW');
+  const [mostRegPtsKey, mostRegPtsVal] = byMaxComputed(r.regPoints);
+  const mostPlayoffWinsTeam = byMaxTeamsField('playoffW');
+  const [mostPlayoffPtsKey, mostPlayoffPtsVal] = byMaxComputed(r.playoffPoints);
+  const mostChamps = byMaxTeamsField('champs');
+  const [mostTop3Key, mostTop3Val] = byMaxComputed(r.topThree);
+  const [most100Key, most100Val] = byMaxComputed(r.hundredPlusWeeks);
+
+  const cards = [
+    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: mostRegWins.gamesW, body: `${mostRegWins.owner} has won more regular season games than anyone else in league history.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: mostRegPtsVal.toFixed(1), body: `${nameOf(mostRegPtsKey)} has scored more total regular season points than any other owner.` },
+    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: mostPlayoffWinsTeam.playoffW, body: `${mostPlayoffWinsTeam.owner} has won more playoff games than anyone else.` },
+    { medal: 'Playoffs', title: 'Most Playoff Points', stat: mostPlayoffPtsVal.toFixed(1), body: `${nameOf(mostPlayoffPtsKey)} has scored more total points across all playoff games than any other owner.` },
+    { medal: 'Championships', title: 'Most Championships', stat: mostChamps.champs, body: `${mostChamps.owner} has won the league title more than anyone else.` },
+    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: mostTop3Val, body: `${nameOf(mostTop3Key)} has finished 1st, 2nd, or 3rd more times than any other owner.` },
+    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: r.highestWeek.score.toFixed(1), body: `${nameOf(r.highestWeek.key)} put up the highest single-week score in league history (${r.highestWeek.opponentInfo}).` },
+    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: most100Val, body: `${nameOf(most100Key)} has scored 100 or more points in a single week more often than anyone else.` },
+  ];
+
+  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card">
+    <div class="medal">${c.medal}</div>
+    <h3>${c.title}</h3>
+    <div class="headline-stat">${c.stat}</div>
+    <p>${c.body}</p>
+  </div>`).join('') + `</div>`;
+}
 
 function computeH2H(){
   const keyByLastName = {};
