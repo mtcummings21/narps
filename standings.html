@@ -38,6 +38,16 @@
 <section>
   <div class="wrap">
     <div class="section-head">
+      <h2 class="section-title">All-Time Records</h2>
+      <span class="section-sub">League Leaders</span>
+    </div>
+    <div id="records-container"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
       <h2 class="section-title">Head-to-Head Records</h2>
       <span class="section-sub">All-Time · Regular Season</span>
     </div>
@@ -54,6 +64,7 @@
 <script src="assets/script.js"></script>
 <script>
   renderStandings('standings-container');
+  renderAllTimeRecords('records-container');
   renderH2H('h2h-container');
 </script>
 </body>
