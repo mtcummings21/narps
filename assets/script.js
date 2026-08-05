@@ -495,9 +495,10 @@ function computeAllTimeRecords(){
   TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
 
   const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {};
-  let highestWeek = { key: null, score: -Infinity, opponentInfo: '' };
-  let bestSeasonWins = { key: null, wins: -Infinity, year: null };
-  let bestSeasonPoints = { key: null, points: -Infinity, year: null };
+  let highestWeek = { key: null, score: -Infinity, opponentInfo: '', holders: [] };
+  let lowestWeek = { score: Infinity, holders: [] };
+  let bestSeasonWins = { wins: -Infinity, holders: [] };
+  let bestSeasonPoints = { points: -Infinity, holders: [] };
 
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
@@ -510,7 +511,14 @@ function computeAllTimeRecords(){
     regPoints[k] += score;
     if(score >= 100) hundredPlusWeeks[k]++;
     if(score > highestWeek.score){
-      highestWeek = { key: k, score, opponentInfo: `${year}, ${week}` };
+      highestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
+    } else if(score === highestWeek.score){
+      highestWeek.holders.push({ key: k, info: `${year}, ${week}` });
+    }
+    if(score < lowestWeek.score){
+      lowestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
+    } else if(score === lowestWeek.score){
+      lowestWeek.holders.push({ key: k, info: `${year}, ${week}` });
     }
   }
 
@@ -545,7 +553,9 @@ function computeAllTimeRecords(){
       const k = keyByLastName[lastNameOf(row.owner)];
       if(!k) return;
       if(row.w > bestSeasonWins.wins){
-        bestSeasonWins = { key: k, wins: row.w, year };
+        bestSeasonWins = { wins: row.w, holders: [{ key: k, year }] };
+      } else if(row.w === bestSeasonWins.wins){
+        bestSeasonWins.holders.push({ key: k, year });
       }
     });
 
@@ -554,12 +564,14 @@ function computeAllTimeRecords(){
       const [leaderKey, leaderPoints] = seasonLeaderEntry;
       scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
       if(leaderPoints > bestSeasonPoints.points){
-        bestSeasonPoints = { key: leaderKey, points: leaderPoints, year };
+        bestSeasonPoints = { points: leaderPoints, holders: [{ key: leaderKey, year }] };
+      } else if(leaderPoints === bestSeasonPoints.points){
+        bestSeasonPoints.holders.push({ key: leaderKey, year });
       }
     }
   });
 
-  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek, bestSeasonWins, bestSeasonPoints, scoringTitles };
+  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints, scoringTitles };
 }
 
 function renderAllTimeRecords(containerId){
@@ -568,33 +580,49 @@ function renderAllTimeRecords(containerId){
   const r = computeAllTimeRecords();
   const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
   const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+  const joinNames = (names) => names.length <= 1 ? (names[0]||'') :
+    names.length === 2 ? `${names[0]} & ${names[1]}` :
+    `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
 
-  const byMaxTeamsField = (field) => TEAMS.slice().sort((a,b) => b[field]-a[field])[0];
-  const byMaxComputed = (obj) => Object.entries(obj).sort((a,b) => b[1]-a[1])[0];
+  // Returns {value, owners:[names]} for every TEAMS entry tied at the max of `field`
+  const allMaxTeamsField = (field) => {
+    const maxVal = Math.max(...TEAMS.map(t => t[field]));
+    return { value: maxVal, owners: TEAMS.filter(t => t[field] === maxVal).map(t => t.owner) };
+  };
+  // Returns {value, owners:[names]} for every key tied at the max value in a computed dict
+  const allMaxComputed = (obj) => {
+    const maxVal = Math.max(...Object.values(obj));
+    const owners = Object.entries(obj).filter(([,v]) => v === maxVal).map(([k]) => nameOf(k));
+    return { value: maxVal, owners };
+  };
 
-  const mostRegWins = byMaxTeamsField('gamesW');
-  const [mostRegPtsKey, mostRegPtsVal] = byMaxComputed(r.regPoints);
-  const mostPlayoffAppTeam = byMaxTeamsField('playoffApp');
-  const mostPlayoffWinsTeam = byMaxTeamsField('playoffW');
-  const [mostPlayoffPtsKey, mostPlayoffPtsVal] = byMaxComputed(r.playoffPoints);
-  const mostChamps = byMaxTeamsField('champs');
-  const [mostTop3Key, mostTop3Val] = byMaxComputed(r.topThree);
-  const [most100Key, most100Val] = byMaxComputed(r.hundredPlusWeeks);
-  const [mostScoringTitlesKey, mostScoringTitlesVal] = byMaxComputed(r.scoringTitles);
+  const mostRegWins = allMaxTeamsField('gamesW');
+  const mostRegPts = allMaxComputed(r.regPoints);
+  const mostPlayoffApp = allMaxTeamsField('playoffApp');
+  const mostPlayoffWins = allMaxTeamsField('playoffW');
+  const mostPlayoffPts = allMaxComputed(r.playoffPoints);
+  const mostChamps = allMaxTeamsField('champs');
+  const mostTop3 = allMaxComputed(r.topThree);
+  const most100 = allMaxComputed(r.hundredPlusWeeks);
+  const mostScoringTitles = allMaxComputed(r.scoringTitles);
+
+  const seasonWinHolders = r.bestSeasonWins.holders.map(h => `${nameOf(h.key)} (${h.year})`);
+  const seasonPtsHolders = r.bestSeasonPoints.holders.map(h => `${nameOf(h.key)} (${h.year})`);
 
   const cards = [
-    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: fmtNum(mostRegWins.gamesW), body: `${mostRegWins.owner} has won more regular season games than anyone else in league history.` },
-    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: fmtNum(mostRegPtsVal), body: `${nameOf(mostRegPtsKey)} has scored more total regular season points than any other owner.` },
-    { medal: 'Single Season', title: 'Most Wins in a Season', stat: fmtNum(r.bestSeasonWins.wins), body: `${nameOf(r.bestSeasonWins.key)} won more regular season games in a single year than anyone else, in ${r.bestSeasonWins.year}.` },
-    { medal: 'Single Season', title: 'Most Points Scored in a Season', stat: fmtNum(r.bestSeasonPoints.points), body: `${nameOf(r.bestSeasonPoints.key)} scored more total regular season points in a single year than anyone else, in ${r.bestSeasonPoints.year}.` },
-    { medal: 'Single Season', title: 'Most Scoring Titles', stat: fmtNum(mostScoringTitlesVal), body: `${nameOf(mostScoringTitlesKey)} has led the league in total regular season points scored more times than anyone else.` },
-    { medal: 'Playoffs', title: 'Most Playoff Appearances', stat: fmtNum(mostPlayoffAppTeam.playoffApp), body: `${mostPlayoffAppTeam.owner} has made the playoffs more times than anyone else.` },
-    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: fmtNum(mostPlayoffWinsTeam.playoffW), body: `${mostPlayoffWinsTeam.owner} has won more playoff games than anyone else.` },
-    { medal: 'Playoffs', title: 'Most Playoff Points', stat: fmtNum(mostPlayoffPtsVal), body: `${nameOf(mostPlayoffPtsKey)} has scored more total points across all playoff games than any other owner.` },
-    { medal: 'Championships', title: 'Most Championships', stat: fmtNum(mostChamps.champs), body: `${mostChamps.owner} has won the league title more than anyone else.` },
-    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: fmtNum(mostTop3Val), body: `${nameOf(mostTop3Key)} has finished 1st, 2nd, or 3rd more times than any other owner.` },
-    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: fmtNum(r.highestWeek.score), body: `${nameOf(r.highestWeek.key)} put up the highest single-week score in league history (${r.highestWeek.opponentInfo}).` },
-    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: fmtNum(most100Val), body: `${nameOf(most100Key)} has scored 100 or more points in a single week more often than anyone else.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: fmtNum(mostRegWins.value), body: `${joinNames(mostRegWins.owners)} — most regular season wins in league history.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: fmtNum(mostRegPts.value), body: `${joinNames(mostRegPts.owners)} — most total regular season points scored, career.` },
+    { medal: 'Single Season', title: 'Most Wins in a Season', stat: fmtNum(r.bestSeasonWins.wins), body: `${joinNames(seasonWinHolders)} — most regular season wins in a single year.` },
+    { medal: 'Single Season', title: 'Most Points Scored in a Season', stat: fmtNum(r.bestSeasonPoints.points), body: `${joinNames(seasonPtsHolders)} — most total regular season points in a single year.` },
+    { medal: 'Single Season', title: 'Most Scoring Titles', stat: fmtNum(mostScoringTitles.value), body: `${joinNames(mostScoringTitles.owners)} — led the league in points scored the most times.` },
+    { medal: 'Playoffs', title: 'Most Playoff Appearances', stat: fmtNum(mostPlayoffApp.value), body: `${joinNames(mostPlayoffApp.owners)} — most playoff appearances in league history.` },
+    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: fmtNum(mostPlayoffWins.value), body: `${joinNames(mostPlayoffWins.owners)} — most playoff wins in league history.` },
+    { medal: 'Playoffs', title: 'Most Playoff Points', stat: fmtNum(mostPlayoffPts.value), body: `${joinNames(mostPlayoffPts.owners)} — most total points scored across all playoff games.` },
+    { medal: 'Championships', title: 'Most Championships', stat: fmtNum(mostChamps.value), body: `${joinNames(mostChamps.owners)} — most league titles won.` },
+    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: fmtNum(mostTop3.value), body: `${joinNames(mostTop3.owners)} — most 1st, 2nd, or 3rd place finishes.` },
+    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: fmtNum(r.highestWeek.score), body: `${joinNames(r.highestWeek.holders.map(h => `${nameOf(h.key)} (${h.info})`))} — highest single-week score in league history.` },
+    { medal: 'Single Game', title: 'Lowest Scoring Week (Regular Season)', stat: fmtNum(r.lowestWeek.score), body: `${joinNames(r.lowestWeek.holders.map(h => `${nameOf(h.key)} (${h.info})`))} — lowest single-week score in league history.` },
+    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: fmtNum(most100.value), body: `${joinNames(most100.owners)} — most weeks scoring 100+ points, career.` },
   ];
 
   el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card">
