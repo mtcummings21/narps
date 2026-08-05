@@ -15,10 +15,9 @@
     <nav class="nav" id="site-nav">
       <a href="index.html">Home</a>
       <a href="champions.html">Champions</a>
-      <a href="standings.html" aria-current="page">Standings</a>
+      <a href="standings.html" aria-current="page">All-Time Standings</a>
       <a href="seasons.html">Seasons</a>
       <a href="teams.html">Teams</a>
-      <a href="head2head.html">Head-to-Head</a>
       <a href="newsletters.html">Newsletters</a>
       <a href="survivor.html">Survivor</a>
     </nav>
@@ -36,12 +35,26 @@
   </div>
 </section>
 
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Head-to-Head Records</h2>
+      <span class="section-sub">All-Time · Regular Season</span>
+    </div>
+    <p class="muted" style="max-width:65ch;">Every franchise's all-time record against every other franchise, computed directly from all 15 seasons (2011–2025) of verified regular-season matchups. Franchises are ordered by career wins. Hover a cell for the exact record.</p>
+    <div id="h2h-container"></div>
+  </div>
+</section>
+
 <footer>
   <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
 </footer>
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderStandings('standings-container');</script>
+<script>
+  renderStandings('standings-container');
+  renderH2H('h2h-container');
+</script>
 </body>
 </html>
