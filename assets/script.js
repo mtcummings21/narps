@@ -219,7 +219,11 @@ function renderSeasonsList(containerId){
     const s = SEASONS[y];
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
-      <p><strong>${s.champion.owner}</strong> — ${s.champion.team}. Full standings, schedule, and playoff bracket inside.</p>
+      <p style="margin:0;">
+        🥇 <strong>${s.champion.owner}</strong> — ${s.champion.team}<br>
+        🥈 ${s.second.owner} — ${s.second.team}<br>
+        🥉 ${s.third.owner} — ${s.third.team}
+      </p>
     </a>`;
   }).join('') + `</div>`;
 }
