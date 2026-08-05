@@ -220,9 +220,9 @@ function renderSeasonsList(containerId){
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
       <p style="margin:0;">
-        🥇 <strong>${s.champion.owner}</strong> — ${s.champion.team}<br>
-        🥈 ${s.second.owner} — ${s.second.team}<br>
-        🥉 ${s.third.owner} — ${s.third.team}
+        🥇 <strong>${s.champion.owner}</strong><br>
+        🥈 ${s.second.owner}<br>
+        🥉 ${s.third.owner}
       </p>
     </a>`;
   }).join('') + `</div>`;
