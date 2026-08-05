@@ -382,35 +382,31 @@ function renderTeamDetail(containerId){
 
   const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
   const years = Object.keys(SEASONS).sort((a,b) => b - a);
-  const seasonRows = years.map(y => {
+
+  const seasonBlocks = years.map(y => {
     const s = SEASONS[y];
-    const row = s.standings.find(r => lastName(r.owner) === lastName(t.owner));
-    if(!row) return '';
-    const rank = s.standings.indexOf(row) + 1;
-    let finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
-    if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
-    else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
-    else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
-    return `<tr>
-      <td class="pos">${y}</td>
-      <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
-      <td>${row.pct.toFixed(3)}</td>
-      <td class="name-cell">${finish}</td>
-      <td><a href="season.html?year=${y}" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--blue);">View season →</a></td>
-    </tr>`;
+    const top3 = s.standings.slice(0, 3);
+    const medals = ['🥇','🥈','🥉'];
+    const rows = top3.map((r, i) => {
+      const isThisOwner = lastName(r.owner) === lastName(t.owner);
+      return `<li style="${isThisOwner ? 'font-weight:700; color:var(--navy);' : ''}">${medals[i]} ${r.owner} — ${r.team}</li>`;
+    }).join('');
+    return `<div style="margin-bottom:22px;">
+      <h3 style="font-family:var(--display); font-size:1.3rem; margin:0 0 8px;">
+        <a href="season.html?year=${y}" style="color:var(--navy); text-decoration:none;">${y}</a>
+      </h3>
+      <ol style="list-style:none; margin:0; padding:0; font-family:var(--mono); font-size:0.9rem; line-height:1.9;">${rows}</ol>
+    </div>`;
   }).join('');
 
-  const seasonTable = years.length ? `<div class="table-scroll"><table>
-    <thead><tr><th>Year</th><th>Record</th><th>Pct</th><th>Finish</th><th></th></tr></thead>
-    <tbody>${seasonRows}</tbody>
-  </table></div>` : `<p class="muted">Detailed season-by-season data not added yet.</p>`;
+  const seasonTable = years.length ? seasonBlocks : `<p class="muted">Detailed season-by-season data not added yet.</p>`;
 
   el.innerHTML = `
     ${statCards}
     <h2 class="section-title" style="margin-top:8px;">Championships</h2>
     <div style="margin:20px 0 40px;">${champGrid}</div>
     <h2 class="section-title">Season by Season</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Only seasons with full data entered so far are shown here.</p>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Top 3 finishers for each season. This owner's name is bolded when they placed.</p>
     ${seasonTable}
   `;
 }
