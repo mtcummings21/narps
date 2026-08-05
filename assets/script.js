@@ -41,7 +41,7 @@ function standingsRowHTML(t, i){
     <td>${fmtPct(t.winPct)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
     <td>${t.gameAvgPF.toFixed(1)}</td>
-    <td>${fmtPct(t.playoffWinPct)}</td>
+    <td>${t.playoffW}-${t.playoffL}</td>
     <td>${t.highScore.toFixed(1)}</td>
   </tr>`;
 }
@@ -77,12 +77,12 @@ function renderStandings(containerId){
         <th data-key="winPct">Win%</th>
         <th data-key="diff">Pt Diff/G</th>
         <th data-key="gameAvgPF">Avg PF</th>
-        <th data-key="playoffWinPct">Playoff%</th>
+        <th data-key="playoffW">Playoff Record</th>
         <th data-key="highScore">Best Gm</th>
       </tr></thead>
       <tbody>${data.map(standingsRowHTML).join('')}</tbody>
     </table></div>
-    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort. Playoff% reflects career playoff-game win rate.</p>`;
+    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort. Playoff Record reflects career playoff wins-losses.</p>`;
 
     el.querySelectorAll('thead th').forEach(th => {
       const key = th.dataset.key;
@@ -371,10 +371,13 @@ function renderTeamDetail(containerId){
   if(subEl) subEl.textContent = t.team;
 
   const titles = CHAMPIONS.filter(c => c.key === key).sort((a,b) => a.year - b.year);
+  const allTimeRecords = computeAllTimeRecords();
+  const top3Count = allTimeRecords.topThree[key] || 0;
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
     <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
+    <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
   </div>`;
@@ -540,12 +543,14 @@ function renderAllTimeRecords(containerId){
   if(!el) return;
   const r = computeAllTimeRecords();
   const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
+  const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
 
   const byMaxTeamsField = (field) => TEAMS.slice().sort((a,b) => b[field]-a[field])[0];
   const byMaxComputed = (obj) => Object.entries(obj).sort((a,b) => b[1]-a[1])[0];
 
   const mostRegWins = byMaxTeamsField('gamesW');
   const [mostRegPtsKey, mostRegPtsVal] = byMaxComputed(r.regPoints);
+  const mostPlayoffAppTeam = byMaxTeamsField('playoffApp');
   const mostPlayoffWinsTeam = byMaxTeamsField('playoffW');
   const [mostPlayoffPtsKey, mostPlayoffPtsVal] = byMaxComputed(r.playoffPoints);
   const mostChamps = byMaxTeamsField('champs');
@@ -553,14 +558,15 @@ function renderAllTimeRecords(containerId){
   const [most100Key, most100Val] = byMaxComputed(r.hundredPlusWeeks);
 
   const cards = [
-    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: mostRegWins.gamesW, body: `${mostRegWins.owner} has won more regular season games than anyone else in league history.` },
-    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: mostRegPtsVal.toFixed(1), body: `${nameOf(mostRegPtsKey)} has scored more total regular season points than any other owner.` },
-    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: mostPlayoffWinsTeam.playoffW, body: `${mostPlayoffWinsTeam.owner} has won more playoff games than anyone else.` },
-    { medal: 'Playoffs', title: 'Most Playoff Points', stat: mostPlayoffPtsVal.toFixed(1), body: `${nameOf(mostPlayoffPtsKey)} has scored more total points across all playoff games than any other owner.` },
-    { medal: 'Championships', title: 'Most Championships', stat: mostChamps.champs, body: `${mostChamps.owner} has won the league title more than anyone else.` },
-    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: mostTop3Val, body: `${nameOf(mostTop3Key)} has finished 1st, 2nd, or 3rd more times than any other owner.` },
-    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: r.highestWeek.score.toFixed(1), body: `${nameOf(r.highestWeek.key)} put up the highest single-week score in league history (${r.highestWeek.opponentInfo}).` },
-    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: most100Val, body: `${nameOf(most100Key)} has scored 100 or more points in a single week more often than anyone else.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: fmtNum(mostRegWins.gamesW), body: `${mostRegWins.owner} has won more regular season games than anyone else in league history.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: fmtNum(mostRegPtsVal), body: `${nameOf(mostRegPtsKey)} has scored more total regular season points than any other owner.` },
+    { medal: 'Playoffs', title: 'Most Playoff Appearances', stat: fmtNum(mostPlayoffAppTeam.playoffApp), body: `${mostPlayoffAppTeam.owner} has made the playoffs more times than anyone else.` },
+    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: fmtNum(mostPlayoffWinsTeam.playoffW), body: `${mostPlayoffWinsTeam.owner} has won more playoff games than anyone else.` },
+    { medal: 'Playoffs', title: 'Most Playoff Points', stat: fmtNum(mostPlayoffPtsVal), body: `${nameOf(mostPlayoffPtsKey)} has scored more total points across all playoff games than any other owner.` },
+    { medal: 'Championships', title: 'Most Championships', stat: fmtNum(mostChamps.champs), body: `${mostChamps.owner} has won the league title more than anyone else.` },
+    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: fmtNum(mostTop3Val), body: `${nameOf(mostTop3Key)} has finished 1st, 2nd, or 3rd more times than any other owner.` },
+    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: fmtNum(r.highestWeek.score), body: `${nameOf(r.highestWeek.key)} put up the highest single-week score in league history (${r.highestWeek.opponentInfo}).` },
+    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: fmtNum(most100Val), body: `${nameOf(most100Key)} has scored 100 or more points in a single week more often than anyone else.` },
   ];
 
   el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card">
