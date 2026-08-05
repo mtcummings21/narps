@@ -451,8 +451,8 @@ td.pos{ color: var(--text-soft); }
   font-size: 0.66rem;
   padding: 2px 9px;
   border-radius: 20px;
-  background: var(--red);
-  color: var(--white);
+  background: #C89B3C;
+  color: #3D2E0A;
 }
 
 /* ---------- Awards ---------- */
