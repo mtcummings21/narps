@@ -662,7 +662,7 @@ function renderH2H(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
   const matrix = computeH2H();
-  const order = TEAMS.slice().sort((a,b) => b.gamesW - a.gamesW).map(t => t.key);
+  const order = TEAMS.slice().sort((a,b) => a.key.localeCompare(b.key)).map(t => t.key);
 
   const headCells = order.map(k => `<th>${k}</th>`).join('');
   const rows = order.map(rowKey => {
