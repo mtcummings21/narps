@@ -546,6 +546,38 @@ td.pos{ color: var(--text-soft); }
 #records-container .award-card.cat-consistency .medal{ color: var(--red-dk); }
 #records-container .award-card.cat-consistency .headline-stat{ color: var(--red-dk); }
 
+#records-container .award-card.cat-streaks{ border-top-color: var(--navy-soft); }
+#records-container .award-card.cat-streaks .medal{ color: var(--navy-soft); }
+#records-container .award-card.cat-streaks .headline-stat{ color: var(--navy-soft); }
+
+/* 2nd/3rd place holders shown under each record card */
+.award-runnerups{
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+  font-family: var(--mono);
+}
+.award-runnerups .runner-row{
+  font-size: 0.72rem;
+  color: var(--text-soft);
+  line-height: 1.5;
+}
+.award-runnerups .rank-tag{
+  display:inline-block;
+  font-weight:700;
+  font-size: 0.62rem;
+  letter-spacing: 0.4px;
+  color: var(--navy);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 0 6px;
+  margin-right: 5px;
+}
+.award-runnerups .runner-val{ color: var(--text-soft); }
+#records-container .award-runnerups{ margin-top: 8px; padding-top: 8px; }
+#records-container .award-runnerups .runner-row{ font-size: 0.68rem; }
+
 /* ---------- Footer ---------- */
 footer{
   background: var(--navy);
