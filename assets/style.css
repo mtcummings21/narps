@@ -521,6 +521,31 @@ td.pos{ color: var(--text-soft); }
   line-height: 1.4;
 }
 
+/* Color-code each record category using the site's existing palette */
+#records-container .award-card.cat-regular-season{ border-top-color: var(--blue); }
+#records-container .award-card.cat-regular-season .medal{ color: var(--blue); }
+#records-container .award-card.cat-regular-season .headline-stat{ color: var(--blue); }
+
+#records-container .award-card.cat-single-season{ border-top-color: var(--blue-lt); }
+#records-container .award-card.cat-single-season .medal{ color: var(--blue-lt); }
+#records-container .award-card.cat-single-season .headline-stat{ color: var(--blue); }
+
+#records-container .award-card.cat-playoffs{ border-top-color: var(--red); }
+#records-container .award-card.cat-playoffs .medal{ color: var(--red); }
+#records-container .award-card.cat-playoffs .headline-stat{ color: var(--red-dk); }
+
+#records-container .award-card.cat-championships{ border-top-color: #C89B3C; background: linear-gradient(180deg, rgba(200,155,60,0.06), var(--panel) 40%); }
+#records-container .award-card.cat-championships .medal{ color: #A67C1E; }
+#records-container .award-card.cat-championships .headline-stat{ color: #A67C1E; }
+
+#records-container .award-card.cat-single-game{ border-top-color: var(--navy); }
+#records-container .award-card.cat-single-game .medal{ color: var(--navy-soft); }
+#records-container .award-card.cat-single-game .headline-stat{ color: var(--navy); }
+
+#records-container .award-card.cat-consistency{ border-top-color: var(--red-dk); }
+#records-container .award-card.cat-consistency .medal{ color: var(--red-dk); }
+#records-container .award-card.cat-consistency .headline-stat{ color: var(--red-dk); }
+
 /* ---------- Footer ---------- */
 footer{
   background: var(--navy);
