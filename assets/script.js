@@ -1,26 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
-
-:root{
-  --navy:       #0B2447;   /* deep navy, headers/dark panels */
-  --navy-soft:  #16345E;
-  --blue:       #2F6FED;   /* modern accent blue */
-  --blue-lt:    #6FA0FF;
-  --red:        #D62839;   /* accent red */
-  --red-dk:     #B01F2E;
-  --white:      #FFFFFF;
-  --bg:         #F5F7FA;   /* page background */
-  --panel:      #FFFFFF;   /* card background */
-  --line:       #E2E6ED;
-  --text:       #10192B;
-  --text-soft:  #5B6577;
-  --radius:     14px;
-  --radius-sm:  10px;
-  --shadow:     0 1px 2px rgba(11,36,71,0.06), 0 8px 24px rgba(11,36,71,0.06);
-  --shadow-hover: 0 4px 10px rgba(11,36,71,0.08), 0 16px 32px rgba(11,36,71,0.10);
-
-  --display: 'Space Grotesk', 'Inter', sans-serif;
-  --body: 'Inter', -apple-system, sans-serif;
-  --mono: 'JetBrains Mono', 'Courier New', monospace;
+// ---------- Nav toggle (mobile) ----------
+function initNav(){
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('.nav');
+  if(!btn || !nav) return;
+  btn.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
 }
 
 // ---------- Trophy case ----------
@@ -29,11 +15,10 @@ function renderTrophyCase(containerId, limit){
   if(!el) return;
   const list = limit ? CHAMPIONS.slice(-limit) : CHAMPIONS.slice();
   list.reverse();
-  el.innerHTML = list.map((c, i) => {
+  el.innerHTML = list.map(c => {
     const titleCount = CHAMPIONS.filter(x => x.key === c.key && x.year <= c.year).length;
     const tag = titleCount > 1 ? `<span class="repeat-tag">×${titleCount}</span>` : '';
-    const recentClass = i === 0 ? ' plaque--recent' : '';
-    return `<div class="plaque${recentClass}">
+    return `<div class="plaque plaque--recent">
       <div class="yr">${c.year} CHAMPION</div>
       <div class="owner">${c.owner}</div>
       <div class="team">${c.team}</div>
@@ -42,335 +27,232 @@ function renderTrophyCase(containerId, limit){
   }).join('');
 }
 
-@media (prefers-reduced-motion: reduce){
-  html{ scroll-behavior:auto; }
-  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+// ---------- Standings table ----------
+function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
+
+function standingsRowHTML(t, i){
+  return `<tr>
+    <td class="pos">${i+1}</td>
+    <td class="name-cell">${t.owner}<div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
+    <td class="pos">${t.seasons} yrs</td>
+    <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
+    <td class="pos">${t.playoffApp}</td>
+    <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
+    <td>${fmtPct(t.winPct)}</td>
+    <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
+    <td>${t.gameAvgPF.toFixed(1)}</td>
+    <td>${t.playoffW}-${t.playoffL}</td>
+    <td>${t.highScore.toFixed(1)}</td>
+  </tr>`;
 }
 
-a{ color: inherit; }
-img{ max-width:100%; display:block; }
+function renderStandings(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  let data = TEAMS.slice();
+  let sortKey = 'winPct';
+  let sortDir = 'desc';
 
-.wrap{
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 0 24px;
-}
-
-/* ---------- Header / nav ---------- */
-.site-header{
-  background: var(--white);
-  color: var(--navy);
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  backdrop-filter: blur(8px);
-}
-.site-header .wrap{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-top:16px;
-  padding-bottom:16px;
-  gap: 16px;
-}
-.brand{
-  display:flex;
-  align-items:baseline;
-  gap:10px;
-  font-family: var(--display);
-  font-weight: 700;
-  letter-spacing: -0.3px;
-  font-size: 1.4rem;
-  text-decoration:none;
-  color: var(--navy);
-}
-.brand::before{
-  content: "";
-  display: inline-block;
-  width: 10px;
-  height: 22px;
-  background: linear-gradient(180deg, var(--red) 0 33%, var(--white) 33% 66%, var(--blue) 66% 100%);
-  border-radius: 3px;
-  margin-right: 2px;
-  border: 1px solid var(--line);
-  vertical-align: -4px;
-}
-.brand small{
-  font-family: var(--mono);
-  font-weight: 600;
-  font-size: 0.62rem;
-  letter-spacing: 1.5px;
-  color: var(--text-soft);
-}
-.nav{
-  display:flex;
-  gap: 2px;
-  flex-wrap: wrap;
-}
-.nav a{
-  font-family: var(--body);
-  font-weight: 600;
-  font-size: 0.86rem;
-  letter-spacing: 0.1px;
-  text-decoration:none;
-  color: var(--text-soft);
-  padding: 8px 14px;
-  border-radius: 999px;
-  transition: color 0.15s ease, background 0.15s ease;
-}
-.nav a:hover, .nav a:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav a[aria-current="page"]{ color: var(--white); background: var(--navy); }
-
-.nav-toggle{ display:none; }
-
-@media (max-width: 720px){
-  .nav-toggle{
-    display:inline-flex;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    color: var(--navy);
-    font-family: var(--body);
-    font-weight:600;
-    font-size: 0.8rem;
-    padding: 8px 14px;
-    border-radius: 999px;
+  function sortData(){
+    data.sort((a,b) => {
+      let av = sortKey === 'record' ? a.winPct : a[sortKey];
+      let bv = sortKey === 'record' ? b.winPct : b[sortKey];
+      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+      av = av == null ? -Infinity : av;
+      bv = bv == null ? -Infinity : bv;
+      return sortDir === 'asc' ? av - bv : bv - av;
+    });
   }
-  .nav{
-    display:none;
-    flex-direction: column;
-    width: 100%;
-    order: 3;
-    padding-top: 12px;
-    gap: 4px;
+
+  function draw(){
+    sortData();
+    el.innerHTML = `<div class="table-scroll"><table id="standings-table">
+      <thead><tr>
+        <th data-key="rank">#</th>
+        <th data-key="owner">Owner / Team</th>
+        <th data-key="seasons">Seasons</th>
+        <th data-key="champs">Titles</th>
+        <th data-key="playoffApp">Playoffs</th>
+        <th data-key="record">Record</th>
+        <th data-key="winPct">Win%</th>
+        <th data-key="diff">Pt Diff/G</th>
+        <th data-key="gameAvgPF">Avg PF</th>
+        <th data-key="playoffW">Playoff Record</th>
+        <th data-key="highScore">Best Gm</th>
+      </tr></thead>
+      <tbody>${data.map(standingsRowHTML).join('')}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort. Playoff Record reflects career playoff wins-losses.</p>`;
+
+    el.querySelectorAll('thead th').forEach(th => {
+      const key = th.dataset.key;
+      if(key === 'rank') return; // position column isn't sortable
+      th.addEventListener('click', () => {
+        if(sortKey === key){ sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+        else { sortKey = key; sortDir = 'desc'; }
+        draw();
+      });
+      if(key === sortKey) th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    });
   }
-  .nav.open{ display:flex; }
-  .nav a{ text-align: left; }
-  .site-header .wrap{ flex-wrap: wrap; }
+  draw();
 }
 
-/* ---------- Hero ---------- */
-.hero{
-  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
-  color: var(--white);
-  padding: 72px 0 52px;
-  position: relative;
-  overflow: hidden;
-}
-.hero::after{
-  content:"";
-  position:absolute;
-  right: -80px; top: -80px;
-  width: 360px; height: 360px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(214,40,57,0.35), transparent 70%);
-  pointer-events:none;
-}
-.hero::before{
-  content:"";
-  position:absolute;
-  left: -60px; bottom: -120px;
-  width: 320px; height: 320px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(47,111,237,0.30), transparent 70%);
-  pointer-events:none;
-}
-.hero .eyebrow{
-  font-family: var(--mono);
-  font-weight:600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--blue-lt);
-  margin: 0 0 14px;
-  position: relative;
-}
-.hero h1{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: clamp(2.6rem, 6.5vw, 4.6rem);
-  line-height: 1.02;
-  margin: 0 0 18px;
-  letter-spacing: -1px;
-  position: relative;
-}
-.hero p.lede{
-  max-width: 60ch;
-  font-size: 1.1rem;
-  color: rgba(255,255,255,0.78);
-  margin: 0 0 30px;
-  position: relative;
+// ---------- Awards ----------
+function renderAwards(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+
+  const byMax = (key) => TEAMS.slice().sort((a,b)=>b[key]-a[key])[0];
+  const byMin = (key) => TEAMS.slice().sort((a,b)=>a[key]-b[key])[0];
+  const byMaxPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>b.playoffWinPct-a.playoffWinPct)[0];
+  const byMinPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>a.playoffWinPct-b.playoffWinPct)[0];
+
+  const highScore = byMax('highScore');
+  const bestDiff = byMax('diff');
+  const worstDiff = byMin('diff');
+  const bestWinPct = byMax('winPct');
+  const worstWinPct = byMin('winPct');
+  const mostTitles = byMax('champs');
+  const bestOffense = byMax('gameAvgPF');
+
+  // longest current title drought among teams with a past title
+  const lastTitleYear = {};
+  CHAMPIONS.forEach(c => { lastTitleYear[c.key] = Math.max(lastTitleYear[c.key]||0, c.year); });
+  let droughtCandidates = TEAMS.filter(t=>t.champs>0).map(t => ({t, gap: LATEST_SEASON - lastTitleYear[t.key]}));
+  droughtCandidates.sort((a,b)=>b.gap-a.gap);
+  const longestDrought = droughtCandidates[0];
+
+  // never-champion with most playoff appearances (bad luck award)
+  const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
+
+  const cards = [
+    {
+      medal: 'Single-Game Record', title: 'Highest Score Ever',
+      stat: `${highScore.highScore} pts`,
+      body: `${highScore.owner} (${highScore.team}) put up the biggest single-game total in league history.`
+    },
+    {
+      medal: 'Hall of Fame', title: 'Most Championships',
+      stat: `${mostTitles.champs} titles`,
+      body: `${mostTitles.owner} leads the league with ${mostTitles.champs} championships across ${mostTitles.seasons} seasons.`
+    },
+    {
+      medal: 'Best Point Differential', title: 'Most Dominant Scorer',
+      stat: `+${bestDiff.diff}/gm`,
+      body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average — the best margin in NARPS history.`
+    },
+    {
+      medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
+      stat: `${worstDiff.diff}/gm`,
+      body: `${worstDiff.owner} has been outscored by ${Math.abs(worstDiff.diff)} points per game on average, the toughest margin in the league.`
+    },
+    {
+      medal: 'Best Winning Percentage', title: 'Most Consistent Winner',
+      stat: fmtPct(bestWinPct.winPct),
+      body: `${bestWinPct.owner} has the best all-time regular-record winning percentage in the league.`
+    },
+    {
+      medal: 'Worst Winning Percentage', title: 'Cellar Dweller',
+      stat: fmtPct(worstWinPct.winPct),
+      body: `${worstWinPct.owner} carries the league's toughest all-time record.`
+    },
+    {
+      medal: 'Clutch Factor', title: 'Best Playoff Win%',
+      stat: fmtPct(byMaxPlayoff.playoffWinPct),
+      body: `${byMaxPlayoff.owner} turns it on in the postseason, winning ${fmtPct(byMaxPlayoff.playoffWinPct)} of playoff games (min. 5 appearances).`
+    },
+    {
+      medal: 'Choke Artist', title: 'Worst Playoff Win%',
+      stat: fmtPct(byMinPlayoff.playoffWinPct),
+      body: `${byMinPlayoff.owner} has struggled most once the postseason arrives (min. 5 appearances).`
+    },
+    {
+      medal: 'Best Offense', title: 'Highest Career Scoring Average',
+      stat: `${bestOffense.gameAvgPF} pts/gm`,
+      body: `${bestOffense.owner} has the highest career average points per game in NARPS history.`
+    },
+    {
+      medal: 'Bad Beat', title: 'Playoff Regular, Zero Rings',
+      stat: `${badLuck.playoffApp} appearances`,
+      body: `${badLuck.owner} has made the playoffs ${badLuck.playoffApp} times without ever winning it all.`
+    },
+    {
+      medal: 'Championship Drought', title: 'Longest Time Since a Title',
+      stat: `${longestDrought.gap} yrs`,
+      body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]} — ${longestDrought.gap} seasons and counting.`
+    },
+  ];
+
+  el.innerHTML = cards.map(c => `<div class="award-card">
+    <div class="medal">${c.medal}</div>
+    <h3>${c.title}</h3>
+    <div class="headline-stat">${c.stat}</div>
+    <p>${c.body}</p>
+  </div>`).join('');
 }
 
-.stat-row{
-  display:flex;
-  flex-wrap:wrap;
-  gap: 14px;
-  margin-top: 8px;
-  position:relative;
-}
-.stat{
-  min-width: 108px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.14);
-  border-radius: var(--radius-sm);
-  padding: 12px 18px;
-}
-.stat .num{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 2.1rem;
-  color: var(--white);
-  line-height:1;
-}
-.stat .label{
-  font-family: var(--mono);
-  font-weight:500;
-  font-size: 0.65rem;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.6);
-  margin-top: 5px;
+// ---------- Newsletters ----------
+function renderNewsletters(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const sorted = NEWSLETTERS.slice().sort((a,b) => (a.vol - b.vol) || (a.no - b.no));
+  el.innerHTML = `<div class="table-scroll"><table>
+    <thead><tr><th>Issue</th><th>Title</th><th>Season</th><th></th></tr></thead>
+    <tbody>
+      ${sorted.map(n => `<tr>
+        <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
+        <td class="name-cell">${n.title}</td>
+        <td class="pos">${n.year}</td>
+        <td><a href="${n.url}" target="_blank" rel="noopener" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--field); white-space:nowrap;">Read →</a></td>
+      </tr>`).join('')}
+    </tbody>
+  </table></div>`;
 }
 
-/* ---------- Kickoff countdown ---------- */
-.countdown-card{
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 26px 28px;
-  margin: 28px 0;
-  box-shadow: var(--shadow);
-}
-.countdown-title{
-  font-family: var(--mono);
-  font-weight:600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 0.78rem;
-  color: var(--navy);
-  text-align:center;
-  margin-bottom: 18px;
-}
-.countdown-grid{
-  display:flex;
-  justify-content:center;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-.countdown-unit{
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  min-width: 84px;
-  padding: 12px 8px;
-  text-align:center;
-}
-.countdown-unit:nth-child(1){ border-top: 3px solid var(--red); }
-.countdown-unit:nth-child(2){ border-top: 3px solid var(--navy); }
-.countdown-unit:nth-child(3){ border-top: 3px solid var(--blue); }
-.countdown-unit:nth-child(4){ border-top: 3px solid var(--red); }
-.countdown-num{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 2.4rem;
-  color: var(--navy);
-  line-height:1;
-  font-variant-numeric: tabular-nums;
-}
-.countdown-label{
-  font-family: var(--mono);
-  font-weight:600;
-  font-size: 0.63rem;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--text-soft);
-  margin-top: 5px;
-}
-.kickoff-live{
-  text-align:center;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  color: var(--red);
-  padding: 10px 0;
+// ---------- Seasons ----------
+function renderSeasonsList(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(SEASONS).sort((a,b) => b - a);
+  el.innerHTML = `<div class="card-grid">` + years.map(y => {
+    const s = SEASONS[y];
+    return `<a class="nav-card" href="season.html?year=${y}">
+      <h3>${y}</h3>
+      <p style="margin:0;">
+        🥇 <strong>${s.champion.owner}</strong><br>
+        🥈 ${s.second.owner}<br>
+        🥉 ${s.third.owner}
+      </p>
+    </a>`;
+  }).join('') + `</div>`;
 }
 
-/* ---------- Sections ---------- */
-section{ padding: 52px 0; }
-section + section{ border-top: 1px solid var(--line); }
-
-.section-head{
-  display:flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 26px;
-  flex-wrap: wrap;
-}
-h2.section-title{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.9rem;
-  margin: 0;
-  letter-spacing: -0.5px;
-  color: var(--navy);
-}
-.section-sub{
-  font-family: var(--mono);
-  font-weight:500;
-  font-size: 0.75rem;
-  color: var(--text-soft);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+function matchupRow(g){
+  const awayWin = g.awayScore > g.homeScore;
+  return `<tr>
+    <td class="${awayWin ? 'name-cell' : ''}" style="${awayWin ? 'font-weight:700;' : ''}">${g.away}</td>
+    <td class="pos">${g.awayScore}</td>
+    <td class="pos">–</td>
+    <td class="pos">${g.homeScore}</td>
+    <td class="${!awayWin ? 'name-cell' : ''}" style="${!awayWin ? 'font-weight:700;' : ''}">${g.home}</td>
+  </tr>`;
 }
 
-/* ---------- Nav cards on home ---------- */
-.card-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-.nav-card{
-  display:block;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px;
-  text-decoration:none;
-  color: var(--text);
-  box-shadow: var(--shadow);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-}
-.nav-card:hover, .nav-card:focus-visible{
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-hover);
-  border-color: var(--blue-lt);
-}
-.nav-card .card-eyebrow{
-  font-family: var(--mono);
-  font-weight:600;
-  font-size: 0.65rem;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--blue);
-}
-.nav-card h3{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.4rem;
-  margin: 8px 0 6px;
-  letter-spacing: -0.3px;
-  color: var(--navy);
-}
-.nav-card p{ margin:0; font-size: 0.93rem; color: var(--text-soft); }
+function renderSeasonDetail(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const year = params.get('year') || Object.keys(SEASONS).sort((a,b)=>b-a)[0];
+  const s = SEASONS[year];
+  if(!s){ el.innerHTML = `<p>No data found for ${year}.</p>`; return; }
 
   document.title = `${year} Season — League of NARPS`;
   const titleEl = document.getElementById('season-title');
   if(titleEl) titleEl.textContent = `${year} Season`;
 
   const podium = `<div class="trophy-case">
-    <div class="plaque" style="border-top-color:var(--gold);">
+    <div class="plaque plaque--recent">
       <div class="yr">CHAMPION</div>
       <div class="owner">${s.champion.owner}</div>
       <div class="team">${s.champion.team}</div>
@@ -433,18 +315,32 @@ h2.section-title{
   `;
 }
 
-/* Most recent champion — gold plaque */
-.plaque--recent{
-  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
-  border-top: 3px solid #A9822B;
-  box-shadow: var(--shadow), 0 0 0 1px rgba(169,130,43,0.25);
-}
-.plaque--recent .yr{ color: var(--navy-soft); }
-.plaque--recent .owner{ color: var(--navy); }
-.plaque--recent .team{ color: rgba(11,36,71,0.62); }
-.plaque--recent .repeat-tag{
-  color: var(--white);
-  background: var(--navy);
+// ---------- Kickoff countdown ----------
+function renderCountdown(containerId, targetDateStr){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const target = new Date(targetDateStr).getTime();
+
+  function update(){
+    const diff = target - Date.now();
+    if(diff <= 0){
+      el.innerHTML = `<div class="kickoff-live">🏈 Kickoff is here — let's go!</div>`;
+      clearInterval(timer);
+      return;
+    }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff / 3600000) % 24);
+    const m = Math.floor((diff / 60000) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+    el.innerHTML = `<div class="countdown-grid">
+      <div class="countdown-unit"><div class="countdown-num">${d}</div><div class="countdown-label">Days</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(h).padStart(2,'0')}</div><div class="countdown-label">Hrs</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(m).padStart(2,'0')}</div><div class="countdown-label">Min</div></div>
+      <div class="countdown-unit"><div class="countdown-num">${String(s).padStart(2,'0')}</div><div class="countdown-label">Sec</div></div>
+    </div>`;
+  }
+  update();
+  const timer = setInterval(update, 1000);
 }
 
 // ---------- Team pages ----------
@@ -459,47 +355,14 @@ function renderTeamsList(containerId){
       <p>${t.team} — ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
     </a>`).join('') + `</div>`;
 }
-}
 
-/* ---------- Awards ---------- */
-.award-grid{
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 16px;
-}
-.award-card{
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px;
-  box-shadow: var(--shadow);
-  border-top: 3px solid var(--blue);
-}
-.award-card .medal{
-  font-family: var(--mono);
-  font-weight:600;
-  font-size: 0.65rem;
-  letter-spacing: 1.2px;
-  text-transform: uppercase;
-  color: var(--red);
-}
-.award-card h3{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.3rem;
-  margin: 8px 0 10px;
-  color: var(--navy);
-  letter-spacing: -0.3px;
-}
-.award-card .headline-stat{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 2.1rem;
-  color: var(--blue);
-  line-height: 1;
-  margin-bottom: 6px;
-}
-.award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
+function renderTeamDetail(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const key = params.get('team');
+  const t = TEAMS.find(x => x.key === key);
+  if(!t){ el.innerHTML = `<p>No team found. <a href="teams.html">Back to all teams</a></p>`; return; }
 
   document.title = `${t.owner} — League of NARPS`;
   const titleEl = document.getElementById('team-title');
@@ -559,17 +422,69 @@ function renderTeamsList(containerId){
   `;
 }
 
-/* ---------- Footer ---------- */
-footer{
-  background: var(--navy);
-  color: rgba(255,255,255,0.6);
-  padding: 26px 0;
-  font-family: var(--mono);
-  font-weight:500;
-  font-size: 0.75rem;
-  text-align:center;
+// ---------- Survivor ----------
+function renderSurvivor(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(SURVIVOR).sort((a,b) => b - a);
+  const year = years[0];
+  const s = SURVIVOR[year];
+  if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
+
+  const sorted = s.players.slice().sort((a,b) => {
+    if(a.result === 'Winner') return -1;
+    if(b.result === 'Winner') return 1;
+    return (b.eliminatedWeek || 0) - (a.eliminatedWeek || 0);
+  });
+
+  const champCard = `<div class="trophy-case">
+    <div class="plaque">
+      <div class="yr">${year} SURVIVOR CHAMPION</div>
+      <div class="owner">${s.champion}</div>
+      <div class="team">Last one standing</div>
+    </div>
+  </div>`;
+
+  const leaderboardRows = sorted.map((p, i) => {
+    const result = p.result === 'Winner' ? 'Winner 🏆' : `Eliminated — Week ${p.eliminatedWeek}`;
+    const losingPick = p.result === 'Winner' ? '—' : (p.picks.find(pk => pk.week === p.eliminatedWeek) || {}).team || '—';
+    return `<tr>
+      <td class="pos">${i+1}</td>
+      <td class="name-cell">${p.name}</td>
+      <td>${result}</td>
+      <td class="pos">${losingPick}</td>
+      <td class="pos">${p.picks.length} picks made</td>
+    </tr>`;
+  }).join('');
+
+  const leaderboard = `<div class="table-scroll"><table>
+    <thead><tr><th>#</th><th>Player</th><th>Result</th><th>Losing Pick</th><th>Survived</th></tr></thead>
+    <tbody>${leaderboardRows}</tbody>
+  </table></div>`;
+
+  const pickDetails = sorted.map(p => {
+    const rows = p.picks.map(pk => `<tr>
+      <td class="pos">Week ${pk.week}</td>
+      <td class="${pk.loss ? '' : 'name-cell'}" style="${pk.loss ? 'color:var(--red); text-decoration:line-through;' : ''}">${pk.team}${pk.loss ? ' (loss)' : ''}</td>
+    </tr>`).join('');
+    return `<details style="margin-bottom:8px;">
+      <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);">${p.name} — ${p.result === 'Winner' ? 'Winner' : 'Eliminated Week ' + p.eliminatedWeek}</summary>
+      <div class="table-scroll" style="margin-top:8px;"><table>
+        <thead><tr><th>Week</th><th>Pick</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table></div>
+    </details>`;
+  }).join('');
+
+  el.innerHTML = `
+    ${champCard}
+    <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
+    ${leaderboard}
+    <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a player to see every pick they made, week by week. Losses are struck through — two losses means elimination.</p>
+    ${pickDetails}
+  `;
 }
-footer a{ color: var(--blue-lt); text-decoration:none; }
 
 // ---------- Head-to-head (computed from verified season data) ----------
 function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
@@ -717,38 +632,63 @@ function renderAllTimeRecords(containerId){
     <p>${c.body}</p>
   </div>`).join('') + `</div>`;
 }
-}
-.h2h-grid thead th{
-  background: var(--navy);
-  color: var(--white);
-  writing-mode: vertical-rl;
-  transform: rotate(180deg);
-  font-size: 0.68rem;
-  padding: 8px 6px;
-  position: static;
-}
-.h2h-grid tbody th{
-  background: var(--bg);
-  text-align:left;
-  font-family: var(--body);
-  font-weight:600;
-  writing-mode: horizontal-tb;
-  white-space: nowrap;
-  padding: 8px 10px;
-}
-.h2h-grid td{ cursor: default; }
-.h2h-grid td.self{ background: repeating-linear-gradient(45deg, var(--line), var(--line) 4px, var(--panel) 4px, var(--panel) 8px); }
-.h2h-grid td.dominant{ background: rgba(47,111,237,0.12); font-weight:600; color: var(--navy); }
-.h2h-grid td.trouble{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
-.h2h-grid td:hover:not(.self){ outline: 2px solid var(--blue); outline-offset:-2px; }
-.h2h-legend{
-  display:flex; gap:18px; flex-wrap:wrap; margin-top:14px;
-  font-family: var(--mono); font-size: 0.75rem; color: var(--text-soft);
-}
-.h2h-legend span{ display:inline-flex; align-items:center; gap:6px; }
-.h2h-swatch{ width:12px; height:12px; border-radius:2px; display:inline-block; }
 
-/* ---------- utility ---------- */
-.muted{ color: var(--text-soft); }
-.center{ text-align:center; }
-:focus-visible{ outline: 2px solid var(--blue); outline-offset: 2px; }
+function computeH2H(){
+  const keyByLastName = {};
+  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
+
+  const matrix = {};
+  TEAMS.forEach(t => { matrix[t.key] = {}; });
+
+  function record(g) {
+    const awayKey = keyByLastName[lastNameOf(g.awayMgr)];
+    const homeKey = keyByLastName[lastNameOf(g.homeMgr)];
+    if(!awayKey || !homeKey || awayKey === homeKey) return;
+    if(!matrix[awayKey][homeKey]) matrix[awayKey][homeKey] = {w:0,l:0,t:0};
+    if(!matrix[homeKey][awayKey]) matrix[homeKey][awayKey] = {w:0,l:0,t:0};
+    if(g.awayScore > g.homeScore){ matrix[awayKey][homeKey].w++; matrix[homeKey][awayKey].l++; }
+    else if(g.homeScore > g.awayScore){ matrix[homeKey][awayKey].w++; matrix[awayKey][homeKey].l++; }
+    else { matrix[awayKey][homeKey].t++; matrix[homeKey][awayKey].t++; }
+  }
+
+  Object.values(SEASONS).forEach(s => {
+    Object.values(s.schedule || {}).forEach(games => games.forEach(record));
+  });
+
+  return matrix;
+}
+
+function renderH2H(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const matrix = computeH2H();
+  const order = TEAMS.slice().sort((a,b) => a.key.localeCompare(b.key)).map(t => t.key);
+
+  const headCells = order.map(k => `<th>${k}</th>`).join('');
+  const rows = order.map(rowKey => {
+    const cells = order.map(colKey => {
+      if(rowKey === colKey) return `<td class="self" title="—"></td>`;
+      const rec = matrix[rowKey][colKey];
+      if(!rec) return `<td>—</td>`;
+      const { w, l, t } = rec;
+      let cls = '';
+      if(w > l) cls = 'dominant';
+      else if(l > w) cls = 'trouble';
+      const label = t ? `${w}-${l}-${t}` : `${w}-${l}`;
+      return `<td class="${cls}" title="${rowKey} vs ${colKey}: ${label}">${label}</td>`;
+    }).join('');
+    return `<tr><th>${rowKey}</th>${cells}</tr>`;
+  }).join('');
+
+  el.innerHTML = `<div class="h2h-wrap"><table class="h2h-grid">
+    <thead><tr><th></th>${headCells}</tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>
+  <div class="h2h-legend">
+    <span><span class="h2h-swatch" style="background:rgba(47,111,237,0.3)"></span> Winning record vs opponent</span>
+    <span><span class="h2h-swatch" style="background:rgba(214,40,57,0.25)"></span> Losing record vs opponent</span>
+    <span>Read as: row's record vs. column · computed from all regular season and playoff games, 2011–2025</span>
+  </div>`;
+}
+
+document.addEventListener('DOMContentLoaded', initNav);
