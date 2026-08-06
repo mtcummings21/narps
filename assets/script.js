@@ -15,10 +15,11 @@ function renderTrophyCase(containerId, limit){
   if(!el) return;
   const list = limit ? CHAMPIONS.slice(-limit) : CHAMPIONS.slice();
   list.reverse();
-  el.innerHTML = list.map(c => {
+  el.innerHTML = list.map((c, i) => {
     const titleCount = CHAMPIONS.filter(x => x.key === c.key && x.year <= c.year).length;
     const tag = titleCount > 1 ? `<span class="repeat-tag">×${titleCount}</span>` : '';
-    return `<div class="plaque">
+    const recentClass = i === 0 ? ' plaque--recent' : '';
+    return `<div class="plaque${recentClass}">
       <div class="yr">${c.year} CHAMPION</div>
       <div class="owner">${c.owner}</div>
       <div class="team">${c.team}</div>
@@ -252,7 +253,7 @@ function renderSeasonDetail(containerId){
   if(titleEl) titleEl.textContent = `${year} Season`;
 
   const podium = `<div class="trophy-case">
-    <div class="plaque plaque-champion">
+    <div class="plaque" style="border-top-color:var(--gold);">
       <div class="yr">CHAMPION</div>
       <div class="owner">${s.champion.owner}</div>
       <div class="team">${s.champion.team}</div>
@@ -269,33 +270,15 @@ function renderSeasonDetail(containerId){
     </div>
   </div>`;
 
-  // Points for/against per team, summed from this season's regular season schedule.
-  const seasonPts = {};
-  Object.values(s.schedule || {}).forEach(games => {
-    games.forEach(g => {
-      const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
-      if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
-      if(!seasonPts[hk]) seasonPts[hk] = { pf: 0, pa: 0 };
-      seasonPts[ak].pf += g.awayScore; seasonPts[ak].pa += g.homeScore;
-      seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
-    });
-  });
-  const fmtPts = n => n == null ? '—' : n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
-    <tbody>${s.standings.map((t,i) => {
-      const pts = seasonPts[lastNameOf(t.owner)];
-      return `<tr>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th></tr></thead>
+    <tbody>${s.standings.map((t,i) => `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${t.team}</td>
       <td class="pos">${t.owner}</td>
       <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td>${t.pct.toFixed(3)}</td>
-      <td>${fmtPts(pts && pts.pf)}</td>
-      <td>${fmtPts(pts && pts.pa)}</td>
-    </tr>`;
-    }).join('')}</tbody>
+    </tr>`).join('')}</tbody>
   </table></div>`;
 
   const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
@@ -365,7 +348,7 @@ function renderCountdown(containerId, targetDateStr){
 function renderTeamsList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
+  const sorted = TEAMS.slice().sort((a,b) => b.winPct - a.winPct);
   el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
     <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
       <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Seasons`}</div>
@@ -394,14 +377,14 @@ function renderTeamDetail(containerId){
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
-    <div class="award-card gold-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
+    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
     <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
   </div>`;
 
   const champGrid = titles.length ? `<div class="trophy-case">${titles.map(c => `
-    <div class="plaque plaque-champion" style="text-align:center;">
+    <div class="plaque" style="text-align:center;">
       <div class="owner" style="font-size:1.8rem; margin:6px 0;">${c.year}</div>
     </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
 
@@ -518,11 +501,6 @@ function computeAllTimeRecords(){
   let bestSeasonWins = { wins: -Infinity, holders: [] };
   let bestSeasonPoints = { points: -Infinity, holders: [] };
 
-  // Full instance lists power the 2nd/3rd place tiers on the records page.
-  const seasonWinInstances = [];   // {key, year, wins}
-  const seasonPointInstances = []; // {key, year, points}
-  const gameScoreInstances = [];   // {key, year, week, score} (regular season, both sides)
-
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
     hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0;
@@ -533,7 +511,6 @@ function computeAllTimeRecords(){
     if(!k) return;
     regPoints[k] += score;
     if(score >= 100) hundredPlusWeeks[k]++;
-    gameScoreInstances.push({ key: k, year, week, score });
     if(score > highestWeek.score){
       highestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
     } else if(score === highestWeek.score){
@@ -546,33 +523,16 @@ function computeAllTimeRecords(){
     }
   }
 
-  // Chronological order (year, then week number) so win/loss streaks can be
-  // tracked correctly across season boundaries.
-  const years = Object.keys(SEASONS).sort((a,b) => Number(a) - Number(b));
-  const weekNum = w => parseInt(String(w).replace(/\D/g, ''), 10) || 0;
-
-  const gameLog = {}; // key -> ordered array of 'W'|'L'|'T' with context
-  TEAMS.forEach(t => { gameLog[t.key] = []; });
-
-  years.forEach(year => {
-    const s = SEASONS[year];
+  Object.entries(SEASONS).forEach(([year, s]) => {
     const seasonPoints = {};
-    const weeks = Object.keys(s.schedule || {}).sort((a,b) => weekNum(a) - weekNum(b));
-    weeks.forEach(week => {
-      (s.schedule[week] || []).forEach(g => {
+    Object.entries(s.schedule || {}).forEach(([week, games]) => {
+      games.forEach(g => {
         addRegScore(g.awayMgr, g.awayScore, week, year);
         addRegScore(g.homeMgr, g.homeScore, week, year);
         const ak = keyByLastName[lastNameOf(g.awayMgr)];
         const hk = keyByLastName[lastNameOf(g.homeMgr)];
         if(ak) seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore;
         if(hk) seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore;
-
-        let aRes, hRes;
-        if(g.awayScore > g.homeScore){ aRes = 'W'; hRes = 'L'; }
-        else if(g.homeScore > g.awayScore){ aRes = 'L'; hRes = 'W'; }
-        else { aRes = 'T'; hRes = 'T'; }
-        if(ak) gameLog[ak].push({ r: aRes, year, week });
-        if(hk) gameLog[hk].push({ r: hRes, year, week });
       });
     });
     Object.values(s.playoffs || {}).forEach(round => {
@@ -593,7 +553,6 @@ function computeAllTimeRecords(){
     (s.standings || []).forEach(row => {
       const k = keyByLastName[lastNameOf(row.owner)];
       if(!k) return;
-      seasonWinInstances.push({ key: k, year, wins: row.w });
       if(row.w > bestSeasonWins.wins){
         bestSeasonWins = { wins: row.w, holders: [{ key: k, year }] };
       } else if(row.w === bestSeasonWins.wins){
@@ -601,9 +560,6 @@ function computeAllTimeRecords(){
       }
     });
 
-    Object.entries(seasonPoints).forEach(([k, points]) => {
-      seasonPointInstances.push({ key: k, year, points });
-    });
     const seasonLeaderEntry = Object.entries(seasonPoints).sort((a,b) => b[1]-a[1])[0];
     if(seasonLeaderEntry){
       const [leaderKey, leaderPoints] = seasonLeaderEntry;
@@ -616,41 +572,8 @@ function computeAllTimeRecords(){
     }
   });
 
-  // Longest regular-season win/loss streaks, allowed to span multiple seasons.
-  // A tie ("T") breaks both streaks. Each team's own best streak (and the
-  // games that produced it) is recorded.
-  const winStreak = {}, lossStreak = {};
-  TEAMS.forEach(t => {
-    winStreak[t.key] = { best: 0, start: null, end: null };
-    lossStreak[t.key] = { best: 0, start: null, end: null };
-  });
-
-  Object.keys(gameLog).forEach(k => {
-    let curW = 0, curL = 0, startW = null, startL = null;
-    gameLog[k].forEach(g => {
-      if(g.r === 'W'){
-        if(curW === 0) startW = g;
-        curW++; curL = 0;
-        if(curW > winStreak[k].best) winStreak[k] = { best: curW, start: startW, end: g };
-      } else if(g.r === 'L'){
-        if(curL === 0) startL = g;
-        curL++; curW = 0;
-        if(curL > lossStreak[k].best) lossStreak[k] = { best: curL, start: startL, end: g };
-      } else {
-        curW = 0; curL = 0;
-      }
-    });
-  });
-
-  return {
-    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles,
-    highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints,
-    seasonWinInstances, seasonPointInstances, gameScoreInstances,
-    winStreak, lossStreak
-  };
+  return { regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints, scoringTitles };
 }
-
-function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 
 function renderAllTimeRecords(containerId){
   const el = document.getElementById(containerId);
@@ -661,70 +584,54 @@ function renderAllTimeRecords(containerId){
   const joinNames = (names) => names.length <= 1 ? (names[0]||'') :
     names.length === 2 ? `${names[0]} & ${names[1]}` :
     `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
-  const ordinal = n => n === 2 ? '2nd' : n === 3 ? '3rd' : `${n}th`;
 
-  // Groups {value, label} items into the top-3 *distinct* values (descending
-  // by default), keeping every tied label within each tier. Used to surface
-  // 1st/2nd/3rd place — including ties — for every record category.
-  const tiersFromItems = (items, desc = true) => {
-    const sorted = items.slice().sort((a,b) => desc ? b.value - a.value : a.value - b.value);
-    const distinctValues = [...new Set(sorted.map(i => i.value))].slice(0, 3);
-    return distinctValues.map((value, idx) => ({
-      rank: idx + 1,
-      value,
-      labels: sorted.filter(i => i.value === value).map(i => i.label)
-    }));
+  // Returns {value, owners:[names]} for every TEAMS entry tied at the max of `field`
+  const allMaxTeamsField = (field) => {
+    const maxVal = Math.max(...TEAMS.map(t => t[field]));
+    return { value: maxVal, owners: TEAMS.filter(t => t[field] === maxVal).map(t => t.owner) };
   };
-  const tiersFromTeamsField = (field) => tiersFromItems(TEAMS.map(t => ({ value: t[field], label: t.owner })));
-  const tiersFromComputed = (obj) => tiersFromItems(Object.entries(obj).map(([k,v]) => ({ value: v, label: nameOf(k) })));
-  const tiersFromInstances = (instances, valueField, labelFn, desc = true) =>
-    tiersFromItems(instances.map(inst => ({ value: inst[valueField], label: labelFn(inst) })), desc);
+  // Returns {value, owners:[names]} for every key tied at the max value in a computed dict
+  const allMaxComputed = (obj) => {
+    const maxVal = Math.max(...Object.values(obj));
+    const owners = Object.entries(obj).filter(([,v]) => v === maxVal).map(([k]) => nameOf(k));
+    return { value: maxVal, owners };
+  };
 
-  const rangeText = (rng) => rng.start.year === rng.end.year
-    ? `${rng.start.year}, ${rng.start.week}–${rng.end.week}`
-    : `${rng.start.year} ${rng.start.week} – ${rng.end.year} ${rng.end.week}`;
-  // Same as tiersFromComputed, but the rank-1 tier's labels include the date
-  // range for each holder's streak.
-  const tiersForStreak = (dict) => {
-    const vals = {}; Object.entries(dict).forEach(([k,v]) => { vals[k] = v.best; });
-    const tiers = tiersFromItems(Object.entries(vals).map(([k,v]) => ({ value: v, label: k })));
-    return tiers.map(t => ({
-      ...t,
-      labels: t.labels.map(k => t.rank === 1 ? `${nameOf(k)} (${rangeText(dict[k])})` : nameOf(k))
-    }));
-  };
+  const mostRegWins = allMaxTeamsField('gamesW');
+  const mostRegPts = allMaxComputed(r.regPoints);
+  const mostPlayoffApp = allMaxTeamsField('playoffApp');
+  const mostPlayoffWins = allMaxTeamsField('playoffW');
+  const mostPlayoffPts = allMaxComputed(r.playoffPoints);
+  const mostChamps = allMaxTeamsField('champs');
+  const mostTop3 = allMaxComputed(r.topThree);
+  const most100 = allMaxComputed(r.hundredPlusWeeks);
+  const mostScoringTitles = allMaxComputed(r.scoringTitles);
+
+  const seasonWinHolders = r.bestSeasonWins.holders.map(h => `${nameOf(h.key)} (${h.year})`);
+  const seasonPtsHolders = r.bestSeasonPoints.holders.map(h => `${nameOf(h.key)} (${h.year})`);
 
   const cards = [
-    { medal: 'Regular Season', title: 'Most Regular Season Wins', tiers: tiersFromTeamsField('gamesW') },
-    { medal: 'Regular Season', title: 'Most Regular Season Points', tiers: tiersFromComputed(r.regPoints) },
-    { medal: 'Streaks', title: 'Longest Regular Season Winning Streak', tiers: tiersForStreak(r.winStreak) },
-    { medal: 'Streaks', title: 'Longest Regular Season Losing Streak', tiers: tiersForStreak(r.lossStreak) },
-    { medal: 'Single Season', title: 'Most Wins in a Season', tiers: tiersFromInstances(r.seasonWinInstances, 'wins', i => `${nameOf(i.key)} (${i.year})`) },
-    { medal: 'Single Season', title: 'Most Points Scored in a Season', tiers: tiersFromInstances(r.seasonPointInstances, 'points', i => `${nameOf(i.key)} (${i.year})`) },
-    { medal: 'Single Season', title: 'Most Scoring Titles', tiers: tiersFromComputed(r.scoringTitles) },
-    { medal: 'Playoffs', title: 'Most Playoff Appearances', tiers: tiersFromTeamsField('playoffApp') },
-    { medal: 'Playoffs', title: 'Most Playoff Wins', tiers: tiersFromTeamsField('playoffW') },
-    { medal: 'Playoffs', title: 'Most Playoff Points', tiers: tiersFromComputed(r.playoffPoints) },
-    { medal: 'Championships', title: 'Most Championships', tiers: tiersFromTeamsField('champs') },
-    { medal: 'Championships', title: 'Most Top-3 Finishes', tiers: tiersFromComputed(r.topThree) },
-    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, true) },
-    { medal: 'Single Game', title: 'Lowest Scoring Week (Regular Season)', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, false) },
-    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', tiers: tiersFromComputed(r.hundredPlusWeeks) },
+    { medal: 'Regular Season', title: 'Most Regular Season Wins', stat: fmtNum(mostRegWins.value), body: `${joinNames(mostRegWins.owners)} — most regular season wins in league history.` },
+    { medal: 'Regular Season', title: 'Most Regular Season Points', stat: fmtNum(mostRegPts.value), body: `${joinNames(mostRegPts.owners)} — most total regular season points scored, career.` },
+    { medal: 'Single Season', title: 'Most Wins in a Season', stat: fmtNum(r.bestSeasonWins.wins), body: `${joinNames(seasonWinHolders)} — most regular season wins in a single year.` },
+    { medal: 'Single Season', title: 'Most Points Scored in a Season', stat: fmtNum(r.bestSeasonPoints.points), body: `${joinNames(seasonPtsHolders)} — most total regular season points in a single year.` },
+    { medal: 'Single Season', title: 'Most Scoring Titles', stat: fmtNum(mostScoringTitles.value), body: `${joinNames(mostScoringTitles.owners)} — led the league in points scored the most times.` },
+    { medal: 'Playoffs', title: 'Most Playoff Appearances', stat: fmtNum(mostPlayoffApp.value), body: `${joinNames(mostPlayoffApp.owners)} — most playoff appearances in league history.` },
+    { medal: 'Playoffs', title: 'Most Playoff Wins', stat: fmtNum(mostPlayoffWins.value), body: `${joinNames(mostPlayoffWins.owners)} — most playoff wins in league history.` },
+    { medal: 'Playoffs', title: 'Most Playoff Points', stat: fmtNum(mostPlayoffPts.value), body: `${joinNames(mostPlayoffPts.owners)} — most total points scored across all playoff games.` },
+    { medal: 'Championships', title: 'Most Championships', stat: fmtNum(mostChamps.value), body: `${joinNames(mostChamps.owners)} — most league titles won.` },
+    { medal: 'Championships', title: 'Most Top-3 Finishes', stat: fmtNum(mostTop3.value), body: `${joinNames(mostTop3.owners)} — most 1st, 2nd, or 3rd place finishes.` },
+    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', stat: fmtNum(r.highestWeek.score), body: `${joinNames(r.highestWeek.holders.map(h => `${nameOf(h.key)} (${h.info})`))} — highest single-week score in league history.` },
+    { medal: 'Single Game', title: 'Lowest Scoring Week (Regular Season)', stat: fmtNum(r.lowestWeek.score), body: `${joinNames(r.lowestWeek.holders.map(h => `${nameOf(h.key)} (${h.info})`))} — lowest single-week score in league history.` },
+    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', stat: fmtNum(most100.value), body: `${joinNames(most100.owners)} — most weeks scoring 100+ points, career.` },
   ];
 
-  el.innerHTML = `<div class="award-grid">` + cards.map(c => {
-    const first = c.tiers[0] || { value: 0, labels: [] };
-    const runnersUp = c.tiers.slice(1).map(t => `
-      <div class="runner-row"><span class="rank-tag">${ordinal(t.rank)}</span> ${joinNames(t.labels)} <span class="runner-val">(${fmtNum(t.value)})</span></div>
-    `).join('');
-    return `<div class="award-card cat-${slug(c.medal)}">
-      <div class="medal">${c.medal}</div>
-      <h3>${c.title}</h3>
-      <div class="headline-stat">${fmtNum(first.value)}</div>
-      <p>${joinNames(first.labels)}</p>
-      ${runnersUp ? `<div class="award-runnerups">${runnersUp}</div>` : ''}
-    </div>`;
-  }).join('') + `</div>`;
+  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card">
+    <div class="medal">${c.medal}</div>
+    <h3>${c.title}</h3>
+    <div class="headline-stat">${c.stat}</div>
+    <p>${c.body}</p>
+  </div>`).join('') + `</div>`;
 }
 
 function computeH2H(){
