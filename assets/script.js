@@ -98,6 +98,61 @@ function renderStandings(containerId){
   draw();
 }
 
+// ---------- Streaks (regular season, can span multiple seasons) ----------
+function computeStreaks(){
+  const keyByLastName = {};
+  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
+
+  const weekNum = wk => parseInt((String(wk).match(/\d+/) || ['0'])[0], 10);
+  const label = g => `Week ${weekNum(g.week)}, ${g.year}`;
+
+  // Chronological list of every regular-season game across all seasons
+  const games = [];
+  Object.keys(SEASONS).map(Number).sort((a,b) => a - b).forEach(y => {
+    const s = SEASONS[y];
+    Object.keys(s.schedule || {}).sort((a,b) => weekNum(a) - weekNum(b)).forEach(wk => {
+      (s.schedule[wk] || []).forEach(g => games.push({ year: y, week: wk, ...g }));
+    });
+  });
+
+  const state = {};
+  const best = {};
+  TEAMS.forEach(t => {
+    state[t.key] = { type: null, len: 0, startLabel: '' };
+    best[t.key] = { winLen: 0, winStart: '', winEnd: '', lossLen: 0, lossStart: '', lossEnd: '' };
+  });
+
+  games.forEach(g => {
+    const awayKey = keyByLastName[lastNameOf(g.awayMgr)];
+    const homeKey = keyByLastName[lastNameOf(g.homeMgr)];
+    if(!awayKey || !homeKey) return;
+
+    let awayResult, homeResult;
+    if(g.awayScore > g.homeScore){ awayResult = 'W'; homeResult = 'L'; }
+    else if(g.homeScore > g.awayScore){ awayResult = 'L'; homeResult = 'W'; }
+    else { awayResult = 'T'; homeResult = 'T'; }
+
+    [[awayKey, awayResult], [homeKey, homeResult]].forEach(([key, result]) => {
+      const st = state[key];
+      const b = best[key];
+      if(result === 'T'){ st.type = null; st.len = 0; st.startLabel = ''; return; }
+      if(st.type === result){ st.len++; }
+      else { st.type = result; st.len = 1; st.startLabel = label(g); }
+      if(result === 'W' && st.len > b.winLen){ b.winLen = st.len; b.winStart = st.startLabel; b.winEnd = label(g); }
+      if(result === 'L' && st.len > b.lossLen){ b.lossLen = st.len; b.lossStart = st.startLabel; b.lossEnd = label(g); }
+    });
+  });
+
+  let bestWin = null, bestLoss = null;
+  TEAMS.forEach(t => {
+    const b = best[t.key];
+    if(!bestWin || b.winLen > bestWin.len) bestWin = { key: t.key, owner: t.owner, len: b.winLen, start: b.winStart, end: b.winEnd };
+    if(!bestLoss || b.lossLen > bestLoss.len) bestLoss = { key: t.key, owner: t.owner, len: b.lossLen, start: b.lossStart, end: b.lossEnd };
+  });
+
+  return { bestWin, bestLoss };
+}
+
 // ---------- Awards ----------
 function renderAwards(containerId){
   const el = document.getElementById(containerId);
@@ -126,70 +181,94 @@ function renderAwards(containerId){
   // never-champion with most playoff appearances (bad luck award)
   const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
 
+  // longest regular-season winning/losing streaks (can span multiple seasons)
+  const streaks = computeStreaks();
+
   const cards = [
     {
-      medal: 'Single-Game Record', title: 'Highest Score Ever',
+      category: 'Scoring', medal: 'Single-Game Record', title: 'Highest Score Ever',
       stat: `${highScore.highScore} pts`,
       body: `${highScore.owner} (${highScore.team}) put up the biggest single-game total in league history.`
     },
     {
-      medal: 'Hall of Fame', title: 'Most Championships',
-      stat: `${mostTitles.champs} titles`,
-      body: `${mostTitles.owner} leads the league with ${mostTitles.champs} championships across ${mostTitles.seasons} seasons.`
-    },
-    {
-      medal: 'Best Point Differential', title: 'Most Dominant Scorer',
+      category: 'Scoring', medal: 'Best Point Differential', title: 'Most Dominant Scorer',
       stat: `+${bestDiff.diff}/gm`,
       body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average — the best margin in NARPS history.`
     },
     {
-      medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
+      category: 'Scoring', medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
       stat: `${worstDiff.diff}/gm`,
       body: `${worstDiff.owner} has been outscored by ${Math.abs(worstDiff.diff)} points per game on average, the toughest margin in the league.`
     },
     {
-      medal: 'Best Winning Percentage', title: 'Most Consistent Winner',
-      stat: fmtPct(bestWinPct.winPct),
-      body: `${bestWinPct.owner} has the best all-time regular-record winning percentage in the league.`
-    },
-    {
-      medal: 'Worst Winning Percentage', title: 'Cellar Dweller',
-      stat: fmtPct(worstWinPct.winPct),
-      body: `${worstWinPct.owner} carries the league's toughest all-time record.`
-    },
-    {
-      medal: 'Clutch Factor', title: 'Best Playoff Win%',
-      stat: fmtPct(byMaxPlayoff.playoffWinPct),
-      body: `${byMaxPlayoff.owner} turns it on in the postseason, winning ${fmtPct(byMaxPlayoff.playoffWinPct)} of playoff games (min. 5 appearances).`
-    },
-    {
-      medal: 'Choke Artist', title: 'Worst Playoff Win%',
-      stat: fmtPct(byMinPlayoff.playoffWinPct),
-      body: `${byMinPlayoff.owner} has struggled most once the postseason arrives (min. 5 appearances).`
-    },
-    {
-      medal: 'Best Offense', title: 'Highest Career Scoring Average',
+      category: 'Scoring', medal: 'Best Offense', title: 'Highest Career Scoring Average',
       stat: `${bestOffense.gameAvgPF} pts/gm`,
       body: `${bestOffense.owner} has the highest career average points per game in NARPS history.`
     },
     {
-      medal: 'Bad Beat', title: 'Playoff Regular, Zero Rings',
+      category: 'Win/Loss Records', medal: 'Best Winning Percentage', title: 'Most Consistent Winner',
+      stat: fmtPct(bestWinPct.winPct),
+      body: `${bestWinPct.owner} has the best all-time regular-record winning percentage in the league.`
+    },
+    {
+      category: 'Win/Loss Records', medal: 'Worst Winning Percentage', title: 'Cellar Dweller',
+      stat: fmtPct(worstWinPct.winPct),
+      body: `${worstWinPct.owner} carries the league's toughest all-time record.`
+    },
+    {
+      category: 'Win/Loss Records', medal: 'Hot Streak', title: 'Longest Winning Streak',
+      stat: `${streaks.bestWin.len} gms`,
+      body: `${streaks.bestWin.owner} won ${streaks.bestWin.len} straight regular-season games, from ${streaks.bestWin.start} to ${streaks.bestWin.end}. Can span multiple seasons.`
+    },
+    {
+      category: 'Win/Loss Records', medal: 'Ice Cold', title: 'Longest Losing Streak',
+      stat: `${streaks.bestLoss.len} gms`,
+      body: `${streaks.bestLoss.owner} dropped ${streaks.bestLoss.len} straight regular-season games, from ${streaks.bestLoss.start} to ${streaks.bestLoss.end}. Can span multiple seasons.`
+    },
+    {
+      category: 'Championships & Playoffs', medal: 'Hall of Fame', title: 'Most Championships',
+      stat: `${mostTitles.champs} titles`,
+      body: `${mostTitles.owner} leads the league with ${mostTitles.champs} championships across ${mostTitles.seasons} seasons.`
+    },
+    {
+      category: 'Championships & Playoffs', medal: 'Clutch Factor', title: 'Best Playoff Win%',
+      stat: fmtPct(byMaxPlayoff.playoffWinPct),
+      body: `${byMaxPlayoff.owner} turns it on in the postseason, winning ${fmtPct(byMaxPlayoff.playoffWinPct)} of playoff games (min. 5 appearances).`
+    },
+    {
+      category: 'Championships & Playoffs', medal: 'Choke Artist', title: 'Worst Playoff Win%',
+      stat: fmtPct(byMinPlayoff.playoffWinPct),
+      body: `${byMinPlayoff.owner} has struggled most once the postseason arrives (min. 5 appearances).`
+    },
+    {
+      category: 'Championships & Playoffs', medal: 'Bad Beat', title: 'Playoff Regular, Zero Rings',
       stat: `${badLuck.playoffApp} appearances`,
       body: `${badLuck.owner} has made the playoffs ${badLuck.playoffApp} times without ever winning it all.`
     },
     {
-      medal: 'Championship Drought', title: 'Longest Time Since a Title',
+      category: 'Championships & Playoffs', medal: 'Championship Drought', title: 'Longest Time Since a Title',
       stat: `${longestDrought.gap} yrs`,
       body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]} — ${longestDrought.gap} seasons and counting.`
     },
   ];
 
-  el.innerHTML = cards.map(c => `<div class="award-card">
-    <div class="medal">${c.medal}</div>
-    <h3>${c.title}</h3>
-    <div class="headline-stat">${c.stat}</div>
-    <p>${c.body}</p>
-  </div>`).join('');
+  const categoryOrder = ['Scoring', 'Win/Loss Records', 'Championships & Playoffs'];
+  const grouped = categoryOrder
+    .map(cat => ({ cat, items: cards.filter(c => c.category === cat) }))
+    .filter(g => g.items.length);
+
+  el.innerHTML = grouped.map(g => `
+    <h3 style="font-family:var(--display); font-size:1.1rem; letter-spacing:0.02em; margin:32px 0 10px;">${g.cat}</h3>
+    <div class="record-rows">
+      ${g.items.map(c => `<div style="display:flex; align-items:flex-start; gap:18px; padding:16px 4px; border-bottom:1px solid var(--line);">
+        <div class="medal" style="flex:0 0 160px;">${c.medal}</div>
+        <div style="flex:1 1 auto; min-width:0;">
+          <h3 style="margin:0 0 4px;">${c.title}</h3>
+          <p style="margin:0;">${c.body}</p>
+        </div>
+        <div class="headline-stat" style="flex:0 0 auto; text-align:right; white-space:nowrap;">${c.stat}</div>
+      </div>`).join('')}
+    </div>`).join('');
 }
 
 // ---------- Newsletters ----------
