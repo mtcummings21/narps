@@ -7,8 +7,6 @@
   --blue-lt:    #6FA0FF;
   --red:        #D62839;   /* accent red */
   --red-dk:     #B01F2E;
-  --gold:       #C89B3C;   /* champion accent gold */
-  --gold-dk:    #A67C1E;
   --white:      #FFFFFF;
   --bg:         #F5F7FA;   /* page background */
   --panel:      #FFFFFF;   /* card background */
@@ -398,14 +396,6 @@ h2.section-title{
   font-size: 0.8rem;
   color: rgba(255,255,255,0.65);
 }
-.plaque.plaque-champion{
-  border-top: 4px solid var(--gold);
-  background: linear-gradient(180deg, rgba(200,155,60,0.08), var(--panel) 45%);
-  box-shadow: var(--shadow), 0 0 0 1px rgba(200,155,60,0.35);
-}
-.plaque.plaque-champion .yr{ color: var(--gold-dk); }
-.plaque.plaque-champion .owner{ color: var(--gold-dk); }
-.plaque.plaque-champion .team{ color: var(--text-soft); }
 .plaque .repeat-tag{
   position:absolute;
   top:10px; right:10px;
@@ -416,6 +406,20 @@ h2.section-title{
   background: var(--white);
   border-radius: 20px;
   padding: 1px 7px;
+}
+
+/* Most recent champion — gold plaque */
+.plaque--recent{
+  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
+  border-top: 3px solid #A9822B;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(169,130,43,0.25);
+}
+.plaque--recent .yr{ color: var(--navy-soft); }
+.plaque--recent .owner{ color: var(--navy); }
+.plaque--recent .team{ color: rgba(11,36,71,0.62); }
+.plaque--recent .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
 }
 
 /* ---------- Tables ---------- */
@@ -505,14 +509,6 @@ td.pos{ color: var(--text-soft); }
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
 
-/* Gold accent for championship-related stat cards (e.g. team page "Championships") */
-.award-card.gold-card{
-  border-top-color: var(--gold);
-  background: linear-gradient(180deg, rgba(200,155,60,0.08), var(--panel) 45%);
-}
-.award-card.gold-card .medal{ color: var(--gold-dk); }
-.award-card.gold-card .headline-stat{ color: var(--gold-dk); }
-
 /* ---------- Condensed records grid (All-Time Records section) ---------- */
 #records-container .award-grid{
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
@@ -538,63 +534,6 @@ td.pos{ color: var(--text-soft); }
   font-size: 0.78rem;
   line-height: 1.4;
 }
-
-/* Color-code each record category using the site's existing palette */
-#records-container .award-card.cat-regular-season{ border-top-color: var(--blue); }
-#records-container .award-card.cat-regular-season .medal{ color: var(--blue); }
-#records-container .award-card.cat-regular-season .headline-stat{ color: var(--blue); }
-
-#records-container .award-card.cat-single-season{ border-top-color: var(--blue-lt); }
-#records-container .award-card.cat-single-season .medal{ color: var(--blue-lt); }
-#records-container .award-card.cat-single-season .headline-stat{ color: var(--blue); }
-
-#records-container .award-card.cat-playoffs{ border-top-color: var(--red); }
-#records-container .award-card.cat-playoffs .medal{ color: var(--red); }
-#records-container .award-card.cat-playoffs .headline-stat{ color: var(--red-dk); }
-
-#records-container .award-card.cat-championships{ border-top-color: #C89B3C; background: linear-gradient(180deg, rgba(200,155,60,0.06), var(--panel) 40%); }
-#records-container .award-card.cat-championships .medal{ color: #A67C1E; }
-#records-container .award-card.cat-championships .headline-stat{ color: #A67C1E; }
-
-#records-container .award-card.cat-single-game{ border-top-color: var(--navy); }
-#records-container .award-card.cat-single-game .medal{ color: var(--navy-soft); }
-#records-container .award-card.cat-single-game .headline-stat{ color: var(--navy); }
-
-#records-container .award-card.cat-consistency{ border-top-color: var(--red-dk); }
-#records-container .award-card.cat-consistency .medal{ color: var(--red-dk); }
-#records-container .award-card.cat-consistency .headline-stat{ color: var(--red-dk); }
-
-#records-container .award-card.cat-streaks{ border-top-color: var(--navy-soft); }
-#records-container .award-card.cat-streaks .medal{ color: var(--navy-soft); }
-#records-container .award-card.cat-streaks .headline-stat{ color: var(--navy-soft); }
-
-/* 2nd/3rd place holders shown under each record card */
-.award-runnerups{
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--line);
-  font-family: var(--mono);
-}
-.award-runnerups .runner-row{
-  font-size: 0.72rem;
-  color: var(--text-soft);
-  line-height: 1.5;
-}
-.award-runnerups .rank-tag{
-  display:inline-block;
-  font-weight:700;
-  font-size: 0.62rem;
-  letter-spacing: 0.4px;
-  color: var(--navy);
-  background: var(--bg);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  padding: 0 6px;
-  margin-right: 5px;
-}
-.award-runnerups .runner-val{ color: var(--text-soft); }
-#records-container .award-runnerups{ margin-top: 8px; padding-top: 8px; }
-#records-container .award-runnerups .runner-row{ font-size: 0.68rem; }
 
 /* ---------- Footer ---------- */
 footer{
