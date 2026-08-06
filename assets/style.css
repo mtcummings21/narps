@@ -7,6 +7,8 @@
   --blue-lt:    #6FA0FF;
   --red:        #D62839;   /* accent red */
   --red-dk:     #B01F2E;
+  --gold:       #C89B3C;   /* champion accent gold */
+  --gold-dk:    #A67C1E;
   --white:      #FFFFFF;
   --bg:         #F5F7FA;   /* page background */
   --panel:      #FFFFFF;   /* card background */
@@ -396,6 +398,13 @@ h2.section-title{
   font-size: 0.8rem;
   color: rgba(255,255,255,0.65);
 }
+.plaque.plaque-champion{
+  border-top: 4px solid var(--gold);
+  background: linear-gradient(165deg, var(--navy) 65%, #3a2c0c 160%);
+  box-shadow: var(--shadow), 0 0 0 1px rgba(200,155,60,0.35);
+}
+.plaque.plaque-champion .yr{ color: var(--gold); }
+.plaque.plaque-champion .owner{ color: var(--gold); }
 .plaque .repeat-tag{
   position:absolute;
   top:10px; right:10px;
@@ -494,6 +503,14 @@ td.pos{ color: var(--text-soft); }
   margin-bottom: 6px;
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
+
+/* Gold accent for championship-related stat cards (e.g. team page "Championships") */
+.award-card.gold-card{
+  border-top-color: var(--gold);
+  background: linear-gradient(180deg, rgba(200,155,60,0.08), var(--panel) 45%);
+}
+.award-card.gold-card .medal{ color: var(--gold-dk); }
+.award-card.gold-card .headline-stat{ color: var(--gold-dk); }
 
 /* ---------- Condensed records grid (All-Time Records section) ---------- */
 #records-container .award-grid{

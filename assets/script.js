@@ -252,7 +252,7 @@ function renderSeasonDetail(containerId){
   if(titleEl) titleEl.textContent = `${year} Season`;
 
   const podium = `<div class="trophy-case">
-    <div class="plaque" style="border-top-color:var(--gold);">
+    <div class="plaque plaque-champion">
       <div class="yr">CHAMPION</div>
       <div class="owner">${s.champion.owner}</div>
       <div class="team">${s.champion.team}</div>
@@ -269,15 +269,33 @@ function renderSeasonDetail(containerId){
     </div>
   </div>`;
 
+  // Points for/against per team, summed from this season's regular season schedule.
+  const seasonPts = {};
+  Object.values(s.schedule || {}).forEach(games => {
+    games.forEach(g => {
+      const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
+      if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
+      if(!seasonPts[hk]) seasonPts[hk] = { pf: 0, pa: 0 };
+      seasonPts[ak].pf += g.awayScore; seasonPts[ak].pa += g.homeScore;
+      seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
+    });
+  });
+  const fmtPts = n => n == null ? '—' : n.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th></tr></thead>
-    <tbody>${s.standings.map((t,i) => `<tr>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
+    <tbody>${s.standings.map((t,i) => {
+      const pts = seasonPts[lastNameOf(t.owner)];
+      return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${t.team}</td>
       <td class="pos">${t.owner}</td>
       <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td>${t.pct.toFixed(3)}</td>
-    </tr>`).join('')}</tbody>
+      <td>${fmtPts(pts && pts.pf)}</td>
+      <td>${fmtPts(pts && pts.pa)}</td>
+    </tr>`;
+    }).join('')}</tbody>
   </table></div>`;
 
   const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
@@ -376,7 +394,7 @@ function renderTeamDetail(containerId){
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
-    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
+    <div class="award-card gold-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
     <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
