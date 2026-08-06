@@ -401,7 +401,7 @@ function renderTeamDetail(containerId){
   </div>`;
 
   const champGrid = titles.length ? `<div class="trophy-case">${titles.map(c => `
-    <div class="plaque" style="text-align:center;">
+    <div class="plaque plaque-champion" style="text-align:center;">
       <div class="owner" style="font-size:1.8rem; margin:6px 0;">${c.year}</div>
     </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
 
