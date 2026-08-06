@@ -632,6 +632,8 @@ function computeAllTimeRecords(){
   };
 }
 
+function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
+
 function renderAllTimeRecords(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
@@ -660,8 +662,6 @@ function renderAllTimeRecords(containerId){
   const tiersFromInstances = (instances, valueField, labelFn, desc = true) =>
     tiersFromItems(instances.map(inst => ({ value: inst[valueField], label: labelFn(inst) })), desc);
 
-  const winStreakVals = {}; Object.entries(r.winStreak).forEach(([k,v]) => winStreakVals[k] = v.best);
-  const lossStreakVals = {}; Object.entries(r.lossStreak).forEach(([k,v]) => lossStreakVals[k] = v.best);
   const rangeText = (rng) => rng.start.year === rng.end.year
     ? `${rng.start.year}, ${rng.start.week}–${rng.end.week}`
     : `${rng.start.year} ${rng.start.week} – ${rng.end.year} ${rng.end.week}`;
@@ -677,21 +677,21 @@ function renderAllTimeRecords(containerId){
   };
 
   const cards = [
-    { medal: 'Regular Season', title: 'Most Regular Season Wins', unit: 'most regular season wins in league history.', tiers: tiersFromTeamsField('gamesW') },
-    { medal: 'Regular Season', title: 'Most Regular Season Points', unit: 'most total regular season points scored, career.', tiers: tiersFromComputed(r.regPoints) },
-    { medal: 'Streaks', title: 'Longest Regular Season Winning Streak', unit: 'consecutive regular season wins (can span multiple seasons).', tiers: tiersForStreak(r.winStreak) },
-    { medal: 'Streaks', title: 'Longest Regular Season Losing Streak', unit: 'consecutive regular season losses (can span multiple seasons).', tiers: tiersForStreak(r.lossStreak) },
-    { medal: 'Single Season', title: 'Most Wins in a Season', unit: 'most regular season wins in a single year.', tiers: tiersFromInstances(r.seasonWinInstances, 'wins', i => `${nameOf(i.key)} (${i.year})`) },
-    { medal: 'Single Season', title: 'Most Points Scored in a Season', unit: 'most total regular season points in a single year.', tiers: tiersFromInstances(r.seasonPointInstances, 'points', i => `${nameOf(i.key)} (${i.year})`) },
-    { medal: 'Single Season', title: 'Most Scoring Titles', unit: 'led the league in points scored the most times.', tiers: tiersFromComputed(r.scoringTitles) },
-    { medal: 'Playoffs', title: 'Most Playoff Appearances', unit: 'most playoff appearances in league history.', tiers: tiersFromTeamsField('playoffApp') },
-    { medal: 'Playoffs', title: 'Most Playoff Wins', unit: 'most playoff wins in league history.', tiers: tiersFromTeamsField('playoffW') },
-    { medal: 'Playoffs', title: 'Most Playoff Points', unit: 'most total points scored across all playoff games.', tiers: tiersFromComputed(r.playoffPoints) },
-    { medal: 'Championships', title: 'Most Championships', unit: 'most league titles won.', tiers: tiersFromTeamsField('champs') },
-    { medal: 'Championships', title: 'Most Top-3 Finishes', unit: 'most 1st, 2nd, or 3rd place finishes.', tiers: tiersFromComputed(r.topThree) },
-    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', unit: 'highest single-week score in league history.', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, true) },
-    { medal: 'Single Game', title: 'Lowest Scoring Week (Regular Season)', unit: 'lowest single-week score in league history.', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, false) },
-    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', unit: 'most weeks scoring 100+ points, career.', tiers: tiersFromComputed(r.hundredPlusWeeks) },
+    { medal: 'Regular Season', title: 'Most Regular Season Wins', tiers: tiersFromTeamsField('gamesW') },
+    { medal: 'Regular Season', title: 'Most Regular Season Points', tiers: tiersFromComputed(r.regPoints) },
+    { medal: 'Streaks', title: 'Longest Regular Season Winning Streak', tiers: tiersForStreak(r.winStreak) },
+    { medal: 'Streaks', title: 'Longest Regular Season Losing Streak', tiers: tiersForStreak(r.lossStreak) },
+    { medal: 'Single Season', title: 'Most Wins in a Season', tiers: tiersFromInstances(r.seasonWinInstances, 'wins', i => `${nameOf(i.key)} (${i.year})`) },
+    { medal: 'Single Season', title: 'Most Points Scored in a Season', tiers: tiersFromInstances(r.seasonPointInstances, 'points', i => `${nameOf(i.key)} (${i.year})`) },
+    { medal: 'Single Season', title: 'Most Scoring Titles', tiers: tiersFromComputed(r.scoringTitles) },
+    { medal: 'Playoffs', title: 'Most Playoff Appearances', tiers: tiersFromTeamsField('playoffApp') },
+    { medal: 'Playoffs', title: 'Most Playoff Wins', tiers: tiersFromTeamsField('playoffW') },
+    { medal: 'Playoffs', title: 'Most Playoff Points', tiers: tiersFromComputed(r.playoffPoints) },
+    { medal: 'Championships', title: 'Most Championships', tiers: tiersFromTeamsField('champs') },
+    { medal: 'Championships', title: 'Most Top-3 Finishes', tiers: tiersFromComputed(r.topThree) },
+    { medal: 'Single Game', title: 'Highest Scoring Week (Regular Season)', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, true) },
+    { medal: 'Single Game', title: 'Lowest Scoring Week (Regular Season)', tiers: tiersFromInstances(r.gameScoreInstances, 'score', i => `${nameOf(i.key)} (${i.year}, ${i.week})`, false) },
+    { medal: 'Consistency', title: 'Most 100+ Point Weeks (Regular Season)', tiers: tiersFromComputed(r.hundredPlusWeeks) },
   ];
 
   el.innerHTML = `<div class="award-grid">` + cards.map(c => {
@@ -703,12 +703,11 @@ function renderAllTimeRecords(containerId){
       <div class="medal">${c.medal}</div>
       <h3>${c.title}</h3>
       <div class="headline-stat">${fmtNum(first.value)}</div>
-      <p>${joinNames(first.labels)} — ${c.unit}</p>
+      <p>${joinNames(first.labels)}</p>
       ${runnersUp ? `<div class="award-runnerups">${runnersUp}</div>` : ''}
     </div>`;
   }).join('') + `</div>`;
 }
-function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, '-'); }
 
 function computeH2H(){
   const keyByLastName = {};
