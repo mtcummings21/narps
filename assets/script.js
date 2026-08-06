@@ -154,7 +154,7 @@ function computeStreaks(){
 }
 
 // ---------- Awards ----------
-function renderAwards(containerId){
+function renderAllTimeRecords(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
 
