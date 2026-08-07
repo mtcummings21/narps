@@ -504,19 +504,11 @@ function renderSurvivor(containerId){
 function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
 
 // ---------- All-Time Records (computed from verified season data) ----------
-function weekNum(w){ const m = String(w).match(/\d+/); return m ? parseInt(m[0],10) : 0; }
-
 function computeAllTimeRecords(){
   const keyByLastName = {};
   TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
 
-  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {}, weeklyScoringTitles = {};
-  const allSeasonWins = [];   // {key, year, wins} — every team's win total, every season
-  const allSeasonPoints = []; // {key, year, points} — every team's season point total, every season
-  const allWeeklyScores = []; // {key, score, year, week} — every regular-season score, every game
-  const allBlowouts = [];     // {margin, winnerKey, loserKey, winnerScore, loserScore, year, week} — every decided regular-season game
-  const timeline = {};        // key -> chronological [{year, week, result}] for streak tracking
-
+  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {};
   let highestWeek = { key: null, score: -Infinity, opponentInfo: '', holders: [] };
   let lowestWeek = { score: Infinity, holders: [] };
   let bestSeasonWins = { wins: -Infinity, holders: [] };
@@ -529,8 +521,7 @@ function computeAllTimeRecords(){
 
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
-    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0; weeklyScoringTitles[t.key] = 0;
-    timeline[t.key] = [];
+    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0;
   });
 
   function addRegScore(mgr, score, week, year){
@@ -538,7 +529,6 @@ function computeAllTimeRecords(){
     if(!k) return;
     regPoints[k] += score;
     if(score >= 100) hundredPlusWeeks[k]++;
-    allWeeklyScores.push({ key: k, score, year, week });
     gameScoreEntries.push({ key: k, year, week, value: score });
     if(score > highestWeek.score){
       highestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
@@ -551,34 +541,58 @@ function computeAllTimeRecords(){
       lowestWeek.holders.push({ key: k, info: `${year}, ${week}` });
     }
   }
+
+  // ---- Longest regular-season winning/losing streaks (chronological, spans seasons) ----
+  const weekNum = (wk) => { const m = String(wk).match(/\d+/); return m ? Number(m[0]) : 0; };
+  const sortedYears = Object.keys(SEASONS).map(Number).sort((a,b) => a - b);
+  const resultsByTeam = {};
+  TEAMS.forEach(t => { resultsByTeam[t.key] = []; });
+
+  sortedYears.forEach(year => {
+    const s = SEASONS[year];
+    const weeks = Object.keys(s.schedule || {}).sort((a,b) => weekNum(a) - weekNum(b));
+    weeks.forEach(wk => {
+      (s.schedule[wk] || []).forEach(g => {
+        const ak = keyByLastName[lastNameOf(g.awayMgr)];
+        const hk = keyByLastName[lastNameOf(g.homeMgr)];
+        let aRes, hRes;
+        if(g.awayScore > g.homeScore){ aRes = 'W'; hRes = 'L'; }
+        else if(g.homeScore > g.awayScore){ aRes = 'L'; hRes = 'W'; }
+        else { aRes = 'T'; hRes = 'T'; }
+        if(ak) resultsByTeam[ak].push({ year, week: wk, result: aRes });
+        if(hk) resultsByTeam[hk].push({ year, week: wk, result: hRes });
+      });
+    });
+  });
+
+  const winStreakEntries = [];  // {key, value, startYear, endYear}
+  const lossStreakEntries = [];
+  Object.entries(resultsByTeam).forEach(([key, results]) => {
+    let curType = null, curLen = 0, curStart = null;
+    let bestW = { len: 0, start: null, end: null };
+    let bestL = { len: 0, start: null, end: null };
+    results.forEach(r => {
+      if(r.result === curType){ curLen++; }
+      else { curType = r.result; curLen = 1; curStart = r; }
+      if(curType === 'W' && curLen > bestW.len) bestW = { len: curLen, start: curStart, end: r };
+      if(curType === 'L' && curLen > bestL.len) bestL = { len: curLen, start: curStart, end: r };
+    });
+    if(bestW.len > 0) winStreakEntries.push({ key, value: bestW.len, startYear: bestW.start.year, endYear: bestW.end.year });
+    if(bestL.len > 0) lossStreakEntries.push({ key, value: bestL.len, startYear: bestL.start.year, endYear: bestL.end.year });
+  });
+
+  Object.entries(SEASONS).forEach(([year, s]) => {
+    const seasonPoints = {};
+    Object.entries(s.schedule || {}).forEach(([week, games]) => {
       games.forEach(g => {
         addRegScore(g.awayMgr, g.awayScore, week, year);
         addRegScore(g.homeMgr, g.homeScore, week, year);
         const ak = keyByLastName[lastNameOf(g.awayMgr)];
         const hk = keyByLastName[lastNameOf(g.homeMgr)];
-        if(ak){ seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore; weekScores.push({ key: ak, score: g.awayScore }); }
-        if(hk){ seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore; weekScores.push({ key: hk, score: g.homeScore }); }
-
-        // Chronological W/L results, carried across season boundaries, for streak tracking
-        let ar, hr;
-        if(g.awayScore > g.homeScore){ ar = 'W'; hr = 'L'; }
-        else if(g.homeScore > g.awayScore){ ar = 'L'; hr = 'W'; }
-        else { ar = 'T'; hr = 'T'; }
-        if(ak) timeline[ak].push({ year, week, result: ar });
-        if(hk) timeline[hk].push({ year, week, result: hr });
-
-        // Biggest blowout tracking (regular season)
-        if(ak && hk && g.awayScore !== g.homeScore){
-          const margin = Math.round(Math.abs(g.homeScore - g.awayScore) * 100) / 100;
-          const winnerKey = g.awayScore > g.homeScore ? ak : hk;
-          const loserKey = g.awayScore > g.homeScore ? hk : ak;
-          const winnerScore = Math.max(g.awayScore, g.homeScore);
-          const loserScore = Math.min(g.awayScore, g.homeScore);
-          allBlowouts.push({ margin, winnerKey, loserKey, winnerScore, loserScore, year, week });
-        }
+        if(ak) seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore;
+        if(hk) seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore;
       });
     });
-
     Object.values(s.playoffs || {}).forEach(round => {
       (round.games || []).forEach(g => {
         const ak = keyByLastName[lastNameOf(g.awayMgr)];
@@ -589,7 +603,6 @@ function computeAllTimeRecords(){
         else if(g.homeScore > g.awayScore && hk) playoffWins[hk]++;
       });
     });
-
     [s.champion, s.second, s.third].forEach(p => {
       const k = keyByLastName[lastNameOf(p.owner)];
       if(k) topThree[k]++;
@@ -598,7 +611,6 @@ function computeAllTimeRecords(){
     (s.standings || []).forEach(row => {
       const k = keyByLastName[lastNameOf(row.owner)];
       if(!k) return;
-      allSeasonWins.push({ key: k, year, wins: row.w });
       seasonWinEntries.push({ key: k, year, value: row.w });
       if(row.w > bestSeasonWins.wins){
         bestSeasonWins = { wins: row.w, holders: [{ key: k, year }] };
@@ -613,42 +625,21 @@ function computeAllTimeRecords(){
 
     const seasonLeaderEntry = Object.entries(seasonPoints).sort((a,b) => b[1]-a[1])[0];
     if(seasonLeaderEntry){
-      const [leaderKey] = seasonLeaderEntry;
+      const [leaderKey, leaderPoints] = seasonLeaderEntry;
       scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
+      if(leaderPoints > bestSeasonPoints.points){
+        bestSeasonPoints = { points: leaderPoints, holders: [{ key: leaderKey, year }] };
+      } else if(leaderPoints === bestSeasonPoints.points){
+        bestSeasonPoints.holders.push({ key: leaderKey, year });
+      }
     }
   });
 
-  // Longest win/loss streaks per team — chronological, regular season, carries across season boundaries
-  const winStreaks = [];
-  const lossStreaks = [];
-  const winStreakEntries = [];
-  const lossStreakEntries = [];
-  Object.entries(timeline).forEach(([key, games]) => {
-    let curW = 0, curL = 0, curWStart = null, curLStart = null;
-    let maxW = 0, maxWRange = null, maxL = 0, maxLRange = null;
-    games.forEach(g => {
-      if(g.result === 'W'){
-        if(curW === 0) curWStart = g;
-        curW++; curL = 0;
-        if(curW > maxW){ maxW = curW; maxWRange = { start: curWStart, end: g }; }
-      } else if(g.result === 'L'){
-        if(curL === 0) curLStart = g;
-        curL++; curW = 0;
-        if(curL > maxL){ maxL = curL; maxLRange = { start: curLStart, end: g }; }
-      } else {
-        curW = 0; curL = 0;
-      }
-    });
-    if(maxW > 0){ winStreaks.push({ key, len: maxW, range: maxWRange }); winStreakEntries.push({ key, value: maxW, startYear: maxWRange.start.year, endYear: maxWRange.end.year }); }
-    if(maxL > 0){ lossStreaks.push({ key, len: maxL, range: maxLRange }); lossStreakEntries.push({ key, value: maxL, startYear: maxLRange.start.year, endYear: maxLRange.end.year }); }
-  });
-
   return {
-    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles, weeklyScoringTitles,
+    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles,
     highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints,
     gameScoreEntries, seasonWinEntries, seasonPointsEntries,
-    allSeasonWins, allSeasonPoints, allWeeklyScores, allBlowouts, winStreaks, lossStreaks, winStreakEntries, lossStreakEntries
-  }
+    winStreakEntries, lossStreakEntries
   };
 }
 
@@ -750,7 +741,7 @@ function renderAllTimeRecords(containerId){
   };
   cards.sort((a, b) => categoryOrder.indexOf(a.medal) - categoryOrder.indexOf(b.medal));
 
-  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${categorySlug[c.medal] || ''}">`
+  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${categorySlug[c.medal] || ''}">
     <div class="medal">${c.medal}</div>
     <h3>${c.title}</h3>
     <div class="headline-stat">${c.stat}</div>
