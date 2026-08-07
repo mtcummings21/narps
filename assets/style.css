@@ -565,6 +565,10 @@ td.pos{ color: var(--text-soft); }
 #records-container .cat-single-season .medal{ color: #0EA5A5; }
 #records-container .cat-single-season .headline-stat{ color: #0EA5A5; }
 
+#records-container .cat-weekly{ border-top-color: #DB2777; }
+#records-container .cat-weekly .medal{ color: #DB2777; }
+#records-container .cat-weekly .headline-stat{ color: #DB2777; }
+
 #records-container .cat-playoffs{ border-top-color: #7C3AED; }
 #records-container .cat-playoffs .medal{ color: #7C3AED; }
 #records-container .cat-playoffs .headline-stat{ color: #7C3AED; }
