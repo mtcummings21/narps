@@ -508,7 +508,7 @@ function computeAllTimeRecords(){
   const keyByLastName = {};
   TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
 
-  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {};
+  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {}, weeklyScoringTitles = {};
   let highestWeek = { key: null, score: -Infinity, opponentInfo: '', holders: [] };
   let lowestWeek = { score: Infinity, holders: [] };
   let bestSeasonWins = { wins: -Infinity, holders: [] };
@@ -518,10 +518,11 @@ function computeAllTimeRecords(){
   const gameScoreEntries = [];   // every regular-season individual game score: {key, year, week, value}
   const seasonWinEntries = [];   // every team-season regular-season win total: {key, year, value}
   const seasonPointsEntries = []; // every team-season regular-season point total: {key, year, value}
+  const blowoutEntries = [];     // every decided regular-season game: {winnerKey, loserKey, winnerScore, loserScore, margin, year, week}
 
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
-    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0;
+    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0; weeklyScoringTitles[t.key] = 0;
   });
 
   function addRegScore(mgr, score, week, year){
@@ -584,6 +585,7 @@ function computeAllTimeRecords(){
   Object.entries(SEASONS).forEach(([year, s]) => {
     const seasonPoints = {};
     Object.entries(s.schedule || {}).forEach(([week, games]) => {
+      const weekScores = [];
       games.forEach(g => {
         addRegScore(g.awayMgr, g.awayScore, week, year);
         addRegScore(g.homeMgr, g.homeScore, week, year);
@@ -591,7 +593,26 @@ function computeAllTimeRecords(){
         const hk = keyByLastName[lastNameOf(g.homeMgr)];
         if(ak) seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore;
         if(hk) seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore;
+        if(ak) weekScores.push({ key: ak, score: g.awayScore });
+        if(hk) weekScores.push({ key: hk, score: g.homeScore });
+
+        // Biggest blowout tracking (regular season, decided games only)
+        if(ak && hk && g.awayScore !== g.homeScore){
+          const margin = Math.round(Math.abs(g.homeScore - g.awayScore) * 100) / 100;
+          const winnerKey = g.awayScore > g.homeScore ? ak : hk;
+          const loserKey = g.awayScore > g.homeScore ? hk : ak;
+          const winnerScore = Math.max(g.awayScore, g.homeScore);
+          const loserScore = Math.min(g.awayScore, g.homeScore);
+          blowoutEntries.push({ winnerKey, loserKey, winnerScore, loserScore, margin, year, week });
+        }
       });
+      // Weekly scoring title: whoever posted the highest score across the league that week
+      if(weekScores.length){
+        const weekMax = Math.max(...weekScores.map(w => w.score));
+        weekScores.filter(w => w.score === weekMax).forEach(w => {
+          weeklyScoringTitles[w.key] = (weeklyScoringTitles[w.key]||0) + 1;
+        });
+      }
     });
     Object.values(s.playoffs || {}).forEach(round => {
       (round.games || []).forEach(g => {
@@ -636,9 +657,9 @@ function computeAllTimeRecords(){
   });
 
   return {
-    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles,
+    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles, weeklyScoringTitles,
     highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints,
-    gameScoreEntries, seasonWinEntries, seasonPointsEntries,
+    gameScoreEntries, seasonWinEntries, seasonPointsEntries, blowoutEntries,
     winStreakEntries, lossStreakEntries
   };
 }
@@ -688,6 +709,7 @@ function renderAllTimeRecords(containerId){
   const regWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.gamesW }));
   const regPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.regPoints[t.key] || 0 }));
   const scoringTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.scoringTitles[t.key] || 0 }));
+  const weeklyTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.weeklyScoringTitles[t.key] || 0 }));
   const playoffAppEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffApp }));
   const playoffWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffW }));
   const playoffPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.playoffPoints[t.key] || 0 }));
@@ -700,6 +722,11 @@ function renderAllTimeRecords(containerId){
   const seasonPtsEntries = r.seasonPointsEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year) }));
   const highScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}` }));
   const lowScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}` }));
+  const blowoutDisplayEntries = r.blowoutEntries.map(b => ({
+    owner: `${nameOf(b.winnerKey)} def. ${nameOf(b.loserKey)} ${fmtNum(b.winnerScore)}-${fmtNum(b.loserScore)}`,
+    value: b.margin,
+    note: `${b.year}, ${b.week}`
+  }));
 
   // ---- Streaks (per-team best, can span multiple seasons) ----
   const winStreakEntries = r.winStreakEntries.map(e => ({
@@ -717,6 +744,7 @@ function renderAllTimeRecords(containerId){
     buildCard('Single Season', 'Most Wins in a Season', seasonWinEntries, { body: n => `${n} — most regular season wins in a single year.` }),
     buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { body: n => `${n} — most total regular season points in a single year.` }),
     buildCard('Single Season', 'Most Scoring Titles', scoringTitleEntries, { body: n => `${n} — led the league in points scored the most times.` }),
+    buildCard('Weekly', 'Most Weekly Scoring Titles', weeklyTitleEntries, { body: n => `${n} — most weeks leading the league in scoring, career.` }),
     buildCard('Playoffs', 'Most Playoff Appearances', playoffAppEntries, { body: n => `${n} — most playoff appearances in league history.` }),
     buildCard('Playoffs', 'Most Playoff Wins', playoffWinEntries, { body: n => `${n} — most playoff wins in league history.` }),
     buildCard('Playoffs', 'Most Playoff Points', playoffPtsEntries, { body: n => `${n} — most total points scored across all playoff games.` }),
@@ -724,15 +752,17 @@ function renderAllTimeRecords(containerId){
     buildCard('Championships', 'Most Top-3 Finishes', top3Entries, { body: n => `${n} — most 1st, 2nd, or 3rd place finishes.` }),
     buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { body: n => `${n} — highest single-week score in league history.` }),
     buildCard('Single Game', 'Lowest Scoring Week (Regular Season)', lowScoreEntries, { dir: 'asc', body: n => `${n} — lowest single-week score in league history.` }),
+    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { body: n => `${n} — largest margin of victory in a single game, regular season.` }),
     buildCard('Consistency', 'Most 100+ Point Weeks (Regular Season)', hundredEntries, { body: n => `${n} — most weeks scoring 100+ points, career.` }),
     buildCard('Streaks', 'Longest Regular Season Winning Streak', winStreakEntries, { body: n => `${n} — longest run of consecutive regular season wins, can span multiple seasons.` }),
     buildCard('Streaks', 'Longest Regular Season Losing Streak', lossStreakEntries, { body: n => `${n} — longest run of consecutive regular season losses, can span multiple seasons.` }),
   ];
 
-  const categoryOrder = ['Regular Season', 'Single Season', 'Playoffs', 'Championships', 'Single Game', 'Consistency', 'Streaks'];
+  const categoryOrder = ['Regular Season', 'Single Season', 'Weekly', 'Playoffs', 'Championships', 'Single Game', 'Consistency', 'Streaks'];
   const categorySlug = {
     'Regular Season': 'cat-regular-season',
     'Single Season': 'cat-single-season',
+    'Weekly': 'cat-weekly',
     'Playoffs': 'cat-playoffs',
     'Championships': 'cat-championships',
     'Single Game': 'cat-single-game',
