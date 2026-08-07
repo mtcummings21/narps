@@ -33,7 +33,7 @@ function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
 function standingsRowHTML(t, i){
   return `<tr>
     <td class="pos">${i+1}</td>
-    <td class="name-cell">${t.owner}<div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
+    <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}" class="owner-link">${t.owner}</a><div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
     <td class="pos">${t.seasons} yrs</td>
     <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
     <td class="pos">${t.playoffApp}</td>
