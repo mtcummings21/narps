@@ -730,9 +730,18 @@ function renderAllTimeRecords(containerId){
   ];
 
   const categoryOrder = ['Regular Season', 'Single Season', 'Playoffs', 'Championships', 'Single Game', 'Consistency', 'Streaks'];
+  const categorySlug = {
+    'Regular Season': 'cat-regular-season',
+    'Single Season': 'cat-single-season',
+    'Playoffs': 'cat-playoffs',
+    'Championships': 'cat-championships',
+    'Single Game': 'cat-single-game',
+    'Consistency': 'cat-consistency',
+    'Streaks': 'cat-streaks'
+  };
   cards.sort((a, b) => categoryOrder.indexOf(a.medal) - categoryOrder.indexOf(b.medal));
 
-  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card">
+  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${categorySlug[c.medal] || ''}">
     <div class="medal">${c.medal}</div>
     <h3>${c.title}</h3>
     <div class="headline-stat">${c.stat}</div>

@@ -556,6 +556,35 @@ td.pos{ color: var(--text-soft); }
   padding-top: 6px;
 }
 
+/* ---------- All-Time Records color scheme (by category) ---------- */
+#records-container .cat-regular-season{ border-top-color: var(--blue); }
+#records-container .cat-regular-season .medal{ color: var(--blue); }
+#records-container .cat-regular-season .headline-stat{ color: var(--blue); }
+
+#records-container .cat-single-season{ border-top-color: #0EA5A5; }
+#records-container .cat-single-season .medal{ color: #0EA5A5; }
+#records-container .cat-single-season .headline-stat{ color: #0EA5A5; }
+
+#records-container .cat-playoffs{ border-top-color: #7C3AED; }
+#records-container .cat-playoffs .medal{ color: #7C3AED; }
+#records-container .cat-playoffs .headline-stat{ color: #7C3AED; }
+
+#records-container .cat-championships{ border-top-color: #B8860B; }
+#records-container .cat-championships .medal{ color: #B8860B; }
+#records-container .cat-championships .headline-stat{ color: #B8860B; }
+
+#records-container .cat-single-game{ border-top-color: var(--red); }
+#records-container .cat-single-game .medal{ color: var(--red); }
+#records-container .cat-single-game .headline-stat{ color: var(--red); }
+
+#records-container .cat-consistency{ border-top-color: #2E9E5B; }
+#records-container .cat-consistency .medal{ color: #2E9E5B; }
+#records-container .cat-consistency .headline-stat{ color: #2E9E5B; }
+
+#records-container .cat-streaks{ border-top-color: #E07B39; }
+#records-container .cat-streaks .medal{ color: #E07B39; }
+#records-container .cat-streaks .headline-stat{ color: #E07B39; }
+
 /* ---------- Footer ---------- */
 footer{
   background: var(--navy);
