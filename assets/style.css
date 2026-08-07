@@ -510,6 +510,20 @@ td.pos{ color: var(--text-soft); }
   margin-bottom: 6px;
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
+.award-card .rank-line{
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--text-soft);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+.award-card .rank-line + .rank-line{ margin-top: 4px; padding-top: 0; border-top: none; }
+.award-card .rank-line .rank-num{
+  font-weight: 700;
+  color: var(--navy);
+  margin-right: 6px;
+}
 
 /* ---------- Condensed records grid (All-Time Records section) ---------- */
 #records-container .award-grid{
@@ -535,6 +549,11 @@ td.pos{ color: var(--text-soft); }
 #records-container .award-card p{
   font-size: 0.78rem;
   line-height: 1.4;
+}
+#records-container .award-card .rank-line{
+  font-size: 0.66rem;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
 /* ---------- Footer ---------- */
