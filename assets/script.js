@@ -347,7 +347,7 @@ function renderCountdown(containerId, targetDateStr){
 function renderTeamsList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const sorted = TEAMS.slice().sort((a,b) => b.winPct - a.winPct);
+  const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
   el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
     <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
       <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Seasons`}</div>
