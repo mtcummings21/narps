@@ -545,6 +545,41 @@ const NEWSLETTERS = [
     "year": 2018,
     "title": "Semifinal Matchups",
     "url": "https://mailchi.mp/f1613be584c0/semifinal-matchups"
+  },
+  {
+    "vol": 1,
+    "no": 17,
+    "year": 2018,
+    "title": "Championship Edition",
+    "url": "https://mailchi.mp/5717fdd8c67a/league-of-narps-newsletter-championship-edition"
+  },
+  {
+    "vol": 2,
+    "no": 1,
+    "year": 2019,
+    "title": "Preseason Edition",
+    "url": "https://mailchi.mp/a5cd8b03e3a1/lon-newsletter-preseason-edition"
+  },
+  {
+    "vol": 2,
+    "no": 2,
+    "year": 2019,
+    "title": "Off-Field Drama in the NFL's 100th Season",
+    "url": "https://mailchi.mp/213177114671/off-field-drama-in-nfls-100th-season"
+  },
+  {
+    "vol": 2,
+    "no": 3,
+    "year": 2019,
+    "title": "Vol. 2, No. 3",
+    "url": "https://mailchi.mp/7aa7d842b122/lon-newsletter-vol-2-no-3"
+  },
+  {
+    "vol": 2,
+    "no": 4,
+    "year": 2019,
+    "title": "Week 3 Matchup Analysis",
+    "url": "https://mailchi.mp/f04bdf97389d/week-3-matchup-analysis"
   }
 ];
 
