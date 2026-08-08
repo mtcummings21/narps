@@ -580,6 +580,41 @@ const NEWSLETTERS = [
     "year": 2019,
     "title": "Week 3 Matchup Analysis",
     "url": "https://mailchi.mp/f04bdf97389d/week-3-matchup-analysis"
+  },
+  {
+    "vol": 2,
+    "no": 5,
+    "year": 2019,
+    "title": "Playoffs, Scoring, and Power Rankings",
+    "url": "https://mailchi.mp/5fdc74e65b5e/playoffs-scoring-and-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 6,
+    "year": 2019,
+    "title": "Standings, Top Scoring Team, and Power Rankings",
+    "url": "https://mailchi.mp/b991fbac2cca/standings-top-scoring-team-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 7,
+    "year": 2019,
+    "title": "Standings, Top Scoring Team, and Power Rankings",
+    "url": "https://mailchi.mp/c74f8388d787/standings-top-scoring-team-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 8,
+    "year": 2019,
+    "title": "Week 9 Champions: Standings, Top Scoring Team, and Power Rankings",
+    "url": "https://mailchi.mp/5ef0a5ec44b6/week-9-champions-standings-top-scoring-team-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 9,
+    "year": 2019,
+    "title": "Week 10: Standings, Top Scoring Team, and Power Rankings",
+    "url": "https://mailchi.mp/58dda2e5499f/week-10-standings-top-scoring-team-power-rankings"
   }
 ];
 
