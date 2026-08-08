@@ -615,6 +615,97 @@ const NEWSLETTERS = [
     "year": 2019,
     "title": "Week 10: Standings, Top Scoring Team, and Power Rankings",
     "url": "https://mailchi.mp/58dda2e5499f/week-10-standings-top-scoring-team-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 10,
+    "year": 2019,
+    "title": "Week 11: The Final Stretch — Matchups, Power Rankings, and More",
+    "url": "https://mailchi.mp/a1deb2d3c105/week-11-the-final-stretch-matchups-power-rankings-and-more"
+  },
+  {
+    "vol": 2,
+    "no": 11,
+    "year": 2019,
+    "title": "Revised Week 12: A Rare Feat in LON History, Playoff Picture, Power Rankings, and More",
+    "url": "https://mailchi.mp/81265f0316af/revised-week-12-rare-feat-in-lon-history-playoff-picture-power-rankings-and-more"
+  },
+  {
+    "vol": 2,
+    "no": 12,
+    "year": 2019,
+    "title": "Happy Thanksgiving",
+    "url": "https://mailchi.mp/374a432d28d7/happy-thanksgiving"
+  },
+  {
+    "vol": 2,
+    "no": 13,
+    "year": 2019,
+    "title": "Podcast, Playoffs, and Power Rankings",
+    "url": "https://mailchi.mp/a7942e3d8450/podcast-playoffs-and-power-rankings"
+  },
+  {
+    "vol": 2,
+    "no": 14,
+    "year": 2019,
+    "title": "A Throne for the Taking: Semi-Finals Edition",
+    "url": "https://mailchi.mp/a1d5a3723d55/a-throne-for-the-taking-semi-finals-edition"
+  },
+  {
+    "vol": 2,
+    "no": 15,
+    "year": 2019,
+    "title": "Championship Edition",
+    "url": "https://mailchi.mp/b8bf253531a8/championship-edition"
+  },
+  {
+    "vol": 8,
+    "no": 1,
+    "year": 2025,
+    "title": "Upcoming 2025 LON Season",
+    "url": "https://mailchi.mp/8f0611695e63/upcoming-2025-lon-season"
+  },
+  {
+    "vol": 8,
+    "no": 2,
+    "year": 2025,
+    "title": "Off to the Races: How One Team Is Winning Without Winning",
+    "url": "https://mailchi.mp/ebc51ac4dd8a/off-to-the-races-how-one-team-is-winning-without-winning"
+  },
+  {
+    "vol": 8,
+    "no": 3,
+    "year": 2025,
+    "title": "LON Insider Story: Private Equity Muscle to LON",
+    "url": "https://mailchi.mp/16289bd06ec7/lon-insider-story-private-equity-muscle-to-lon"
+  },
+  {
+    "vol": 8,
+    "no": 4,
+    "year": 2025,
+    "title": "League of NARPS Midseason Update",
+    "url": "https://mailchi.mp/4cf44e852887/league-of-narps-midseason-update"
+  },
+  {
+    "vol": 8,
+    "no": 5,
+    "year": 2025,
+    "title": "Playoff Picture in Flux as NARPS Enter a High-Stakes Week 14",
+    "url": "https://mailchi.mp/e41b12e3ae58/playoff-picture-in-flux-as-narps-enter-a-high-stakes-week-14"
+  },
+  {
+    "vol": 8,
+    "no": 6,
+    "year": 2025,
+    "title": "First-Round Fights and Semifinals Preview",
+    "url": "https://mailchi.mp/a5dff2d22458/first-round-fights-and-semifinals-preview"
+  },
+  {
+    "vol": 8,
+    "no": 7,
+    "year": 2025,
+    "title": "LON 2025 Championship and Season Recap",
+    "url": "https://mailchi.mp/d617d847b4ba/lon-2025-championship-and-season-recap"
   }
 ];
 
