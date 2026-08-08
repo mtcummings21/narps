@@ -30,12 +30,7 @@
       <h2 class="section-title">Champions</h2>
       <span class="section-sub">Chronological · 15 Championships, 2011–2025</span>
     </div>
-    <div class="table-scroll">
-      <table>
-        <thead><tr><th>Year</th><th>Champion</th><th>Team</th></tr></thead>
-        <tbody id="champ-timeline-body"></tbody>
-      </table>
-    </div>
+    <div class="champ-grid" id="champ-grid"></div>
   </div>
 </section>
 
@@ -46,16 +41,17 @@
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
 <script>
-  const tbody = document.getElementById('champ-timeline-body');
+  const container = document.getElementById('champ-grid');
   const chrono = CHAMPIONS.slice().sort((a,b) => a.year - b.year);
-  tbody.innerHTML = chrono.map(c => {
-    const titleCount = CHAMPIONS.filter(x => x.key === c.key && x.year <= c.year).length;
-    return `<tr>
-      <td class="pos">${c.year}</td>
-      <td class="name-cell">${c.owner}${titleCount > 1 ? ` <span class="pill">×${titleCount}</span>` : ''}</td>
-      <td>${c.team}</td>
-    </tr>`;
-  }).join('');
+  container.innerHTML = chrono.map(c => `<div class="champ-pennant">
+    <div class="champ-pennant-inner">
+      <div class="champ-grommet champ-grommet--left"></div>
+      <div class="champ-grommet champ-grommet--right"></div>
+      <div class="champ-headline">NARPS<br>CHAMPION</div>
+      <div class="champ-ribbon">${c.owner.toUpperCase()}</div>
+      <div class="champ-pennant-year">${c.year}</div>
+    </div>
+  </div>`).join('');
 </script>
 </body>
 </html>
