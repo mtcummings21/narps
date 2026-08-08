@@ -257,12 +257,12 @@ function renderSeasonDetail(containerId){
       <div class="owner">${s.champion.owner}</div>
       <div class="team">${s.champion.team}</div>
     </div>
-    <div class="plaque">
+    <div class="plaque plaque--silver">
       <div class="yr">RUNNER-UP</div>
       <div class="owner">${s.second.owner}</div>
       <div class="team">${s.second.team}</div>
     </div>
-    <div class="plaque">
+    <div class="plaque plaque--bronze">
       <div class="yr">THIRD PLACE</div>
       <div class="owner">${s.third.owner}</div>
       <div class="team">${s.third.team}</div>
@@ -286,7 +286,7 @@ function renderSeasonDetail(containerId){
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const teamKey = keyByLastName[lastNameOf(t.owner)];
-      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" style="color:var(--blue); text-decoration:underline;">${t.team}</a>` : t.team;
+      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
       return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>

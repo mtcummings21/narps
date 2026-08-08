@@ -422,6 +422,34 @@ h2.section-title{
   background: var(--navy);
 }
 
+/* Runner-up — silver plaque */
+.plaque--silver{
+  background: linear-gradient(150deg, #E4E7EB 0%, #F4F6F8 45%, #B7BEC7 100%);
+  border-top: 3px solid #8B939E;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(139,147,158,0.25);
+}
+.plaque--silver .yr{ color: var(--navy-soft); }
+.plaque--silver .owner{ color: var(--navy); }
+.plaque--silver .team{ color: rgba(11,36,71,0.62); }
+.plaque--silver .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
+}
+
+/* Third place — bronze plaque */
+.plaque--bronze{
+  background: linear-gradient(150deg, #D69A6A 0%, #E8BE94 45%, #B06A3A 100%);
+  border-top: 3px solid #8A4E28;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(138,78,40,0.25);
+}
+.plaque--bronze .yr{ color: var(--navy-soft); }
+.plaque--bronze .owner{ color: var(--navy); }
+.plaque--bronze .team{ color: rgba(11,36,71,0.62); }
+.plaque--bronze .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
+}
+
 /* ---------- Champions pennant wall ---------- */
 .champ-grid{
   display:flex;
