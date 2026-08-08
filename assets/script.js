@@ -278,13 +278,18 @@ function renderSeasonDetail(containerId){
     seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
   }));
 
+  const keyByLastName = {};
+  TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
+
   const standingsTable = `<div class="table-scroll"><table>
     <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
+      const teamKey = keyByLastName[lastNameOf(t.owner)];
+      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" style="color:var(--blue); text-decoration:underline;">${t.team}</a>` : t.team;
       return `<tr>
       <td class="pos">${i+1}</td>
-      <td class="name-cell">${t.team}</td>
+      <td class="name-cell">${teamLink}</td>
       <td class="pos">${t.owner}</td>
       <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td>${t.pct.toFixed(3)}</td>
