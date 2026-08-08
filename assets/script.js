@@ -392,6 +392,7 @@ function renderTeamDetail(containerId){
   const titles = CHAMPIONS.filter(c => c.key === key).sort((a,b) => a.year - b.year);
   const allTimeRecords = computeAllTimeRecords();
   const top3Count = allTimeRecords.topThree[key] || 0;
+  const scoringTitleYears = (allTimeRecords.scoringTitleYears[key] || []).slice().sort((a,b) => a - b);
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
@@ -399,6 +400,7 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
+    <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
   </div>`;
 
   const champGrid = titles.length ? `<div class="champ-grid">${titles.map(c => `
@@ -437,11 +439,23 @@ function renderTeamDetail(containerId){
     <tbody>${seasonRows}</tbody>
   </table></div>` : `<p class="muted">Detailed season-by-season data not added yet.</p>`;
 
+  const leaderCards = buildRecordCards().filter(c => c.leaderKeys.includes(key));
+  const recordLeaderSection = leaderCards.length ? `
+    <h2 class="section-title" style="margin-top:40px;">All-Time Record Leader</h2>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">${t.owner} currently holds the following league record${leaderCards.length > 1 ? 's' : ''}.</p>
+    <div class="award-grid">${leaderCards.map(c => `<div class="award-card ${c.cls}">
+      <div class="medal">${c.medal}</div>
+      <h3>${c.title}</h3>
+      <div class="headline-stat">${c.stat}</div>
+    </div>`).join('')}</div>
+  ` : '';
+
   el.innerHTML = `
     ${statCards}
     <h2 class="section-title" style="margin-top:8px;">Championships</h2>
     <div style="margin:20px 0 40px;">${champGrid}</div>
-    <h2 class="section-title">Season by Season</h2>
+    ${recordLeaderSection}
+    <h2 class="section-title" style="margin-top:40px;">Season by Season</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Only seasons with full data entered so far are shown here.</p>
     ${seasonTable}
   `;
@@ -519,7 +533,7 @@ function computeAllTimeRecords(){
   const keyByLastName = {};
   TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
 
-  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {}, weeklyScoringTitles = {};
+  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {}, weeklyScoringTitles = {}, scoringTitleYears = {};
   let highestWeek = { key: null, score: -Infinity, opponentInfo: '', holders: [] };
   let lowestWeek = { score: Infinity, holders: [] };
   let bestSeasonWins = { wins: -Infinity, holders: [] };
@@ -534,6 +548,7 @@ function computeAllTimeRecords(){
   TEAMS.forEach(t => {
     regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
     hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0; weeklyScoringTitles[t.key] = 0;
+    scoringTitleYears[t.key] = [];
   });
 
   function addRegScore(mgr, score, week, year){
@@ -659,6 +674,8 @@ function computeAllTimeRecords(){
     if(seasonLeaderEntry){
       const [leaderKey, leaderPoints] = seasonLeaderEntry;
       scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
+      if(!scoringTitleYears[leaderKey]) scoringTitleYears[leaderKey] = [];
+      scoringTitleYears[leaderKey].push(Number(year));
       if(leaderPoints > bestSeasonPoints.points){
         bestSeasonPoints = { points: leaderPoints, holders: [{ key: leaderKey, year }] };
       } else if(leaderPoints === bestSeasonPoints.points){
@@ -668,16 +685,14 @@ function computeAllTimeRecords(){
   });
 
   return {
-    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles, weeklyScoringTitles,
+    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles, scoringTitleYears, weeklyScoringTitles,
     highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints,
     gameScoreEntries, seasonWinEntries, seasonPointsEntries, blowoutEntries,
     winStreakEntries, lossStreakEntries
   };
 }
 
-function renderAllTimeRecords(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
+function buildRecordCards(){
   const r = computeAllTimeRecords();
   const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
   const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
@@ -699,6 +714,8 @@ function renderAllTimeRecords(containerId){
   };
   // Formats a tier's tied names, appending each item's note (year/game info) when present.
   const tierNames = (tier) => tier.items.map(it => it.note ? `${it.owner} (${it.note})` : it.owner);
+  // Unique team keys represented in a tier — used to flag "leader" status on team pages.
+  const tierKeys = (tier) => Array.from(new Set(tier.items.map(it => it.key).filter(Boolean)));
 
   const rankLine = (place, tier) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${fmtNum(tier.value)} — ${joinNames(tierNames(tier))}</div>` : '';
 
@@ -712,41 +729,45 @@ function renderAllTimeRecords(containerId){
       medal, title,
       stat: fmtNum(t0.value),
       body,
-      extra: rankLine('2nd', tiers[1]) + rankLine('3rd', tiers[2])
+      extra: rankLine('2nd', tiers[1]) + rankLine('3rd', tiers[2]),
+      leaderKeys: tierKeys(t0)
     };
   };
 
   // ---- Career totals (per-team, one entry each) ----
-  const regWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.gamesW }));
-  const regPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.regPoints[t.key] || 0 }));
-  const scoringTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.scoringTitles[t.key] || 0 }));
-  const weeklyTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.weeklyScoringTitles[t.key] || 0 }));
-  const playoffAppEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffApp }));
-  const playoffWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffW }));
-  const playoffPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.playoffPoints[t.key] || 0 }));
-  const champEntries = TEAMS.map(t => ({ owner: t.owner, value: t.champs }));
-  const top3Entries = TEAMS.map(t => ({ owner: t.owner, value: r.topThree[t.key] || 0 }));
-  const hundredEntries = TEAMS.map(t => ({ owner: t.owner, value: r.hundredPlusWeeks[t.key] || 0 }));
+  const regWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.gamesW, key: t.key }));
+  const regPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.regPoints[t.key] || 0, key: t.key }));
+  const scoringTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.scoringTitles[t.key] || 0, key: t.key }));
+  const weeklyTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.weeklyScoringTitles[t.key] || 0, key: t.key }));
+  const playoffAppEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffApp, key: t.key }));
+  const playoffWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffW, key: t.key }));
+  const playoffPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.playoffPoints[t.key] || 0, key: t.key }));
+  const champEntries = TEAMS.map(t => ({ owner: t.owner, value: t.champs, key: t.key }));
+  const top3Entries = TEAMS.map(t => ({ owner: t.owner, value: r.topThree[t.key] || 0, key: t.key }));
+  const hundredEntries = TEAMS.map(t => ({ owner: t.owner, value: r.hundredPlusWeeks[t.key] || 0, key: t.key }));
 
   // ---- Single-season / single-game entries (carry a year or game note) ----
-  const seasonWinEntries = r.seasonWinEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year) }));
-  const seasonPtsEntries = r.seasonPointsEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year) }));
-  const highScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}` }));
-  const lowScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}` }));
+  const seasonWinEntries = r.seasonWinEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
+  const seasonPtsEntries = r.seasonPointsEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
+  const highScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
+  const lowScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
   const blowoutDisplayEntries = r.blowoutEntries.map(b => ({
     owner: `${nameOf(b.winnerKey)} def. ${nameOf(b.loserKey)} ${fmtNum(b.winnerScore)}-${fmtNum(b.loserScore)}`,
     value: b.margin,
-    note: `${b.year}, ${b.week}`
+    note: `${b.year}, ${b.week}`,
+    key: b.winnerKey
   }));
 
   // ---- Streaks (per-team best, can span multiple seasons) ----
   const winStreakEntries = r.winStreakEntries.map(e => ({
     owner: nameOf(e.key), value: e.value,
-    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`
+    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`,
+    key: e.key
   }));
   const lossStreakEntries = r.lossStreakEntries.map(e => ({
     owner: nameOf(e.key), value: e.value,
-    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`
+    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`,
+    key: e.key
   }));
 
   const cards = [
@@ -781,8 +802,17 @@ function renderAllTimeRecords(containerId){
     'Streaks': 'cat-streaks'
   };
   cards.sort((a, b) => categoryOrder.indexOf(a.medal) - categoryOrder.indexOf(b.medal));
+  cards.forEach(c => { c.cls = categorySlug[c.medal] || ''; });
 
-  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${categorySlug[c.medal] || ''}">
+  return cards;
+}
+
+function renderAllTimeRecords(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const cards = buildRecordCards();
+
+  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${c.cls}">
     <div class="medal">${c.medal}</div>
     <h3>${c.title}</h3>
     <div class="headline-stat">${c.stat}</div>
