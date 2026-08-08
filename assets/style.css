@@ -422,6 +422,79 @@ h2.section-title{
   background: var(--navy);
 }
 
+/* ---------- Champions pennant wall ---------- */
+.champ-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 28px;
+  justify-content: center;
+}
+.champ-pennant{
+  width: 180px;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  background: #000000;
+  padding: 5px;
+  transition: transform 0.15s ease;
+}
+.champ-pennant:hover{ transform: translateY(-3px); }
+.champ-pennant-inner{
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
+  padding: 22px 14px 42px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+}
+.champ-grommet{
+  position:absolute;
+  top:14px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#000000;
+}
+.champ-grommet--left{ left:14px; }
+.champ-grommet--right{ right:14px; }
+.champ-headline{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  color: #000000;
+  text-align:center;
+  margin-top: 8px;
+  line-height: 1.3;
+}
+.champ-ribbon{
+  margin-top: 14px;
+  max-width: 100%;
+  background: #000000;
+  color: #E9C766;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  clip-path: polygon(6% 0, 94% 0, 100% 50%, 94% 100%, 6% 100%, 0 50%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.champ-pennant-year{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.3rem;
+  color: #000000;
+  margin-top: 16px;
+  letter-spacing: -1px;
+}
+
+@media (max-width: 560px){
+  .champ-pennant{ width: 150px; }
+  .champ-pennant-year{ font-size: 1.9rem; }
+}
+
 /* ---------- Tables ---------- */
 .table-scroll{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
 table{
