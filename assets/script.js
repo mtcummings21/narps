@@ -396,9 +396,15 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
   </div>`;
 
-  const champGrid = titles.length ? `<div class="trophy-case">${titles.map(c => `
-    <div class="plaque plaque--recent" style="text-align:center;">
-      <div class="owner" style="font-size:1.8rem; margin:6px 0;">${c.year}</div>
+  const champGrid = titles.length ? `<div class="champ-grid">${titles.map(c => `
+    <div class="champ-pennant">
+      <div class="champ-pennant-inner">
+        <div class="champ-grommet champ-grommet--left"></div>
+        <div class="champ-grommet champ-grommet--right"></div>
+        <div class="champ-headline">NARPS<br>CHAMPION</div>
+        <div class="champ-ribbon">${t.owner.toUpperCase()}</div>
+        <div class="champ-pennant-year">${c.year}</div>
+      </div>
     </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
 
   const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
