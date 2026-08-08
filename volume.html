@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Newsletters — League of NARPS</title>
+<title>Volume — League of NARPS</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -27,11 +27,10 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title">League Newsletters</h2>
-      <span class="section-sub">The Archive</span>
+      <h2 class="section-title" id="volume-title">Volume</h2>
+      <span class="section-sub"><a href="newsletters.html" style="color:var(--blue); text-decoration:underline;">← All Volumes</a></span>
     </div>
-    <p class="muted" style="max-width:65ch;">Every league newsletter, straight from the Mailchimp archives, organized by volume. Click into a volume to read its issues.</p>
-    <div id="volumes-list-container"></div>
+    <div id="volume-detail-container"></div>
   </div>
 </section>
 
@@ -41,6 +40,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderVolumesList('volumes-list-container');</script>
+<script>renderVolumeDetail('volume-detail-container');</script>
 </body>
 </html>

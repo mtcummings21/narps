@@ -193,14 +193,40 @@ function renderAwards(containerId){
 }
 
 // ---------- Newsletters ----------
-function renderNewsletters(containerId){
+// ---------- Newsletters ----------
+function renderVolumesList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const sorted = NEWSLETTERS.slice().sort((a,b) => (a.vol - b.vol) || (a.no - b.no));
+  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => a - b);
+  el.innerHTML = `<div class="card-grid">` + vols.map(v => {
+    const issues = NEWSLETTERS.filter(n => n.vol === v).sort((a,b) => a.no - b.no);
+    const years = Array.from(new Set(issues.map(n => n.year))).sort((a,b) => a - b);
+    const yearLabel = years.length > 1 ? `${years[0]}–${years[years.length-1]}` : String(years[0]);
+    return `<a class="nav-card" href="volume.html?vol=${v}">
+      <div class="card-eyebrow">${yearLabel}</div>
+      <h3>Volume ${v}</h3>
+      <p>${issues.length} issue${issues.length !== 1 ? 's' : ''}</p>
+    </a>`;
+  }).join('') + `</div>`;
+}
+
+function renderVolumeDetail(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const params = new URLSearchParams(window.location.search);
+  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => a - b);
+  const vol = Number(params.get('vol')) || vols[vols.length - 1];
+  const issues = NEWSLETTERS.filter(n => n.vol === vol).sort((a,b) => a.no - b.no);
+  if(!issues.length){ el.innerHTML = `<p>No newsletters found for Volume ${vol}.</p>`; return; }
+
+  document.title = `Volume ${vol} — League of NARPS`;
+  const titleEl = document.getElementById('volume-title');
+  if(titleEl) titleEl.textContent = `Volume ${vol}`;
+
   el.innerHTML = `<div class="table-scroll"><table>
     <thead><tr><th>Issue</th><th>Title</th><th>Season</th><th></th></tr></thead>
     <tbody>
-      ${sorted.map(n => `<tr>
+      ${issues.map(n => `<tr>
         <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
         <td class="name-cell">${n.title}</td>
         <td class="pos">${n.year}</td>
