@@ -226,6 +226,60 @@ img{ max-width:100%; display:block; }
   margin-top: 5px;
 }
 
+/* ---------- In Memory Of ---------- */
+.memorial-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--text-soft);
+  border-radius: var(--radius);
+  padding: 36px 40px;
+  box-shadow: var(--shadow);
+}
+.memorial-eyebrow{
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.memorial-name{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.memorial-years{
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+.memorial-body p{
+  font-family: var(--body);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+.memorial-stats{
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  line-height: 1.9;
+}
+
+@media (max-width: 560px){
+  .memorial-card{ padding: 26px 22px; }
+  .memorial-name{ font-size: 1.5rem; }
+}
+
 /* ---------- Kickoff countdown ---------- */
 .countdown-card{
   background: var(--white);
