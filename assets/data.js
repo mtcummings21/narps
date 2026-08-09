@@ -706,6 +706,34 @@ const NEWSLETTERS = [
     "year": 2025,
     "title": "LON 2025 Championship and Season Recap",
     "url": "https://mailchi.mp/d617d847b4ba/lon-2025-championship-and-season-recap"
+  },
+  {
+    "vol": 6,
+    "no": 1,
+    "year": 2023,
+    "title": "Upcoming 2023 Season",
+    "url": "https://mailchi.mp/11029cf70d2c/upcoming-2023-season"
+  },
+  {
+    "vol": 6,
+    "no": 2,
+    "year": 2023,
+    "title": "Fall and Football Are Back",
+    "url": "https://mailchi.mp/71662fb38c53/fall-and-football-are-back"
+  },
+  {
+    "vol": 6,
+    "no": 3,
+    "year": 2023,
+    "title": "The Power Rankings Are Back",
+    "url": "https://mailchi.mp/cb1be9351944/the-power-rankings-are-back"
+  },
+  {
+    "vol": 6,
+    "no": 4,
+    "year": 2023,
+    "title": "Playoff Positioning: Gangstas and Deplorables Lead the Way",
+    "url": "https://mailchi.mp/e89a6b166b7f/playoff-positioning-gangstas-and-deplorabes-lead-the-way"
   }
 ];
 
