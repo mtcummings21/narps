@@ -226,44 +226,6 @@ img{ max-width:100%; display:block; }
   margin-top: 5px;
 }
 
-/* ---------- This Week in League History ---------- */
-.flashback-card{
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 22px 26px;
-  margin: 20px 0;
-  box-shadow: var(--shadow);
-  border-left: 4px solid var(--blue);
-}
-.flashback-eyebrow{
-  font-family: var(--mono);
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  font-size: 0.72rem;
-  color: var(--blue);
-  margin-bottom: 10px;
-}
-.flashback-body p{
-  margin: 0 0 4px;
-  font-size: 1.05rem;
-  color: var(--text);
-}
-.flashback-meta{
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  color: var(--text-soft) !important;
-}
-.flashback-link{
-  display: inline-block;
-  margin-top: 10px;
-  font-family: var(--mono);
-  font-size: 0.8rem;
-  text-decoration: underline;
-  color: var(--blue);
-}
-
 /* ---------- Kickoff countdown ---------- */
 .countdown-card{
   background: var(--white);
@@ -693,6 +655,28 @@ td.pos{ color: var(--text-soft); }
   font-size: 0.66rem;
   margin-top: 6px;
   padding-top: 6px;
+}
+
+/* ---------- Condensed leader grid (Team page — All-Time Record Leader) ---------- */
+#team-leader-grid{
+  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
+  gap: 12px;
+}
+#team-leader-grid .award-card{
+  padding: 14px 16px;
+}
+#team-leader-grid .award-card .medal{
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+}
+#team-leader-grid .award-card h3{
+  font-size: 0.95rem;
+  margin: 5px 0 6px;
+  line-height: 1.25;
+}
+#team-leader-grid .award-card .headline-stat{
+  font-size: 1.5rem;
+  margin-bottom: 0;
 }
 
 /* ---------- All-Time Records color scheme (by category) ---------- */
