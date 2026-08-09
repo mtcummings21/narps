@@ -527,19 +527,26 @@ function renderSurvivor(containerId){
     <tbody>${leaderboardRows}</tbody>
   </table></div>`;
 
-  const pickDetails = sorted.map(p => {
-    const rows = p.picks.map(pk => `<tr>
-      <td class="pos">Week ${pk.week}</td>
-      <td class="${pk.loss ? '' : 'name-cell'}" style="${pk.loss ? 'color:var(--red); text-decoration:line-through;' : ''}">${pk.team}${pk.loss ? ' (loss)' : ''}</td>
-    </tr>`).join('');
-    return `<div style="margin-bottom:24px;">
-      <div style="font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);">${p.name} — ${p.result === 'Winner' ? 'Winner' : 'Eliminated Week ' + p.eliminatedWeek}</div>
-      <div class="table-scroll" style="margin-top:8px;"><table>
-        <thead><tr><th>Week</th><th>Pick</th></tr></thead>
-        <tbody>${rows}</tbody>
-      </table></div>
-    </div>`;
+  const maxWeek = Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week)));
+  const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
+
+  const picksTableRows = sorted.map(p => {
+    const cells = weekCols.map(w => {
+      const pk = p.picks.find(x => x.week === w);
+      if(!pk) return `<td class="pos">—</td>`;
+      const style = pk.loss ? 'color:var(--red); text-decoration:line-through;' : '';
+      return `<td class="${pk.loss ? '' : 'name-cell'}" style="${style}">${pk.team}</td>`;
+    }).join('');
+    return `<tr>
+      <td class="name-cell">${p.name}</td>
+      ${cells}
+    </tr>`;
   }).join('');
+
+  const picksTable = `<div class="table-scroll"><table>
+    <thead><tr><th>Player</th>${weekCols.map(w => `<th>Wk ${w}</th>`).join('')}</tr></thead>
+    <tbody>${picksTableRows}</tbody>
+  </table></div>`;
 
   el.innerHTML = `
     ${champCard}
@@ -547,7 +554,7 @@ function renderSurvivor(containerId){
     ${leaderboard}
     <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
-    ${pickDetails}
+    ${picksTable}
   `;
 }
 
