@@ -532,13 +532,13 @@ function renderSurvivor(containerId){
       <td class="pos">Week ${pk.week}</td>
       <td class="${pk.loss ? '' : 'name-cell'}" style="${pk.loss ? 'color:var(--red); text-decoration:line-through;' : ''}">${pk.team}${pk.loss ? ' (loss)' : ''}</td>
     </tr>`).join('');
-    return `<details style="margin-bottom:8px;">
-      <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);">${p.name} — ${p.result === 'Winner' ? 'Winner' : 'Eliminated Week ' + p.eliminatedWeek}</summary>
+    return `<div style="margin-bottom:24px;">
+      <div style="font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius);">${p.name} — ${p.result === 'Winner' ? 'Winner' : 'Eliminated Week ' + p.eliminatedWeek}</div>
       <div class="table-scroll" style="margin-top:8px;"><table>
         <thead><tr><th>Week</th><th>Pick</th></tr></thead>
         <tbody>${rows}</tbody>
       </table></div>
-    </details>`;
+    </div>`;
   }).join('');
 
   el.innerHTML = `
@@ -546,7 +546,7 @@ function renderSurvivor(containerId){
     <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
     ${leaderboard}
     <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a player to see every pick they made, week by week. Losses are struck through — two losses means elimination.</p>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
     ${pickDetails}
   `;
 }
@@ -750,7 +750,7 @@ function buildRecordCards(){
     const dir = opts.dir || 'desc';
     const tiers = topTiers(entries, 3, dir);
     const t0 = tiers[0] || { value: 0, items: [] };
-    const body = joinNames(tierNames(t0));
+    const body = `<strong>${joinNames(tierNames(t0))}</strong>`;
     return {
       medal, title,
       stat: fmtNum(t0.value),

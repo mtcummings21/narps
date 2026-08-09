@@ -575,7 +575,7 @@ td.pos{ color: var(--text-soft); }
 /* ---------- Awards ---------- */
 .award-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
   gap: 16px;
 }
 .award-card{
@@ -628,7 +628,7 @@ td.pos{ color: var(--text-soft); }
 
 /* ---------- Condensed records grid (All-Time Records section) ---------- */
 #records-container .award-grid{
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
   gap: 12px;
 }
 #records-container .award-card{
