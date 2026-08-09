@@ -13014,6 +13014,317 @@ const SEASONS = {
 };
 
 const SURVIVOR = {
+  "2024": {
+    "champion": "Matt Garner",
+    "players": [
+      {
+        "name": "Matt Garner",
+        "result": "Winner",
+        "eliminatedWeek": null,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Seahawks",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Chargers",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Bills",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Chiefs",
+            "loss": false
+          },
+          {
+            "week": 5,
+            "team": "Commanders",
+            "loss": false
+          },
+          {
+            "week": 6,
+            "team": "Texans",
+            "loss": false
+          },
+          {
+            "week": 7,
+            "team": "Eagles",
+            "loss": false
+          },
+          {
+            "week": 8,
+            "team": "Lions",
+            "loss": false
+          }
+        ]
+      },
+      {
+        "name": "Melissa",
+        "result": "Eliminated",
+        "eliminatedWeek": 8,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Saints",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Lions",
+            "loss": true
+          },
+          {
+            "week": 3,
+            "team": "Seahawks",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Commanders",
+            "loss": false
+          },
+          {
+            "week": 5,
+            "team": "Bears",
+            "loss": false
+          },
+          {
+            "week": 6,
+            "team": "Eagles",
+            "loss": false
+          },
+          {
+            "week": 7,
+            "team": "Bills",
+            "loss": false
+          },
+          {
+            "week": 8,
+            "team": "Jets",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Bri Garner",
+        "result": "Eliminated",
+        "eliminatedWeek": 5,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Seahawks",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Chargers",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Raiders",
+            "loss": true
+          },
+          {
+            "week": 4,
+            "team": "Chiefs",
+            "loss": false
+          },
+          {
+            "week": 5,
+            "team": "49ers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Geiger",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Seahawks",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          },
+          {
+            "week": 3,
+            "team": "Bengals",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Z",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bills",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          },
+          {
+            "week": 3,
+            "team": "Buccaneers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Clay",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Cummings",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Luke",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Aaron",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Sizemore",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Ronnie",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Pat",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Walid",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Falcons",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Ravens",
+            "loss": true
+          }
+        ]
+      }
+    ]
+  },
   "2025": {
     "champion": "Seth",
     "players": [
