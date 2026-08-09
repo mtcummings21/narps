@@ -319,8 +319,8 @@ function renderSeasonDetail(containerId){
       <td class="pos">${t.owner}</td>
       <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td>${t.pct.toFixed(3)}</td>
-      <td>${pts.pf.toFixed(1)}</td>
-      <td>${pts.pa.toFixed(1)}</td>
+      <td>${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+      <td>${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     </tr>`;
     }).join('')}</tbody>
   </table></div>`;
