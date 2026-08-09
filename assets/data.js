@@ -734,6 +734,76 @@ const NEWSLETTERS = [
     "year": 2023,
     "title": "Playoff Positioning: Gangstas and Deplorables Lead the Way",
     "url": "https://mailchi.mp/e89a6b166b7f/playoff-positioning-gangstas-and-deplorabes-lead-the-way"
+  },
+  {
+    "vol": 5,
+    "no": 1,
+    "year": 2022,
+    "title": "I'm Back",
+    "url": "https://mailchi.mp/532b7baf20fe/im-back"
+  },
+  {
+    "vol": 5,
+    "no": 2,
+    "year": 2022,
+    "title": "Magic in Miami: Ian Takes Over Rest of Florida",
+    "url": "https://mailchi.mp/a0b9271cedbe/lon-newsletter-vol-5-no-2-magic-in-miami-ian-takes-over-rest-of-florida"
+  },
+  {
+    "vol": 5,
+    "no": 3,
+    "year": 2022,
+    "title": "Vol. 5, No. 3",
+    "url": "https://mailchi.mp/487fb6657b0e/lon-newsletter-vol-5-no-3"
+  },
+  {
+    "vol": 5,
+    "no": 4,
+    "year": 2022,
+    "title": "Playoff Changes, Average Weekly Scores",
+    "url": "https://mailchi.mp/e147868a6890/playoff-changes-average-weekly-scores"
+  },
+  {
+    "vol": 5,
+    "no": 5,
+    "year": 2022,
+    "title": "Real or Not Real",
+    "url": "https://mailchi.mp/c63232749fe3/real-or-not-real"
+  },
+  {
+    "vol": 5,
+    "no": 6,
+    "year": 2022,
+    "title": "Tight Race for the Playoffs",
+    "url": "https://mailchi.mp/4356dcab2f94/tight-race-for-the-playoffs"
+  },
+  {
+    "vol": 5,
+    "no": 7,
+    "year": 2022,
+    "title": "The Playoff Race Continues to Be Competitive",
+    "url": "https://mailchi.mp/e5b5d42b48e5/the-playoff-race-continues-to-be-competitive"
+  },
+  {
+    "vol": 5,
+    "no": 8,
+    "year": 2022,
+    "title": "Thanksgiving Edition",
+    "url": "https://mailchi.mp/efcd60765b08/lon-newsletter-thanksgiving-edition"
+  },
+  {
+    "vol": 5,
+    "no": 9,
+    "year": 2022,
+    "title": "Playoff Scenarios",
+    "url": "https://mailchi.mp/182a7eb03a9a/playoff-scenarios"
+  },
+  {
+    "vol": 5,
+    "no": 10,
+    "year": 2022,
+    "title": "Stallions Run Loose While Gangstas Out-Shoot Everyone",
+    "url": "https://mailchi.mp/74e4906f5d41/stallions-run-loose-while-gangstas-out-shoot-everyone"
   }
 ];
 
