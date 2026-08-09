@@ -804,6 +804,34 @@ const NEWSLETTERS = [
     "year": 2022,
     "title": "Stallions Run Loose While Gangstas Out-Shoot Everyone",
     "url": "https://mailchi.mp/74e4906f5d41/stallions-run-loose-while-gangstas-out-shoot-everyone"
+  },
+  {
+    "vol": 4,
+    "no": 1,
+    "year": 2021,
+    "title": "Hall of Fame Game",
+    "url": "https://mailchi.mp/d7d7a1e31b85/hall-of-fame-game"
+  },
+  {
+    "vol": 3,
+    "no": 2,
+    "year": 2020,
+    "title": "Final Week of Regular Season",
+    "url": "https://mailchi.mp/8cebcf956599/final-week-of-regular-season"
+  },
+  {
+    "vol": 3,
+    "no": 3,
+    "year": 2020,
+    "title": "LON First Round Playoff Matchups",
+    "url": "https://mailchi.mp/8df3808e9324/lon-first-round-playoff-matchups"
+  },
+  {
+    "vol": 3,
+    "no": 4,
+    "year": 2020,
+    "title": "LoN Newsletter Vol 3, No 4",
+    "url": "https://us19.campaign-archive.com/?u=564d0ae2533148f8fc46b832d&id=17553cc6d4"
   }
 ];
 
