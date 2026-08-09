@@ -750,7 +750,7 @@ function buildRecordCards(){
     const dir = opts.dir || 'desc';
     const tiers = topTiers(entries, 3, dir);
     const t0 = tiers[0] || { value: 0, items: [] };
-    const body = opts.body ? opts.body(joinNames(tierNames(t0))) : `${joinNames(tierNames(t0))}.`;
+    const body = joinNames(tierNames(t0));
     return {
       medal, title,
       stat: fmtNum(t0.value),
