@@ -492,9 +492,16 @@ function renderSurvivor(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
   const years = Object.keys(SURVIVOR).sort((a,b) => b - a);
-  const year = years[0];
+  const params = new URLSearchParams(window.location.search);
+  const requestedYear = params.get('year');
+  const year = (requestedYear && SURVIVOR[requestedYear]) ? requestedYear : years[0];
   const s = SURVIVOR[year];
   if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
+
+  document.title = `${year} Survivor — League of NARPS`;
+
+  const yearSwitcher = years.length > 1 ? `<div style="display:flex; gap:8px; margin-bottom:24px;">${years.map(y => `
+    <a href="survivor.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>` : '';
 
   const sorted = s.players.slice().sort((a,b) => {
     if(a.result === 'Winner') return -1;
@@ -549,6 +556,7 @@ function renderSurvivor(containerId){
   </table></div>`;
 
   el.innerHTML = `
+    ${yearSwitcher}
     ${champCard}
     <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
     ${leaderboard}
