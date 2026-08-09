@@ -360,6 +360,78 @@ function renderSeasonDetail(containerId){
   `;
 }
 
+// ---------- This Week in League History ----------
+function renderThisWeekInHistory(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+
+  const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+  const weekNum = (wk) => { const m = String(wk).match(/\d+/); return m ? Number(m[0]) : 0; };
+  const keyByLastName = {};
+  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
+  const nameOf = mgr => { const t = TEAMS.find(x => x.key === keyByLastName[lastNameOf(mgr)]); return t ? t.owner : mgr; };
+
+  // Figure out which NFL week "now" falls in, using this season's kickoff as the anchor.
+  const kickoff = new Date('2026-09-09T00:00:00-04:00').getTime();
+  const msPerWeek = 7 * 24 * 60 * 60 * 1000;
+  const weeksSinceKickoff = Math.floor((Date.now() - kickoff) / msPerWeek) + 1;
+
+  // Bound "in season" and the random fallback by the largest week number that actually exists in the archive.
+  const allWeekNums = new Set();
+  Object.values(SEASONS).forEach(s => {
+    Object.keys(s.schedule || {}).forEach(w => allWeekNums.add(weekNum(w)));
+  });
+  const maxWeek = Math.max(...allWeekNums);
+
+  const inSeason = weeksSinceKickoff >= 1 && weeksSinceKickoff <= maxWeek;
+  const targetWeek = inSeason ? weeksSinceKickoff : (1 + Math.floor(Math.random() * maxWeek));
+
+  // Every regular-season game ever played in that week number, across every season on record.
+  const candidates = [];
+  Object.entries(SEASONS).forEach(([year, s]) => {
+    Object.entries(s.schedule || {}).forEach(([week, games]) => {
+      if(weekNum(week) !== targetWeek) return;
+      games.forEach(g => { if(g.awayScore !== g.homeScore) candidates.push({ year, week, ...g }); });
+    });
+  });
+
+  // Occasionally surface a random newsletter instead, for variety — issues aren't tagged by week, so this ignores targetWeek.
+  const showNewsletter = typeof NEWSLETTERS !== 'undefined' && NEWSLETTERS.length && Math.random() < 0.25;
+
+  let card = '';
+  if(showNewsletter){
+    const n = NEWSLETTERS[Math.floor(Math.random() * NEWSLETTERS.length)];
+    card = `<div class="flashback-card">
+      <div class="flashback-eyebrow">From the Archives</div>
+      <div class="flashback-body">
+        <p><strong>${n.title}</strong></p>
+        <p class="flashback-meta">Vol. ${n.vol}, No. ${n.no} — ${n.year}</p>
+      </div>
+      <a href="${n.url}" target="_blank" rel="noopener" class="flashback-link">Read it →</a>
+    </div>`;
+  } else if(candidates.length){
+    const g = candidates[Math.floor(Math.random() * candidates.length)];
+    const margin = Math.round(Math.abs(g.homeScore - g.awayScore) * 10) / 10;
+    const awayWon = g.awayScore > g.homeScore;
+    const winner = nameOf(awayWon ? g.awayMgr : g.homeMgr);
+    const loser = nameOf(awayWon ? g.homeMgr : g.awayMgr);
+    const winnerScore = Math.max(g.awayScore, g.homeScore);
+    const loserScore = Math.min(g.awayScore, g.homeScore);
+    let flavor = '';
+    if(margin >= 40) flavor = ' — a total blowout.';
+    else if(margin <= 3) flavor = ' — a nail-biter.';
+    card = `<div class="flashback-card">
+      <div class="flashback-eyebrow">${inSeason ? 'This Week in League History' : 'Random Flashback'}</div>
+      <div class="flashback-body">
+        <p><strong>${winner}</strong> def. ${loser}, ${fmtNum(winnerScore)}–${fmtNum(loserScore)}${flavor}</p>
+        <p class="flashback-meta">${g.year}, Week ${targetWeek}</p>
+      </div>
+    </div>`;
+  }
+
+  el.innerHTML = card;
+}
+
 // ---------- Kickoff countdown ----------
 function renderCountdown(containerId, targetDateStr){
   const el = document.getElementById(containerId);
