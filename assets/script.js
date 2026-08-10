@@ -255,6 +255,14 @@ function renderSeasonsList(containerId){
 
   const seasonCards = seasonYears.map(y => {
     const s = SEASONS[y];
+    const started = (s.standings || []).some(t => (t.w||0) + (t.l||0) + (t.t||0) > 0);
+    if(!started){
+      const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
+      return `<a class="nav-card" href="season.html?year=${y}">
+        <h3>${y}</h3>
+        <p style="margin:0;">🏈 Season in progress${draftInfo ? '<br>Draft Day: ' + draftInfo.label : ''}</p>
+      </a>`;
+    }
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
       <p style="margin:0;">
@@ -312,6 +320,8 @@ function renderSeasonDetail(containerId){
   const titleEl = document.getElementById('season-title');
   if(titleEl) titleEl.textContent = `${year} Season`;
 
+  const seasonStarted = (s.standings || []).some(t => (t.w||0) + (t.l||0) + (t.t||0) > 0);
+
   const podium = `<div class="trophy-case">
     <div class="plaque plaque--recent">
       <div class="yr">CHAMPION</div>
@@ -361,7 +371,7 @@ function renderSeasonDetail(containerId){
   </table></div>`;
 
   const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
-    const r = s.playoffs[rk];
+    const r = (s.playoffs || {})[rk];
     if(!r) return '';
     const byes = r.byes ? `<p class="muted" style="font-size:0.85rem;">Bye: ${r.byes.map(b=>`${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
     return `<h3 style="font-family:var(--display); font-size:1.3rem; margin:24px 0 10px;">${r.label}</h3>
@@ -383,16 +393,34 @@ function renderSeasonDetail(containerId){
     </details>`;
   }).join('');
 
+  const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
+  const hasDraftOrder = typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year];
+  const draftSection = (!seasonStarted && hasDraftOrder) ? `
+    ${draftInfo ? `<div class="countdown-card" style="margin:24px 0 32px;">
+      <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
+      <div id="season-draft-countdown"></div>
+    </div>` : ''}
+    <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
+    <div id="season-draft-order" style="margin-top:16px;"></div>
+  ` : '';
+
   el.innerHTML = `
     ${podium}
-    <h2 class="section-title" style="margin-top:40px;">Final Regular Season Standings</h2>
+    ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
+    ${draftSection}
+    <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? 'Final Regular Season Standings' : 'Standings'}</h2>
     ${standingsTable}
-    <h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
-    ${playoffRounds}
+    ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
+    ${playoffRounds}` : ''}
     <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand. Bold indicates the winning team.</p>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand.${seasonStarted ? ' Bold indicates the winning team.' : ''}</p>
     ${scheduleWeeks}
   `;
+
+  if(!seasonStarted && hasDraftOrder){
+    if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
+    renderDraftOrder('season-draft-order', year);
+  }
 }
 
 // ---------- Draft order ----------

@@ -13038,7 +13038,823 @@ const SEASONS = {
         ]
       }
     }
-  }
+  },
+  "2026": {
+    "year": 2026,
+    "champion": {
+      "team": "TBD",
+      "owner": "TBD"
+    },
+    "second": {
+      "team": "TBD",
+      "owner": "TBD"
+    },
+    "third": {
+      "team": "TBD",
+      "owner": "TBD"
+    },
+    "standings": [
+      {
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "George's Gangstas",
+        "owner": "Sonny Wright",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "The Deplorables",
+        "owner": "Zach Sizemore",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "ACLiens",
+        "owner": "Luke Rapp",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Lincoln Legends",
+        "owner": "Tyler Cummings",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Arabian Stallions",
+        "owner": "Walid Salameh",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Money Badgers",
+        "owner": "Tyler Clay",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Fantasy Football Team",
+        "owner": "Aaron Burns",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Free Agents",
+        "owner": "Z Hickman",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Business as Usual",
+        "owner": "Travis West",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Kareem Pie",
+        "owner": "Seth Thacker",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      },
+      {
+        "team": "Route 2 Ravers",
+        "owner": "Joe Garton",
+        "w": 0,
+        "l": 0,
+        "t": 0,
+        "pct": 0.0
+      }
+    ],
+    "playoffs": {},
+    "schedule": {
+      "Week 1": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        }
+      ],
+      "Week 2": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        }
+      ],
+      "Week 3": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        }
+      ],
+      "Week 4": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        }
+      ],
+      "Week 5": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        }
+      ],
+      "Week 6": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        }
+      ],
+      "Week 7": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        }
+      ],
+      "Week 8": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ],
+      "Week 9": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        }
+      ],
+      "Week 10": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        }
+      ],
+      "Week 11": [
+        {
+          "away": "Kareem Pie",
+          "awayMgr": "Seth Thacker",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        }
+      ],
+      "Week 12": [
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Seth Thacker",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Clay",
+          "home": "Money Badgers"
+        },
+        {
+          "away": "George's Gangstas",
+          "awayMgr": "Sonny Wright",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Z Hickman",
+          "home": "Free Agents"
+        },
+        {
+          "away": "Lincoln Legends",
+          "awayMgr": "Tyler Cummings",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Walid Salameh",
+          "home": "Arabian Stallions"
+        },
+        {
+          "away": "Fantasy Football Team",
+          "awayMgr": "Aaron Burns",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Prino",
+          "home": "Prino's Powerhouse"
+        },
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        }
+      ],
+      "Week 13": [
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Seth Thacker",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Zach Sizemore",
+          "home": "The Deplorables"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Luke Rapp",
+          "home": "ACLiens"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Business as Usual",
+          "awayMgr": "Travis West",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "Route 2 Ravers",
+          "awayMgr": "Joe Garton",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        }
+      ],
+      "Week 14": [
+        {
+          "away": "ACLiens",
+          "awayMgr": "Luke Rapp",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Seth Thacker",
+          "home": "Kareem Pie"
+        },
+        {
+          "away": "The Deplorables",
+          "awayMgr": "Zach Sizemore",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Aaron Burns",
+          "home": "Fantasy Football Team"
+        },
+        {
+          "away": "Prino's Powerhouse",
+          "awayMgr": "Joe Prino",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Tyler Cummings",
+          "home": "Lincoln Legends"
+        },
+        {
+          "away": "Arabian Stallions",
+          "awayMgr": "Walid Salameh",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Sonny Wright",
+          "home": "George's Gangstas"
+        },
+        {
+          "away": "Free Agents",
+          "awayMgr": "Z Hickman",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Joe Garton",
+          "home": "Route 2 Ravers"
+        },
+        {
+          "away": "Money Badgers",
+          "awayMgr": "Tyler Clay",
+          "awayScore": 0,
+          "homeScore": 0,
+          "homeMgr": "Travis West",
+          "home": "Business as Usual"
+        }
+      ]
+    }
+  },
 };
 
 const DRAFT_DATES = {
