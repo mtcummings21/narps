@@ -13041,6 +13041,27 @@ const SEASONS = {
   }
 };
 
+const DRAFT_DATES = {
+  "2026": { "iso": "2026-09-07T20:00:00-04:00", "label": "Mon, Sept 7, 2026 · 8:00 PM ET" }
+};
+
+const DRAFT_ORDER = {
+  "2026": [
+    { "key": "Sizemore", "owner": "Zach Sizemore", "team": "The Deplorables" },
+    { "key": "Thacker", "owner": "Seth Thacker", "team": "TBD" },
+    { "key": "Cummings", "owner": "Tyler Cummings", "team": "Lincoln Legends" },
+    { "key": "Garton", "owner": "Joe Garton", "team": "Route 2 Ravers" },
+    { "key": "Prino", "owner": "Joe Prino", "team": "Prino's Powerhouse" },
+    { "key": "Clay", "owner": "Tyler Clay", "team": "Money Badgers" },
+    { "key": "Rapp", "owner": "Luke Rapp", "team": "ACLiens" },
+    { "key": "Burns", "owner": "Aaron Burns", "team": "Fantasy Football Team" },
+    { "key": "Salameh", "owner": "Walid Salameh", "team": "Arabian Stallions" },
+    { "key": "Hickman", "owner": "Z Hickman", "team": "Free Agents" },
+    { "key": "Wright", "owner": "Sonny Wright", "team": "George's Gangstas" },
+    { "key": "West", "owner": "Travis West", "team": "Business as Usual" }
+  ]
+};
+
 const SURVIVOR = {
   "2024": {
     "champion": "Matt Garner",

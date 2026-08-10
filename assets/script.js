@@ -240,8 +240,20 @@ function renderVolumeDetail(containerId){
 function renderSeasonsList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const years = Object.keys(SEASONS).sort((a,b) => b - a);
-  el.innerHTML = `<div class="card-grid">` + years.map(y => {
+  const seasonYears = Object.keys(SEASONS).sort((a,b) => b - a);
+  const upcomingYears = (typeof DRAFT_ORDER !== 'undefined' ? Object.keys(DRAFT_ORDER) : [])
+    .filter(y => !SEASONS[y])
+    .sort((a,b) => b - a);
+
+  const upcomingCards = upcomingYears.map(y => {
+    const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
+    return `<a class="nav-card" href="season.html?year=${y}">
+      <h3>${y}</h3>
+      <p style="margin:0;">🏈 Draft Day${draftInfo ? '<br>' + draftInfo.label : ''}</p>
+    </a>`;
+  }).join('');
+
+  const seasonCards = seasonYears.map(y => {
     const s = SEASONS[y];
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
@@ -251,7 +263,9 @@ function renderSeasonsList(containerId){
         🥉 ${s.third.owner}
       </p>
     </a>`;
-  }).join('') + `</div>`;
+  }).join('');
+
+  el.innerHTML = `<div class="card-grid">${upcomingCards}${seasonCards}</div>`;
 }
 
 function matchupRow(g){
@@ -271,7 +285,28 @@ function renderSeasonDetail(containerId){
   const params = new URLSearchParams(window.location.search);
   const year = params.get('year') || Object.keys(SEASONS).sort((a,b)=>b-a)[0];
   const s = SEASONS[year];
-  if(!s){ el.innerHTML = `<p>No data found for ${year}.</p>`; return; }
+  if(!s){
+    if(typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year]){
+      document.title = `${year} Season — League of NARPS`;
+      const titleEl = document.getElementById('season-title');
+      if(titleEl) titleEl.textContent = `${year} Season`;
+      const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
+      el.innerHTML = `
+        <p class="muted" style="max-width:65ch; margin-bottom:24px;">The ${year} season hasn't kicked off yet — here's the countdown to draft day and this year's draft order.</p>
+        ${draftInfo ? `<div class="countdown-card" style="margin-bottom:32px;">
+          <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
+          <div id="season-draft-countdown"></div>
+        </div>` : ''}
+        <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
+        <div id="season-draft-order" style="margin-top:16px;"></div>
+      `;
+      if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
+      renderDraftOrder('season-draft-order', year);
+      return;
+    }
+    el.innerHTML = `<p>No data found for ${year}.</p>`;
+    return;
+  }
 
   document.title = `${year} Season — League of NARPS`;
   const titleEl = document.getElementById('season-title');
@@ -358,6 +393,25 @@ function renderSeasonDetail(containerId){
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand. Bold indicates the winning team.</p>
     ${scheduleWeeks}
   `;
+}
+
+// ---------- Draft order ----------
+function renderDraftOrder(containerId, forYear){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(DRAFT_ORDER).sort((a,b) => b - a);
+  const year = forYear && DRAFT_ORDER[forYear] ? forYear : years[0];
+  const order = DRAFT_ORDER[year];
+  if(!order){ el.innerHTML = ''; return; }
+
+  el.innerHTML = `<div class="draft-order-list">${order.map((p, i) => `
+    <div class="draft-order-row">
+      <div class="draft-order-pick">${i+1}</div>
+      <div class="draft-order-info">
+        <div class="draft-order-owner">${p.owner}</div>
+        <div class="draft-order-team">${p.team}</div>
+      </div>
+    </div>`).join('')}</div>`;
 }
 
 // ---------- Kickoff countdown ----------

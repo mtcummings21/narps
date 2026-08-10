@@ -280,6 +280,48 @@ img{ max-width:100%; display:block; }
   .memorial-name{ font-size: 1.5rem; }
 }
 
+/* ---------- Draft order ---------- */
+.draft-order-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.draft-order-row{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+}
+.draft-order-pick{
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--blue);
+  min-width: 26px;
+  flex-shrink: 0;
+}
+.draft-order-info{ min-width: 0; }
+.draft-order-owner{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.draft-order-team{
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* ---------- Kickoff countdown ---------- */
 .countdown-card{
   background: var(--white);
