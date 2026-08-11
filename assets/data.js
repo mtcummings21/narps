@@ -28,7 +28,19 @@ const TEAMS = [
     "gameAvgPA": 97.24,
     "diff": 4.24,
     "topScoringSeasons": 1,
-    "highScore": 161
+    "highScore": 161,
+    "mostDrafted": {
+      "count": 3,
+      "entries": [
+        { "player": "Cam Newton", "years": [2013, 2014, 2019] },
+        { "player": "Darren McFadden", "years": [2011, 2013, 2014] },
+        { "player": "DeMarco Murray", "years": [2012, 2014, 2015] },
+        { "player": "Doug Martin", "years": [2012, 2013, 2017] },
+        { "player": "Kareem Hunt", "years": [2020, 2021, 2023] },
+        { "player": "LeSean McCoy", "years": [2011, 2014, 2017] },
+        { "player": "Travis Kelce", "years": [2018, 2021, 2022] }
+      ]
+    }
   },
   {
     "key": "Wright",
@@ -56,7 +68,17 @@ const TEAMS = [
     "gameAvgPA": 97.06,
     "diff": 3.6,
     "topScoringSeasons": 2,
-    "highScore": 154
+    "highScore": 154,
+    "mostDrafted": {
+      "count": 3,
+      "entries": [
+        { "player": "Brandon Marshall", "years": [2012, 2014, 2017] },
+        { "player": "DeSean Jackson", "years": [2013, 2014, 2018] },
+        { "player": "Julio Jones", "years": [2016, 2017, 2022] },
+        { "player": "Matt Prater", "years": [2013, 2015, 2017] },
+        { "player": "Tony Pollard", "years": [2021, 2022, 2023] }
+      ]
+    }
   },
   {
     "key": "Sizemore",
@@ -84,7 +106,13 @@ const TEAMS = [
     "gameAvgPA": 99.34,
     "diff": 0.88,
     "topScoringSeasons": 3,
-    "highScore": 170.8
+    "highScore": 170.8,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "Russell Wilson", "years": [2012, 2013, 2017, 2022] }
+      ]
+    }
   },
   {
     "key": "Rapp",
@@ -112,7 +140,16 @@ const TEAMS = [
     "gameAvgPA": 96.87,
     "diff": 2.52,
     "topScoringSeasons": 3,
-    "highScore": 184
+    "highScore": 184,
+    "mostDrafted": {
+      "count": 3,
+      "entries": [
+        { "player": "Adrian Peterson", "years": [2011, 2013, 2014] },
+        { "player": "Broncos D/ST", "years": [2013, 2014, 2015] },
+        { "player": "Dan Bailey", "years": [2012, 2014, 2015] },
+        { "player": "Mark Ingram", "years": [2013, 2014, 2015] }
+      ]
+    }
   },
   {
     "key": "Cummings",
@@ -140,7 +177,13 @@ const TEAMS = [
     "gameAvgPA": 98.14,
     "diff": 2.3,
     "topScoringSeasons": null,
-    "highScore": 146.4
+    "highScore": 146.4,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "Russell Wilson", "years": [2014, 2015, 2016, 2023] }
+      ]
+    }
   },
   {
     "key": "Salameh",
@@ -168,7 +211,13 @@ const TEAMS = [
     "gameAvgPA": 98.34,
     "diff": 1.26,
     "topScoringSeasons": 2,
-    "highScore": 154.7
+    "highScore": 154.7,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "Ezekiel Elliott", "years": [2017, 2018, 2019, 2021] }
+      ]
+    }
   },
   {
     "key": "Clay",
@@ -196,7 +245,14 @@ const TEAMS = [
     "gameAvgPA": 97.4,
     "diff": 1.89,
     "topScoringSeasons": 1,
-    "highScore": 155.1
+    "highScore": 155.1,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "DeAndre Hopkins", "years": [2015, 2018, 2019, 2022] },
+        { "player": "DeVante Parker", "years": [2016, 2019, 2020, 2021] }
+      ]
+    }
   },
   {
     "key": "Burns",
@@ -224,7 +280,15 @@ const TEAMS = [
     "gameAvgPA": 98.32,
     "diff": -0.03,
     "topScoringSeasons": 1,
-    "highScore": 138.4
+    "highScore": 138.4,
+    "mostDrafted": {
+      "count": 3,
+      "entries": [
+        { "player": "Carson Wentz", "years": [2017, 2018, 2020] },
+        { "player": "Keenan Allen", "years": [2017, 2018, 2019] },
+        { "player": "Leonard Fournette", "years": [2018, 2021, 2022] }
+      ]
+    }
   },
   {
     "key": "Hickman",
@@ -252,7 +316,14 @@ const TEAMS = [
     "gameAvgPA": 97.28,
     "diff": -0.18,
     "topScoringSeasons": 1,
-    "highScore": 160.2
+    "highScore": 160.2,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "Andrew Luck", "years": [2013, 2014, 2015, 2018] },
+        { "player": "Saquon Barkley", "years": [2018, 2019, 2021, 2023] }
+      ]
+    }
   },
   {
     "key": "West",
@@ -280,7 +351,13 @@ const TEAMS = [
     "gameAvgPA": 100.24,
     "diff": -4.65,
     "topScoringSeasons": null,
-    "highScore": 143.3
+    "highScore": 143.3,
+    "mostDrafted": {
+      "count": 4,
+      "entries": [
+        { "player": "Marshawn Lynch", "years": [2011, 2013, 2014, 2015] }
+      ]
+    }
   },
   {
     "key": "Geiger",
@@ -308,7 +385,14 @@ const TEAMS = [
     "gameAvgPA": 99.98,
     "diff": -5.42,
     "topScoringSeasons": null,
-    "highScore": 168.7
+    "highScore": 168.7,
+    "mostDrafted": {
+      "count": 3,
+      "entries": [
+        { "player": "Derrick Henry", "years": [2016, 2017, 2021] },
+        { "player": "Justin Tucker", "years": [2013, 2015, 2017] }
+      ]
+    }
   },
   {
     "key": "Garton",
@@ -336,7 +420,13 @@ const TEAMS = [
     "gameAvgPA": 100.54,
     "diff": -6.96,
     "topScoringSeasons": null,
-    "highScore": 142.5
+    "highScore": 142.5,
+    "mostDrafted": {
+      "count": 7,
+      "entries": [
+        { "player": "Aaron Rodgers", "years": [2013, 2014, 2015, 2019, 2021, 2022, 2024] }
+      ]
+    }
   }
 ];
 

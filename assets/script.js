@@ -502,6 +502,22 @@ function renderTeamDetail(containerId){
   const top3Count = allTimeRecords.topThree[key] || 0;
   const scoringTitleYears = (allTimeRecords.scoringTitleYears[key] || []).slice().sort((a,b) => a - b);
 
+  // Most-drafted player (2011-2025 draft history) — handles ties across multiple players.
+  let mostDraftedHeadline = '—';
+  let mostDraftedSub = 'No draft data recorded';
+  const md = t.mostDrafted;
+  if(md && md.entries && md.entries.length){
+    const names = md.entries.map(e => e.player);
+    if(names.length === 1){
+      mostDraftedHeadline = names[0];
+      mostDraftedSub = `Drafted ${md.count}x (${md.entries[0].years.join(', ')})`;
+    } else {
+      mostDraftedHeadline = `${names.length}-way tie`;
+      const joined = names.length === 2 ? `${names[0]} & ${names[1]}` : `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
+      mostDraftedSub = `${joined} — ${md.count}x each`;
+    }
+  }
+
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
     <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
@@ -509,6 +525,7 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
     <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
+    <div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>
   </div>`;
 
   const champGrid = titles.length ? `<div class="champ-grid">${titles.map(c => `
