@@ -947,7 +947,7 @@ td.pos{ color: var(--text-soft); }
   border-radius:20px;
   white-space:nowrap;
 }
-.rule-passed{ background: rgba(47,111,237,0.12); color: var(--navy); }
+.rule-passed{ background: rgba(31,146,84,0.14); color: #1F7A45; }
 .rule-rejected{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
 .rule-plurality{ background: #F0EBD8; color: #7A5E10; }
 .vote-question{
