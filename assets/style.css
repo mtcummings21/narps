@@ -911,27 +911,28 @@ td.pos{ color: var(--text-soft); }
 }
 .vote-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap:12px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap:2px 20px;
 }
 .vote-item{
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  padding: 14px 16px;
-  box-shadow: var(--shadow);
+  padding: 14px 0 14px 16px;
+  border-left: 3px solid var(--line);
+  border-bottom: 1px solid var(--line);
 }
+.vote-item--passed{ border-left-color: #1F7A45; }
+.vote-item--rejected{ border-left-color: var(--red-dk); }
+.vote-item--voted{ border-left-color: #C89B3C; }
 .vote-item-head{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:8px;
-  margin-bottom:6px;
+  margin-bottom:5px;
 }
 .vote-category{
   font-family: var(--mono);
   font-weight:600;
-  font-size:0.62rem;
+  font-size:0.6rem;
   letter-spacing:0.8px;
   text-transform:uppercase;
   color: var(--text-soft);
@@ -940,7 +941,7 @@ td.pos{ color: var(--text-soft); }
   display:inline-block;
   font-family: var(--mono);
   font-weight:600;
-  font-size:0.62rem;
+  font-size:0.6rem;
   letter-spacing:0.4px;
   text-transform:uppercase;
   padding:2px 8px;
@@ -953,30 +954,30 @@ td.pos{ color: var(--text-soft); }
 .vote-question{
   font-family: var(--body);
   font-weight:600;
-  font-size:0.9rem;
+  font-size:0.88rem;
   color: var(--text);
-  margin: 0 0 8px;
+  margin: 0 0 6px;
   line-height:1.4;
 }
 .vote-options{
-  margin:0 0 8px;
-  padding-left:18px;
+  margin:0 0 6px;
   font-family: var(--mono);
-  font-size:0.76rem;
+  font-size:0.72rem;
   color: var(--text-soft);
   line-height:1.6;
 }
 .vote-result{
-  margin:0 0 4px;
+  margin:0 0 3px;
   font-family: var(--body);
   font-weight:600;
-  font-size:0.82rem;
-  color: var(--blue);
+  font-size:0.8rem;
+  color: var(--text);
 }
+.vote-result::before{ content: "→ "; color: var(--text-soft); font-weight:500; }
 .vote-note{
   margin:0;
   font-family: var(--body);
-  font-size:0.78rem;
+  font-size:0.76rem;
   color: var(--text-soft);
   font-style:italic;
 }
