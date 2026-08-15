@@ -912,13 +912,15 @@ td.pos{ color: var(--text-soft); }
 .vote-list{
   display:flex;
   flex-direction:column;
+  gap:2px;
 }
 .vote-row{
   display:flex;
   align-items:flex-start;
   justify-content:space-between;
   gap:18px;
-  padding: 13px 0 13px 16px;
+  padding: 13px 16px;
+  background: var(--panel);
   border-left: 3px solid var(--line);
   border-bottom: 1px solid var(--line);
 }

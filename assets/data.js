@@ -15052,9 +15052,99 @@ const SURVIVOR = {
 };
 
 // ---------- Rules & Bylaws Voting History ----------
-// Sourced from League of NARPS SurveyMonkey rule-change ballots, 2017–2025.
+// Sourced from League of NARPS SurveyMonkey rule-change ballots, 2015–2025.
 // "passed" = true (adopted) / false (rejected) / null (plurality pick among 3+ options, or informational/logistics)
 const RULES_HISTORY = [
+  {
+    "year": 2015,
+    "rounds": [
+      {
+        "label": "Fantasy Football 2015 — Round 1",
+        "votes": [
+          {
+            "category": "Playoffs",
+            "question": "Use a 1-week playoff matchup (regular season ends Week 13) or a 2-week playoff matchup (regular season ends Week 10)?",
+            "options": ["1-week — 82% (9)", "2-week — 18% (2)"],
+            "result": "1-week playoff matchups",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "How should the draft order be determined this year?",
+            "options": ["Random — 73% (8)", "Inverse of standings — 27% (3)"],
+            "result": "Random",
+            "passed": true
+          },
+          {
+            "category": "Scoring",
+            "question": "Change kicker scoring so all FGs made are worth a flat 3 points (previously 4 pts for 40–49 yds, 5 pts for 50+ yds), plus -1 point for any missed PAT?",
+            "options": ["Approve — 73% (8)", "Disapprove — 27% (3)"],
+            "result": "Approved",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2016,
+    "rounds": [
+      {
+        "label": "Fantasy Football 2016 Survey",
+        "votes": [
+          {
+            "category": "Finances",
+            "question": "Increase league dues to $50 or $100, or remain at $25? (An increase would add weekly payouts to the top-scoring team.)",
+            "options": ["$25 — 27% (3)", "$50 — 18% (2)", "$100 — 55% (6)"],
+            "result": "$100",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Keepers were eliminated this season — are you in favor of implementing keepers for the following year, and if so how many?",
+            "options": ["No Keepers — 27% (3)", "1 — 45% (5)", "2 — 27% (3)", "Other — 0%"],
+            "result": "1 keeper",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "If we choose to allow keepers, how many years do you want to do keepers?",
+            "options": ["1 — 55% (6)", "2 — 45% (5)", "3 — 0%"],
+            "result": "1 year",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "Proposed changes to trading draft picks, to keep the league competitive and fair — which would you like implemented this season?",
+            "options": ["Keep things the way they are — 27% (3)", "DO NOT allow draft picks to be traded — 45% (5)", "Only allow one draft pick to be traded — 27% (3)", "No picks between rounds 1–4 can be traded — 0%"],
+            "result": "Draft picks could not be traded",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Teams are currently allowed 25 transactions per season (including playoffs). In favor of increasing, and if so to how many?",
+            "options": ["Remain at 25 — 55% (6)", "30 — 18% (2)", "35 — 0%", "No Limit — 27% (3)"],
+            "result": "Remain at 25",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "Teams are currently allowed 2 IR spots. In favor of increasing to 3?",
+            "options": ["2 (remain) — 64% (7)", "3 — 36% (4)"],
+            "result": "Remain at 2",
+            "passed": false
+          },
+          {
+            "category": "Finances",
+            "question": "Which championship trophy are you in favor of purchasing?",
+            "options": ["Bronze at $125 — 55% (6)", "Silver at $165 — 45% (5)"],
+            "result": "Bronze at $125",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
   {
     "year": 2017,
     "rounds": [
@@ -15064,16 +15154,16 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Keep transactions at 25 per season (including playoffs) or increase to 30?",
-            "options": ["25", "30"],
-            "passed": null,
-            "note": "Result not preserved in the archived export."
+            "options": ["25 — 30% (3)", "30 — 70% (7)"],
+            "result": "30",
+            "passed": true
           },
           {
             "category": "Draft",
             "question": "Should we use a snake draft or an auction draft?",
-            "options": ["Snake", "Auction"],
-            "passed": null,
-            "note": "Result not preserved in the archived export."
+            "options": ["Snake — 90% (9)", "Auction — 10% (1)"],
+            "result": "Snake",
+            "passed": false
           }
         ]
       }
