@@ -1019,4 +1019,45 @@ function renderH2H(containerId){
   </div>`;
 }
 
+// ---------- Rules & Bylaws History ----------
+function renderRulesHistory(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year);
+
+  const outcomePill = (v) => {
+    if(v.passed === true) return `<span class="rule-pill rule-passed">Passed</span>`;
+    if(v.passed === false) return `<span class="rule-pill rule-rejected">Rejected</span>`;
+    return `<span class="rule-pill rule-plurality">Voted</span>`;
+  };
+
+  el.innerHTML = years.map(y => {
+    const roundsHtml = y.rounds.map(r => {
+      const votesHtml = r.votes.map(v => `
+        <div class="vote-item">
+          <div class="vote-item-head">
+            <span class="vote-category">${v.category}</span>
+            ${outcomePill(v)}
+          </div>
+          <p class="vote-question">${v.question}</p>
+          <ul class="vote-options">
+            ${v.options.map(o => `<li>${o}</li>`).join('')}
+          </ul>
+          ${v.result ? `<p class="vote-result">→ ${v.result}</p>` : ''}
+          ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
+        </div>
+      `).join('');
+      return `<div class="rules-round">
+        <h4 class="rules-round-label">${r.label}</h4>
+        <div class="vote-grid">${votesHtml}</div>
+      </div>`;
+    }).join('');
+
+    return `<div class="rules-year">
+      <div class="rules-year-badge">${y.year}</div>
+      <div class="rules-year-body">${roundsHtml}</div>
+    </div>`;
+  }).join('');
+}
+
 document.addEventListener('DOMContentLoaded', initNav);

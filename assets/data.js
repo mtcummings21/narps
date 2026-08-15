@@ -15050,3 +15050,483 @@ const SURVIVOR = {
     ]
   }
 };
+
+// ---------- Rules & Bylaws Voting History ----------
+// Sourced from League of NARPS SurveyMonkey rule-change ballots, 2017–2025.
+// "passed" = true (adopted) / false (rejected) / null (plurality pick among 3+ options, or informational/logistics)
+const RULES_HISTORY = [
+  {
+    "year": 2017,
+    "rounds": [
+      {
+        "label": "Fantasy Football 2017 Survey",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "Keep transactions at 25 per season (including playoffs) or increase to 30?",
+            "options": ["25", "30"],
+            "passed": null,
+            "note": "Result not preserved in the archived export."
+          },
+          {
+            "category": "Draft",
+            "question": "Should we use a snake draft or an auction draft?",
+            "options": ["Snake", "Auction"],
+            "passed": null,
+            "note": "Result not preserved in the archived export."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2018,
+    "rounds": [
+      {
+        "label": "2018 Fantasy Football Survey",
+        "votes": [
+          {
+            "category": "Membership",
+            "question": "Remain at twelve (12) owners or expand to fourteen (14)?",
+            "options": ["12 — 72.73% (8)", "14 — 27.27% (3)"],
+            "result": "12",
+            "passed": false,
+            "note": "League stayed at 12 owners; the 14-team playoff-size question was rendered moot."
+          },
+          {
+            "category": "Finances",
+            "question": "Ranked-choice vote on the 12-team payout split ($900 to disperse after weekly/season high-score bonuses)",
+            "options": ["$500/$300/$100", "$500/$250/$150", "$600/$200/$100", "$550/$250/$100"],
+            "result": "$600 / $200 / $100 (best weighted rank, 2.00 avg)",
+            "passed": null
+          },
+          {
+            "category": "Roster",
+            "question": "Do you want to allow keepers, and if so how many?",
+            "options": ["No Keepers — 27.27% (3)", "1 — 54.55% (6)", "2 — 18.18% (2)"],
+            "result": "1 keeper",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "If we allow keepers, for how many years should it be?",
+            "options": ["1 — 54.55% (6)", "2 — 36.36% (4)", "3 — 9.09% (1)"],
+            "result": "1 year",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "Should we allow draft position swapping (teams swap entire draft slot with another team)?",
+            "options": ["Yes — 63.64% (7)", "No — 36.36% (4)"],
+            "result": "Yes",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Should we remove the Kicker position?",
+            "options": ["Yes — 63.64% (7)", "No — 36.36% (4)"],
+            "result": "Yes",
+            "passed": true,
+            "note": "Kicker dropped from rosters starting the following season."
+          },
+          {
+            "category": "Roster",
+            "question": "Should we remove the Defense/Special Teams position?",
+            "options": ["Yes — 27.27% (3)", "No — 72.73% (8)"],
+            "result": "No",
+            "passed": false,
+            "note": "D/ST survived this vote — see 2019, where it was eliminated on a second try."
+          },
+          {
+            "category": "Roster",
+            "question": "If we remove the K or D/ST position, should we add another position?",
+            "options": ["QB — 0%", "RB — 0%", "WR — 9.09% (1)", "TE — 0%", "Flex — 72.73% (8)", "Do not add another position — 18.18% (2)"],
+            "result": "Flex",
+            "passed": true,
+            "note": "This is the origin of the league's second FLEX spot."
+          },
+          {
+            "category": "Scoring",
+            "question": "How many points should a reception be worth?",
+            "options": ["0.2 — 0%", "0.5 — 81.82% (9)", "1.0 — 18.18% (2)"],
+            "result": "0.5 PPR",
+            "passed": true,
+            "note": "This is the origin vote for the league's still-current 0.5 PPR scoring."
+          },
+          {
+            "category": "Roster",
+            "question": "How many transactions should each team be allowed per season (including playoffs)?",
+            "options": ["30 (current) — 18.18% (2)", "35 — 45.45% (5)", "40 — 36.36% (4)"],
+            "result": "35",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "For free agent acquisitions, should we use Waivers or a Free Agent Auction?",
+            "options": ["Waivers — 100% (11)", "Free Agent Auction — 0%"],
+            "result": "Waivers",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2019,
+    "rounds": [
+      {
+        "label": "2019 Fantasy Football Survey",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "Should we eliminate the D/ST position?",
+            "options": ["Yes — 63.64% (7)", "No — 36.36% (4)"],
+            "result": "Yes",
+            "passed": true,
+            "note": "Finished the job the 2018 survey didn't — D/ST dropped from rosters."
+          },
+          {
+            "category": "Roster",
+            "question": "Should we keep or remove the second FLEX position?",
+            "options": ["Keep — 90.91% (10)", "Remove — 9.09% (1)"],
+            "result": "Keep",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Should we increase transactions from 35 to 40?",
+            "options": ["35 (stay) — 54.55% (6)", "40 — 45.45% (5)"],
+            "result": "Stayed at 35",
+            "passed": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2020,
+    "rounds": [
+      {
+        "label": "Round 1 — Preseason Rules Vote",
+        "votes": [
+          {
+            "category": "Draft",
+            "question": "Should we use an auction draft?",
+            "options": ["Yes — 36.36% (4)", "No — 63.64% (7)"],
+            "result": "No",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "Should we eliminate transaction limits?",
+            "options": ["Yes — 54.55% (6)", "No — 45.45% (5)"],
+            "result": "Yes",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "How many IR spots should we add? (currently 2)",
+            "options": ["0 — 9.09% (1)", "1 — 45.45% (5)", "2 — 45.45% (5)"],
+            "result": "Effectively +1 (IR went to 3 total, confirmed by the 2021 survey)",
+            "passed": null,
+            "note": "Statistical tie between adding 1 and adding 2; league settled on 3 total IR slots."
+          },
+          {
+            "category": "Roster",
+            "question": "Should we have one keeper going into the 2021 season?",
+            "options": ["Yes — 45.45% (5)", "No — 54.55% (6)"],
+            "result": "No",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "Should we add one Individual Defensive Player (IDP) roster spot?",
+            "options": ["Yes — 27.27% (3)", "No — 72.73% (8)"],
+            "result": "No",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "Should we change one FLEX position to a SUPERFLEX position?",
+            "options": ["Yes — 27.27% (3)", "No — 72.73% (8)"],
+            "result": "No",
+            "passed": false
+          },
+          {
+            "category": "Contingency",
+            "question": "How many weeks should constitute a League of NARPS season if the NFL cancels its season?",
+            "options": ["7 — 0%", "8 — 18.18% (2)", "9 — 18.18% (2)", "10 — 54.55% (6)", "Other — 9.09% (1)"],
+            "result": "10 weeks",
+            "passed": null
+          },
+          {
+            "category": "Contingency",
+            "question": "If the NFL season is cancelled before LoN's playoffs, what payout should the top 3 records receive?",
+            "options": ["No Payout — 18.18% (2)", "Partial Payout — 45.45% (5)", "Full Payout — 36.36% (4)"],
+            "result": "Partial Payout",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "Round 2 — COVID Contingency Vote",
+        "votes": [
+          {
+            "category": "Contingency",
+            "question": "If the NFL season were cancelled during the LoN playoffs, should final standings be determined by highest remaining seed?",
+            "options": ["Yes — 81.82% (9)", "No — 18.18% (2)"],
+            "result": "Yes",
+            "passed": true
+          },
+          {
+            "category": "Contingency",
+            "question": "If ≥10 weeks were completed and playoffs were not, should the top 3 teams get a full or partial payout?",
+            "options": ["Full Payout — 45.45% (5)", "Partial Payout — 54.55% (6)"],
+            "result": "Partial Payout",
+            "passed": true
+          },
+          {
+            "category": "Finances",
+            "question": "If Partial Payout, what should the split be?",
+            "options": ["75% split ($325/$225/$75) — 36.36% (4)", "50% split ($250/$150/$50) — 63.64% (7)", "25% split ($125/$75/$25) — 0%"],
+            "result": "50% split — $250 / $150 / $50",
+            "passed": true
+          },
+          {
+            "category": "Finances",
+            "question": "What should happen with the remaining partial-payout money?",
+            "options": ["Divide equally and return to members — 45.45% (5)", "Roll it over into next season's winnings — 54.55% (6)"],
+            "result": "Roll over into next season",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2021,
+    "rounds": [
+      {
+        "label": "2021 LoN Survey",
+        "votes": [
+          {
+            "category": "Schedule",
+            "question": "The NFL expanded to 17 games. Should the League of NARPS add a 14th regular-season week?",
+            "options": ["Yes — 72.73% (8)", "No — 27.27% (3)"],
+            "result": "Yes",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Should the League of NARPS have a keeper for the 2022 season?",
+            "options": ["Yes — 45.45% (5)", "No — 54.55% (6)"],
+            "result": "No",
+            "passed": false,
+            "note": "Keepers stayed off after this vote."
+          },
+          {
+            "category": "Roster",
+            "question": "Last year we expanded IR from 2 to 3 slots. Remain at 3, or move back to 2?",
+            "options": ["2 — 36.36% (4)", "3 — 63.64% (7)"],
+            "result": "Remain at 3",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2022,
+    "rounds": [
+      {
+        "label": "2022 LoN Survey",
+        "votes": [
+          {
+            "category": "Schedule",
+            "question": "Which week should the trade deadline be? (cutoff = the following Wednesday; 14-week regular season)",
+            "options": ["Week 8 — 18.18% (2)", "Week 9 — 45.45% (5)", "Week 10 — 36.36% (4)"],
+            "result": "Week 9",
+            "passed": null
+          },
+          {
+            "category": "Playoffs",
+            "question": "Should the 6th playoff seed be the highest-points-scored team among those outside the top 5 records?",
+            "options": ["Yes — 81.82% (9)", "No — 18.18% (2)"],
+            "result": "Yes",
+            "passed": true,
+            "note": "Origin vote for the league's still-current 6-seed-by-points playoff rule."
+          },
+          {
+            "category": "Scoring",
+            "question": "How many points should a reception be worth?",
+            "options": ["0.5 — 63.64% (7)", "1.0 — 36.36% (4)"],
+            "result": "0.5 PPR (reaffirmed)",
+            "passed": true
+          },
+          {
+            "category": "Finances",
+            "question": "How much should the entry fee be?",
+            "options": ["$100 — 45.45% (5)", "$200 — 54.55% (6)"],
+            "result": "$200",
+            "passed": true
+          }
+        ]
+      },
+      {
+        "label": "2022 LoN Payout Final Vote",
+        "votes": [
+          {
+            "category": "Finances",
+            "question": "Runoff on the season payout structure: Proposal 1 or Proposal 3?",
+            "options": ["Proposal 1 — 30.00% (3)", "Proposal 3 — 70.00% (7)"],
+            "result": "Proposal 3",
+            "passed": true,
+            "note": "Follow-up runoff vote; exact proposal text wasn't preserved in the archived export."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2023,
+    "rounds": [
+      {
+        "label": "LoN Survey 2023",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "How many IR slots should we have? (previously 3, expanded during COVID)",
+            "options": ["1 — 27.27% (3)", "2 — 72.73% (8)"],
+            "result": "2",
+            "passed": true
+          },
+          {
+            "category": "Schedule",
+            "question": "Should the trade deadline move to the Wednesday after Week 10, or stay after Week 9?",
+            "options": ["Week 9 — 36.36% (4)", "Week 10 — 63.64% (7)"],
+            "result": "Week 10",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "Should we use a Snake Draft or an Auction Draft?",
+            "options": ["Auction — 9.09% (1)", "Snake — 90.91% (10)"],
+            "result": "Snake",
+            "passed": false,
+            "note": "Auction rejected in a landslide."
+          },
+          {
+            "category": "Roster",
+            "question": "Should the Tight End position be converted to a Wide Receiver/Tight End position?",
+            "options": ["Remain TE — 54.55% (6)", "Convert to WR/TE — 45.45% (5)"],
+            "result": "Remain TE",
+            "passed": false
+          },
+          {
+            "category": "Playoffs",
+            "question": "Do you wish to keep the current playoff qualifications (seeds 1–5 by record, 6-seed by points)?",
+            "options": ["Yes — 72.73% (8)", "No — 27.27% (3)"],
+            "result": "Yes",
+            "passed": true,
+            "note": "Reaffirms the 2022 6-seed-by-points rule."
+          },
+          {
+            "category": "Playoffs",
+            "question": "(Contingency, rendered moot) If qualifications changed, which proposal?",
+            "options": ["Top 6 by record only — 27.27% (3)", "Top 6 by record + 7th seed by points (#1 seed bye) — 72.73% (8)"],
+            "result": "Moot — current format was kept",
+            "passed": null
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2024,
+    "rounds": [
+      {
+        "label": "LoN 2024 Survey — Round 1",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "Should we convert the TE position to a WR/TE position?",
+            "options": ["Convert to WR/TE — 45.45% (5)", "Remain TE — 54.55% (6)"],
+            "result": "Remain TE",
+            "passed": false
+          },
+          {
+            "category": "Scoring",
+            "question": "Should TEs receive 0.75 points per reception?",
+            "options": ["Change to 0.75 — 27.27% (3)", "Remain at 0.5 — 72.73% (8)"],
+            "result": "Remain at 0.5",
+            "passed": false
+          },
+          {
+            "category": "Standings",
+            "question": "Should we add a median-scoring record (top/bottom 6 scorers each week get a W/L added to head-to-head record)?",
+            "options": ["Add Median Scoring Record — 27.27% (3)", "Do Not Add — 72.73% (8)"],
+            "result": "Do Not Add",
+            "passed": false
+          },
+          {
+            "category": "Playoffs",
+            "question": "Should we expand the playoffs to 7 teams?",
+            "options": ["Yes — 36.36% (4)", "No — 63.64% (7)"],
+            "result": "No",
+            "passed": false,
+            "note": "Playoffs stayed at 6 teams."
+          },
+          {
+            "category": "Playoffs",
+            "question": "Vote on playoff reseeding format (4-way; no majority triggers a runoff)",
+            "options": [
+              "Highest seed plays lowest remaining seed — 36.36% (4)",
+              "Highest seed picks their opponent (rounds 1–2) — 9.09% (1)",
+              "Top half of seeds choose their opponent — 18.18% (2)",
+              "No playoff reseeding — 36.36% (4)"
+            ],
+            "result": "Tie between reseeding and no-reseeding — runoff required",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "LoN 2024 Survey 2 — Reseeding Runoff",
+        "votes": [
+          {
+            "category": "Playoffs",
+            "question": "Runoff: highest seed plays lowest remaining seed, or no playoff reseeding?",
+            "options": ["Highest seed plays lowest remaining seed — 70.00% (7)", "No playoff reseeding — 30.00% (3)"],
+            "result": "Highest seed plays lowest remaining seed",
+            "passed": true,
+            "note": "Playoff reseeding adopted starting with the 2024 postseason."
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2025,
+    "rounds": [
+      {
+        "label": "LoN 2025 Survey",
+        "votes": [
+          {
+            "category": "Draft",
+            "question": "Should the 2026 draft order be set by final standings (champion picks first, then 2nd, 3rd, etc.)?",
+            "options": ["Yes — 36.36% (4)", "No — 63.64% (7)"],
+            "result": "No",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "For the 2025 season, should we convert a TE position to a WR/TE position?",
+            "options": ["Yes (WR/TE) — 45.45% (5)", "No (TE) — 54.55% (6)"],
+            "result": "No (TE)",
+            "passed": false
+          }
+        ]
+      }
+    ]
+  }
+];

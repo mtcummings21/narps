@@ -808,6 +808,117 @@ td.pos{ color: var(--text-soft); }
 #records-container .cat-streaks .medal{ color: #E07B39; }
 #records-container .cat-streaks .headline-stat{ color: #E07B39; }
 
+/* ---------- Rules & Bylaws History ---------- */
+.rules-year{
+  display:flex;
+  gap:20px;
+  margin-bottom:32px;
+}
+.rules-year-badge{
+  flex:0 0 auto;
+  width:84px;
+  height:52px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background: var(--navy);
+  color: var(--white);
+  font-family: var(--display);
+  font-weight:700;
+  font-size:1.25rem;
+  border-radius: var(--radius-sm);
+  border-top: 3px solid var(--red);
+  position: sticky;
+  top: 14px;
+  align-self: flex-start;
+}
+.rules-year-body{ flex:1 1 auto; min-width:0; }
+.rules-round{ margin-bottom:18px; }
+.rules-round-label{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.72rem;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  color: var(--blue);
+  margin:0 0 10px;
+}
+.vote-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap:12px;
+}
+.vote-item{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+.vote-item-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:6px;
+}
+.vote-category{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.62rem;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  color: var(--text-soft);
+}
+.rule-pill{
+  display:inline-block;
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.62rem;
+  letter-spacing:0.4px;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+.rule-passed{ background: rgba(47,111,237,0.12); color: var(--navy); }
+.rule-rejected{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
+.rule-plurality{ background: #F0EBD8; color: #7A5E10; }
+.vote-question{
+  font-family: var(--body);
+  font-weight:600;
+  font-size:0.9rem;
+  color: var(--text);
+  margin: 0 0 8px;
+  line-height:1.4;
+}
+.vote-options{
+  margin:0 0 8px;
+  padding-left:18px;
+  font-family: var(--mono);
+  font-size:0.76rem;
+  color: var(--text-soft);
+  line-height:1.6;
+}
+.vote-result{
+  margin:0 0 4px;
+  font-family: var(--body);
+  font-weight:600;
+  font-size:0.82rem;
+  color: var(--blue);
+}
+.vote-note{
+  margin:0;
+  font-family: var(--body);
+  font-size:0.78rem;
+  color: var(--text-soft);
+  font-style:italic;
+}
+@media (max-width: 640px){
+  .rules-year{ flex-direction:column; gap:10px; }
+  .rules-year-badge{ width:auto; align-self:flex-start; position:static; }
+}
+
 /* ---------- Footer ---------- */
 footer{
   background: var(--navy);

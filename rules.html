@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Champions — League of NARPS</title>
+<title>Rules &amp; Bylaws History — League of NARPS</title>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
@@ -14,13 +14,13 @@
     <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav class="nav" id="site-nav">
       <a href="index.html">Home</a>
-      <a href="champions.html" aria-current="page">Champions</a>
+      <a href="champions.html">Champions</a>
       <a href="standings.html">All-Time Standings</a>
       <a href="seasons.html">Seasons</a>
       <a href="teams.html">Teams</a>
       <a href="newsletters.html">Newsletters</a>
       <a href="survivor.html">Survivor</a>
-      <a href="rules.html">Rules</a>
+      <a href="rules.html" aria-current="page">Rules</a>
     </nav>
   </div>
 </header>
@@ -28,10 +28,11 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title">Champions</h2>
-      <span class="section-sub">Chronological · 15 Championships, 2011–2025</span>
+      <h2 class="section-title">Rules &amp; Bylaws History</h2>
+      <span class="section-sub">Every rule change vote, by year</span>
     </div>
-    <div class="champ-grid" id="champ-grid"></div>
+    <p class="muted" style="max-width:65ch;">Every offseason, the league votes on rule changes via SurveyMonkey ballot. This is the full record — scoring, playoffs, roster, draft, schedule, and finances — straight from the results, year by year.</p>
+    <div id="rules-container"></div>
   </div>
 </section>
 
@@ -41,18 +42,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>
-  const container = document.getElementById('champ-grid');
-  const chrono = CHAMPIONS.slice().sort((a,b) => a.year - b.year);
-  container.innerHTML = chrono.map(c => `<div class="champ-pennant">
-    <div class="champ-pennant-inner">
-      <div class="champ-grommet champ-grommet--left"></div>
-      <div class="champ-grommet champ-grommet--right"></div>
-      <div class="champ-headline">NARPS<br>CHAMPION</div>
-      <div class="champ-ribbon">${c.owner.toUpperCase()}</div>
-      <div class="champ-pennant-year">${c.year}</div>
-    </div>
-  </div>`).join('');
-</script>
+<script>renderRulesHistory('rules-container');</script>
 </body>
 </html>
