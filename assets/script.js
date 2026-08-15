@@ -9,6 +9,44 @@ function initNav(){
   });
 }
 
+// ---------- Nav dropdown (League History) ----------
+function initNavDropdowns(){
+  const dropdowns = document.querySelectorAll('.nav-dropdown');
+  dropdowns.forEach(dd => {
+    const toggle = dd.querySelector('.nav-dropdown-toggle');
+    if(!toggle) return;
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = dd.classList.contains('open');
+      dropdowns.forEach(other => {
+        other.classList.remove('open');
+        const t = other.querySelector('.nav-dropdown-toggle');
+        if(t) t.setAttribute('aria-expanded', 'false');
+      });
+      if(!isOpen){
+        dd.classList.add('open');
+        toggle.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+  document.addEventListener('click', () => {
+    dropdowns.forEach(dd => {
+      dd.classList.remove('open');
+      const t = dd.querySelector('.nav-dropdown-toggle');
+      if(t) t.setAttribute('aria-expanded', 'false');
+    });
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape'){
+      dropdowns.forEach(dd => {
+        dd.classList.remove('open');
+        const t = dd.querySelector('.nav-dropdown-toggle');
+        if(t) t.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+}
+
 // ---------- Trophy case ----------
 function renderTrophyCase(containerId, limit){
   const el = document.getElementById(containerId);
@@ -1060,4 +1098,7 @@ function renderRulesHistory(containerId){
   }).join('');
 }
 
-document.addEventListener('DOMContentLoaded', initNav);
+document.addEventListener('DOMContentLoaded', () => {
+  initNav();
+  initNavDropdowns();
+});
