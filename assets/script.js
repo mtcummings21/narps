@@ -1072,23 +1072,23 @@ function renderRulesHistory(containerId){
   el.innerHTML = years.map(y => {
     const roundsHtml = y.rounds.map(r => {
       const votesHtml = r.votes.map(v => {
-        const outcomeClass = v.passed === true ? 'vote-item--passed' : v.passed === false ? 'vote-item--rejected' : 'vote-item--voted';
+        const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
         return `
-        <div class="vote-item ${outcomeClass}">
-          <div class="vote-item-head">
+        <div class="vote-row ${outcomeClass}">
+          <div class="vote-row-main">
             <span class="vote-category">${v.category}</span>
-            ${outcomePill(v)}
+            <p class="vote-question">${v.question}</p>
+            <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
+            ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
+            ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
           </div>
-          <p class="vote-question">${v.question}</p>
-          <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
-          ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
-          ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
+          ${outcomePill(v)}
         </div>
       `;
       }).join('');
       return `<div class="rules-round">
         <h4 class="rules-round-label">${r.label}</h4>
-        <div class="vote-grid">${votesHtml}</div>
+        <div class="vote-list">${votesHtml}</div>
       </div>`;
     }).join('');
 
