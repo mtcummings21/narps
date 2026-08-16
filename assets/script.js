@@ -561,7 +561,7 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
     <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
-    <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF}</div><p>pts/gm career average (${t.diff > 0 ? '+' : ''}${t.diff} diff/gm)</p></div>
+    <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
     <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
     <div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>
   </div>`;
