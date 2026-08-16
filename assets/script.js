@@ -1158,7 +1158,9 @@ function renderRulesHistory(containerId){
   };
 
   const roundsHtml = yearData ? yearData.rounds.map(r => {
-    const votesHtml = r.votes.map(v => {
+    const outcomeRank = (v) => v.passed === true ? 0 : v.passed === false ? 1 : 2;
+    const sortedVotes = r.votes.slice().sort((a, b) => outcomeRank(a) - outcomeRank(b));
+    const votesHtml = sortedVotes.map(v => {
       const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
       return `
       <div class="vote-row ${outcomeClass}">
