@@ -98,6 +98,7 @@ img{ max-width:100%; display:block; }
 }
 .nav{
   display:flex;
+  align-items: center;
   gap: 2px;
   flex-wrap: wrap;
 }
@@ -121,10 +122,12 @@ img{ max-width:100%; display:block; }
   font-family: var(--body);
   font-weight: 600;
   font-size: 0.86rem;
+  line-height: normal;
   letter-spacing: 0.1px;
   color: var(--text-soft);
   background: none;
   border: none;
+  margin: 0;
   padding: 8px 14px;
   border-radius: 999px;
   cursor: pointer;
