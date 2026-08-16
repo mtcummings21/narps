@@ -1140,7 +1140,16 @@ function renderDraftHistory(containerId){
 function renderRulesHistory(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year);
+  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year).map(y => String(y.year));
+  const params = new URLSearchParams(window.location.search);
+  const requestedYear = params.get('year');
+  const year = (requestedYear && years.includes(requestedYear)) ? requestedYear : years[0];
+  const yearData = RULES_HISTORY.find(y => String(y.year) === year);
+
+  document.title = `${year} Rules & Bylaws — League of NARPS`;
+
+  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
+    <a href="rules.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
 
   const outcomePill = (v) => {
     if(v.passed === true) return `<span class="rule-pill rule-passed">Passed</span>`;
@@ -1148,34 +1157,29 @@ function renderRulesHistory(containerId){
     return `<span class="rule-pill rule-plurality">Voted</span>`;
   };
 
-  el.innerHTML = years.map(y => {
-    const roundsHtml = y.rounds.map(r => {
-      const votesHtml = r.votes.map(v => {
-        const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
-        return `
-        <div class="vote-row ${outcomeClass}">
-          <div class="vote-row-main">
-            <span class="vote-category">${v.category}</span>
-            <p class="vote-question">${v.question}</p>
-            <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
-            ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
-            ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
-          </div>
-          ${outcomePill(v)}
+  const roundsHtml = yearData ? yearData.rounds.map(r => {
+    const votesHtml = r.votes.map(v => {
+      const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
+      return `
+      <div class="vote-row ${outcomeClass}">
+        <div class="vote-row-main">
+          <span class="vote-category">${v.category}</span>
+          <p class="vote-question">${v.question}</p>
+          <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
+          ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
+          ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
         </div>
-      `;
-      }).join('');
-      return `<div class="rules-round">
-        <h4 class="rules-round-label">${r.label}</h4>
-        <div class="vote-list">${votesHtml}</div>
-      </div>`;
+        ${outcomePill(v)}
+      </div>
+    `;
     }).join('');
-
-    return `<div class="rules-year">
-      <div class="rules-year-badge">${y.year}</div>
-      <div class="rules-year-body">${roundsHtml}</div>
+    return `<div class="rules-round">
+      <h4 class="rules-round-label">${r.label}</h4>
+      <div class="vote-list">${votesHtml}</div>
     </div>`;
-  }).join('');
+  }).join('') : '<p class="muted">No rule changes recorded for this year.</p>';
+
+  el.innerHTML = yearSwitcher + roundsHtml;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

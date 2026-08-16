@@ -873,30 +873,6 @@ td.pos{ color: var(--text-soft); }
 #records-container .cat-streaks .headline-stat{ color: #E07B39; }
 
 /* ---------- Rules & Bylaws History ---------- */
-.rules-year{
-  display:flex;
-  gap:20px;
-  margin-bottom:32px;
-}
-.rules-year-badge{
-  flex:0 0 auto;
-  width:84px;
-  height:52px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background: var(--navy);
-  color: var(--white);
-  font-family: var(--display);
-  font-weight:700;
-  font-size:1.25rem;
-  border-radius: var(--radius-sm);
-  border-top: 3px solid var(--red);
-  position: sticky;
-  top: 14px;
-  align-self: flex-start;
-}
-.rules-year-body{ flex:1 1 auto; min-width:0; }
 .rules-round{ margin-bottom:18px; }
 .rules-round-label{
   font-family: var(--mono);
@@ -984,10 +960,6 @@ td.pos{ color: var(--text-soft); }
 }
 @media (max-width: 560px){
   .vote-row{ flex-direction:column; gap:6px; }
-}
-@media (max-width: 640px){
-  .rules-year{ flex-direction:column; gap:10px; }
-  .rules-year-badge{ width:auto; align-self:flex-start; position:static; }
 }
 
 /* ---------- Footer ---------- */
