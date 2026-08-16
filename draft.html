@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Season — League of NARPS</title>
+<title>Draft History — League of NARPS</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -20,8 +20,8 @@
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">League History <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
         <div class="nav-dropdown-menu">
           <a href="standings.html">All-Time Standings</a>
-          <a href="seasons.html" aria-current="page">Seasons</a>
-          <a href="draft.html">Draft History</a>
+          <a href="seasons.html">Seasons</a>
+          <a href="draft.html" aria-current="page">Draft History</a>
           <a href="rules.html">Rules</a>
         </div>
       </div>
@@ -35,10 +35,11 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title" id="season-title">Season</h2>
-      <span class="section-sub"><a href="seasons.html" style="color:var(--blue); text-decoration:underline;">← All Seasons</a></span>
+      <h2 class="section-title">Draft History</h2>
+      <span class="section-sub">2011–2025 · 2,350 picks</span>
     </div>
-    <div id="season-detail-container"></div>
+    <p class="muted" style="max-width:65ch;">Every pick, every year, straight from the ESPN draft recaps. Sort by round/pick to see the draft board in order, or by team to see one franchise's full haul.</p>
+    <div id="draft-history-container"></div>
   </div>
 </section>
 
@@ -48,6 +49,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderSeasonDetail('season-detail-container');</script>
+<script>renderDraftHistory('draft-history-container');</script>
 </body>
 </html>

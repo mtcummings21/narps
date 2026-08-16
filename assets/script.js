@@ -874,6 +874,7 @@ function buildRecordCards(){
   const r = computeAllTimeRecords();
   const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
   const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
+  const fmtNum1 = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const joinNames = (names) => names.length <= 1 ? (names[0]||'') :
     names.length === 2 ? `${names[0]} & ${names[1]}` :
     `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
@@ -895,19 +896,20 @@ function buildRecordCards(){
   // Unique team keys represented in a tier — used to flag "leader" status on team pages.
   const tierKeys = (tier) => Array.from(new Set(tier.items.map(it => it.key).filter(Boolean)));
 
-  const rankLine = (place, tier) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${fmtNum(tier.value)} — ${joinNames(tierNames(tier))}</div>` : '';
+  const rankLine = (place, tier, fmt) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${(fmt||fmtNum)(tier.value)} — ${joinNames(tierNames(tier))}</div>` : '';
 
   const buildCard = (medal, title, entries, opts) => {
     opts = opts || {};
     const dir = opts.dir || 'desc';
+    const fmt = opts.forceDecimal ? fmtNum1 : fmtNum;
     const tiers = topTiers(entries, 3, dir);
     const t0 = tiers[0] || { value: 0, items: [] };
     const body = `<strong>${joinNames(tierNames(t0))}</strong>`;
     return {
       medal, title,
-      stat: fmtNum(t0.value),
+      stat: fmt(t0.value),
       body,
-      extra: rankLine('2nd', tiers[1]) + rankLine('3rd', tiers[2]),
+      extra: rankLine('2nd', tiers[1], fmt) + rankLine('3rd', tiers[2], fmt),
       leaderKeys: tierKeys(t0)
     };
   };
@@ -928,7 +930,9 @@ function buildRecordCards(){
   const seasonWinEntries = r.seasonWinEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
   const seasonPtsEntries = r.seasonPointsEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
   const highScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
-  const lowScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
+  const lowScoreEntries = r.gameScoreEntries
+    .filter(e => Number(e.year) !== 2026) // exclude the not-yet-played 2026 season (placeholder 0-0 scores)
+    .map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
   const blowoutDisplayEntries = r.blowoutEntries.map(b => ({
     owner: `${nameOf(b.winnerKey)} def. ${nameOf(b.loserKey)} ${fmtNum(b.winnerScore)}-${fmtNum(b.loserScore)}`,
     value: b.margin,
@@ -952,7 +956,7 @@ function buildRecordCards(){
     buildCard('Regular Season', 'Most Regular Season Wins', regWinEntries, { body: n => `${n} — most regular season wins in league history.` }),
     buildCard('Regular Season', 'Most Regular Season Points', regPtsEntries, { body: n => `${n} — most total regular season points scored, career.` }),
     buildCard('Single Season', 'Most Wins in a Season', seasonWinEntries, { body: n => `${n} — most regular season wins in a single year.` }),
-    buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { body: n => `${n} — most total regular season points in a single year.` }),
+    buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { forceDecimal: true, body: n => `${n} — most total regular season points in a single year.` }),
     buildCard('Single Season', 'Most Scoring Titles', scoringTitleEntries, { body: n => `${n} — led the league in points scored the most times.` }),
     buildCard('Weekly', 'Most Weekly Scoring Titles', weeklyTitleEntries, { body: n => `${n} — most weeks leading the league in scoring, career.` }),
     buildCard('Playoffs', 'Most Playoff Appearances', playoffAppEntries, { body: n => `${n} — most playoff appearances in league history.` }),
@@ -960,9 +964,9 @@ function buildRecordCards(){
     buildCard('Playoffs', 'Most Playoff Points', playoffPtsEntries, { body: n => `${n} — most total points scored across all playoff games.` }),
     buildCard('Championships', 'Most Championships', champEntries, { body: n => `${n} — most league titles won.` }),
     buildCard('Championships', 'Most Top-3 Finishes', top3Entries, { body: n => `${n} — most 1st, 2nd, or 3rd place finishes.` }),
-    buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { body: n => `${n} — highest single-week score in league history.` }),
+    buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { forceDecimal: true, body: n => `${n} — highest single-week score in league history.` }),
     buildCard('Single Game', 'Lowest Scoring Week (Regular Season)', lowScoreEntries, { dir: 'asc', body: n => `${n} — lowest single-week score in league history.` }),
-    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { body: n => `${n} — largest margin of victory in a single game, regular season.` }),
+    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { forceDecimal: true, body: n => `${n} — largest margin of victory in a single game, regular season.` }),
     buildCard('Consistency', 'Most 100+ Point Weeks (Regular Season)', hundredEntries, { body: n => `${n} — most weeks scoring 100+ points, career.` }),
     buildCard('Streaks', 'Longest Regular Season Winning Streak', winStreakEntries, { body: n => `${n} — longest run of consecutive regular season wins, can span multiple seasons.` }),
     buildCard('Streaks', 'Longest Regular Season Losing Streak', lossStreakEntries, { body: n => `${n} — longest run of consecutive regular season losses, can span multiple seasons.` }),
@@ -1055,6 +1059,81 @@ function renderH2H(containerId){
     <span><span class="h2h-swatch" style="background:rgba(214,40,57,0.25)"></span> Losing record vs opponent</span>
     <span>Read as: row's record vs. column · computed from all regular season and playoff games, 2011–2025</span>
   </div>`;
+}
+
+// ---------- Draft History ----------
+function renderDraftHistory(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const years = Object.keys(DRAFT_HISTORY).sort((a,b) => b - a);
+  const params = new URLSearchParams(window.location.search);
+  const requestedYear = params.get('year');
+  const year = (requestedYear && DRAFT_HISTORY[requestedYear]) ? requestedYear : years[0];
+
+  document.title = `${year} Draft — League of NARPS`;
+
+  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
+    <a href="draft.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
+
+  let data = DRAFT_HISTORY[year].slice();
+  let sortKey = 'overall';
+  let sortDir = 'asc';
+
+  function sortData(){
+    data.sort((a,b) => {
+      let av = a[sortKey], bv = b[sortKey];
+      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+      return sortDir === 'asc' ? av - bv : bv - av;
+    });
+  }
+
+  const tableEl = document.createElement('div');
+
+  function draw(){
+    sortData();
+    const rows = data.map(p => `<tr>
+      <td class="pos">${p.round}</td>
+      <td class="pos">${p.pick}</td>
+      <td class="pos">${p.overall}</td>
+      <td class="name-cell">${p.player}</td>
+      <td class="pos">${p.position}</td>
+      <td class="pos">${p.nflTeam}</td>
+      <td class="name-cell">${p.fantasyTeam}</td>
+      <td>${p.owner}</td>
+    </tr>`).join('');
+
+    tableEl.innerHTML = `<div class="table-scroll"><table id="draft-table">
+      <thead><tr>
+        <th data-key="round">Rd</th>
+        <th data-key="pick">Pk</th>
+        <th data-key="overall">Overall</th>
+        <th data-key="player">Player</th>
+        <th data-key="position">Pos</th>
+        <th data-key="nflTeam">NFL</th>
+        <th data-key="fantasyTeam">Fantasy Team</th>
+        <th data-key="owner">Owner</th>
+      </tr></thead>
+      <tbody>${rows}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort — by round/pick (default) or by team.</p>`;
+
+    tableEl.querySelectorAll('thead th').forEach(th => {
+      const key = th.dataset.key;
+      th.addEventListener('click', () => {
+        if(sortKey === key){ sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+        else { sortKey = key; sortDir = 'asc'; }
+        draw();
+      });
+      if(key === sortKey) th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    });
+  }
+  draw();
+
+  el.innerHTML = '';
+  const switcherWrap = document.createElement('div');
+  switcherWrap.innerHTML = yearSwitcher;
+  el.appendChild(switcherWrap);
+  el.appendChild(tableEl);
 }
 
 // ---------- Rules & Bylaws History ----------
