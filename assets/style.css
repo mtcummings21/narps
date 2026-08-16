@@ -345,9 +345,9 @@ img{ max-width:100%; display:block; }
 }
 .memorial-photo{
   width: 140px;
-  height: 140px;
+  height: 170px;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: var(--radius-sm);
   border: 3px solid var(--line);
   box-shadow: var(--shadow);
 }
