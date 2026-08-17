@@ -69,7 +69,7 @@ img{ max-width:100%; display:block; }
 }
 .brand{
   display:flex;
-  align-items:center;
+  align-items:baseline;
   gap:10px;
   font-family: var(--display);
   font-weight: 700;
@@ -78,11 +78,16 @@ img{ max-width:100%; display:block; }
   text-decoration:none;
   color: var(--navy);
 }
-.brand-logo{
-  height: 46px;
-  width: auto;
-  display: block;
-  flex: 0 0 auto;
+.brand::before{
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 22px;
+  background: linear-gradient(180deg, var(--red) 0 33%, var(--white) 33% 66%, var(--blue) 66% 100%);
+  border-radius: 3px;
+  margin-right: 2px;
+  border: 1px solid var(--line);
+  vertical-align: -4px;
 }
 .brand small{
   font-family: var(--mono);
@@ -93,7 +98,6 @@ img{ max-width:100%; display:block; }
 }
 .nav{
   display:flex;
-  align-items: center;
   gap: 2px;
   flex-wrap: wrap;
 }
@@ -110,74 +114,6 @@ img{ max-width:100%; display:block; }
 }
 .nav a:hover, .nav a:focus-visible{ color: var(--navy); background: var(--bg); }
 .nav a[aria-current="page"]{ color: var(--white); background: var(--navy); }
-
-/* ---------- Nav dropdown (League History) ---------- */
-.nav-dropdown{ position: relative; }
-.nav-dropdown-toggle{
-  font-family: var(--body);
-  font-weight: 600;
-  font-size: 0.86rem;
-  line-height: normal;
-  letter-spacing: 0.1px;
-  color: var(--text-soft);
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 8px 14px;
-  border-radius: 999px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  transition: color 0.15s ease, background 0.15s ease;
-}
-.nav-dropdown-toggle:hover, .nav-dropdown-toggle:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav-dropdown--current .nav-dropdown-toggle{ color: var(--white); background: var(--navy); }
-.nav-caret{ font-size: 0.7rem; transition: transform 0.15s ease; }
-.nav-dropdown.open .nav-caret{ transform: rotate(180deg); }
-.nav-dropdown-menu{
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  margin-top: 6px;
-  min-width: 200px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  box-shadow: var(--shadow-hover);
-  padding: 6px;
-  flex-direction: column;
-  gap: 2px;
-  z-index: 30;
-}
-.nav-dropdown.open .nav-dropdown-menu{ display: flex; }
-.nav-dropdown-menu a{
-  font-family: var(--body);
-  font-weight: 600;
-  font-size: 0.86rem;
-  text-decoration: none;
-  color: var(--text-soft);
-  padding: 8px 12px;
-  border-radius: 8px;
-  transition: color 0.15s ease, background 0.15s ease;
-}
-.nav-dropdown-menu a:hover, .nav-dropdown-menu a:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav-dropdown-menu a[aria-current="page"]{ color: var(--white); background: var(--navy); }
-
-@media (max-width: 720px){
-  .nav-dropdown-menu{
-    display: none;
-    position: static;
-    box-shadow: none;
-    border: none;
-    background: var(--bg);
-    margin: 2px 0 2px 10px;
-    padding: 2px;
-  }
-  .nav-dropdown.open .nav-dropdown-menu{ display: flex; }
-  .nav-dropdown-toggle{ width: 100%; text-align: left; justify-content: space-between; }
-}
 
 .nav-toggle{ display:none; }
 
@@ -288,115 +224,6 @@ img{ max-width:100%; display:block; }
   text-transform: uppercase;
   color: rgba(255,255,255,0.6);
   margin-top: 5px;
-}
-
-/* ---------- In Memory Of ---------- */
-.memorial-card{
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-top: 3px solid var(--text-soft);
-  border-radius: var(--radius);
-  padding: 36px 40px;
-  box-shadow: var(--shadow);
-}
-.memorial-eyebrow{
-  font-family: var(--mono);
-  font-weight: 500;
-  font-size: 0.72rem;
-  letter-spacing: 2px;
-  color: var(--text-soft);
-  text-transform: uppercase;
-  margin-bottom: 10px;
-}
-.memorial-name{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.9rem;
-  color: var(--navy);
-  letter-spacing: -0.3px;
-  margin-bottom: 4px;
-}
-.memorial-years{
-  font-size: 0.88rem;
-  color: var(--text-soft);
-  margin-bottom: 24px;
-}
-.memorial-body p{
-  font-family: var(--body);
-  font-style: italic;
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--text);
-  margin: 0 0 18px;
-}
-.memorial-stats{
-  border-top: 1px solid var(--line);
-  padding-top: 18px;
-  margin-top: 6px;
-  font-family: var(--mono);
-  font-size: 0.78rem;
-  color: var(--text-soft);
-  line-height: 1.9;
-}
-.memorial-photo-wrap{
-  display: flex;
-  justify-content: center;
-  margin-top: 28px;
-}
-.memorial-photo{
-  width: 140px;
-  height: 170px;
-  object-fit: cover;
-  border-radius: var(--radius-sm);
-  border: 3px solid var(--line);
-  box-shadow: var(--shadow);
-}
-
-@media (max-width: 560px){
-  .memorial-card{ padding: 26px 22px; }
-  .memorial-name{ font-size: 1.5rem; }
-}
-
-/* ---------- Draft order ---------- */
-.draft-order-list{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 10px;
-}
-.draft-order-row{
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 12px 16px;
-  box-shadow: var(--shadow);
-}
-.draft-order-pick{
-  font-family: var(--mono);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--blue);
-  min-width: 26px;
-  flex-shrink: 0;
-}
-.draft-order-info{ min-width: 0; }
-.draft-order-owner{
-  font-family: var(--display);
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--navy);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.draft-order-team{
-  font-size: 0.78rem;
-  color: var(--text-soft);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 /* ---------- Kickoff countdown ---------- */
@@ -580,120 +407,29 @@ h2.section-title{
   border-radius: 20px;
   padding: 1px 7px;
 }
-
-/* Most recent champion — gold plaque */
-.plaque--recent{
-  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
-  border-top: 3px solid #A9822B;
-  box-shadow: var(--shadow), 0 0 0 1px rgba(169,130,43,0.25);
-}
-.plaque--recent .yr{ color: var(--navy-soft); }
-.plaque--recent .owner{ color: var(--navy); }
-.plaque--recent .team{ color: rgba(11,36,71,0.62); }
-.plaque--recent .repeat-tag{
-  color: var(--white);
-  background: var(--navy);
-}
-
-/* Runner-up — silver plaque */
-.plaque--silver{
-  background: linear-gradient(150deg, #E4E7EB 0%, #F4F6F8 45%, #B7BEC7 100%);
-  border-top: 3px solid #8B939E;
-  box-shadow: var(--shadow), 0 0 0 1px rgba(139,147,158,0.25);
-}
-.plaque--silver .yr{ color: var(--navy-soft); }
-.plaque--silver .owner{ color: var(--navy); }
-.plaque--silver .team{ color: rgba(11,36,71,0.62); }
-.plaque--silver .repeat-tag{
-  color: var(--white);
-  background: var(--navy);
-}
-
-/* Third place — bronze plaque */
-.plaque--bronze{
-  background: linear-gradient(150deg, #D69A6A 0%, #E8BE94 45%, #B06A3A 100%);
-  border-top: 3px solid #8A4E28;
-  box-shadow: var(--shadow), 0 0 0 1px rgba(138,78,40,0.25);
-}
-.plaque--bronze .yr{ color: var(--navy-soft); }
-.plaque--bronze .owner{ color: var(--navy); }
-.plaque--bronze .team{ color: rgba(11,36,71,0.62); }
-.plaque--bronze .repeat-tag{
-  color: var(--white);
-  background: var(--navy);
-}
-
-/* ---------- Champions pennant wall ---------- */
-.champ-grid{
+.scoring-leader-line{
   display:flex;
-  flex-wrap:wrap;
-  gap: 28px;
-  justify-content: center;
-}
-.champ-pennant{
-  width: 180px;
-  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
-  background: #000000;
-  padding: 5px;
-  transition: transform 0.15s ease;
-}
-.champ-pennant:hover{ transform: translateY(-3px); }
-.champ-pennant-inner{
-  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
-  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
-  padding: 22px 14px 42px;
-  display:flex;
-  flex-direction:column;
   align-items:center;
-  position:relative;
+  flex-wrap:wrap;
+  gap:8px;
+  margin: 0 4px 18px;
+  padding: 10px 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
 }
-.champ-grommet{
-  position:absolute;
-  top:14px;
-  width:8px;
-  height:8px;
-  border-radius:50%;
-  background:#000000;
-}
-.champ-grommet--left{ left:14px; }
-.champ-grommet--right{ right:14px; }
-.champ-headline{
+.scoring-leader-name{
   font-family: var(--display);
   font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  color: #000000;
-  text-align:center;
-  margin-top: 8px;
-  line-height: 1.3;
+  color: var(--text);
 }
-.champ-ribbon{
-  margin-top: 14px;
-  max-width: 100%;
-  background: #000000;
-  color: #E9C766;
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 0.66rem;
-  letter-spacing: 1px;
-  padding: 5px 14px;
-  clip-path: polygon(6% 0, 94% 0, 100% 50%, 94% 100%, 6% 100%, 0 50%);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.champ-pennant-year{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 2.3rem;
-  color: #000000;
-  margin-top: 16px;
-  letter-spacing: -1px;
-}
-
-@media (max-width: 560px){
-  .champ-pennant{ width: 150px; }
-  .champ-pennant-year{ font-size: 1.9rem; }
+.scoring-leader-team{ color: var(--text-soft); }
+.scoring-leader-pts{
+  font-family: var(--mono);
+  font-weight:600;
+  color: var(--blue);
+  margin-left: auto;
 }
 
 /* ---------- Tables ---------- */
@@ -731,8 +467,6 @@ tbody td{
 tbody tr:nth-child(even){ background: rgba(47,111,237,0.04); }
 tbody tr:hover{ background: rgba(214,40,57,0.06); }
 td.name-cell{ font-family: var(--body); font-weight:600; white-space: normal; }
-.owner-link{ color: inherit; text-decoration: none; }
-.owner-link:hover, .owner-link:focus-visible{ color: var(--blue); text-decoration: underline; }
 td.pos{ color: var(--text-soft); }
 .pill{
   display:inline-block;
@@ -748,7 +482,7 @@ td.pos{ color: var(--text-soft); }
 /* ---------- Awards ---------- */
 .award-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 16px;
 }
 .award-card{
@@ -784,24 +518,10 @@ td.pos{ color: var(--text-soft); }
   margin-bottom: 6px;
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
-.award-card .rank-line{
-  font-family: var(--mono);
-  font-size: 0.76rem;
-  color: var(--text-soft);
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px dashed var(--line);
-}
-.award-card .rank-line + .rank-line{ margin-top: 4px; padding-top: 0; border-top: none; }
-.award-card .rank-line .rank-num{
-  font-weight: 700;
-  color: var(--navy);
-  margin-right: 6px;
-}
 
 /* ---------- Condensed records grid (All-Time Records section) ---------- */
 #records-container .award-grid{
-  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   gap: 12px;
 }
 #records-container .award-card{
@@ -823,156 +543,6 @@ td.pos{ color: var(--text-soft); }
 #records-container .award-card p{
   font-size: 0.78rem;
   line-height: 1.4;
-}
-#records-container .award-card .rank-line{
-  font-size: 0.66rem;
-  margin-top: 6px;
-  padding-top: 6px;
-}
-
-/* ---------- Condensed leader grid (Team page — All-Time Record Leader) ---------- */
-#team-leader-grid{
-  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
-  gap: 12px;
-}
-#team-leader-grid .award-card{
-  padding: 14px 16px;
-}
-#team-leader-grid .award-card .medal{
-  font-size: 0.58rem;
-  letter-spacing: 1px;
-}
-#team-leader-grid .award-card h3{
-  font-size: 0.95rem;
-  margin: 5px 0 6px;
-  line-height: 1.25;
-}
-#team-leader-grid .award-card .headline-stat{
-  font-size: 1.5rem;
-  margin-bottom: 0;
-}
-
-/* ---------- All-Time Records color scheme (by category) ---------- */
-#records-container .cat-regular-season{ border-top-color: var(--blue); }
-#records-container .cat-regular-season .medal{ color: var(--blue); }
-#records-container .cat-regular-season .headline-stat{ color: var(--blue); }
-
-#records-container .cat-single-season{ border-top-color: #0EA5A5; }
-#records-container .cat-single-season .medal{ color: #0EA5A5; }
-#records-container .cat-single-season .headline-stat{ color: #0EA5A5; }
-
-#records-container .cat-weekly{ border-top-color: #DB2777; }
-#records-container .cat-weekly .medal{ color: #DB2777; }
-#records-container .cat-weekly .headline-stat{ color: #DB2777; }
-
-#records-container .cat-playoffs{ border-top-color: #7C3AED; }
-#records-container .cat-playoffs .medal{ color: #7C3AED; }
-#records-container .cat-playoffs .headline-stat{ color: #7C3AED; }
-
-#records-container .cat-championships{ border-top-color: #B8860B; }
-#records-container .cat-championships .medal{ color: #B8860B; }
-#records-container .cat-championships .headline-stat{ color: #B8860B; }
-
-#records-container .cat-single-game{ border-top-color: var(--red); }
-#records-container .cat-single-game .medal{ color: var(--red); }
-#records-container .cat-single-game .headline-stat{ color: var(--red); }
-
-#records-container .cat-consistency{ border-top-color: #2E9E5B; }
-#records-container .cat-consistency .medal{ color: #2E9E5B; }
-#records-container .cat-consistency .headline-stat{ color: #2E9E5B; }
-
-#records-container .cat-streaks{ border-top-color: #E07B39; }
-#records-container .cat-streaks .medal{ color: #E07B39; }
-#records-container .cat-streaks .headline-stat{ color: #E07B39; }
-
-/* ---------- Rules & Bylaws History ---------- */
-.rules-round{ margin-bottom:18px; }
-.rules-round-label{
-  font-family: var(--mono);
-  font-weight:600;
-  font-size:0.72rem;
-  letter-spacing:0.6px;
-  text-transform:uppercase;
-  color: var(--blue);
-  margin:0 0 10px;
-}
-.vote-list{
-  display:flex;
-  flex-direction:column;
-  gap:2px;
-}
-.vote-row{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
-  padding: 13px 16px;
-  background: var(--panel);
-  border-left: 3px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-.vote-row--passed{ border-left-color: #1F7A45; }
-.vote-row--rejected{ border-left-color: var(--red-dk); }
-.vote-row--voted{ border-left-color: #C89B3C; }
-.vote-row-main{ flex: 1 1 auto; min-width: 0; }
-.vote-category{
-  display:block;
-  font-family: var(--mono);
-  font-weight:600;
-  font-size:0.6rem;
-  letter-spacing:0.8px;
-  text-transform:uppercase;
-  color: var(--text-soft);
-  margin-bottom:4px;
-}
-.rule-pill{
-  flex: 0 0 auto;
-  margin-top: 1px;
-  display:inline-block;
-  font-family: var(--mono);
-  font-weight:600;
-  font-size:0.6rem;
-  letter-spacing:0.4px;
-  text-transform:uppercase;
-  padding:2px 8px;
-  border-radius:20px;
-  white-space:nowrap;
-}
-.rule-passed{ background: rgba(31,146,84,0.14); color: #1F7A45; }
-.rule-rejected{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
-.rule-plurality{ background: #F0EBD8; color: #7A5E10; }
-.vote-question{
-  font-family: var(--body);
-  font-weight:600;
-  font-size:0.88rem;
-  color: var(--text);
-  margin: 0 0 5px;
-  line-height:1.4;
-}
-.vote-options{
-  margin:0 0 5px;
-  font-family: var(--mono);
-  font-size:0.72rem;
-  color: var(--text-soft);
-  line-height:1.6;
-}
-.vote-result{
-  margin:0 0 3px;
-  font-family: var(--body);
-  font-weight:600;
-  font-size:0.8rem;
-  color: var(--text);
-}
-.vote-result::before{ content: "→ "; color: var(--text-soft); font-weight:500; }
-.vote-note{
-  margin:0;
-  font-family: var(--body);
-  font-size:0.76rem;
-  color: var(--text-soft);
-  font-style:italic;
-}
-@media (max-width: 560px){
-  .vote-row{ flex-direction:column; gap:6px; }
 }
 
 /* ---------- Footer ---------- */
