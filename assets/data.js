@@ -14900,58 +14900,6 @@ const SURVIVOR = {
         ]
       },
       {
-        "name": "Clay",
-        "result": "Eliminated",
-        "eliminatedWeek": 9,
-        "picks": [
-          {
-            "week": 1,
-            "team": "Broncos",
-            "loss": false
-          },
-          {
-            "week": 2,
-            "team": "Ravens",
-            "loss": false
-          },
-          {
-            "week": 3,
-            "team": "Bills",
-            "loss": false
-          },
-          {
-            "week": 4,
-            "team": "Lions",
-            "loss": false
-          },
-          {
-            "week": 5,
-            "team": "Cardinals",
-            "loss": true
-          },
-          {
-            "week": 6,
-            "team": "Rams",
-            "loss": false
-          },
-          {
-            "week": 7,
-            "team": "Chiefs",
-            "loss": false
-          },
-          {
-            "week": 8,
-            "team": "Colts",
-            "loss": false
-          },
-          {
-            "week": 9,
-            "team": "Packers",
-            "loss": true
-          }
-        ]
-      },
-      {
         "name": "Walid",
         "result": "Eliminated",
         "eliminatedWeek": 6,
