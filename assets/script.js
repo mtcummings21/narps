@@ -625,6 +625,24 @@ function renderTeamDetail(containerId){
 }
 
 // ---------- Survivor ----------
+const NFL_LOGO_ABBR = {
+  '49ers': 'sf', 'Bears': 'chi', 'Bengals': 'cin', 'Bills': 'buf', 'Broncos': 'den',
+  'Buccaneers': 'tb', 'Cardinals': 'ari', 'Chargers': 'lac', 'Chiefs': 'kc', 'Colts': 'ind',
+  'Commanders': 'wsh', 'Cowboys': 'dal', 'Dolphins': 'mia', 'Eagles': 'phi', 'Falcons': 'atl',
+  'Giants': 'nyg', 'Jaguars': 'jax', 'Jets': 'nyj', 'Lions': 'det', 'Packers': 'gb',
+  'Panthers': 'car', 'Patriots': 'ne', 'Raiders': 'lv', 'Rams': 'lar', 'Ravens': 'bal',
+  'Saints': 'no', 'Seahawks': 'sea', 'Steelers': 'pit', 'Texans': 'hou', 'Titans': 'ten',
+  'Vikings': 'min', 'Redskins': 'wsh', 'Football Team': 'wsh'
+};
+function nflLogo(teamName, opts = {}){
+  if(!teamName || teamName === '—') return '—';
+  const abbr = NFL_LOGO_ABBR[teamName];
+  const size = opts.size || 26;
+  if(!abbr) return teamName;
+  const lossClass = opts.loss ? ' pick-logo--loss' : '';
+  const label = opts.loss ? `${teamName} (loss)` : teamName;
+  return `<span class="pick-logo${lossClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
+}
 function renderSurvivor(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
@@ -656,7 +674,8 @@ function renderSurvivor(containerId){
 
   const leaderboardRows = sorted.map((p, i) => {
     const result = p.result === 'Winner' ? 'Winner 🏆' : `Eliminated — Week ${p.eliminatedWeek}`;
-    const losingPick = p.result === 'Winner' ? '—' : (p.picks.find(pk => pk.week === p.eliminatedWeek) || {}).team || '—';
+    const losingTeam = p.result === 'Winner' ? null : (p.picks.find(pk => pk.week === p.eliminatedWeek) || {}).team;
+    const losingPick = losingTeam ? nflLogo(losingTeam, { size: 24, loss: true }) : '—';
     return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${p.name}</td>
@@ -678,8 +697,7 @@ function renderSurvivor(containerId){
     const cells = weekCols.map(w => {
       const pk = p.picks.find(x => x.week === w);
       if(!pk) return `<td class="pos">—</td>`;
-      const style = pk.loss ? 'color:var(--red); text-decoration:line-through;' : '';
-      return `<td class="${pk.loss ? '' : 'name-cell'}" style="${style}">${pk.team}</td>`;
+      return `<td class="pos">${nflLogo(pk.team, { size: 24, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
       <td class="name-cell">${p.name}</td>
