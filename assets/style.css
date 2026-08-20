@@ -697,6 +697,11 @@ h2.section-title{
 }
 
 /* ---------- Tables ---------- */
+.pick-logo{ position:relative; display:inline-flex; align-items:center; justify-content:center; }
+.pick-logo img{ width:100%; height:100%; object-fit:contain; display:block; }
+.pick-logo--loss img{ opacity:0.35; filter:grayscale(1); }
+.pick-logo--loss::after{ content:""; position:absolute; top:50%; left:-3px; right:-3px; height:2px; background:var(--red); transform:translateY(-50%) rotate(-12deg); }
+
 .table-scroll{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
 table{
   width:100%;
