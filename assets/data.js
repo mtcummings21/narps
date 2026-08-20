@@ -798,20 +798,6 @@ const NEWSLETTERS = [
     "url": "https://mailchi.mp/d617d847b4ba/lon-2025-championship-and-season-recap"
   },
   {
-    "vol": 7,
-    "no": 1,
-    "year": 2024,
-    "title": "Time to Head to the Polls",
-    "url": "https://mailchi.mp/fc38a22a8570/time-to-head-to-the-polls"
-  },
-  {
-    "vol": 7,
-    "no": 2,
-    "year": 2024,
-    "title": "The Playoff Race",
-    "url": "https://mailchi.mp/c3ba8b29dd08/the-playoff-race"
-  },
-  {
     "vol": 6,
     "no": 1,
     "year": 2023,
