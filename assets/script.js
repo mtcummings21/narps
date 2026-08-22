@@ -473,14 +473,18 @@ function renderDraftOrder(containerId, forYear){
   const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
   const dateBlock = draftInfo ? `<div class="draft-order-datetime">${draftInfo.label}</div>` : '';
 
-  el.innerHTML = `${dateBlock}<div class="draft-order-list">${order.map((p, i) => `
+  el.innerHTML = `${dateBlock}<div class="draft-order-list">${order.map((p, i) => {
+    const hasPage = p.key && p.team !== 'TBD';
+    const ownerHTML = hasPage ? `<a href="team.html?team=${encodeURIComponent(p.key)}" class="owner-link">${p.owner}</a>` : p.owner;
+    return `
     <div class="draft-order-row">
       <div class="draft-order-pick">${i+1}</div>
       <div class="draft-order-info">
-        <div class="draft-order-owner">${p.owner}</div>
+        <div class="draft-order-owner">${ownerHTML}</div>
         <div class="draft-order-team">${p.team}</div>
       </div>
-    </div>`).join('')}</div>`;
+    </div>`;
+  }).join('')}</div>`;
 }
 
 // ---------- Kickoff countdown ----------
