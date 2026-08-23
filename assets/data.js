@@ -15580,6 +15580,45 @@ const RULES_HISTORY = [
         ]
       }
     ]
+  },
+  {
+    "year": 2026,
+    "rounds": [
+      {
+        "label": "LoN 2026 Survey",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "How many IR slots should there be?",
+            "options": ["1 — 45.45% (5)", "2 — 54.55% (6)"],
+            "result": "Remain at 2",
+            "passed": false
+          },
+          {
+            "category": "Scoring",
+            "question": "Should we use 0.5 PPR or 1.0 PPR?",
+            "options": ["0.5 — 72.73% (8)", "1.0 — 27.27% (3)"],
+            "result": "Remain at 0.5 PPR",
+            "passed": false
+          },
+          {
+            "category": "Roster",
+            "question": "Should we convert TE to TE/WR?",
+            "options": ["TE — 72.73% (8)", "TE/WR — 27.27% (3)"],
+            "result": "Remain TE",
+            "passed": false
+          },
+          {
+            "category": "Playoffs",
+            "question": "Should we use playoff reseeding (seeds are reordered in the 2nd round so the highest seed plays the lowest seed)? If no, then we use the normal bracket setup (#1 seed plays winner of #4/5 seed and #2 seed plays winner of #3/6 seed). We voted for playoff reseeding in 2024 but it has not come into play.",
+            "options": ["Use Playoff Reseeding — 63.64% (7)", "Do Not Use Playoff Reseeding — 36.36% (4)"],
+            "result": "Use Playoff Reseeding (status quo maintained)",
+            "passed": false,
+            "note": "Reaffirms the playoff reseeding rule adopted in 2024; it still has not come into play in an actual bracket."
+          }
+        ]
+      }
+    ]
   }
 ];
 
