@@ -358,18 +358,6 @@ img{ max-width:100%; display:block; }
 }
 
 /* ---------- Draft order ---------- */
-.draft-order-datetime{
-  font-family: var(--mono);
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--red);
-  background: var(--panel);
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  padding: 10px 16px;
-  margin-bottom: 14px;
-  display: inline-block;
-}
 .draft-order-list{
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -465,6 +453,14 @@ img{ max-width:100%; display:block; }
   color: var(--text-soft);
   margin-top: 5px;
 }
+@media (max-width: 560px){
+  .countdown-card{ padding: 20px 14px; }
+  .countdown-grid{ gap: 8px; flex-wrap: nowrap; }
+  .countdown-unit{ min-width: 0; flex: 1 1 0; padding: 10px 4px; }
+  .countdown-num{ font-size: 1.6rem; }
+  .countdown-label{ font-size: 0.55rem; letter-spacing: 0.6px; }
+}
+
 .kickoff-live{
   text-align:center;
   font-family: var(--display);
@@ -709,11 +705,6 @@ h2.section-title{
 }
 
 /* ---------- Tables ---------- */
-.pick-logo{ position:relative; display:inline-flex; align-items:center; justify-content:center; }
-.pick-logo img{ width:100%; height:100%; object-fit:contain; display:block; }
-.pick-logo--loss img{ opacity:0.35; filter:grayscale(1); }
-.pick-logo--loss::after{ content:""; position:absolute; top:50%; left:-3px; right:-3px; height:2px; background:var(--red); transform:translateY(-50%) rotate(-12deg); }
-
 .table-scroll{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
 table{
   width:100%;
