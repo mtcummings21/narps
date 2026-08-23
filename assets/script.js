@@ -785,6 +785,9 @@ function computeAllTimeRecords(){
     const weeks = Object.keys(s.schedule || {}).sort((a,b) => weekNum(a) - weekNum(b));
     weeks.forEach(wk => {
       (s.schedule[wk] || []).forEach(g => {
+        // Skip placeholder/unplayed games (0-0) so an in-progress season's
+        // future weeks don't inject phantom ties into streak calculations.
+        if(g.awayScore === 0 && g.homeScore === 0) return;
         const ak = keyByLastName[lastNameOf(g.awayMgr)];
         const hk = keyByLastName[lastNameOf(g.homeMgr)];
         let aRes, hRes;
@@ -818,6 +821,9 @@ function computeAllTimeRecords(){
     Object.entries(s.schedule || {}).forEach(([week, games]) => {
       const weekScores = [];
       games.forEach(g => {
+        // Skip placeholder/unplayed games (0-0) so future weeks of an
+        // in-progress season don't pollute weekly scoring titles or blowout data.
+        if(g.awayScore === 0 && g.homeScore === 0) return;
         addRegScore(g.awayMgr, g.awayScore, week, year);
         addRegScore(g.homeMgr, g.homeScore, week, year);
         const ak = keyByLastName[lastNameOf(g.awayMgr)];
@@ -1038,6 +1044,9 @@ function computeH2H(){
   TEAMS.forEach(t => { matrix[t.key] = {}; });
 
   function record(g) {
+    // Skip games that haven't been played yet (placeholder 0-0 scores for
+    // future/unplayed weeks, e.g. the current season's schedule loaded ahead of time).
+    if(g.awayScore === 0 && g.homeScore === 0) return;
     const awayKey = keyByLastName[lastNameOf(g.awayMgr)];
     const homeKey = keyByLastName[lastNameOf(g.homeMgr)];
     if(!awayKey || !homeKey || awayKey === homeKey) return;
