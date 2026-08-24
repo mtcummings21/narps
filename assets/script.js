@@ -522,6 +522,22 @@ function renderCountdown(containerId, targetDateStr){
   const timer = setInterval(update, 1000);
 }
 
+// ---------- Top Headlines (homepage NFL news widget) ----------
+function renderHeadlines(containerId){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  if(typeof NFL_HEADLINES === 'undefined' || !NFL_HEADLINES.length){ el.innerHTML = ''; return; }
+
+  el.innerHTML = `
+    <div class="headlines-card">
+      <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
+      <ul class="headlines-list">
+        ${NFL_HEADLINES.map(h => `<li><a href="${h.url}" target="_blank" rel="noopener">${h.title}</a></li>`).join('')}
+      </ul>
+    </div>
+  `;
+}
+
 // ---------- Team pages ----------
 function renderTeamsList(containerId){
   const el = document.getElementById(containerId);

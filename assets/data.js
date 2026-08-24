@@ -13987,6 +13987,19 @@ const PAID_STATUS = {
   "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings"]
 };
 
+// Homepage "Top Headlines" widget — general NFL news, unrelated to league
+// history. Update this list periodically to keep it current.
+const NFL_HEADLINES = [
+  { title: "Browns' Todd Monken to name Week 1 starting QB Monday", url: "https://www.nfl.com/news" },
+  { title: "McCarthy: Steelers at 'impasse' with CB Joey Porter Jr.", url: "https://www.nfl.com/news" },
+  { title: "Raiders' Jeanty believed to have sprained ankle at practice", url: "https://www.espn.com/nfl/transactions" },
+  { title: "Chargers place C Tyler Biadasz (knee) on season-ending IR", url: "https://www.nfl.com/news" },
+  { title: "Niners activate TE George Kittle off PUP list", url: "https://www.nfl.com/news" },
+  { title: "Milton throws 2 TDs, makes case for Cowboys' backup QB job", url: "https://www.espn.com/nfl/" },
+  { title: "Chiefs' Butker kicks 69-yard FG in 16-15 loss to Bucs", url: "https://www.espn.com/nfl/" },
+  { title: "40-year-old Josh Johnson leads Bengals past Bears, 27-9", url: "https://www.espn.com/nfl/" }
+];
+
 const SURVIVOR = {
   "2024": {
     "champion": "Matt Garner",
