@@ -631,6 +631,23 @@ h2.section-title{
   background: var(--navy);
 }
 
+/* ---------- Paid badge ---------- */
+.paid-badge{
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #1F7A4D;
+  background: rgba(31,122,77,0.12);
+  border: 1px solid rgba(31,122,77,0.35);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
 /* ---------- Survivor pick logos ---------- */
 .pick-logo{
   display: inline-flex;
