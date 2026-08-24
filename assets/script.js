@@ -390,16 +390,19 @@ function renderSeasonDetail(containerId){
   const keyByLastName = {};
   TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
 
+  const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
+
   const standingsTable = `<div class="table-scroll"><table>
     <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const teamKey = keyByLastName[lastNameOf(t.owner)];
       const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
+      const paidBadge = teamKey && paidKeys.includes(teamKey) ? `<span class="paid-badge">Paid</span>` : '';
       return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>
-      <td class="pos">${t.owner}</td>
+      <td class="pos">${t.owner}${paidBadge}</td>
       <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td>${t.pct.toFixed(3)}</td>
       <td>${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
@@ -473,14 +476,17 @@ function renderDraftOrder(containerId, forYear){
   const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
   const dateBlock = draftInfo ? `<div class="draft-order-datetime">${draftInfo.label}</div>` : '';
 
+  const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
+
   el.innerHTML = `${dateBlock}<div class="draft-order-list">${order.map((p, i) => {
     const hasPage = p.key && p.team !== 'TBD';
     const ownerHTML = hasPage ? `<a href="team.html?team=${encodeURIComponent(p.key)}" class="owner-link">${p.owner}</a>` : p.owner;
+    const paidBadge = paidKeys.includes(p.key) ? `<span class="paid-badge">Paid</span>` : '';
     return `
     <div class="draft-order-row">
       <div class="draft-order-pick">${i+1}</div>
       <div class="draft-order-info">
-        <div class="draft-order-owner">${ownerHTML}</div>
+        <div class="draft-order-owner">${ownerHTML}${paidBadge}</div>
         <div class="draft-order-team">${p.team}</div>
       </div>
     </div>`;
