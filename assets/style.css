@@ -631,6 +631,20 @@ h2.section-title{
   background: var(--navy);
 }
 
+/* Survivor weekly picks: keep player names on one line, and pin the
+   name column while the week columns scroll horizontally. */
+.picks-name-cell,
+td.picks-name-cell,
+td.name-cell.picks-name-cell{
+  white-space: nowrap;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--panel);
+}
+tbody tr:nth-child(even) .picks-name-cell{ background: #F7F9FC; }
+tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
+
 /* ---------- Paid badge ---------- */
 .paid-badge{
   display: inline-block;
