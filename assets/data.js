@@ -13982,6 +13982,11 @@ const DRAFT_ORDER = {
   ]
 };
 
+// Dues paid, by team key, per season. Add a year entry as owners pay up.
+const PAID_STATUS = {
+  "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings"]
+};
+
 const SURVIVOR = {
   "2024": {
     "champion": "Matt Garner",
