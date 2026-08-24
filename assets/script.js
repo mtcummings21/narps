@@ -391,6 +391,7 @@ function renderSeasonDetail(containerId){
   TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
 
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
+  const paidLastNames = paidKeys.map(k => k.toLowerCase());
 
   const standingsTable = `<div class="table-scroll"><table>
     <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
@@ -398,7 +399,7 @@ function renderSeasonDetail(containerId){
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const teamKey = keyByLastName[lastNameOf(t.owner)];
       const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
-      const paidBadge = teamKey && paidKeys.includes(teamKey) ? `<span class="paid-badge">Paid</span>` : '';
+      const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
       return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>
@@ -715,7 +716,7 @@ function renderSurvivor(containerId){
       return `<td class="pos">${nflLogo(pk.team, { size: 24, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
-      <td class="name-cell">${p.name}</td>
+      <td class="name-cell picks-name-cell">${p.name}</td>
       ${cells}
     </tr>`;
   }).join('');
