@@ -13990,14 +13990,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Browns' Todd Monken to name Week 1 starting QB Monday", url: "https://www.nfl.com/news" },
-  { title: "McCarthy: Steelers at 'impasse' with CB Joey Porter Jr.", url: "https://www.nfl.com/news" },
-  { title: "Raiders' Jeanty believed to have sprained ankle at practice", url: "https://www.espn.com/nfl/transactions" },
-  { title: "Chargers place C Tyler Biadasz (knee) on season-ending IR", url: "https://www.nfl.com/news" },
-  { title: "Niners activate TE George Kittle off PUP list", url: "https://www.nfl.com/news" },
-  { title: "Milton throws 2 TDs, makes case for Cowboys' backup QB job", url: "https://www.espn.com/nfl/" },
-  { title: "Chiefs' Butker kicks 69-yard FG in 16-15 loss to Bucs", url: "https://www.espn.com/nfl/" },
-  { title: "40-year-old Josh Johnson leads Bengals past Bears, 27-9", url: "https://www.espn.com/nfl/" }
+  { title: "Browns' Todd Monken to name Week 1 starting QB Monday", url: "https://www.nfl.com/news/browns-todd-monken-expects-to-name-starting-qb-on-monday-deshaun-watson-comments-won-t-factor-in" },
+  { title: "McCarthy: Steelers at 'impasse' with CB Joey Porter Jr.", url: "https://www.espn.com/nfl/story/_/id/49712570/mike-mccarthy-says-steelers-impasse-cb-joey-porter" },
+  { title: "Raiders' Jeanty believed to have sprained ankle at practice", url: "https://www.espn.com/nfl/story/_/id/49708202/raiders-rb-jeanty-believed-sprained-ankle" },
+  { title: "Chargers place C Tyler Biadasz (knee) on season-ending IR", url: "https://www.espn.com/nfl/story/_/id/49702892/chargers-place-tyler-biadasz-season-ending-injured-reserve" },
+  { title: "Niners activate TE George Kittle off PUP list", url: "https://www.espn.com/nfl/story/_/id/49702970/49ers-activate-star-te-george-kittle-pup-list" },
+  { title: "Milton throws 2 TDs, makes case for Cowboys' backup QB job", url: "https://www.espn.com/nfl/recap/_/gameId/401874101" },
+  { title: "Chiefs' Butker kicks 69-yard FG in 16-15 loss to Bucs", url: "https://www.espn.com/nfl/game/_/gameId/401873296/chiefs-buccaneers" },
+  { title: "40-year-old Josh Johnson leads Bengals past Bears, 27-9", url: "https://www.espn.com/nfl/recap?gameId=401873289" }
 ];
 
 const SURVIVOR = {
