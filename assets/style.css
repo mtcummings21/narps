@@ -660,8 +660,13 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   padding: 0 24px;
 }
 @media (max-width: 1840px){
-  .home-split{ grid-template-columns: 1fr; }
+  .home-split{ grid-template-columns: 1fr; gap: 0; }
   .wrap-wide{ width: auto; max-width: 1100px; margin: 0 auto; }
+  .home-split #home-headlines{
+    margin-top: 52px;
+    padding-top: 52px;
+    border-top: 1px solid var(--line);
+  }
 }
 .headlines-card{
   background: var(--panel);
