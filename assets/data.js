@@ -13990,14 +13990,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
+  { title: "Patriots trade Kayshon Boutte to Texans for Jaylen Reed, pick", url: "https://www.espn.com/nfl/story/_/id/49714288/patriots-trading-boutte-texans-reed-draft-pick" },
+  { title: "NFL elevates Pro Bowl selection; AFC-NFC game no longer staged", url: "https://www.nfl.com/news/nfl-elevates-pro-bowl-selection-game-s-will-cease-being-contested" },
   { title: "Patrick Mahomes feeling 'great,' on track to start Week 1", url: "https://www.espn.com/nfl/story/_/id/49724277/patrick-mahomes-feeling-great-track-start-week-1" },
   { title: "Giants WR Calvin Austin (torn ACL) out for season", url: "https://www.espn.com/nfl/story/_/id/49731270/source-giants-wr-calvin-austin-miss-upcoming-season" },
   { title: "Bengals star Chase 'fine' after knee injury scare", url: "https://www.espn.com/nfl/story/_/id/49724848/bengals-jamarr-chase-says-fine-injury-scare" },
   { title: "NFL owners approve sale of Seahawks to Khosla family", url: "https://www.nfl.com/news/nfl-owners-approve-sale-seattle-seahawks-khosla-family" },
   { title: "Michael Penix Jr. sidelined for finale; Falcons' QB1 still unsettled", url: "https://www.nfl.com/news/michael-penix-jr-out-falcons-preseason-finale-falcons-qb1-decision" },
-  { title: "Milton throws 2 TDs, makes case for Cowboys' backup QB job", url: "https://www.espn.com/nfl/recap/_/gameId/401874101" },
-  { title: "Chiefs' Butker kicks 69-yard FG in 16-15 loss to Bucs", url: "https://www.espn.com/nfl/game/_/gameId/401873296/chiefs-buccaneers" },
-  { title: "40-year-old Josh Johnson leads Bengals past Bears, 27-9", url: "https://www.espn.com/nfl/recap?gameId=401873289" }
+  { title: "Milton throws 2 TDs, makes case for Cowboys' backup QB job", url: "https://www.espn.com/nfl/recap/_/gameId/401874101" }
 ];
 
 const SURVIVOR = {
