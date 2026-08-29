@@ -15028,6 +15028,13 @@ const SURVIVOR = {
         ]
       }
     ]
+  },
+  "2026": {
+    "champion": null,
+    "players": [
+      { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [] },
+      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [] }
+    ]
   }
 };
 

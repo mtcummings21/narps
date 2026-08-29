@@ -694,16 +694,18 @@ function renderSurvivor(containerId){
     return (b.eliminatedWeek || 0) - (a.eliminatedWeek || 0);
   });
 
-  const champCard = `<div class="trophy-case">
+  const champCard = s.champion ? `<div class="trophy-case">
     <div class="plaque">
       <div class="yr">${year} SURVIVOR CHAMPION</div>
       <div class="owner">${s.champion}</div>
       <div class="team">Last one standing</div>
     </div>
-  </div>`;
+  </div>` : `<p class="muted">Picks haven't started yet — check back once Week 1 kicks off.</p>`;
 
   const leaderboardRows = sorted.map((p, i) => {
-    const result = p.result === 'Winner' ? 'Winner 🏆' : `Eliminated — Week ${p.eliminatedWeek}`;
+    const result = p.result === 'Winner' ? 'Winner 🏆'
+      : p.result === 'Active' ? 'Active — no picks yet'
+      : `Eliminated — Week ${p.eliminatedWeek}`;
     const lossPicks = p.picks.filter(pk => pk.loss);
     const losingPick = lossPicks.length
       ? `<div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">${lossPicks.map(pk => nflLogo(pk.team, { size: 24, loss: true })).join('')}</div>`
@@ -722,7 +724,8 @@ function renderSurvivor(containerId){
     <tbody>${leaderboardRows}</tbody>
   </table></div>`;
 
-  const maxWeek = Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week)));
+  const hasPicks = sorted.some(p => p.picks.length > 0);
+  const maxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
   const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
 
   const picksTableRows = sorted.map(p => {
@@ -737,10 +740,10 @@ function renderSurvivor(containerId){
     </tr>`;
   }).join('');
 
-  const picksTable = `<div class="table-scroll"><table>
+  const picksTable = hasPicks ? `<div class="table-scroll"><table>
     <thead><tr><th>Player</th>${weekCols.map(w => `<th>Wk ${w}</th>`).join('')}</tr></thead>
     <tbody>${picksTableRows}</tbody>
-  </table></div>`;
+  </table></div>` : `<p class="muted">No picks made yet.</p>`;
 
   el.innerHTML = `
     ${yearSwitcher}
