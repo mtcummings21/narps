@@ -13990,14 +13990,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
+  { title: "Sizemore basks in title glow, thrilled to land No. 1 overall pick", url: "team.html?team=Sizemore" },
+  { title: "Ayra Starr to headline halftime show at Eagles-Jaguars London game", url: "https://www.nfl.com/news/ayra-starr-headline-halftime-show-eagles-jaguars-london-game" },
+  { title: "Canales: Bryce Young is Panthers' franchise QB 'right now'", url: "https://www.nfl.com/news/bryce-young-panthers-franchise-quarterback-dave-canales" },
   { title: "Lamar Jackson says health limited his mobility in 2025", url: "https://www.nfl.com/news/ravens-lamar-jackson-health-limited-mobility-2025" },
   { title: "Deshaun Watson named Browns' QB1, says he regrets fan comments", url: "https://www.espn.com/nfl/story/_/id/49711613/sources-browns-tab-deshaun-watson-not-shedeur-sanders-qb1" },
   { title: "Patriots trade Kayshon Boutte to Texans for Jaylen Reed, pick", url: "https://www.espn.com/nfl/story/_/id/49714288/patriots-trading-boutte-texans-reed-draft-pick" },
   { title: "NFL elevates Pro Bowl selection; AFC-NFC game no longer staged", url: "https://www.nfl.com/news/nfl-elevates-pro-bowl-selection-game-s-will-cease-being-contested" },
-  { title: "Patrick Mahomes feeling 'great,' on track to start Week 1", url: "https://www.espn.com/nfl/story/_/id/49724277/patrick-mahomes-feeling-great-track-start-week-1" },
-  { title: "Giants WR Calvin Austin (torn ACL) out for season", url: "https://www.espn.com/nfl/story/_/id/49731270/source-giants-wr-calvin-austin-miss-upcoming-season" },
-  { title: "Bengals star Chase 'fine' after knee injury scare", url: "https://www.espn.com/nfl/story/_/id/49724848/bengals-jamarr-chase-says-fine-injury-scare" },
-  { title: "NFL owners approve sale of Seahawks to Khosla family", url: "https://www.nfl.com/news/nfl-owners-approve-sale-seattle-seahawks-khosla-family" }
+  { title: "Patrick Mahomes feeling 'great,' on track to start Week 1", url: "https://www.espn.com/nfl/story/_/id/49724277/patrick-mahomes-feeling-great-track-start-week-1" }
 ];
 
 const SURVIVOR = {
