@@ -53,6 +53,10 @@
       <div class="countdown-card">
         <div class="countdown-title">Kickoff — Wed, Sept 9, 2026 · 8:20 PM ET · Patriots @ Seahawks</div>
         <div id="kickoff-countdown"></div>
+        <div class="countdown-card countdown-card--draft">
+          <div class="countdown-title">League Draft — Mon, Sept 7, 2026 · 8:00 PM ET</div>
+          <div id="draft-countdown"></div>
+        </div>
       </div>
       <div id="home-headlines"></div>
     </div>
@@ -152,6 +156,7 @@
 <script>
   renderTrophyCase('home-trophy-case', 5);
   renderCountdown('kickoff-countdown', '2026-09-09T20:20:00-04:00');
+  renderCountdown('draft-countdown', DRAFT_DATES['2026'].iso, '📝 The draft is here — good luck!');
   renderDraftOrder('home-draft-order');
   renderHeadlines('home-headlines');
 </script>

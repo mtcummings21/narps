@@ -495,15 +495,16 @@ function renderDraftOrder(containerId, forYear){
 }
 
 // ---------- Kickoff countdown ----------
-function renderCountdown(containerId, targetDateStr){
+function renderCountdown(containerId, targetDateStr, liveMessage){
   const el = document.getElementById(containerId);
   if(!el) return;
   const target = new Date(targetDateStr).getTime();
+  const message = liveMessage || '🏈 Kickoff is here — let\'s go!';
 
   function update(){
     const diff = target - Date.now();
     if(diff <= 0){
-      el.innerHTML = `<div class="kickoff-live">🏈 Kickoff is here — let's go!</div>`;
+      el.innerHTML = `<div class="kickoff-live">${message}</div>`;
       clearInterval(timer);
       return;
     }

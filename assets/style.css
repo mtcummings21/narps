@@ -461,6 +461,43 @@ img{ max-width:100%; display:block; }
   .countdown-label{ font-size: 0.55rem; letter-spacing: 0.6px; }
 }
 
+/* ---------- Draft countdown (smaller, distinct shade) ---------- */
+.countdown-card--draft{
+  margin-top: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(150deg, #FBF3DC 0%, #F7E9C0 100%);
+  border: 1px solid #E4C878;
+  border-radius: var(--radius);
+  box-shadow: none;
+}
+.countdown-card--draft .countdown-title{
+  color: #8A6A1F;
+  font-size: 0.7rem;
+  margin-bottom: 12px;
+}
+.countdown-card--draft .countdown-grid{ gap: 10px; }
+.countdown-card--draft .countdown-unit{
+  background: rgba(255,255,255,0.65);
+  border: 1px solid #E4C878;
+  min-width: 64px;
+  padding: 8px 6px;
+}
+.countdown-card--draft .countdown-unit:nth-child(1){ border-top: 3px solid #A9822B; }
+.countdown-card--draft .countdown-unit:nth-child(2){ border-top: 3px solid #C9A238; }
+.countdown-card--draft .countdown-unit:nth-child(3){ border-top: 3px solid #A9822B; }
+.countdown-card--draft .countdown-unit:nth-child(4){ border-top: 3px solid #C9A238; }
+.countdown-card--draft .countdown-num{
+  font-size: 1.5rem;
+  color: #7A5D1A;
+}
+.countdown-card--draft .countdown-label{ color: #9C8140; }
+@media (max-width: 560px){
+  .countdown-card--draft{ padding: 14px 12px; }
+  .countdown-card--draft .countdown-grid{ gap: 6px; }
+  .countdown-card--draft .countdown-num{ font-size: 1.15rem; }
+  .countdown-card--draft .countdown-label{ font-size: 0.5rem; }
+}
+
 .kickoff-live{
   text-align:center;
   font-family: var(--display);
