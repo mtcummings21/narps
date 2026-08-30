@@ -614,11 +614,15 @@ function renderTeamDetail(containerId){
     const s = SEASONS[y];
     const row = s.standings.find(r => lastName(r.owner) === lastName(t.owner));
     if(!row) return '';
-    const rank = s.standings.indexOf(row) + 1;
-    let finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
-    if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
-    else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
-    else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
+    const seasonStarted = s.standings.some(r => (r.w||0) + (r.l||0) + (r.t||0) > 0);
+    let finish = 'TBD';
+    if(seasonStarted){
+      const rank = s.standings.indexOf(row) + 1;
+      finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
+      if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
+      else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
+      else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
+    }
     return `<tr>
       <td class="pos">${y}</td>
       <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
