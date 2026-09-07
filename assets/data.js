@@ -13962,7 +13962,7 @@ const SEASONS = {
 };
 
 const DRAFT_DATES = {
-  "2026": { "iso": "2026-09-07T20:00:00-04:00", "label": "Mon, Sept 7, 2026 · 8:00 PM ET" }
+  "2026": { "iso": "2026-09-07T21:00:00-04:00", "label": "Mon, Sept 7, 2026 · 9:00 PM ET" }
 };
 
 const DRAFT_ORDER = {
