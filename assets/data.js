@@ -13990,14 +13990,6 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Sizemore basks in title glow, thrilled to land No. 1 overall pick", url: "team.html?team=Sizemore" },
-  { title: "Aaron Donald unretires, returns to Rams on one-year, $20M deal", url: "https://www.nfl.com/news/aaron-donald-unretires-rams-2026-season" },
-  { title: "Vikings QB J.J. McCarthy makes initial 53-man roster", url: "https://www.nfl.com/news/vikings-qb-jj-mccarthy-makes-initial-53-man-roster" },
-  { title: "Giants' Harbaugh: Beckham has 'done enough' to make NFL roster", url: "https://www.espn.com/nfl/story/_/id/49759091/giants-harbaugh-beckham-done-enough-make-nfl-roster" },
-  { title: "Raiders' Kubiak says injured Jeanty 'on the mend' after ankle scare", url: "https://www.espn.com/nfl/story/_/id/49724805/raiders-klint-kubiak-says-injured-ashton-jeanty-mend" },
-  { title: "Ayra Starr to headline halftime show at Eagles-Jaguars London game", url: "https://www.nfl.com/news/ayra-starr-headline-halftime-show-eagles-jaguars-london-game" },
-  { title: "Canales: Bryce Young is Panthers' franchise QB 'right now'", url: "https://www.nfl.com/news/bryce-young-panthers-franchise-quarterback-dave-canales" },
-  { title: "Lamar Jackson says health limited his mobility in 2025", url: "https://www.nfl.com/news/ravens-lamar-jackson-health-limited-mobility-2025" },
   { title: "Jaguars' plan for Travis Hunter in Year 2: full-time cornerback", url: "https://www.nfl.com/news/what-is-the-jaguars-plan-for-travis-hunter-in-year-2-plus-my-ranking-of-the-nfl-s-top-five-cornerbacks" },
   { title: "Jaxon Smith-Njigba signs $168.6M extension, NFL's highest-paid WR", url: "https://www.yardbarker.com/nfl/articles/five_key_contract_extensions_signed_ahead_of_the_2026_nfl_season/s1_13132_44020297" },
   { title: "Cowboys' George Pickens to play 2026 on franchise tag, no long-term deal", url: "https://www.espn.com/nfl/story/_/id/49153923/2026-nfl-contract-extensions-signings-negotiations-all-32-teams" },
