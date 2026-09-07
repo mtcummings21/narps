@@ -13997,7 +13997,12 @@ const NFL_HEADLINES = [
   { title: "Raiders' Kubiak says injured Jeanty 'on the mend' after ankle scare", url: "https://www.espn.com/nfl/story/_/id/49724805/raiders-klint-kubiak-says-injured-ashton-jeanty-mend" },
   { title: "Ayra Starr to headline halftime show at Eagles-Jaguars London game", url: "https://www.nfl.com/news/ayra-starr-headline-halftime-show-eagles-jaguars-london-game" },
   { title: "Canales: Bryce Young is Panthers' franchise QB 'right now'", url: "https://www.nfl.com/news/bryce-young-panthers-franchise-quarterback-dave-canales" },
-  { title: "Lamar Jackson says health limited his mobility in 2025", url: "https://www.nfl.com/news/ravens-lamar-jackson-health-limited-mobility-2025" }
+  { title: "Lamar Jackson says health limited his mobility in 2025", url: "https://www.nfl.com/news/ravens-lamar-jackson-health-limited-mobility-2025" },
+  { title: "Jaguars' plan for Travis Hunter in Year 2: full-time cornerback", url: "https://www.nfl.com/news/what-is-the-jaguars-plan-for-travis-hunter-in-year-2-plus-my-ranking-of-the-nfl-s-top-five-cornerbacks" },
+  { title: "Jaxon Smith-Njigba signs $168.6M extension, NFL's highest-paid WR", url: "https://www.yardbarker.com/nfl/articles/five_key_contract_extensions_signed_ahead_of_the_2026_nfl_season/s1_13132_44020297" },
+  { title: "Cowboys' George Pickens to play 2026 on franchise tag, no long-term deal", url: "https://www.espn.com/nfl/story/_/id/49153923/2026-nfl-contract-extensions-signings-negotiations-all-32-teams" },
+  { title: "Patriots-Seahawks Super Bowl LX rematch opens season Wednesday, Sept. 9", url: "https://www.patriots.com/news/game-preview-patriots-at-seahawks-week-1" },
+  { title: "A.J. Brown's Patriots debut headlines season-opening storylines", url: "https://sports.yahoo.com/articles/patriots-vs-seahawks-2026-predictions-171249776.html" }
 ];
 
 const SURVIVOR = {
