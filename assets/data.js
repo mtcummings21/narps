@@ -147,6 +147,7 @@ const TEAMS = [
         { "player": "Adrian Peterson", "years": [2011, 2013, 2014] },
         { "player": "Broncos D/ST", "years": [2013, 2014, 2015] },
         { "player": "Dan Bailey", "years": [2012, 2014, 2015] },
+        { "player": "J.K. Dobbins", "years": [2020, 2025, 2026] },
         { "player": "Mark Ingram", "years": [2013, 2014, 2015] }
       ]
     }
@@ -285,6 +286,7 @@ const TEAMS = [
       "count": 3,
       "entries": [
         { "player": "Carson Wentz", "years": [2017, 2018, 2020] },
+        { "player": "George Kittle", "years": [2020, 2023, 2026] },
         { "player": "Keenan Allen", "years": [2017, 2018, 2019] },
         { "player": "Leonard Fournette", "years": [2018, 2021, 2022] }
       ]
