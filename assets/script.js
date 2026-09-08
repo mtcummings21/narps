@@ -379,6 +379,7 @@ function renderSeasonDetail(containerId){
   </div>`;
 
   const seasonPts = {};
+  const weeklyHighs = {};
   Object.values(s.schedule || {}).forEach(games => games.forEach(g => {
     const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
     if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
@@ -386,6 +387,18 @@ function renderSeasonDetail(containerId){
     seasonPts[ak].pf += g.awayScore; seasonPts[ak].pa += g.homeScore;
     seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
   }));
+  Object.values(s.schedule || {}).forEach(games => {
+    const weekScores = [];
+    games.forEach(g => {
+      weekScores.push([lastNameOf(g.awayMgr), g.awayScore]);
+      weekScores.push([lastNameOf(g.homeMgr), g.homeScore]);
+    });
+    if(!weekScores.length) return;
+    const maxScore = Math.max(...weekScores.map(([,sc]) => sc));
+    weekScores.forEach(([mgr, sc]) => {
+      if(sc === maxScore) weeklyHighs[mgr] = (weeklyHighs[mgr] || 0) + 1;
+    });
+  });
 
   const keyByLastName = {};
   TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
@@ -394,9 +407,10 @@ function renderSeasonDetail(containerId){
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th></tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th><th>Top Weekly Scorer</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
+      const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
       const teamKey = keyByLastName[lastNameOf(t.owner)];
       const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
       const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
@@ -408,6 +422,7 @@ function renderSeasonDetail(containerId){
       <td>${t.pct.toFixed(3)}</td>
       <td>${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
       <td>${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+      <td class="pos">${highs}</td>
     </tr>`;
     }).join('')}</tbody>
   </table></div>`;
@@ -437,7 +452,8 @@ function renderSeasonDetail(containerId){
 
   const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
   const hasDraftOrder = typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year];
-  const draftSection = (!seasonStarted && hasDraftOrder) ? `
+  const hasDraftResults = typeof DRAFT_HISTORY !== 'undefined' && DRAFT_HISTORY[year] && DRAFT_HISTORY[year].length > 0;
+  const draftSection = (!seasonStarted && hasDraftOrder && !hasDraftResults) ? `
     ${draftInfo ? `<div class="countdown-card" style="margin:24px 0 32px;">
       <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
       <div id="season-draft-countdown"></div>
@@ -459,7 +475,7 @@ function renderSeasonDetail(containerId){
     ${scheduleWeeks}
   `;
 
-  if(!seasonStarted && hasDraftOrder){
+  if(!seasonStarted && hasDraftOrder && !hasDraftResults){
     if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
     renderDraftOrder('season-draft-order', year);
   }
