@@ -408,7 +408,7 @@ function renderSeasonDetail(containerId){
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th><th>Top Weekly Scorer</th></tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Top Weekly Scorer</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
