@@ -14038,11 +14038,11 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Jaguars' plan for Travis Hunter in Year 2: full-time cornerback", url: "https://www.nfl.com/news/what-is-the-jaguars-plan-for-travis-hunter-in-year-2-plus-my-ranking-of-the-nfl-s-top-five-cornerbacks" },
-  { title: "Jaxon Smith-Njigba signs $168.6M extension, NFL's highest-paid WR", url: "https://www.yardbarker.com/nfl/articles/five_key_contract_extensions_signed_ahead_of_the_2026_nfl_season/s1_13132_44020297" },
-  { title: "Cowboys' George Pickens to play 2026 on franchise tag, no long-term deal", url: "https://www.espn.com/nfl/story/_/id/49153923/2026-nfl-contract-extensions-signings-negotiations-all-32-teams" },
-  { title: "Patriots-Seahawks Super Bowl LX rematch opens season Wednesday, Sept. 9", url: "https://www.patriots.com/news/game-preview-patriots-at-seahawks-week-1" },
-  { title: "A.J. Brown's Patriots debut headlines season-opening storylines", url: "https://sports.yahoo.com/articles/patriots-vs-seahawks-2026-predictions-171249776.html" }
+  { title: "2026 League of NARPS Draft is in the books — Sizemore takes Gibbs at No. 1", url: "draft.html" },
+  { title: "Patriots signing CB Christian Gonzalez to 4-year, $135M extension", url: "https://www.nfl.com/news/patriots-signing-cb-christian-gonzalez-to-4-year-135-million-contract-extension" },
+  { title: "Niners' Nick Bosa to play Week 1 vs. Rams, Kittle trending in right direction", url: "https://www.nfl.com/news/niners-de-nick-bosa-to-play-week-1-vs-rams-te-george-kittle-trending-in-right-direction" },
+  { title: "Derrick Henry: 'I'm tired of being at home on the couch watching' Super Bowl", url: "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-i-am-tired-of-watching-the-super-bowl-on-tv" },
+  { title: "2026 NFL season kicks off Wednesday, first Wednesday opener since 2012", url: "https://www.foxsports.com/stories/nfl/when-does-2026-nfl-season-start-complete-week-1-schedule" }
 ];
 
 const SURVIVOR = {
