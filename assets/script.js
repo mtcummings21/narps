@@ -395,6 +395,7 @@ function renderSeasonDetail(containerId){
     });
     if(!weekScores.length) return;
     const maxScore = Math.max(...weekScores.map(([,sc]) => sc));
+    if(maxScore <= 0) return;
     weekScores.forEach(([mgr, sc]) => {
       if(sc === maxScore) weeklyHighs[mgr] = (weeklyHighs[mgr] || 0) + 1;
     });
@@ -418,11 +419,11 @@ function renderSeasonDetail(containerId){
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>
       <td class="pos">${t.owner}${paidBadge}</td>
-      <td>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
-      <td>${t.pct.toFixed(3)}</td>
-      <td>${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td>${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td class="pos">${highs}</td>
+      <td class="center">${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
+      <td class="center">${t.pct.toFixed(3)}</td>
+      <td class="center">${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+      <td class="center">${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+      <td class="pos center">${highs > 0 ? highs : '-'}</td>
     </tr>`;
     }).join('')}</tbody>
   </table></div>`;
