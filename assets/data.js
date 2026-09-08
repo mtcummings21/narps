@@ -429,6 +429,52 @@ const TEAMS = [
         { "player": "Aaron Rodgers", "years": [2013, 2014, 2015, 2019, 2021, 2022, 2024] }
       ]
     }
+  },
+  {
+    "key": "Thacker",
+    "owner": "Seth Thacker",
+    "team": "Kareem Pie",
+    "seasons": 0,
+    "champs": 0,
+    "gamesW": 0,
+    "gamesL": 0,
+    "gamesT": 0,
+    "winPct": 0,
+    "playoffApp": 0,
+    "byes": 0,
+    "playoffW": 0,
+    "playoffL": 0,
+    "playoffWinPct": 0,
+    "champGameApp": 0,
+    "champGameW": 0,
+    "champGameL": 0,
+    "totalPF": 0,
+    "totalPA": 0,
+    "seasonAvgPF": 0,
+    "seasonAvgPA": 0,
+    "gameAvgPF": 0,
+    "gameAvgPA": 0,
+    "diff": 0,
+    "topScoringSeasons": null,
+    "highScore": 0,
+    "mostDrafted": {
+      "count": 1,
+      "entries": [
+        { "player": "Bijan Robinson", "years": [2026] },
+        { "player": "Jeremiyah Love", "years": [2026] },
+        { "player": "Nico Collins", "years": [2026] },
+        { "player": "David Montgomery", "years": [2026] },
+        { "player": "Jaylen Waddle", "years": [2026] },
+        { "player": "Christian Watson", "years": [2026] },
+        { "player": "Joe Burrow", "years": [2026] },
+        { "player": "Kyle Pitts Sr.", "years": [2026] },
+        { "player": "Chris Godwin Jr.", "years": [2026] },
+        { "player": "Jalen Coker", "years": [2026] },
+        { "player": "Woody Marks", "years": [2026] },
+        { "player": "Jonah Coleman", "years": [2026] },
+        { "player": "Jordyn Tyson", "years": [2026] }
+      ]
+    }
   }
 ];
 
