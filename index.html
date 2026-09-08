@@ -51,16 +51,6 @@
   <div class="wrap-wide">
     <div class="home-split">
       <div class="countdown-stack">
-        <div class="countdown-card countdown-card--draft">
-          <div class="countdown-title">
-            <span class="ct-label">League Draft</span>
-            <span class="ct-sep">—</span>
-            <span class="ct-date">Mon, Sept 7, 2026</span>
-            <span class="ct-sep">·</span>
-            <span class="ct-time">9:00 PM ET</span>
-          </div>
-          <div id="draft-countdown"></div>
-        </div>
         <div class="countdown-card countdown-card--kickoff">
           <div class="countdown-title">
             <span class="ct-label">Kickoff</span>
@@ -172,7 +162,6 @@
 <script>
   renderTrophyCase('home-trophy-case', 5);
   renderCountdown('kickoff-countdown', '2026-09-09T20:20:00-04:00');
-  renderCountdown('draft-countdown', DRAFT_DATES['2026'].iso, '📝 The draft is here — good luck!');
   renderDraftOrder('home-draft-order');
   renderHeadlines('home-headlines');
 </script>
