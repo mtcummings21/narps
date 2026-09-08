@@ -9626,7 +9626,7 @@ const SEASONS = {
       "owner": "Tyler Clay"
     },
     "standings": [
-      {
+    {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 10,
@@ -9634,7 +9634,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.714
       },
-      {
+    {
         "team": "The Arabian Stallions",
         "owner": "Walid Salameh",
         "w": 9,
@@ -9642,7 +9642,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.643
       },
-      {
+    {
         "team": "The ACLiens",
         "owner": "Luke Rapp",
         "w": 9,
@@ -9650,7 +9650,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.643
       },
-      {
+    {
         "team": "George's Gangstas",
         "owner": "George Wright",
         "w": 8,
@@ -9658,7 +9658,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
+    {
         "team": "Kareem Pie",
         "owner": "Matt Geiger",
         "w": 8,
@@ -9666,23 +9666,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
-        "team": "Route 2 Ravers",
-        "owner": "Joseph Garton",
-        "w": 8,
-        "l": 6,
-        "t": 0,
-        "pct": 0.571
-      },
-      {
-        "team": "The Deplorables",
-        "owner": "Zachary Sizemore",
-        "w": 7,
-        "l": 7,
-        "t": 0,
-        "pct": 0.5
-      },
-      {
+    {
         "team": "Prino's Powerhouse",
         "owner": "Joe Prino",
         "w": 6,
@@ -9690,7 +9674,15 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
+    {
+        "team": "Route 2 Ravers",
+        "owner": "Joseph Garton",
+        "w": 8,
+        "l": 6,
+        "t": 0,
+        "pct": 0.571
+      },
+    {
         "team": "Lincoln Legends",
         "owner": "Tyler Cummings",
         "w": 6,
@@ -9698,15 +9690,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
-        "team": "Free Agents",
-        "owner": "Zachary Hickman",
-        "w": 6,
-        "l": 8,
-        "t": 0,
-        "pct": 0.429
-      },
-      {
+    {
         "team": "Business as Usual",
         "owner": "Travis West",
         "w": 4,
@@ -9714,15 +9698,31 @@ const SEASONS = {
         "t": 0,
         "pct": 0.286
       },
-      {
+    {
+        "team": "The Deplorables",
+        "owner": "Zachary Sizemore",
+        "w": 7,
+        "l": 7,
+        "t": 0,
+        "pct": 0.5
+      },
+    {
         "team": "The Fantasy Football Team",
         "owner": "Aaron Burns",
         "w": 3,
         "l": 11,
         "t": 0,
         "pct": 0.214
+      },
+    {
+        "team": "Free Agents",
+        "owner": "Zachary Hickman",
+        "w": 6,
+        "l": 8,
+        "t": 0,
+        "pct": 0.429
       }
-    ],
+  ],
     "schedule": {
       "Week 1": [
         {
@@ -10521,7 +10521,7 @@ const SEASONS = {
       "owner": "Zachary Sizemore"
     },
     "standings": [
-      {
+    {
         "team": "The Deplorables",
         "owner": "Zachary Sizemore",
         "w": 10,
@@ -10529,7 +10529,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.714
       },
-      {
+    {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 10,
@@ -10537,7 +10537,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.714
       },
-      {
+    {
         "team": "George's Gangstas",
         "owner": "George Wright",
         "w": 10,
@@ -10545,7 +10545,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.714
       },
-      {
+    {
         "team": "Kareem Pie",
         "owner": "Matt Geiger",
         "w": 8,
@@ -10553,7 +10553,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
+    {
         "team": "The Fantasy Football Team",
         "owner": "Aaron Burns",
         "w": 8,
@@ -10561,31 +10561,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
-        "team": "The ACLiens",
-        "owner": "Luke Rapp",
-        "w": 7,
-        "l": 7,
-        "t": 0,
-        "pct": 0.5
-      },
-      {
-        "team": "Prino's Powerhouse",
-        "owner": "Joe Prino",
-        "w": 6,
-        "l": 8,
-        "t": 0,
-        "pct": 0.429
-      },
-      {
-        "team": "The Arabian Stallions",
-        "owner": "Walid Salameh",
-        "w": 6,
-        "l": 8,
-        "t": 0,
-        "pct": 0.429
-      },
-      {
+    {
         "team": "Lincoln Legends",
         "owner": "Tyler Cummings",
         "w": 5,
@@ -10593,7 +10569,31 @@ const SEASONS = {
         "t": 0,
         "pct": 0.357
       },
-      {
+    {
+        "team": "The ACLiens",
+        "owner": "Luke Rapp",
+        "w": 7,
+        "l": 7,
+        "t": 0,
+        "pct": 0.5
+      },
+    {
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
+        "w": 6,
+        "l": 8,
+        "t": 0,
+        "pct": 0.429
+      },
+    {
+        "team": "Route 2 Ravers",
+        "owner": "Joseph Garton",
+        "w": 4,
+        "l": 10,
+        "t": 0,
+        "pct": 0.286
+      },
+    {
         "team": "Free Agents",
         "owner": "Zachary Hickman",
         "w": 5,
@@ -10601,23 +10601,23 @@ const SEASONS = {
         "t": 0,
         "pct": 0.357
       },
-      {
+    {
+        "team": "The Arabian Stallions",
+        "owner": "Walid Salameh",
+        "w": 6,
+        "l": 8,
+        "t": 0,
+        "pct": 0.429
+      },
+    {
         "team": "Business as Usual",
         "owner": "Travis West",
         "w": 5,
         "l": 9,
         "t": 0,
         "pct": 0.357
-      },
-      {
-        "team": "Route 2 Ravers",
-        "owner": "Joseph Garton",
-        "w": 4,
-        "l": 10,
-        "t": 0,
-        "pct": 0.286
       }
-    ],
+  ],
     "schedule": {
       "Week 1": [
         {
@@ -11416,7 +11416,7 @@ const SEASONS = {
       "owner": "Zachary Hickman"
     },
     "standings": [
-      {
+    {
         "team": "Free Agents",
         "owner": "Zachary Hickman",
         "w": 11,
@@ -11424,7 +11424,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.786
       },
-      {
+    {
         "team": "George's Gangstas",
         "owner": "George Wright",
         "w": 10,
@@ -11432,7 +11432,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.714
       },
-      {
+    {
         "team": "Prino's Powerhouse",
         "owner": "Joe Prino",
         "w": 9,
@@ -11440,7 +11440,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.643
       },
-      {
+    {
         "team": "The ACLiens",
         "owner": "Luke Rapp",
         "w": 8,
@@ -11448,7 +11448,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
+    {
         "team": "The Arabian Stallions",
         "owner": "Walid Salameh",
         "w": 8,
@@ -11456,7 +11456,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
+    {
         "team": "The Deplorables",
         "owner": "Zachary Sizemore",
         "w": 6,
@@ -11464,7 +11464,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
+    {
         "team": "Lincoln Legends",
         "owner": "Tyler Cummings",
         "w": 6,
@@ -11472,7 +11472,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
+    {
         "team": "Business as Usual",
         "owner": "Travis West",
         "w": 6,
@@ -11480,15 +11480,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
-        "team": "The Fantasy Football Team",
-        "owner": "Aaron Burns",
-        "w": 6,
-        "l": 8,
-        "t": 0,
-        "pct": 0.429
-      },
-      {
+    {
         "team": "Route 2 Ravers",
         "owner": "Joseph Garton",
         "w": 5,
@@ -11496,23 +11488,31 @@ const SEASONS = {
         "t": 0,
         "pct": 0.357
       },
-      {
-        "team": "Kareem Pie",
-        "owner": "Matt Geiger",
-        "w": 5,
-        "l": 9,
-        "t": 0,
-        "pct": 0.357
-      },
-      {
+    {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 4,
         "l": 10,
         "t": 0,
         "pct": 0.286
+      },
+    {
+        "team": "The Fantasy Football Team",
+        "owner": "Aaron Burns",
+        "w": 6,
+        "l": 8,
+        "t": 0,
+        "pct": 0.429
+      },
+    {
+        "team": "Kareem Pie",
+        "owner": "Matt Geiger",
+        "w": 5,
+        "l": 9,
+        "t": 0,
+        "pct": 0.357
       }
-    ],
+  ],
     "schedule": {
       "Week 1": [
         {
@@ -12311,7 +12311,7 @@ const SEASONS = {
       "owner": "Tyler Cummings"
     },
     "standings": [
-      {
+    {
         "team": "Lincoln Legends",
         "owner": "Tyler Cummings",
         "w": 13,
@@ -12319,7 +12319,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.929
       },
-      {
+    {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 9,
@@ -12327,7 +12327,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.643
       },
-      {
+    {
         "team": "The Fantasy Football Team",
         "owner": "Aaron Burns",
         "w": 8,
@@ -12335,7 +12335,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.571
       },
-      {
+    {
         "team": "The Deplorables",
         "owner": "Zachary Sizemore",
         "w": 7,
@@ -12343,7 +12343,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.5
       },
-      {
+    {
         "team": "Free Agents",
         "owner": "Zachary Hickman",
         "w": 7,
@@ -12351,23 +12351,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.5
       },
-      {
-        "team": "George's Gangstas",
-        "owner": "George Wright",
-        "w": 7,
-        "l": 7,
-        "t": 0,
-        "pct": 0.5
-      },
-      {
-        "team": "Prino's Powerhouse",
-        "owner": "Joe Prino",
-        "w": 7,
-        "l": 7,
-        "t": 0,
-        "pct": 0.5
-      },
-      {
+    {
         "team": "Business as Usual",
         "owner": "Travis West",
         "w": 6,
@@ -12375,15 +12359,7 @@ const SEASONS = {
         "t": 0,
         "pct": 0.429
       },
-      {
-        "team": "Kareem Pie",
-        "owner": "Matt Geiger",
-        "w": 6,
-        "l": 8,
-        "t": 0,
-        "pct": 0.429
-      },
-      {
+    {
         "team": "The ACLiens",
         "owner": "Luke Rapp",
         "w": 5,
@@ -12391,23 +12367,47 @@ const SEASONS = {
         "t": 0,
         "pct": 0.357
       },
-      {
-        "team": "Route 2 Ravers",
-        "owner": "Joseph Garton",
-        "w": 5,
-        "l": 9,
+    {
+        "team": "George's Gangstas",
+        "owner": "George Wright",
+        "w": 7,
+        "l": 7,
         "t": 0,
-        "pct": 0.357
+        "pct": 0.5
       },
-      {
+    {
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
+        "w": 7,
+        "l": 7,
+        "t": 0,
+        "pct": 0.5
+      },
+    {
         "team": "The Arabian Stallions",
         "owner": "Walid Salameh",
         "w": 4,
         "l": 10,
         "t": 0,
         "pct": 0.286
+      },
+    {
+        "team": "Kareem Pie",
+        "owner": "Matt Geiger",
+        "w": 6,
+        "l": 8,
+        "t": 0,
+        "pct": 0.429
+      },
+    {
+        "team": "Route 2 Ravers",
+        "owner": "Joseph Garton",
+        "w": 5,
+        "l": 9,
+        "t": 0,
+        "pct": 0.357
       }
-    ],
+  ],
     "schedule": {
       "Week 1": [
         {
