@@ -681,7 +681,7 @@ function renderTeamDetail(containerId){
 // ---------- Survivor ----------
 const NFL_LOGO_ABBR = {
   '49ers': 'sf', 'Bears': 'chi', 'Bengals': 'cin', 'Bills': 'buf', 'Broncos': 'den',
-  'Buccaneers': 'tb', 'Cardinals': 'ari', 'Chargers': 'lac', 'Chiefs': 'kc', 'Colts': 'ind',
+  'Browns': 'cle', 'Buccaneers': 'tb', 'Cardinals': 'ari', 'Chargers': 'lac', 'Chiefs': 'kc', 'Colts': 'ind',
   'Commanders': 'wsh', 'Cowboys': 'dal', 'Dolphins': 'mia', 'Eagles': 'phi', 'Falcons': 'atl',
   'Giants': 'nyg', 'Jaguars': 'jax', 'Jets': 'nyj', 'Lions': 'det', 'Packers': 'gb',
   'Panthers': 'car', 'Patriots': 'ne', 'Raiders': 'lv', 'Rams': 'lar', 'Ravens': 'bal',
