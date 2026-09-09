@@ -15875,7 +15875,9 @@ const SURVIVOR = {
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [] },
       { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [] },
       { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [] },
-      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [] }
+      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [] },
+      { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [] },
+      { "name": "Ronnie", "result": "Active", "eliminatedWeek": null, "picks": [] }
     ]
   }
 };
