@@ -14046,6 +14046,303 @@ const NFL_HEADLINES = [
 ];
 
 const SURVIVOR = {
+  "2022": {
+    "champion": "Aaron",
+    "players": [
+      {
+        "name": "Aaron",
+        "result": "Winner",
+        "eliminatedWeek": null,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Ravens",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Broncos",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Falcons",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Packers",
+            "loss": false
+          },
+          {
+            "week": 5,
+            "team": "49ers",
+            "loss": false
+          },
+          {
+            "week": 6,
+            "team": "Buccaneers",
+            "loss": true
+          },
+          {
+            "week": 7,
+            "team": "Raiders",
+            "loss": false
+          }
+        ]
+      },
+      {
+        "name": "Clay",
+        "result": "Eliminated",
+        "eliminatedWeek": 7,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Ravens",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Rams",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Bengals",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Packers",
+            "loss": false
+          },
+          {
+            "week": 5,
+            "team": "Bills",
+            "loss": false
+          },
+          {
+            "week": 6,
+            "team": "Buccaneers",
+            "loss": true
+          },
+          {
+            "week": 7,
+            "team": "Patriots",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Ronnie",
+        "result": "Eliminated",
+        "eliminatedWeek": 6,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Ravens",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Broncos",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Eagles",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Rams",
+            "loss": true
+          },
+          {
+            "week": 5,
+            "team": "Eagles",
+            "loss": false
+          },
+          {
+            "week": 6,
+            "team": "49ers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Melissa",
+        "result": "Eliminated",
+        "eliminatedWeek": 4,
+        "picks": [
+          {
+            "week": 1,
+            "team": "49ers",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Packers",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Cowboys",
+            "loss": false
+          },
+          {
+            "week": 4,
+            "team": "Steelers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Geiger",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Ravens",
+            "loss": false
+          },
+          {
+            "week": 2,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 3,
+            "team": "Chargers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Prino",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Broncos",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Rams",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Chargers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Z",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Titans",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Rams",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Chargers",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Luke",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Broncos",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Rams",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Chiefs",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Sizemore",
+        "result": "Eliminated",
+        "eliminatedWeek": 3,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Bengals",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Rams",
+            "loss": false
+          },
+          {
+            "week": 3,
+            "team": "Chiefs",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Cummings",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Colts",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Bengals",
+            "loss": true
+          }
+        ]
+      },
+      {
+        "name": "Twest",
+        "result": "Eliminated",
+        "eliminatedWeek": 2,
+        "picks": [
+          {
+            "week": 1,
+            "team": "Titans",
+            "loss": true
+          },
+          {
+            "week": 2,
+            "team": "Bengals",
+            "loss": true
+          }
+        ]
+      }
+    ]
+  },
   "2023": {
     "champion": "Clay",
     "players": [
