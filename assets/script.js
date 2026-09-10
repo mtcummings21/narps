@@ -752,11 +752,18 @@ function renderSurvivor(containerId){
   const hasPicks = sorted.some(p => p.picks.length > 0);
   const maxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
   const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
+  const revealTimes = s.weekRevealTimes || {};
+  const now = Date.now();
+  const isLocked = (w) => {
+    const rt = revealTimes[w];
+    return rt ? now < new Date(rt).getTime() : false;
+  };
 
   const picksTableRows = sorted.map(p => {
     const cells = weekCols.map(w => {
       const pk = p.picks.find(x => x.week === w);
       if(!pk) return `<td class="pos">—</td>`;
+      if(isLocked(w)) return `<td class="pos" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
       return `<td class="pos">${nflLogo(pk.team, { size: 24, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
@@ -764,6 +771,9 @@ function renderSurvivor(containerId){
       ${cells}
     </tr>`;
   }).join('');
+
+  const lockedWeeks = weekCols.filter(isLocked);
+  const lockNote = lockedWeeks.length ? `<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">🔒 Week ${lockedWeeks.join(', ')} picks are locked and will reveal ${new Date(revealTimes[lockedWeeks[0]]).toLocaleString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET.</p>` : '';
 
   const picksTable = hasPicks ? `<div class="table-scroll"><table>
     <thead><tr><th>Player</th>${weekCols.map(w => `<th>Wk ${w}</th>`).join('')}</tr></thead>
@@ -777,6 +787,7 @@ function renderSurvivor(containerId){
     ${leaderboard}
     <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
+    ${lockNote}
     ${picksTable}
   `;
 }
