@@ -781,11 +781,14 @@ function renderSurvivor(containerId){
     <tbody>${picksTableRows}</tbody>
   </table></div>` : `<p class="muted">No picks made yet.</p>`;
 
+  const leaderboardSection = year === '2026' ? '' : `
+    <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
+    ${leaderboard}`;
+
   el.innerHTML = `
     ${yearSwitcher}
     ${champCard}
-    <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
-    ${leaderboard}
+    ${leaderboardSection}
     <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
     ${lockNote}
