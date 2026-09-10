@@ -14038,11 +14038,11 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "2026 League of NARPS Draft is in the books — Sizemore takes Gibbs at No. 1", url: "draft.html" },
-  { title: "Patriots signing CB Christian Gonzalez to 4-year, $135M extension", url: "https://www.nfl.com/news/patriots-signing-cb-christian-gonzalez-to-4-year-135-million-contract-extension" },
-  { title: "Niners' Nick Bosa to play Week 1 vs. Rams, Kittle trending in right direction", url: "https://www.nfl.com/news/niners-de-nick-bosa-to-play-week-1-vs-rams-te-george-kittle-trending-in-right-direction" },
-  { title: "Derrick Henry: 'I'm tired of being at home on the couch watching' Super Bowl", url: "https://www.nbcsports.com/nfl/profootballtalk/rumor-mill/news/derrick-henry-i-am-tired-of-watching-the-super-bowl-on-tv" },
-  { title: "2026 NFL season kicks off Wednesday, first Wednesday opener since 2012", url: "https://www.foxsports.com/stories/nfl/when-does-2026-nfl-season-start-complete-week-1-schedule" }
+  { title: "Raiders' Brock Bowers to miss season opener after knee procedure", url: "https://www.nfl.com/news/raiders-te-brock-bowers-knee-procedure-out-week-1" },
+  { title: "Ashton Jeanty injury update all but confirms Week 1 status vs. Dolphins", url: "https://sports.yahoo.com/articles/ashton-jeanty-injury-raiders-confirms-180635236.html" },
+  { title: "Patrick Mahomes on track to start Week 1 vs. Broncos, 9 months after ACL/LCL tear", url: "https://www.nfl.com/news/chiefs-qb-patrick-mahomes-appears-on-track-to-start-week-1-vs-broncos" },
+  { title: "Aaron Donald comes out of retirement, returns to Rams for 2026", url: "https://www.nfl.com/news/nfl-how-to-watch-week-1-schedule-melbourne-game-details-and-more" },
+  { title: "Seahawks outlast Patriots 13-10; Darnold (hip) and A.J. Brown (ankle) both exit injured", url: "https://www.cbssports.com/nfl/news/seahawks-vs-patriots-live-updates-score-nfl-week-1/live/" }
 ];
 
 const SURVIVOR = {
