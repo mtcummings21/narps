@@ -750,7 +750,8 @@ function renderSurvivor(containerId){
   </table></div>`;
 
   const hasPicks = sorted.some(p => p.picks.length > 0);
-  const maxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
+  const actualMaxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
+  const maxWeek = year === '2026' ? Math.max(10, actualMaxWeek) : actualMaxWeek;
   const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
   const revealTimes = s.weekRevealTimes || {};
   const now = Date.now();
