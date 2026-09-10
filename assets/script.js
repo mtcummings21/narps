@@ -517,6 +517,7 @@ function renderCountdown(containerId, targetDateStr, liveMessage){
   if(!el) return;
   const target = new Date(targetDateStr).getTime();
   const message = liveMessage || '🏈 Kickoff is here — let\'s go!';
+  let timer;
 
   function update(){
     const diff = target - Date.now();
@@ -537,7 +538,7 @@ function renderCountdown(containerId, targetDateStr, liveMessage){
     </div>`;
   }
   update();
-  const timer = setInterval(update, 1000);
+  timer = setInterval(update, 1000);
 }
 
 // ---------- Top Headlines (homepage NFL news widget) ----------
