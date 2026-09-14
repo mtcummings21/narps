@@ -733,7 +733,7 @@ function renderSurvivor(containerId){
       : `Eliminated — Week ${p.eliminatedWeek}`;
     const lossPicks = p.picks.filter(pk => pk.loss);
     const losingPick = lossPicks.length
-      ? `<div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">${lossPicks.map(pk => nflLogo(pk.team, { size: 24, loss: true })).join('')}</div>`
+      ? `<div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">${lossPicks.map(pk => nflLogo(pk.team, { size: 29, loss: true })).join('')}</div>`
       : '—';
     return `<tr>
       <td class="pos">${i+1}</td>
@@ -778,7 +778,7 @@ function renderSurvivor(containerId){
       const pk = p.picks.find(x => x.week === w);
       if(!pk) return `<td class="pos">—</td>`;
       if(isLocked(w)) return `<td class="pos" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
-      return `<td class="pos">${nflLogo(pk.team, { size: 24, loss: pk.loss })}</td>`;
+      return `<td class="pos">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
       <td class="name-cell picks-name-cell">${p.name}</td>
