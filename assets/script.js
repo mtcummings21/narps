@@ -877,7 +877,7 @@ function renderSurvivor(containerId){
   const lockNote = lockedWeeks.length ? `<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">🔒 Week ${lockedWeeks.join(', ')} picks are locked and will reveal ${new Date(revealTimes[lockedWeeks[0]]).toLocaleString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET.</p>` : '';
 
   const picksTable = hasPicks ? `<div class="table-scroll"><table>
-    <thead><tr><th>Player</th>${weekCols.map(w => `<th>Wk ${w}</th>`).join('')}</tr></thead>
+    <thead><tr><th>Player</th>${weekCols.map(w => `<th class="center">Wk ${w}</th>`).join('')}</tr></thead>
     <tbody>${picksTableRows}</tbody>
   </table></div>` : `<p class="muted">No picks made yet.</p>`;
 
