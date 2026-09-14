@@ -15871,7 +15871,7 @@ const SURVIVOR = {
   },
   "2026": {
     "champion": null,
-    "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00" },
+    "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00", "2": "2026-09-20T13:00:00-04:00" },
     "players": [
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
       { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
