@@ -380,6 +380,8 @@ function renderSeasonDetail(containerId){
 
   const seasonPts = {};
   const weeklyHighs = {};
+  const medianRecord = {};
+  const allPlayRecord = {};
   Object.values(s.schedule || {}).forEach(games => games.forEach(g => {
     const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
     if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
@@ -399,19 +401,101 @@ function renderSeasonDetail(containerId){
     weekScores.forEach(([mgr, sc]) => {
       if(sc === maxScore) weeklyHighs[mgr] = (weeklyHighs[mgr] || 0) + 1;
     });
+
+    // Median record: win if above the week's median score, loss if below, push if equal.
+    const scoresOnly = weekScores.map(([,sc]) => sc).slice().sort((a,b) => a - b);
+    const mid = Math.floor(scoresOnly.length / 2);
+    const median = scoresOnly.length % 2 === 0 ? (scoresOnly[mid - 1] + scoresOnly[mid]) / 2 : scoresOnly[mid];
+    weekScores.forEach(([mgr, sc]) => {
+      if(!medianRecord[mgr]) medianRecord[mgr] = { w: 0, l: 0, t: 0 };
+      if(sc > median) medianRecord[mgr].w++;
+      else if(sc < median) medianRecord[mgr].l++;
+      else medianRecord[mgr].t++;
+    });
+
+    // All-play record: compare each team's score against every other team's score that week.
+    weekScores.forEach(([mgr, sc], idx) => {
+      if(!allPlayRecord[mgr]) allPlayRecord[mgr] = { w: 0, l: 0, t: 0 };
+      weekScores.forEach(([oppMgr, oppSc], oppIdx) => {
+        if(idx === oppIdx) return;
+        if(sc > oppSc) allPlayRecord[mgr].w++;
+        else if(sc < oppSc) allPlayRecord[mgr].l++;
+        else allPlayRecord[mgr].t++;
+      });
+    });
   });
 
   const keyByLastName = {};
   TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
 
+  // ---- Season highlights: league avg PPM, current streaks, highest/lowest single-week score ----
+  const weekKeys = Object.keys(s.schedule || {}).filter(wk => (s.schedule[wk] || []).length > 0);
+  const weekNum = (wk) => parseInt(wk.replace(/\D/g, ''), 10) || 0;
+  const sortedWeekKeys = weekKeys.slice().sort((a,b) => weekNum(a) - weekNum(b));
+
+  let allScoresSum = 0, allScoresCount = 0;
+  let highGame = null, lowGame = null;
+  const resultsByMgr = {}; // mgr -> ordered array of 'W'/'L'/'T'
+
+  sortedWeekKeys.forEach(wk => {
+    const games = s.schedule[wk] || [];
+    const weekMax = Math.max(0, ...games.flatMap(g => [g.awayScore, g.homeScore]));
+    if(weekMax <= 0) return; // week hasn't actually been played yet
+    games.forEach(g => {
+      const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
+      [[ak, g.awayScore, g.awayMgr], [hk, g.homeScore, g.homeMgr]].forEach(([mgr, sc, fullName]) => {
+        allScoresSum += sc; allScoresCount++;
+        if(!highGame || sc > highGame.score) highGame = { owner: fullName, score: sc, week: wk };
+        if(!lowGame || sc < lowGame.score) lowGame = { owner: fullName, score: sc, week: wk };
+      });
+      if(g.awayScore !== g.homeScore){
+        const winner = g.awayScore > g.homeScore ? ak : hk;
+        const loser = g.awayScore > g.homeScore ? hk : ak;
+        (resultsByMgr[winner] = resultsByMgr[winner] || []).push('W');
+        (resultsByMgr[loser] = resultsByMgr[loser] || []).push('L');
+      } else {
+        (resultsByMgr[ak] = resultsByMgr[ak] || []).push('T');
+        (resultsByMgr[hk] = resultsByMgr[hk] || []).push('T');
+      }
+    });
+  });
+
+  const leagueAvgPPM = allScoresCount ? allScoresSum / allScoresCount : 0;
+
+  let longestWinStreak = { owner: null, len: 0 };
+  let longestLossStreak = { owner: null, len: 0 };
+  Object.keys(resultsByMgr).forEach(mgr => {
+    const results = resultsByMgr[mgr];
+    let len = 0;
+    for(let i = results.length - 1; i >= 0 && results[i] === results[results.length - 1]; i--) len++;
+    const streakType = results[results.length - 1];
+    const ownerName = TEAMS.find(t => lastNameOf(t.owner) === mgr)?.owner || mgr;
+    if(streakType === 'W' && len > longestWinStreak.len) longestWinStreak = { owner: ownerName, len };
+    if(streakType === 'L' && len > longestLossStreak.len) longestLossStreak = { owner: ownerName, len };
+  });
+
+  const hasResults = allScoresCount > 0;
+  const highlightsSection = hasResults ? `<h2 class="section-title" style="margin-top:40px;">${year} Season Highlights</h2>
+  <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
+    <li><strong>League Avg PPM:</strong> ${leagueAvgPPM.toFixed(1)}</li>
+    <li><strong>Longest Win Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
+    <li><strong>Longest Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
+    <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner} — ${highGame.week})` : '—'}</li>
+    <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner} — ${lowGame.week})` : '—'}</li>
+  </ul>` : '';
+
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Top Weekly Scorer</th></tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">Record vs. League</th><th class="center">Top Weekly Scorer</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
+      const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+      const ap = allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+      const mrStr = `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`;
+      const apStr = `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`;
       const teamKey = keyByLastName[lastNameOf(t.owner)];
       const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
       const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
@@ -423,6 +507,8 @@ function renderSeasonDetail(containerId){
       <td class="center">${t.pct.toFixed(3)}</td>
       <td class="center">${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
       <td class="center">${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+      <td class="center">${mrStr}</td>
+      <td class="center">${apStr}</td>
       <td class="pos center">${highs > 0 ? highs : '-'}</td>
     </tr>`;
     }).join('')}</tbody>
@@ -469,6 +555,7 @@ function renderSeasonDetail(containerId){
     ${draftSection}
     <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? 'Final Regular Season Standings' : 'Standings'}</h2>
     ${standingsTable}
+    ${highlightsSection}
     ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
     <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
@@ -776,9 +863,9 @@ function renderSurvivor(containerId){
   const picksTableRows = picksSorted.map(p => {
     const cells = weekCols.map(w => {
       const pk = p.picks.find(x => x.week === w);
-      if(!pk) return `<td class="pos">—</td>`;
-      if(isLocked(w)) return `<td class="pos" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
-      return `<td class="pos">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
+      if(!pk) return `<td class="pos center">—</td>`;
+      if(isLocked(w)) return `<td class="pos center" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
+      return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
       <td class="name-cell picks-name-cell">${p.name}</td>
