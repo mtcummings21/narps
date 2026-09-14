@@ -15873,9 +15873,9 @@ const SURVIVOR = {
     "champion": null,
     "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00" },
     "players": [
-      { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": false } ] },
-      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": false } ] },
-      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": false } ] },
+      { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
+      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
+      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
       { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Ronnie", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Lions", "loss": false } ] }
