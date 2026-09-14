@@ -694,9 +694,9 @@ function nflLogo(teamName, opts = {}){
   const abbr = NFL_LOGO_ABBR[teamName];
   const size = opts.size || 26;
   if(!abbr) return teamName;
-  const lossClass = opts.loss ? ' pick-logo--loss' : '';
-  const label = opts.loss ? `${teamName} (loss)` : teamName;
-  return `<span class="pick-logo${lossClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
+  const resultClass = opts.loss === true ? ' pick-logo--loss' : (opts.loss === false ? ' pick-logo--win' : '');
+  const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : teamName);
+  return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
 function renderSurvivor(containerId){
   const el = document.getElementById(containerId);
@@ -760,7 +760,20 @@ function renderSurvivor(containerId){
     return rt ? now < new Date(rt).getTime() : false;
   };
 
-  const picksTableRows = sorted.map(p => {
+  const picksSorted = sorted.slice().sort((a,b) => {
+    const aLoss = a.picks.some(pk => pk.loss);
+    const bLoss = b.picks.some(pk => pk.loss);
+    if(aLoss !== bLoss) return aLoss ? 1 : -1;
+
+    const aLatest = a.picks.length ? a.picks[a.picks.length - 1].team : null;
+    const bLatest = b.picks.length ? b.picks[b.picks.length - 1].team : null;
+    if(aLatest && !bLatest) return -1;
+    if(!aLatest && bLatest) return 1;
+    if(aLatest && bLatest && aLatest !== bLatest) return aLatest.localeCompare(bLatest);
+    return a.name.localeCompare(b.name);
+  });
+
+  const picksTableRows = picksSorted.map(p => {
     const cells = weekCols.map(w => {
       const pk = p.picks.find(x => x.week === w);
       if(!pk) return `<td class="pos">—</td>`;
