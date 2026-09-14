@@ -14038,11 +14038,11 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Raiders' Brock Bowers to miss season opener after knee procedure", url: "https://www.nfl.com/news/raiders-te-brock-bowers-knee-procedure-out-week-1" },
-  { title: "Ashton Jeanty injury update all but confirms Week 1 status vs. Dolphins", url: "https://sports.yahoo.com/articles/ashton-jeanty-injury-raiders-confirms-180635236.html" },
-  { title: "Patrick Mahomes on track to start Week 1 vs. Broncos, 9 months after ACL/LCL tear", url: "https://www.nfl.com/news/chiefs-qb-patrick-mahomes-appears-on-track-to-start-week-1-vs-broncos" },
-  { title: "Aaron Donald comes out of retirement, returns to Rams for 2026", url: "https://www.nfl.com/news/nfl-how-to-watch-week-1-schedule-melbourne-game-details-and-more" },
-  { title: "Seahawks outlast Patriots 13-10; Darnold (hip) and A.J. Brown (ankle) both exit injured", url: "https://www.cbssports.com/nfl/news/seahawks-vs-patriots-live-updates-score-nfl-week-1/live/" }
+  { title: "Rams' Myles Garrett to undergo knee surgery, headed to IR for at least 4 games", url: "https://www.nfl.com/news/rams-myles-garrett-knee-surgery-injured-reserve" },
+  { title: "Sam Darnold (hip/glute strain) to miss Seahawks' Week 2 game at Cardinals", url: "https://www.espn.com/nfl/story/_/id/49893507/sources-seahawks-sam-darnold-expected-miss-week-2" },
+  { title: "Cardinals stun Chargers on the road in Week 1's early upset", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-2-early-odds-bills-eagles/" },
+  { title: "Bears, Panthers combine for 96 points in wild Week 1 shootout", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-2-early-odds-bills-eagles/" },
+  { title: "Rams fall 27-7 to 49ers in Australia as Aaron Donald sits out season debut", url: "https://ktla.com/sports/rams-star-myles-garrett-to-undergo-knee-surgery-placed-on-injured-reserve/" }
 ];
 
 const SURVIVOR = {
@@ -15874,7 +15874,7 @@ const SURVIVOR = {
     "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00" },
     "players": [
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
-      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
+      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
       { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
       { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
