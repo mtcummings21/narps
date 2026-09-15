@@ -1,1392 +1,1205 @@
-// ---------- Nav toggle (mobile) ----------
-function initNav(){
-  const btn = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('.nav');
-  if(!btn || !nav) return;
-  btn.addEventListener('click', () => {
-    const open = nav.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+:root{
+  --navy:       #0B2447;   /* deep navy, headers/dark panels */
+  --navy-soft:  #16345E;
+  --blue:       #2F6FED;   /* modern accent blue */
+  --blue-lt:    #6FA0FF;
+  --red:        #D62839;   /* accent red */
+  --red-dk:     #B01F2E;
+  --white:      #FFFFFF;
+  --bg:         #F5F7FA;   /* page background */
+  --panel:      #FFFFFF;   /* card background */
+  --line:       #E2E6ED;
+  --text:       #10192B;
+  --text-soft:  #5B6577;
+  --radius:     14px;
+  --radius-sm:  10px;
+  --shadow:     0 1px 2px rgba(11,36,71,0.06), 0 8px 24px rgba(11,36,71,0.06);
+  --shadow-hover: 0 4px 10px rgba(11,36,71,0.08), 0 16px 32px rgba(11,36,71,0.10);
+
+  --display: 'Space Grotesk', 'Inter', sans-serif;
+  --body: 'Inter', -apple-system, sans-serif;
+  --mono: 'JetBrains Mono', 'Courier New', monospace;
 }
 
-// ---------- Nav dropdown (League History) ----------
-function initNavDropdowns(){
-  const dropdowns = document.querySelectorAll('.nav-dropdown');
-  dropdowns.forEach(dd => {
-    const toggle = dd.querySelector('.nav-dropdown-toggle');
-    if(!toggle) return;
-    toggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      const isOpen = dd.classList.contains('open');
-      dropdowns.forEach(other => {
-        other.classList.remove('open');
-        const t = other.querySelector('.nav-dropdown-toggle');
-        if(t) t.setAttribute('aria-expanded', 'false');
-      });
-      if(!isOpen){
-        dd.classList.add('open');
-        toggle.setAttribute('aria-expanded', 'true');
-      }
-    });
-  });
-  document.addEventListener('click', () => {
-    dropdowns.forEach(dd => {
-      dd.classList.remove('open');
-      const t = dd.querySelector('.nav-dropdown-toggle');
-      if(t) t.setAttribute('aria-expanded', 'false');
-    });
-  });
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape'){
-      dropdowns.forEach(dd => {
-        dd.classList.remove('open');
-        const t = dd.querySelector('.nav-dropdown-toggle');
-        if(t) t.setAttribute('aria-expanded', 'false');
-      });
-    }
-  });
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
-// ---------- Trophy case ----------
-function renderTrophyCase(containerId, limit){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const list = limit ? CHAMPIONS.slice(-limit) : CHAMPIONS.slice();
-  list.reverse();
-  el.innerHTML = list.map(c => {
-    const titleCount = CHAMPIONS.filter(x => x.key === c.key && x.year <= c.year).length;
-    const tag = titleCount > 1 ? `<span class="repeat-tag">×${titleCount}</span>` : '';
-    return `<div class="plaque plaque--recent">
-      <div class="yr">${c.year} CHAMPION</div>
-      <div class="owner">${c.owner}</div>
-      <div class="team">${c.team}</div>
-      ${tag}
-    </div>`;
-  }).join('');
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
 }
 
-// ---------- Standings table ----------
-function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
+a{ color: inherit; }
+img{ max-width:100%; display:block; }
 
-function standingsRowHTML(t, i){
-  return `<tr>
-    <td class="pos">${i+1}</td>
-    <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}" class="owner-link">${t.owner}</a><div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
-    <td class="pos">${t.seasons} yrs</td>
-    <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
-    <td class="pos">${t.playoffApp}</td>
-    <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
-    <td>${fmtPct(t.winPct)}</td>
-    <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
-    <td>${t.gameAvgPF.toFixed(1)}</td>
-    <td>${t.playoffW}-${t.playoffL}</td>
-    <td>${t.highScore.toFixed(1)}</td>
-  </tr>`;
+.wrap{
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-function renderStandings(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  let data = TEAMS.slice();
-  let sortKey = 'winPct';
-  let sortDir = 'desc';
+/* ---------- Header / nav ---------- */
+.site-header{
+  background: var(--white);
+  color: var(--navy);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(8px);
+}
+.site-header .wrap{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-top:16px;
+  padding-bottom:16px;
+  gap: 16px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-family: var(--display);
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  font-size: 1.4rem;
+  text-decoration:none;
+  color: var(--navy);
+}
+.brand-logo{
+  height: 46px;
+  width: auto;
+  display: block;
+  flex: 0 0 auto;
+}
+.brand small{
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  color: var(--text-soft);
+}
+.nav{
+  display:flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
+}
+.nav a{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.86rem;
+  letter-spacing: 0.1px;
+  text-decoration:none;
+  color: var(--text-soft);
+  padding: 8px 14px;
+  border-radius: 999px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav a:hover, .nav a:focus-visible{ color: var(--navy); background: var(--bg); }
+.nav a[aria-current="page"]{ color: var(--white); background: var(--navy); }
 
-  function sortData(){
-    data.sort((a,b) => {
-      let av = sortKey === 'record' ? a.winPct : a[sortKey];
-      let bv = sortKey === 'record' ? b.winPct : b[sortKey];
-      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
-      av = av == null ? -Infinity : av;
-      bv = bv == null ? -Infinity : bv;
-      return sortDir === 'asc' ? av - bv : bv - av;
-    });
+/* ---------- Nav dropdown (League History) ---------- */
+.nav-dropdown{ position: relative; }
+.nav-dropdown-toggle{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.86rem;
+  line-height: normal;
+  letter-spacing: 0.1px;
+  color: var(--text-soft);
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav-dropdown-toggle:hover, .nav-dropdown-toggle:focus-visible{ color: var(--navy); background: var(--bg); }
+.nav-dropdown--current .nav-dropdown-toggle{ color: var(--white); background: var(--navy); }
+.nav-caret{ font-size: 0.7rem; transition: transform 0.15s ease; }
+.nav-dropdown.open .nav-caret{ transform: rotate(180deg); }
+.nav-dropdown-menu{
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 6px;
+  min-width: 200px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-hover);
+  padding: 6px;
+  flex-direction: column;
+  gap: 2px;
+  z-index: 30;
+}
+.nav-dropdown.open .nav-dropdown-menu{ display: flex; }
+.nav-dropdown-menu a{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.86rem;
+  text-decoration: none;
+  color: var(--text-soft);
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+.nav-dropdown-menu a:hover, .nav-dropdown-menu a:focus-visible{ color: var(--navy); background: var(--bg); }
+.nav-dropdown-menu a[aria-current="page"]{ color: var(--white); background: var(--navy); }
+
+@media (max-width: 720px){
+  .nav-dropdown-menu{
+    display: none;
+    position: static;
+    box-shadow: none;
+    border: none;
+    background: var(--bg);
+    margin: 2px 0 2px 10px;
+    padding: 2px;
   }
+  .nav-dropdown.open .nav-dropdown-menu{ display: flex; }
+  .nav-dropdown-toggle{ width: 100%; text-align: left; justify-content: space-between; }
+}
 
-  function draw(){
-    sortData();
-    el.innerHTML = `<div class="table-scroll"><table id="standings-table">
-      <thead><tr>
-        <th data-key="rank">#</th>
-        <th data-key="owner">Owner / Team</th>
-        <th data-key="seasons">Seasons</th>
-        <th data-key="champs">Titles</th>
-        <th data-key="playoffApp">Playoffs</th>
-        <th data-key="record">Record</th>
-        <th data-key="winPct">Win%</th>
-        <th data-key="diff">Pt Diff/G</th>
-        <th data-key="gameAvgPF">Avg PF</th>
-        <th data-key="playoffW">Playoff Record</th>
-        <th data-key="highScore">Best Gm</th>
-      </tr></thead>
-      <tbody>${data.map(standingsRowHTML).join('')}</tbody>
-    </table></div>
-    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort. Playoff Record reflects career playoff wins-losses.</p>`;
+.nav-toggle{ display:none; }
 
-    el.querySelectorAll('thead th').forEach(th => {
-      const key = th.dataset.key;
-      if(key === 'rank') return; // position column isn't sortable
-      th.addEventListener('click', () => {
-        if(sortKey === key){ sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
-        else { sortKey = key; sortDir = 'desc'; }
-        draw();
-      });
-      if(key === sortKey) th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
-    });
+@media (max-width: 720px){
+  .nav-toggle{
+    display:inline-flex;
+    background: var(--bg);
+    border: 1px solid var(--line);
+    color: var(--navy);
+    font-family: var(--body);
+    font-weight:600;
+    font-size: 0.8rem;
+    padding: 8px 14px;
+    border-radius: 999px;
   }
-  draw();
-}
-
-// ---------- Awards ----------
-function renderAwards(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-
-  const byMax = (key) => TEAMS.slice().sort((a,b)=>b[key]-a[key])[0];
-  const byMin = (key) => TEAMS.slice().sort((a,b)=>a[key]-b[key])[0];
-  const byMaxPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>b.playoffWinPct-a.playoffWinPct)[0];
-  const byMinPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>a.playoffWinPct-b.playoffWinPct)[0];
-
-  const highScore = byMax('highScore');
-  const bestDiff = byMax('diff');
-  const worstDiff = byMin('diff');
-  const bestWinPct = byMax('winPct');
-  const worstWinPct = byMin('winPct');
-  const mostTitles = byMax('champs');
-  const bestOffense = byMax('gameAvgPF');
-
-  // longest current title drought among teams with a past title
-  const lastTitleYear = {};
-  CHAMPIONS.forEach(c => { lastTitleYear[c.key] = Math.max(lastTitleYear[c.key]||0, c.year); });
-  let droughtCandidates = TEAMS.filter(t=>t.champs>0).map(t => ({t, gap: LATEST_SEASON - lastTitleYear[t.key]}));
-  droughtCandidates.sort((a,b)=>b.gap-a.gap);
-  const longestDrought = droughtCandidates[0];
-
-  // never-champion with most playoff appearances (bad luck award)
-  const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
-
-  const cards = [
-    {
-      medal: 'Single-Game Record', title: 'Highest Score Ever',
-      stat: `${highScore.highScore} pts`,
-      body: `${highScore.owner} (${highScore.team}) put up the biggest single-game total in league history.`
-    },
-    {
-      medal: 'Hall of Fame', title: 'Most Championships',
-      stat: `${mostTitles.champs} titles`,
-      body: `${mostTitles.owner} leads the league with ${mostTitles.champs} championships across ${mostTitles.seasons} seasons.`
-    },
-    {
-      medal: 'Best Point Differential', title: 'Most Dominant Scorer',
-      stat: `+${bestDiff.diff}/gm`,
-      body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average — the best margin in NARPS history.`
-    },
-    {
-      medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
-      stat: `${worstDiff.diff}/gm`,
-      body: `${worstDiff.owner} has been outscored by ${Math.abs(worstDiff.diff)} points per game on average, the toughest margin in the league.`
-    },
-    {
-      medal: 'Best Winning Percentage', title: 'Most Consistent Winner',
-      stat: fmtPct(bestWinPct.winPct),
-      body: `${bestWinPct.owner} has the best all-time regular-record winning percentage in the league.`
-    },
-    {
-      medal: 'Worst Winning Percentage', title: 'Cellar Dweller',
-      stat: fmtPct(worstWinPct.winPct),
-      body: `${worstWinPct.owner} carries the league's toughest all-time record.`
-    },
-    {
-      medal: 'Clutch Factor', title: 'Best Playoff Win%',
-      stat: fmtPct(byMaxPlayoff.playoffWinPct),
-      body: `${byMaxPlayoff.owner} turns it on in the postseason, winning ${fmtPct(byMaxPlayoff.playoffWinPct)} of playoff games (min. 5 appearances).`
-    },
-    {
-      medal: 'Choke Artist', title: 'Worst Playoff Win%',
-      stat: fmtPct(byMinPlayoff.playoffWinPct),
-      body: `${byMinPlayoff.owner} has struggled most once the postseason arrives (min. 5 appearances).`
-    },
-    {
-      medal: 'Best Offense', title: 'Highest Career Scoring Average',
-      stat: `${bestOffense.gameAvgPF} pts/gm`,
-      body: `${bestOffense.owner} has the highest career average points per game in NARPS history.`
-    },
-    {
-      medal: 'Bad Beat', title: 'Playoff Regular, Zero Rings',
-      stat: `${badLuck.playoffApp} appearances`,
-      body: `${badLuck.owner} has made the playoffs ${badLuck.playoffApp} times without ever winning it all.`
-    },
-    {
-      medal: 'Championship Drought', title: 'Longest Time Since a Title',
-      stat: `${longestDrought.gap} yrs`,
-      body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]} — ${longestDrought.gap} seasons and counting.`
-    },
-  ];
-
-  el.innerHTML = cards.map(c => `<div class="award-card">
-    <div class="medal">${c.medal}</div>
-    <h3>${c.title}</h3>
-    <div class="headline-stat">${c.stat}</div>
-    <p>${c.body}</p>
-  </div>`).join('');
-}
-
-// ---------- Newsletters ----------
-// ---------- Newsletters ----------
-function renderVolumesList(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => a - b);
-  el.innerHTML = `<div class="card-grid">` + vols.map(v => {
-    const issues = NEWSLETTERS.filter(n => n.vol === v).sort((a,b) => a.no - b.no);
-    const years = Array.from(new Set(issues.map(n => n.year))).sort((a,b) => a - b);
-    const yearLabel = years.length > 1 ? `${years[0]}–${years[years.length-1]}` : String(years[0]);
-    return `<a class="nav-card" href="volume.html?vol=${v}">
-      <div class="card-eyebrow">${yearLabel}</div>
-      <h3>Volume ${v}</h3>
-      <p>${issues.length} issue${issues.length !== 1 ? 's' : ''}</p>
-    </a>`;
-  }).join('') + `</div>`;
-}
-
-function renderVolumeDetail(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const params = new URLSearchParams(window.location.search);
-  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => a - b);
-  const vol = Number(params.get('vol')) || vols[vols.length - 1];
-  const issues = NEWSLETTERS.filter(n => n.vol === vol).sort((a,b) => a.no - b.no);
-  if(!issues.length){ el.innerHTML = `<p>No newsletters found for Volume ${vol}.</p>`; return; }
-
-  document.title = `Volume ${vol} — League of NARPS`;
-  const titleEl = document.getElementById('volume-title');
-  if(titleEl) titleEl.textContent = `Volume ${vol}`;
-
-  el.innerHTML = `<div class="table-scroll"><table>
-    <thead><tr><th>Issue</th><th>Title</th><th>Season</th><th></th></tr></thead>
-    <tbody>
-      ${issues.map(n => `<tr>
-        <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
-        <td class="name-cell">${n.title}</td>
-        <td class="pos">${n.year}</td>
-        <td><a href="${n.url}" target="_blank" rel="noopener" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--field); white-space:nowrap;">Read →</a></td>
-      </tr>`).join('')}
-    </tbody>
-  </table></div>`;
-}
-
-// ---------- Seasons ----------
-function renderSeasonsList(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const seasonYears = Object.keys(SEASONS).sort((a,b) => b - a);
-  const upcomingYears = (typeof DRAFT_ORDER !== 'undefined' ? Object.keys(DRAFT_ORDER) : [])
-    .filter(y => !SEASONS[y])
-    .sort((a,b) => b - a);
-
-  const upcomingCards = upcomingYears.map(y => {
-    const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
-    return `<a class="nav-card" href="season.html?year=${y}">
-      <h3>${y}</h3>
-      <p style="margin:0;">🏈 Draft Day${draftInfo ? '<br>' + draftInfo.label : ''}</p>
-    </a>`;
-  }).join('');
-
-  const seasonCards = seasonYears.map(y => {
-    const s = SEASONS[y];
-    const started = (s.standings || []).some(t => (t.w||0) + (t.l||0) + (t.t||0) > 0);
-    if(!started){
-      const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
-      return `<a class="nav-card" href="season.html?year=${y}">
-        <h3>${y}</h3>
-        <p style="margin:0;">🏈 Season in progress${draftInfo ? '<br>Draft Day: ' + draftInfo.label : ''}</p>
-      </a>`;
-    }
-    return `<a class="nav-card" href="season.html?year=${y}">
-      <h3>${y}</h3>
-      <p style="margin:0;">
-        🥇 <strong>${s.champion.owner}</strong><br>
-        🥈 ${s.second.owner}<br>
-        🥉 ${s.third.owner}
-      </p>
-    </a>`;
-  }).join('');
-
-  el.innerHTML = `<div class="card-grid">${upcomingCards}${seasonCards}</div>`;
-}
-
-function matchupRow(g){
-  const awayWin = g.awayScore > g.homeScore;
-  return `<tr>
-    <td class="${awayWin ? 'name-cell' : ''}" style="${awayWin ? 'font-weight:700;' : ''}">${g.away}</td>
-    <td class="pos">${g.awayScore}</td>
-    <td class="pos">–</td>
-    <td class="pos">${g.homeScore}</td>
-    <td class="${!awayWin ? 'name-cell' : ''}" style="${!awayWin ? 'font-weight:700;' : ''}">${g.home}</td>
-  </tr>`;
-}
-
-function renderSeasonDetail(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const params = new URLSearchParams(window.location.search);
-  const year = params.get('year') || Object.keys(SEASONS).sort((a,b)=>b-a)[0];
-  const s = SEASONS[year];
-  if(!s){
-    if(typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year]){
-      document.title = `${year} Season — League of NARPS`;
-      const titleEl = document.getElementById('season-title');
-      if(titleEl) titleEl.textContent = `${year} Season`;
-      const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
-      el.innerHTML = `
-        <p class="muted" style="max-width:65ch; margin-bottom:24px;">The ${year} season hasn't kicked off yet — here's the countdown to draft day and this year's draft order.</p>
-        ${draftInfo ? `<div class="countdown-card" style="margin-bottom:32px;">
-          <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
-          <div id="season-draft-countdown"></div>
-        </div>` : ''}
-        <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
-        <div id="season-draft-order" style="margin-top:16px;"></div>
-      `;
-      if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
-      renderDraftOrder('season-draft-order', year);
-      return;
-    }
-    el.innerHTML = `<p>No data found for ${year}.</p>`;
-    return;
+  .nav{
+    display:none;
+    flex-direction: column;
+    width: 100%;
+    order: 3;
+    padding-top: 12px;
+    gap: 4px;
   }
+  .nav.open{ display:flex; }
+  .nav a{ text-align: left; }
+  .site-header .wrap{ flex-wrap: wrap; }
+}
 
-  document.title = `${year} Season — League of NARPS`;
-  const titleEl = document.getElementById('season-title');
-  if(titleEl) titleEl.textContent = `${year} Season`;
+/* ---------- Hero ---------- */
+.hero{
+  background: linear-gradient(150deg, var(--navy) 0%, var(--navy-soft) 100%);
+  color: var(--white);
+  padding: 72px 0 52px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::after{
+  content:"";
+  position:absolute;
+  right: -80px; top: -80px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(214,40,57,0.35), transparent 70%);
+  pointer-events:none;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  left: -60px; bottom: -120px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(47,111,237,0.30), transparent 70%);
+  pointer-events:none;
+}
+.hero .eyebrow{
+  font-family: var(--mono);
+  font-weight:600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+  color: var(--blue-lt);
+  margin: 0 0 14px;
+  position: relative;
+}
+.hero h1{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: clamp(2.6rem, 6.5vw, 4.6rem);
+  line-height: 1.02;
+  margin: 0 0 18px;
+  letter-spacing: -1px;
+  position: relative;
+}
+.hero p.lede{
+  max-width: 60ch;
+  font-size: 1.1rem;
+  color: rgba(255,255,255,0.78);
+  margin: 0 0 30px;
+  position: relative;
+}
 
-  const seasonStarted = (s.standings || []).some(t => (t.w||0) + (t.l||0) + (t.t||0) > 0);
+.stat-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 14px;
+  margin-top: 8px;
+  position:relative;
+}
+.stat{
+  min-width: 108px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: var(--radius-sm);
+  padding: 12px 18px;
+}
+.stat .num{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.1rem;
+  color: var(--white);
+  line-height:1;
+}
+.stat .label{
+  font-family: var(--mono);
+  font-weight:500;
+  font-size: 0.65rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-top: 5px;
+}
 
-  const podium = `<div class="trophy-case">
-    <div class="plaque plaque--recent">
-      <div class="yr">CHAMPION</div>
-      <div class="owner">${s.champion.owner}</div>
-      <div class="team">${s.champion.team}</div>
-    </div>
-    <div class="plaque plaque--silver">
-      <div class="yr">RUNNER-UP</div>
-      <div class="owner">${s.second.owner}</div>
-      <div class="team">${s.second.team}</div>
-    </div>
-    <div class="plaque plaque--bronze">
-      <div class="yr">THIRD PLACE</div>
-      <div class="owner">${s.third.owner}</div>
-      <div class="team">${s.third.team}</div>
-    </div>
-  </div>`;
+/* ---------- In Memory Of ---------- */
+.memorial-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--text-soft);
+  border-radius: var(--radius);
+  padding: 36px 40px;
+  box-shadow: var(--shadow);
+}
+.memorial-eyebrow{
+  font-family: var(--mono);
+  font-weight: 500;
+  font-size: 0.72rem;
+  letter-spacing: 2px;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.memorial-name{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+  margin-bottom: 4px;
+}
+.memorial-years{
+  font-size: 0.88rem;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+.memorial-body p{
+  font-family: var(--body);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  margin: 0 0 18px;
+}
+.memorial-stats{
+  border-top: 1px solid var(--line);
+  padding-top: 18px;
+  margin-top: 6px;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  line-height: 1.9;
+}
+.memorial-photo-wrap{
+  display: flex;
+  justify-content: center;
+  margin-top: 28px;
+}
+.memorial-photo{
+  width: 140px;
+  height: 170px;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  border: 3px solid var(--line);
+  box-shadow: var(--shadow);
+}
 
-  const seasonPts = {};
-  const weeklyHighs = {};
-  const medianRecord = {};
-  const allPlayRecord = {};
-  Object.values(s.schedule || {}).forEach(games => games.forEach(g => {
-    const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
-    if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
-    if(!seasonPts[hk]) seasonPts[hk] = { pf: 0, pa: 0 };
-    seasonPts[ak].pf += g.awayScore; seasonPts[ak].pa += g.homeScore;
-    seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
-  }));
-  Object.values(s.schedule || {}).forEach(games => {
-    const weekScores = [];
-    games.forEach(g => {
-      weekScores.push([lastNameOf(g.awayMgr), g.awayScore]);
-      weekScores.push([lastNameOf(g.homeMgr), g.homeScore]);
-    });
-    if(!weekScores.length) return;
-    const maxScore = Math.max(...weekScores.map(([,sc]) => sc));
-    if(maxScore <= 0) return;
-    weekScores.forEach(([mgr, sc]) => {
-      if(sc === maxScore) weeklyHighs[mgr] = (weeklyHighs[mgr] || 0) + 1;
-    });
+@media (max-width: 560px){
+  .memorial-card{ padding: 26px 22px; }
+  .memorial-name{ font-size: 1.5rem; }
+}
 
-    // Median record: win if above the week's median score, loss if below, push if equal.
-    const scoresOnly = weekScores.map(([,sc]) => sc).slice().sort((a,b) => a - b);
-    const mid = Math.floor(scoresOnly.length / 2);
-    const median = scoresOnly.length % 2 === 0 ? (scoresOnly[mid - 1] + scoresOnly[mid]) / 2 : scoresOnly[mid];
-    weekScores.forEach(([mgr, sc]) => {
-      if(!medianRecord[mgr]) medianRecord[mgr] = { w: 0, l: 0, t: 0 };
-      if(sc > median) medianRecord[mgr].w++;
-      else if(sc < median) medianRecord[mgr].l++;
-      else medianRecord[mgr].t++;
-    });
+/* ---------- Draft order ---------- */
+.draft-order-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+}
+.draft-order-row{
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  box-shadow: var(--shadow);
+}
+.draft-order-pick{
+  font-family: var(--mono);
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: var(--blue);
+  min-width: 26px;
+  flex-shrink: 0;
+}
+.draft-order-info{ min-width: 0; }
+.draft-order-owner{
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--navy);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.draft-order-team{
+  font-size: 0.78rem;
+  color: var(--text-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    // All-play record: compare each team's score against every other team's score that week.
-    weekScores.forEach(([mgr, sc], idx) => {
-      if(!allPlayRecord[mgr]) allPlayRecord[mgr] = { w: 0, l: 0, t: 0 };
-      weekScores.forEach(([oppMgr, oppSc], oppIdx) => {
-        if(idx === oppIdx) return;
-        if(sc > oppSc) allPlayRecord[mgr].w++;
-        else if(sc < oppSc) allPlayRecord[mgr].l++;
-        else allPlayRecord[mgr].t++;
-      });
-    });
-  });
-
-  const keyByLastName = {};
-  TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
-
-  // ---- Season highlights: league avg PPM, current streaks, highest/lowest single-week score ----
-  const weekKeys = Object.keys(s.schedule || {}).filter(wk => (s.schedule[wk] || []).length > 0);
-  const weekNum = (wk) => parseInt(wk.replace(/\D/g, ''), 10) || 0;
-  const sortedWeekKeys = weekKeys.slice().sort((a,b) => weekNum(a) - weekNum(b));
-
-  let allScoresSum = 0, allScoresCount = 0;
-  let highGame = null, lowGame = null;
-  const resultsByMgr = {}; // mgr -> ordered array of 'W'/'L'/'T'
-
-  sortedWeekKeys.forEach(wk => {
-    const games = s.schedule[wk] || [];
-    const weekMax = Math.max(0, ...games.flatMap(g => [g.awayScore, g.homeScore]));
-    if(weekMax <= 0) return; // week hasn't actually been played yet
-    games.forEach(g => {
-      const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
-      [[ak, g.awayScore, g.awayMgr], [hk, g.homeScore, g.homeMgr]].forEach(([mgr, sc, fullName]) => {
-        allScoresSum += sc; allScoresCount++;
-        if(!highGame || sc > highGame.score) highGame = { owner: fullName, score: sc, week: wk };
-        if(!lowGame || sc < lowGame.score) lowGame = { owner: fullName, score: sc, week: wk };
-      });
-      if(g.awayScore !== g.homeScore){
-        const winner = g.awayScore > g.homeScore ? ak : hk;
-        const loser = g.awayScore > g.homeScore ? hk : ak;
-        (resultsByMgr[winner] = resultsByMgr[winner] || []).push('W');
-        (resultsByMgr[loser] = resultsByMgr[loser] || []).push('L');
-      } else {
-        (resultsByMgr[ak] = resultsByMgr[ak] || []).push('T');
-        (resultsByMgr[hk] = resultsByMgr[hk] || []).push('T');
-      }
-    });
-  });
-
-  const leagueAvgPPM = allScoresCount ? allScoresSum / allScoresCount : 0;
-
-  let longestWinStreak = { owner: null, len: 0 };
-  let longestLossStreak = { owner: null, len: 0 };
-  Object.keys(resultsByMgr).forEach(mgr => {
-    const results = resultsByMgr[mgr];
-    let len = 0;
-    for(let i = results.length - 1; i >= 0 && results[i] === results[results.length - 1]; i--) len++;
-    const streakType = results[results.length - 1];
-    const ownerName = TEAMS.find(t => lastNameOf(t.owner) === mgr)?.owner || mgr;
-    if(streakType === 'W' && len > longestWinStreak.len) longestWinStreak = { owner: ownerName, len };
-    if(streakType === 'L' && len > longestLossStreak.len) longestLossStreak = { owner: ownerName, len };
-  });
-
-  const hasResults = allScoresCount > 0;
-  const highlightsSection = hasResults ? `<h2 class="section-title" style="margin-top:40px;">${year} Season Highlights</h2>
-  <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
-    <li><strong>League Avg PPM:</strong> ${leagueAvgPPM.toFixed(1)}</li>
-    <li><strong>Longest Win Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
-    <li><strong>Longest Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
-    <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner} — ${highGame.week})` : '—'}</li>
-    <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner} — ${lowGame.week})` : '—'}</li>
-  </ul>` : '';
-
-  const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
-  const paidLastNames = paidKeys.map(k => k.toLowerCase());
-
-  const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">Record vs. League</th><th class="center">Top Weekly Scorer</th></tr></thead>
-    <tbody>${s.standings.map((t,i) => {
-      const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
-      const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
-      const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
-      const ap = allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
-      const mrStr = `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`;
-      const apStr = `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`;
-      const teamKey = keyByLastName[lastNameOf(t.owner)];
-      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
-      const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
-      return `<tr>
-      <td class="pos">${i+1}</td>
-      <td class="name-cell">${teamLink}</td>
-      <td class="pos">${t.owner}${paidBadge}</td>
-      <td class="center">${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
-      <td class="center">${t.pct.toFixed(3)}</td>
-      <td class="center">${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td class="center">${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td class="center">${mrStr}</td>
-      <td class="center">${apStr}</td>
-      <td class="pos center">${highs > 0 ? highs : '-'}</td>
-    </tr>`;
-    }).join('')}</tbody>
-  </table></div>`;
-
-  const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
-    const r = (s.playoffs || {})[rk];
-    if(!r) return '';
-    const byes = r.byes ? `<p class="muted" style="font-size:0.85rem;">Bye: ${r.byes.map(b=>`${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
-    return `<h3 style="font-family:var(--display); font-size:1.3rem; margin:24px 0 10px;">${r.label}</h3>
-    <div class="table-scroll"><table>
-      <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
-      <tbody>${r.games.map(matchupRow).join('')}</tbody>
-    </table></div>
-    ${byes}`;
-  }).join('');
-
-  const scheduleWeeks = Object.keys(s.schedule).map(wk => {
-    const games = s.schedule[wk];
-    return `<details style="margin-bottom:8px;">
-      <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--parchment-2); border:1px solid var(--line); border-radius:var(--radius);">${wk}</summary>
-      <div class="table-scroll" style="margin-top:8px;"><table>
-        <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
-        <tbody>${games.map(matchupRow).join('')}</tbody>
-      </table></div>
-    </details>`;
-  }).join('');
-
-  const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
-  const hasDraftOrder = typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year];
-  const hasDraftResults = typeof DRAFT_HISTORY !== 'undefined' && DRAFT_HISTORY[year] && DRAFT_HISTORY[year].length > 0;
-  const draftSection = (!seasonStarted && hasDraftOrder && !hasDraftResults) ? `
-    ${draftInfo ? `<div class="countdown-card" style="margin:24px 0 32px;">
-      <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
-      <div id="season-draft-countdown"></div>
-    </div>` : ''}
-    <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
-    <div id="season-draft-order" style="margin-top:16px;"></div>
-  ` : '';
-
-  el.innerHTML = `
-    ${podium}
-    ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
-    ${draftSection}
-    <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? 'Final Regular Season Standings' : 'Standings'}</h2>
-    ${standingsTable}
-    ${highlightsSection}
-    ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
-    ${playoffRounds}` : ''}
-    <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand.${seasonStarted ? ' Bold indicates the winning team.' : ''}</p>
-    ${scheduleWeeks}
-  `;
-
-  if(!seasonStarted && hasDraftOrder && !hasDraftResults){
-    if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
-    renderDraftOrder('season-draft-order', year);
+/* ---------- Kickoff countdown ---------- */
+.countdown-card{
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 26px 28px;
+  margin: 28px 0;
+  box-shadow: var(--shadow);
+}
+.countdown-title{
+  font-family: var(--mono);
+  font-weight:600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  color: var(--navy);
+  text-align:center;
+  margin-bottom: 18px;
+}
+.countdown-title .ct-sep{ margin: 0 2px; }
+.countdown-grid{
+  display:flex;
+  justify-content:center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.countdown-unit{
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  min-width: 84px;
+  padding: 12px 8px;
+  text-align:center;
+}
+.countdown-unit:nth-child(1){ border-top: 3px solid var(--red); }
+.countdown-unit:nth-child(2){ border-top: 3px solid var(--navy); }
+.countdown-unit:nth-child(3){ border-top: 3px solid var(--blue); }
+.countdown-unit:nth-child(4){ border-top: 3px solid var(--red); }
+.countdown-num{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: var(--navy);
+  line-height:1;
+  font-variant-numeric: tabular-nums;
+}
+.countdown-label{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.63rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin-top: 5px;
+}
+@media (max-width: 560px){
+  .countdown-card{ padding: 20px 14px; }
+  .countdown-grid{ gap: 8px; flex-wrap: nowrap; }
+  .countdown-unit{ min-width: 0; flex: 1 1 0; padding: 10px 4px; }
+  .countdown-num{ font-size: 1.6rem; }
+  .countdown-label{ font-size: 0.55rem; letter-spacing: 0.6px; }
+  .countdown-title{
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
+  .countdown-title .ct-sep{ display: none; }
+  .countdown-title .ct-label{ font-size: 0.85rem; }
 }
 
-// ---------- Draft order ----------
-function renderDraftOrder(containerId, forYear){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const years = Object.keys(DRAFT_ORDER).sort((a,b) => b - a);
-  const year = forYear && DRAFT_ORDER[forYear] ? forYear : years[0];
-  const order = DRAFT_ORDER[year];
-  if(!order){ el.innerHTML = ''; return; }
+/* ---------- Two separate, equally-sized countdown cards ---------- */
+.countdown-stack{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.countdown-stack .countdown-card{ margin: 0; }
 
-  const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
-  const dateBlock = draftInfo ? `<div class="draft-order-datetime">${draftInfo.label}</div>` : '';
+/* Draft countdown — black & red theme */
+.countdown-card--draft{
+  background: linear-gradient(150deg, #1A1A1A 0%, #0D0D0D 100%);
+  border: 1px solid #2A2A2A;
+}
+.countdown-card--draft .countdown-title{ color: #FF5A5A; }
+.countdown-card--draft .countdown-unit{
+  background: #1F1F1F;
+  border: 1px solid #333333;
+}
+.countdown-card--draft .countdown-unit:nth-child(1){ border-top: 3px solid var(--red); }
+.countdown-card--draft .countdown-unit:nth-child(2){ border-top: 3px solid #8C1620; }
+.countdown-card--draft .countdown-unit:nth-child(3){ border-top: 3px solid var(--red); }
+.countdown-card--draft .countdown-unit:nth-child(4){ border-top: 3px solid #8C1620; }
+.countdown-card--draft .countdown-num{ color: #FFFFFF; }
+.countdown-card--draft .countdown-label{ color: #E08A8A; }
 
-  const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
+/* Kickoff countdown — white & blue theme */
+.countdown-card--kickoff{
+  background: linear-gradient(150deg, #EEF5FF 0%, #F8FBFF 100%);
+  border: 1px solid #BFD9FB;
+}
+.countdown-card--kickoff .countdown-title{ color: var(--blue); }
+.countdown-card--kickoff .countdown-unit{
+  background: rgba(255,255,255,0.85);
+  border: 1px solid #BFD9FB;
+}
+.countdown-card--kickoff .countdown-unit:nth-child(1){ border-top: 3px solid var(--blue); }
+.countdown-card--kickoff .countdown-unit:nth-child(2){ border-top: 3px solid #8FB4E8; }
+.countdown-card--kickoff .countdown-unit:nth-child(3){ border-top: 3px solid var(--blue); }
+.countdown-card--kickoff .countdown-unit:nth-child(4){ border-top: 3px solid #8FB4E8; }
+.countdown-card--kickoff .countdown-num{ color: var(--navy); }
+.countdown-card--kickoff .countdown-label{ color: #5A7CB0; }
 
-  el.innerHTML = `${dateBlock}<div class="draft-order-list">${order.map((p, i) => {
-    const hasPage = p.key && p.team !== 'TBD';
-    const ownerHTML = hasPage ? `<a href="team.html?team=${encodeURIComponent(p.key)}" class="owner-link">${p.owner}</a>` : p.owner;
-    const paidBadge = paidKeys.includes(p.key) ? `<span class="paid-badge">Paid</span>` : '';
-    return `
-    <div class="draft-order-row">
-      <div class="draft-order-pick">${i+1}</div>
-      <div class="draft-order-info">
-        <div class="draft-order-owner">${ownerHTML}${paidBadge}</div>
-        <div class="draft-order-team">${p.team}</div>
-      </div>
-    </div>`;
-  }).join('')}</div>`;
+.kickoff-live{
+  text-align:center;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: var(--red);
+  padding: 10px 0;
 }
 
-// ---------- Kickoff countdown ----------
-function renderCountdown(containerId, targetDateStr, liveMessage){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const target = new Date(targetDateStr).getTime();
-  const message = liveMessage || '🏈 Kickoff is here — let\'s go!';
-  let timer;
+/* ---------- Sections ---------- */
+section{ padding: 52px 0; }
+section + section{ border-top: 1px solid var(--line); }
 
-  function update(){
-    const diff = target - Date.now();
-    if(diff <= 0){
-      el.innerHTML = `<div class="kickoff-live">${message}</div>`;
-      clearInterval(timer);
-      return;
-    }
-    const d = Math.floor(diff / 86400000);
-    const h = Math.floor((diff / 3600000) % 24);
-    const m = Math.floor((diff / 60000) % 60);
-    const s = Math.floor((diff / 1000) % 60);
-    el.innerHTML = `<div class="countdown-grid">
-      <div class="countdown-unit"><div class="countdown-num">${d}</div><div class="countdown-label">Days</div></div>
-      <div class="countdown-unit"><div class="countdown-num">${String(h).padStart(2,'0')}</div><div class="countdown-label">Hrs</div></div>
-      <div class="countdown-unit"><div class="countdown-num">${String(m).padStart(2,'0')}</div><div class="countdown-label">Min</div></div>
-      <div class="countdown-unit"><div class="countdown-num">${String(s).padStart(2,'0')}</div><div class="countdown-label">Sec</div></div>
-    </div>`;
-  }
-  update();
-  timer = setInterval(update, 1000);
+.section-head{
+  display:flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 26px;
+  flex-wrap: wrap;
+}
+h2.section-title{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.9rem;
+  margin: 0;
+  letter-spacing: -0.5px;
+  color: var(--navy);
+}
+.section-sub{
+  font-family: var(--mono);
+  font-weight:500;
+  font-size: 0.75rem;
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
-// ---------- Top Headlines (homepage NFL news widget) ----------
-function renderHeadlines(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  if(typeof NFL_HEADLINES === 'undefined' || !NFL_HEADLINES.length){ el.innerHTML = ''; return; }
+/* ---------- Nav cards on home ---------- */
+.card-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.nav-card{
+  display:block;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  text-decoration:none;
+  color: var(--text);
+  box-shadow: var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+.nav-card:hover, .nav-card:focus-visible{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--blue-lt);
+}
+.nav-card .card-eyebrow{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.65rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+.nav-card h3{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  margin: 8px 0 6px;
+  letter-spacing: -0.3px;
+  color: var(--navy);
+}
+.nav-card p{ margin:0; font-size: 0.93rem; color: var(--text-soft); }
 
-  el.innerHTML = `
-    <div class="headlines-card">
-      <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
-      <ul class="headlines-list">
-        ${NFL_HEADLINES.map(h => `<li><a href="${h.url}" target="_blank" rel="noopener">${h.title}</a></li>`).join('')}
-      </ul>
-    </div>
-  `;
+/* ---------- Trophy case (signature element) ---------- */
+.trophy-case{
+  display:flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 6px 4px 18px;
+  scrollbar-width: thin;
+}
+.plaque{
+  flex: 0 0 auto;
+  width: 172px;
+  background: var(--navy);
+  color: var(--white);
+  border-radius: var(--radius);
+  padding: 16px 14px;
+  position: relative;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--red);
+}
+.plaque .yr{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.68rem;
+  letter-spacing: 1px;
+  color: var(--blue-lt);
+}
+.plaque .owner{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  margin: 8px 0 4px;
+  letter-spacing: -0.2px;
+}
+.plaque .team{
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.65);
+}
+.plaque .repeat-tag{
+  position:absolute;
+  top:10px; right:10px;
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.6rem;
+  color: var(--navy);
+  background: var(--white);
+  border-radius: 20px;
+  padding: 1px 7px;
 }
 
-// ---------- Team pages ----------
-function renderTeamsList(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
-  el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
-    <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
-      <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Seasons`}</div>
-      <h3>${t.owner}</h3>
-      <p>${t.team} — ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
-    </a>`).join('') + `</div>`;
+/* Most recent champion — gold plaque */
+.plaque--recent{
+  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
+  border-top: 3px solid #A9822B;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(169,130,43,0.25);
+}
+.plaque--recent .yr{ color: var(--navy-soft); }
+.plaque--recent .owner{ color: var(--navy); }
+.plaque--recent .team{ color: rgba(11,36,71,0.62); }
+.plaque--recent .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
 }
 
-function renderTeamDetail(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const params = new URLSearchParams(window.location.search);
-  const key = params.get('team');
-  const t = TEAMS.find(x => x.key === key);
-  if(!t){ el.innerHTML = `<p>No team found. <a href="teams.html">Back to all teams</a></p>`; return; }
-
-  document.title = `${t.owner} — League of NARPS`;
-  const titleEl = document.getElementById('team-title');
-  if(titleEl) titleEl.textContent = `${t.owner}`;
-  const subEl = document.getElementById('team-subtitle');
-  if(subEl) subEl.textContent = t.team;
-
-  const titles = CHAMPIONS.filter(c => c.key === key).sort((a,b) => a.year - b.year);
-  const allTimeRecords = computeAllTimeRecords();
-  const top3Count = allTimeRecords.topThree[key] || 0;
-  const scoringTitleYears = (allTimeRecords.scoringTitleYears[key] || []).slice().sort((a,b) => a - b);
-
-  // Most-drafted player (2011-2025 draft history) — handles ties across multiple players.
-  let mostDraftedHeadline = '—';
-  let mostDraftedSub = 'No draft data recorded';
-  const md = t.mostDrafted;
-  if(md && md.entries && md.entries.length){
-    const names = md.entries.map(e => e.player);
-    if(names.length === 1){
-      mostDraftedHeadline = names[0];
-      mostDraftedSub = `Drafted ${md.count}x (${md.entries[0].years.join(', ')})`;
-    } else {
-      mostDraftedHeadline = `${names.length}-way tie`;
-      const joined = names.length === 2 ? `${names[0]} & ${names[1]}` : `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
-      mostDraftedSub = `${joined} — ${md.count}x each`;
-    }
-  }
-
-  const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
-
-  const statCards = `<div class="card-grid" style="margin-bottom:32px;">
-    <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
-    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
-    <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
-    <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
-    <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
-    <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
-    ${mostDraftedCard}
-  </div>`;
-
-  const champGrid = titles.length ? `<div class="champ-grid">${titles.map(c => `
-    <div class="champ-pennant">
-      <div class="champ-pennant-inner">
-        <div class="champ-grommet champ-grommet--left"></div>
-        <div class="champ-grommet champ-grommet--right"></div>
-        <div class="champ-headline">NARPS<br>CHAMPION</div>
-        <div class="champ-ribbon">${t.owner.toUpperCase()}</div>
-        <div class="champ-pennant-year">${c.year}</div>
-      </div>
-    </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
-
-  const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
-  const years = Object.keys(SEASONS).sort((a,b) => b - a);
-  const seasonRows = years.map(y => {
-    const s = SEASONS[y];
-    const row = s.standings.find(r => lastName(r.owner) === lastName(t.owner));
-    if(!row) return '';
-    const seasonStarted = s.standings.some(r => (r.w||0) + (r.l||0) + (r.t||0) > 0);
-    let finish = 'TBD';
-    if(seasonStarted){
-      const rank = s.standings.indexOf(row) + 1;
-      finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
-      if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
-      else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
-      else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
-    }
-    return `<tr>
-      <td class="pos">${y}</td>
-      <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
-      <td>${row.pct.toFixed(3)}</td>
-      <td class="name-cell">${finish}</td>
-      <td><a href="season.html?year=${y}" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--blue);">View season →</a></td>
-    </tr>`;
-  }).join('');
-
-  const seasonTable = years.length ? `<div class="table-scroll"><table>
-    <thead><tr><th>Year</th><th>Record</th><th>Pct</th><th>Finish</th><th></th></tr></thead>
-    <tbody>${seasonRows}</tbody>
-  </table></div>` : `<p class="muted">Detailed season-by-season data not added yet.</p>`;
-
-  const leaderCards = buildRecordCards().filter(c => c.leaderKeys.includes(key));
-  const recordLeaderSection = leaderCards.length ? `
-    <h2 class="section-title" style="margin-top:40px;">All-Time Record Leader</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">${t.owner} currently holds the following league record${leaderCards.length > 1 ? 's' : ''}.</p>
-    <div class="award-grid" id="team-leader-grid">${leaderCards.map(c => `<div class="award-card ${c.cls}">
-      <div class="medal">${c.medal}</div>
-      <h3>${c.title}</h3>
-      <div class="headline-stat">${c.stat}</div>
-    </div>`).join('')}</div>
-  ` : '';
-
-  el.innerHTML = `
-    ${statCards}
-    <h2 class="section-title" style="margin-top:8px;">Championships</h2>
-    <div style="margin:20px 0 40px;">${champGrid}</div>
-    ${recordLeaderSection}
-    <h2 class="section-title" style="margin-top:40px;">Season by Season</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Only seasons with full data entered so far are shown here.</p>
-    ${seasonTable}
-  `;
+/* Runner-up — silver plaque */
+.plaque--silver{
+  background: linear-gradient(150deg, #E4E7EB 0%, #F4F6F8 45%, #B7BEC7 100%);
+  border-top: 3px solid #8B939E;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(139,147,158,0.25);
+}
+.plaque--silver .yr{ color: var(--navy-soft); }
+.plaque--silver .owner{ color: var(--navy); }
+.plaque--silver .team{ color: rgba(11,36,71,0.62); }
+.plaque--silver .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
 }
 
-// ---------- Survivor ----------
-const NFL_LOGO_ABBR = {
-  '49ers': 'sf', 'Bears': 'chi', 'Bengals': 'cin', 'Bills': 'buf', 'Broncos': 'den',
-  'Browns': 'cle', 'Buccaneers': 'tb', 'Cardinals': 'ari', 'Chargers': 'lac', 'Chiefs': 'kc', 'Colts': 'ind',
-  'Commanders': 'wsh', 'Cowboys': 'dal', 'Dolphins': 'mia', 'Eagles': 'phi', 'Falcons': 'atl',
-  'Giants': 'nyg', 'Jaguars': 'jax', 'Jets': 'nyj', 'Lions': 'det', 'Packers': 'gb',
-  'Panthers': 'car', 'Patriots': 'ne', 'Raiders': 'lv', 'Rams': 'lar', 'Ravens': 'bal',
-  'Saints': 'no', 'Seahawks': 'sea', 'Steelers': 'pit', 'Texans': 'hou', 'Titans': 'ten',
-  'Vikings': 'min', 'Redskins': 'wsh', 'Football Team': 'wsh'
-};
-function nflLogo(teamName, opts = {}){
-  if(!teamName || teamName === '—') return '—';
-  const abbr = NFL_LOGO_ABBR[teamName];
-  const size = opts.size || 26;
-  if(!abbr) return teamName;
-  const resultClass = opts.loss === true ? ' pick-logo--loss' : (opts.loss === false ? ' pick-logo--win' : '');
-  const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : teamName);
-  return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
+/* Third place — bronze plaque */
+.plaque--bronze{
+  background: linear-gradient(150deg, #D69A6A 0%, #E8BE94 45%, #B06A3A 100%);
+  border-top: 3px solid #8A4E28;
+  box-shadow: var(--shadow), 0 0 0 1px rgba(138,78,40,0.25);
 }
-function renderSurvivor(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const years = Object.keys(SURVIVOR).sort((a,b) => b - a);
-  const params = new URLSearchParams(window.location.search);
-  const requestedYear = params.get('year');
-  const year = (requestedYear && SURVIVOR[requestedYear]) ? requestedYear : years[0];
-  const s = SURVIVOR[year];
-  if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
-
-  document.title = `${year} Survivor — League of NARPS`;
-
-  const yearSwitcher = years.length > 1 ? `<div style="display:flex; gap:8px; margin-bottom:24px;">${years.map(y => `
-    <a href="survivor.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>` : '';
-
-  const sorted = s.players.slice().sort((a,b) => {
-    if(a.result === 'Winner') return -1;
-    if(b.result === 'Winner') return 1;
-    return (b.eliminatedWeek || 0) - (a.eliminatedWeek || 0);
-  });
-
-  const champCard = s.champion ? `<div class="trophy-case">
-    <div class="plaque">
-      <div class="yr">${year} SURVIVOR CHAMPION</div>
-      <div class="owner">${s.champion}</div>
-      <div class="team">Last one standing</div>
-    </div>
-  </div>` : `<p class="muted">Picks haven't started yet — check back once Week 1 kicks off.</p>`;
-
-  const leaderboardRows = sorted.map((p, i) => {
-    const result = p.result === 'Winner' ? 'Winner 🏆'
-      : p.result === 'Active' ? 'Active — no picks yet'
-      : `Eliminated — Week ${p.eliminatedWeek}`;
-    const lossPicks = p.picks.filter(pk => pk.loss);
-    const losingPick = lossPicks.length
-      ? `<div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">${lossPicks.map(pk => nflLogo(pk.team, { size: 29, loss: true })).join('')}</div>`
-      : '—';
-    return `<tr>
-      <td class="pos">${i+1}</td>
-      <td class="name-cell">${p.name}</td>
-      <td>${result}</td>
-      <td class="pos">${losingPick}</td>
-      <td class="pos">${p.picks.length} picks made</td>
-    </tr>`;
-  }).join('');
-
-  const leaderboard = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Player</th><th>Result</th><th>Losing Pick</th><th>Survived</th></tr></thead>
-    <tbody>${leaderboardRows}</tbody>
-  </table></div>`;
-
-  const hasPicks = sorted.some(p => p.picks.length > 0);
-  const actualMaxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
-  const maxWeek = year === '2026' ? Math.max(10, actualMaxWeek) : actualMaxWeek;
-  const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
-  const revealTimes = s.weekRevealTimes || {};
-  const now = Date.now();
-  const isLocked = (w) => {
-    const rt = revealTimes[w];
-    return rt ? now < new Date(rt).getTime() : false;
-  };
-
-  const picksSorted = sorted.slice().sort((a,b) => {
-    const aLoss = a.picks.some(pk => pk.loss);
-    const bLoss = b.picks.some(pk => pk.loss);
-    if(aLoss !== bLoss) return aLoss ? 1 : -1;
-
-    const aLatest = a.picks.length ? a.picks[a.picks.length - 1].team : null;
-    const bLatest = b.picks.length ? b.picks[b.picks.length - 1].team : null;
-    if(aLatest && !bLatest) return -1;
-    if(!aLatest && bLatest) return 1;
-    if(aLatest && bLatest && aLatest !== bLatest) return aLatest.localeCompare(bLatest);
-    return a.name.localeCompare(b.name);
-  });
-
-  const picksTableRows = picksSorted.map(p => {
-    const cells = weekCols.map(w => {
-      const pk = p.picks.find(x => x.week === w);
-      if(!pk) return `<td class="pos center">—</td>`;
-      if(isLocked(w)) return `<td class="pos center" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
-      return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
-    }).join('');
-    return `<tr>
-      <td class="name-cell picks-name-cell">${p.name}</td>
-      ${cells}
-    </tr>`;
-  }).join('');
-
-  const lockedWeeks = weekCols.filter(isLocked);
-  const lockNote = lockedWeeks.length ? `<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">🔒 Week ${lockedWeeks.join(', ')} picks are locked and will reveal ${new Date(revealTimes[lockedWeeks[0]]).toLocaleString('en-US', { weekday: 'long', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET.</p>` : '';
-
-  const picksTable = hasPicks ? `<div class="table-scroll"><table>
-    <thead><tr><th>Player</th>${weekCols.map(w => `<th class="center">Wk ${w}</th>`).join('')}</tr></thead>
-    <tbody>${picksTableRows}</tbody>
-  </table></div>` : `<p class="muted">No picks made yet.</p>`;
-
-  const leaderboardSection = year === '2026' ? '' : `
-    <h2 class="section-title" style="margin-top:40px;">${year} Leaderboard</h2>
-    ${leaderboard}`;
-
-  el.innerHTML = `
-    ${yearSwitcher}
-    ${champCard}
-    ${leaderboardSection}
-    <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
-    ${lockNote}
-    ${picksTable}
-  `;
+.plaque--bronze .yr{ color: var(--navy-soft); }
+.plaque--bronze .owner{ color: var(--navy); }
+.plaque--bronze .team{ color: rgba(11,36,71,0.62); }
+.plaque--bronze .repeat-tag{
+  color: var(--white);
+  background: var(--navy);
 }
 
-// ---------- Head-to-head (computed from verified season data) ----------
-function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
+/* Survivor weekly picks: keep player names on one line, and pin the
+   name column while the week columns scroll horizontally. */
+.picks-name-cell,
+td.picks-name-cell,
+td.name-cell.picks-name-cell{
+  white-space: nowrap;
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  background: var(--panel);
+}
+tbody tr:nth-child(even) .picks-name-cell{ background: #F7F9FC; }
+tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 
-// ---------- All-Time Records (computed from verified season data) ----------
-function computeAllTimeRecords(){
-  const keyByLastName = {};
-  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
-
-  const regPoints = {}, playoffWins = {}, playoffPoints = {}, hundredPlusWeeks = {}, topThree = {}, scoringTitles = {}, weeklyScoringTitles = {}, scoringTitleYears = {};
-  let highestWeek = { key: null, score: -Infinity, opponentInfo: '', holders: [] };
-  let lowestWeek = { score: Infinity, holders: [] };
-  let bestSeasonWins = { wins: -Infinity, holders: [] };
-  let bestSeasonPoints = { points: -Infinity, holders: [] };
-
-  // Raw entry lists used for tiered (1st/2nd/3rd, with ties) ranking in renderAllTimeRecords
-  const gameScoreEntries = [];   // every regular-season individual game score: {key, year, week, value}
-  const seasonWinEntries = [];   // every team-season regular-season win total: {key, year, value}
-  const seasonPointsEntries = []; // every team-season regular-season point total: {key, year, value}
-  const blowoutEntries = [];     // every decided regular-season game: {winnerKey, loserKey, winnerScore, loserScore, margin, year, week}
-
-  TEAMS.forEach(t => {
-    regPoints[t.key] = 0; playoffWins[t.key] = 0; playoffPoints[t.key] = 0;
-    hundredPlusWeeks[t.key] = 0; topThree[t.key] = 0; scoringTitles[t.key] = 0; weeklyScoringTitles[t.key] = 0;
-    scoringTitleYears[t.key] = [];
-  });
-
-  function addRegScore(mgr, score, week, year){
-    const k = keyByLastName[lastNameOf(mgr)];
-    if(!k) return;
-    regPoints[k] += score;
-    if(score >= 100) hundredPlusWeeks[k]++;
-    gameScoreEntries.push({ key: k, year, week, value: score });
-    if(score > highestWeek.score){
-      highestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
-    } else if(score === highestWeek.score){
-      highestWeek.holders.push({ key: k, info: `${year}, ${week}` });
-    }
-    if(score < lowestWeek.score){
-      lowestWeek = { score, holders: [{ key: k, info: `${year}, ${week}` }] };
-    } else if(score === lowestWeek.score){
-      lowestWeek.holders.push({ key: k, info: `${year}, ${week}` });
-    }
-  }
-
-  // ---- Longest regular-season winning/losing streaks (chronological, spans seasons) ----
-  const weekNum = (wk) => { const m = String(wk).match(/\d+/); return m ? Number(m[0]) : 0; };
-  const sortedYears = Object.keys(SEASONS).map(Number).sort((a,b) => a - b);
-  const resultsByTeam = {};
-  TEAMS.forEach(t => { resultsByTeam[t.key] = []; });
-
-  sortedYears.forEach(year => {
-    const s = SEASONS[year];
-    const weeks = Object.keys(s.schedule || {}).sort((a,b) => weekNum(a) - weekNum(b));
-    weeks.forEach(wk => {
-      (s.schedule[wk] || []).forEach(g => {
-        // Skip placeholder/unplayed games (0-0) so an in-progress season's
-        // future weeks don't inject phantom ties into streak calculations.
-        if(g.awayScore === 0 && g.homeScore === 0) return;
-        const ak = keyByLastName[lastNameOf(g.awayMgr)];
-        const hk = keyByLastName[lastNameOf(g.homeMgr)];
-        let aRes, hRes;
-        if(g.awayScore > g.homeScore){ aRes = 'W'; hRes = 'L'; }
-        else if(g.homeScore > g.awayScore){ aRes = 'L'; hRes = 'W'; }
-        else { aRes = 'T'; hRes = 'T'; }
-        if(ak) resultsByTeam[ak].push({ year, week: wk, result: aRes });
-        if(hk) resultsByTeam[hk].push({ year, week: wk, result: hRes });
-      });
-    });
-  });
-
-  const winStreakEntries = [];  // {key, value, startYear, endYear}
-  const lossStreakEntries = [];
-  Object.entries(resultsByTeam).forEach(([key, results]) => {
-    let curType = null, curLen = 0, curStart = null;
-    let bestW = { len: 0, start: null, end: null };
-    let bestL = { len: 0, start: null, end: null };
-    results.forEach(r => {
-      if(r.result === curType){ curLen++; }
-      else { curType = r.result; curLen = 1; curStart = r; }
-      if(curType === 'W' && curLen > bestW.len) bestW = { len: curLen, start: curStart, end: r };
-      if(curType === 'L' && curLen > bestL.len) bestL = { len: curLen, start: curStart, end: r };
-    });
-    if(bestW.len > 0) winStreakEntries.push({ key, value: bestW.len, startYear: bestW.start.year, endYear: bestW.end.year });
-    if(bestL.len > 0) lossStreakEntries.push({ key, value: bestL.len, startYear: bestL.start.year, endYear: bestL.end.year });
-  });
-
-  Object.entries(SEASONS).forEach(([year, s]) => {
-    const seasonPoints = {};
-    Object.entries(s.schedule || {}).forEach(([week, games]) => {
-      const weekScores = [];
-      games.forEach(g => {
-        // Skip placeholder/unplayed games (0-0) so future weeks of an
-        // in-progress season don't pollute weekly scoring titles or blowout data.
-        if(g.awayScore === 0 && g.homeScore === 0) return;
-        addRegScore(g.awayMgr, g.awayScore, week, year);
-        addRegScore(g.homeMgr, g.homeScore, week, year);
-        const ak = keyByLastName[lastNameOf(g.awayMgr)];
-        const hk = keyByLastName[lastNameOf(g.homeMgr)];
-        if(ak) seasonPoints[ak] = (seasonPoints[ak]||0) + g.awayScore;
-        if(hk) seasonPoints[hk] = (seasonPoints[hk]||0) + g.homeScore;
-        if(ak) weekScores.push({ key: ak, score: g.awayScore });
-        if(hk) weekScores.push({ key: hk, score: g.homeScore });
-
-        // Biggest blowout tracking (regular season, decided games only)
-        if(ak && hk && g.awayScore !== g.homeScore){
-          const margin = Math.round(Math.abs(g.homeScore - g.awayScore) * 100) / 100;
-          const winnerKey = g.awayScore > g.homeScore ? ak : hk;
-          const loserKey = g.awayScore > g.homeScore ? hk : ak;
-          const winnerScore = Math.max(g.awayScore, g.homeScore);
-          const loserScore = Math.min(g.awayScore, g.homeScore);
-          blowoutEntries.push({ winnerKey, loserKey, winnerScore, loserScore, margin, year, week });
-        }
-      });
-      // Weekly scoring title: whoever posted the highest score across the league that week
-      if(weekScores.length){
-        const weekMax = Math.max(...weekScores.map(w => w.score));
-        weekScores.filter(w => w.score === weekMax).forEach(w => {
-          weeklyScoringTitles[w.key] = (weeklyScoringTitles[w.key]||0) + 1;
-        });
-      }
-    });
-    Object.values(s.playoffs || {}).forEach(round => {
-      (round.games || []).forEach(g => {
-        const ak = keyByLastName[lastNameOf(g.awayMgr)];
-        const hk = keyByLastName[lastNameOf(g.homeMgr)];
-        if(ak){ playoffPoints[ak] += g.awayScore; }
-        if(hk){ playoffPoints[hk] += g.homeScore; }
-        if(g.awayScore > g.homeScore && ak) playoffWins[ak]++;
-        else if(g.homeScore > g.awayScore && hk) playoffWins[hk]++;
-      });
-    });
-    [s.champion, s.second, s.third].forEach(p => {
-      const k = keyByLastName[lastNameOf(p.owner)];
-      if(k) topThree[k]++;
-    });
-
-    (s.standings || []).forEach(row => {
-      const k = keyByLastName[lastNameOf(row.owner)];
-      if(!k) return;
-      seasonWinEntries.push({ key: k, year, value: row.w });
-      if(row.w > bestSeasonWins.wins){
-        bestSeasonWins = { wins: row.w, holders: [{ key: k, year }] };
-      } else if(row.w === bestSeasonWins.wins){
-        bestSeasonWins.holders.push({ key: k, year });
-      }
-    });
-
-    Object.entries(seasonPoints).forEach(([k, pts]) => {
-      seasonPointsEntries.push({ key: k, year, value: pts });
-    });
-
-    const seasonLeaderEntry = Object.entries(seasonPoints).sort((a,b) => b[1]-a[1])[0];
-    if(seasonLeaderEntry){
-      const [leaderKey, leaderPoints] = seasonLeaderEntry;
-      scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
-      if(!scoringTitleYears[leaderKey]) scoringTitleYears[leaderKey] = [];
-      scoringTitleYears[leaderKey].push(Number(year));
-      if(leaderPoints > bestSeasonPoints.points){
-        bestSeasonPoints = { points: leaderPoints, holders: [{ key: leaderKey, year }] };
-      } else if(leaderPoints === bestSeasonPoints.points){
-        bestSeasonPoints.holders.push({ key: leaderKey, year });
-      }
-    }
-  });
-
-  return {
-    regPoints, playoffWins, playoffPoints, hundredPlusWeeks, topThree, scoringTitles, scoringTitleYears, weeklyScoringTitles,
-    highestWeek, lowestWeek, bestSeasonWins, bestSeasonPoints,
-    gameScoreEntries, seasonWinEntries, seasonPointsEntries, blowoutEntries,
-    winStreakEntries, lossStreakEntries
-  };
+/* ---------- Top Headlines widget ---------- */
+.home-split{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  align-items: start;
+}
+.wrap-wide{
+  width: 1464px;
+  max-width: calc(100% - 48px);
+  margin-left: calc(50% - 550px);
+  margin-right: auto;
+  padding: 0 24px;
+}
+.home-split #home-headlines{
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+}
+@media (max-width: 1840px){
+  .wrap-wide{ width: auto; max-width: 1100px; margin: 0 auto; }
+}
+.headlines-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.headlines-header{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--navy);
+  padding: 14px 18px;
+  border-bottom: 2px solid var(--navy);
+}
+.headlines-icon{ font-size: 0.95rem; color: var(--navy); }
+.headlines-list{ list-style: none; margin: 0; padding: 0; }
+.headlines-list li{ border-bottom: 1px solid var(--line); }
+.headlines-list li:last-child{ border-bottom: none; }
+.headlines-list a{
+  display: block;
+  padding: 12px 18px;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  line-height: 1.4;
+  color: var(--navy);
+  text-decoration: none;
+}
+.headlines-list a:hover{
+  color: var(--blue);
+  background: rgba(47,111,237,0.05);
 }
 
-function buildRecordCards(){
-  const r = computeAllTimeRecords();
-  const nameOf = k => (TEAMS.find(t => t.key === k) || {}).owner || k;
-  const fmtNum = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 1 });
-  const fmtNum1 = n => Number(n).toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-  const joinNames = (names) => names.length <= 1 ? (names[0]||'') :
-    names.length === 2 ? `${names[0]} & ${names[1]}` :
-    `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
-
-  // Groups entries into ranked tiers by value, keeping every tie together. Stops once
-  // `n` distinct value-tiers have been collected (a tied tier can hold any number of names).
-  const topTiers = (entries, n, dir) => {
-    const sorted = entries.slice().sort((a,b) => dir === 'asc' ? a.value - b.value : b.value - a.value);
-    const tiers = [];
-    sorted.forEach(e => {
-      const last = tiers[tiers.length - 1];
-      if(last && last.value === e.value){ last.items.push(e); }
-      else if(tiers.length < n){ tiers.push({ value: e.value, items: [e] }); }
-    });
-    return tiers;
-  };
-  // Formats a tier's tied names, appending each item's note (year/game info) when present.
-  const tierNames = (tier) => tier.items.map(it => it.note ? `${it.owner} (${it.note})` : it.owner);
-  // Unique team keys represented in a tier — used to flag "leader" status on team pages.
-  const tierKeys = (tier) => Array.from(new Set(tier.items.map(it => it.key).filter(Boolean)));
-
-  const rankLine = (place, tier, fmt) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${(fmt||fmtNum)(tier.value)} — ${joinNames(tierNames(tier))}</div>` : '';
-
-  const buildCard = (medal, title, entries, opts) => {
-    opts = opts || {};
-    const dir = opts.dir || 'desc';
-    const fmt = opts.forceDecimal ? fmtNum1 : fmtNum;
-    const tiers = topTiers(entries, 3, dir);
-    const t0 = tiers[0] || { value: 0, items: [] };
-    const body = `<strong>${joinNames(tierNames(t0))}</strong>`;
-    return {
-      medal, title,
-      stat: fmt(t0.value),
-      body,
-      extra: rankLine('2nd', tiers[1], fmt) + rankLine('3rd', tiers[2], fmt),
-      leaderKeys: tierKeys(t0)
-    };
-  };
-
-  // ---- Career totals (per-team, one entry each) ----
-  const regWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.gamesW, key: t.key }));
-  const regPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.regPoints[t.key] || 0, key: t.key }));
-  const scoringTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.scoringTitles[t.key] || 0, key: t.key }));
-  const weeklyTitleEntries = TEAMS.map(t => ({ owner: t.owner, value: r.weeklyScoringTitles[t.key] || 0, key: t.key }));
-  const playoffAppEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffApp, key: t.key }));
-  const playoffWinEntries = TEAMS.map(t => ({ owner: t.owner, value: t.playoffW, key: t.key }));
-  const playoffPtsEntries = TEAMS.map(t => ({ owner: t.owner, value: r.playoffPoints[t.key] || 0, key: t.key }));
-  const champEntries = TEAMS.map(t => ({ owner: t.owner, value: t.champs, key: t.key }));
-  const top3Entries = TEAMS.map(t => ({ owner: t.owner, value: r.topThree[t.key] || 0, key: t.key }));
-  const hundredEntries = TEAMS.map(t => ({ owner: t.owner, value: r.hundredPlusWeeks[t.key] || 0, key: t.key }));
-
-  // ---- Single-season / single-game entries (carry a year or game note) ----
-  const seasonWinEntries = r.seasonWinEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
-  const seasonPtsEntries = r.seasonPointsEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: String(e.year), key: e.key }));
-  const highScoreEntries = r.gameScoreEntries.map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
-  const lowScoreEntries = r.gameScoreEntries
-    .filter(e => Number(e.year) !== 2026) // exclude the not-yet-played 2026 season (placeholder 0-0 scores)
-    .map(e => ({ owner: nameOf(e.key), value: e.value, note: `${e.year}, ${e.week}`, key: e.key }));
-  const blowoutDisplayEntries = r.blowoutEntries.map(b => ({
-    owner: `${nameOf(b.winnerKey)} def. ${nameOf(b.loserKey)} ${fmtNum(b.winnerScore)}-${fmtNum(b.loserScore)}`,
-    value: b.margin,
-    note: `${b.year}, ${b.week}`,
-    key: b.winnerKey
-  }));
-
-  // ---- Streaks (per-team best, can span multiple seasons) ----
-  const winStreakEntries = r.winStreakEntries.map(e => ({
-    owner: nameOf(e.key), value: e.value,
-    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`,
-    key: e.key
-  }));
-  const lossStreakEntries = r.lossStreakEntries.map(e => ({
-    owner: nameOf(e.key), value: e.value,
-    note: e.startYear === e.endYear ? String(e.startYear) : `${e.startYear}–${e.endYear}`,
-    key: e.key
-  }));
-
-  const cards = [
-    buildCard('Regular Season', 'Most Regular Season Wins', regWinEntries, { body: n => `${n} — most regular season wins in league history.` }),
-    buildCard('Regular Season', 'Most Regular Season Points', regPtsEntries, { body: n => `${n} — most total regular season points scored, career.` }),
-    buildCard('Single Season', 'Most Wins in a Season', seasonWinEntries, { body: n => `${n} — most regular season wins in a single year.` }),
-    buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { forceDecimal: true, body: n => `${n} — most total regular season points in a single year.` }),
-    buildCard('Single Season', 'Most Scoring Titles', scoringTitleEntries, { body: n => `${n} — led the league in points scored the most times.` }),
-    buildCard('Weekly', 'Most Weekly Scoring Titles', weeklyTitleEntries, { body: n => `${n} — most weeks leading the league in scoring, career.` }),
-    buildCard('Playoffs', 'Most Playoff Appearances', playoffAppEntries, { body: n => `${n} — most playoff appearances in league history.` }),
-    buildCard('Playoffs', 'Most Playoff Wins', playoffWinEntries, { body: n => `${n} — most playoff wins in league history.` }),
-    buildCard('Playoffs', 'Most Playoff Points', playoffPtsEntries, { body: n => `${n} — most total points scored across all playoff games.` }),
-    buildCard('Championships', 'Most Championships', champEntries, { body: n => `${n} — most league titles won.` }),
-    buildCard('Championships', 'Most Top-3 Finishes', top3Entries, { body: n => `${n} — most 1st, 2nd, or 3rd place finishes.` }),
-    buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { forceDecimal: true, body: n => `${n} — highest single-week score in league history.` }),
-    buildCard('Single Game', 'Lowest Scoring Week (Regular Season)', lowScoreEntries, { dir: 'asc', body: n => `${n} — lowest single-week score in league history.` }),
-    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { forceDecimal: true, body: n => `${n} — largest margin of victory in a single game, regular season.` }),
-    buildCard('Consistency', 'Most 100+ Point Weeks (Regular Season)', hundredEntries, { body: n => `${n} — most weeks scoring 100+ points, career.` }),
-    buildCard('Streaks', 'Longest Regular Season Winning Streak', winStreakEntries, { body: n => `${n} — longest run of consecutive regular season wins, can span multiple seasons.` }),
-    buildCard('Streaks', 'Longest Regular Season Losing Streak', lossStreakEntries, { body: n => `${n} — longest run of consecutive regular season losses, can span multiple seasons.` }),
-  ];
-
-  const categoryOrder = ['Regular Season', 'Single Season', 'Weekly', 'Playoffs', 'Championships', 'Single Game', 'Consistency', 'Streaks'];
-  const categorySlug = {
-    'Regular Season': 'cat-regular-season',
-    'Single Season': 'cat-single-season',
-    'Weekly': 'cat-weekly',
-    'Playoffs': 'cat-playoffs',
-    'Championships': 'cat-championships',
-    'Single Game': 'cat-single-game',
-    'Consistency': 'cat-consistency',
-    'Streaks': 'cat-streaks'
-  };
-  cards.sort((a, b) => categoryOrder.indexOf(a.medal) - categoryOrder.indexOf(b.medal));
-  cards.forEach(c => { c.cls = categorySlug[c.medal] || ''; });
-
-  return cards;
+/* ---------- Paid badge ---------- */
+.paid-badge{
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  color: #1F7A4D;
+  background: rgba(31,122,77,0.12);
+  border: 1px solid rgba(31,122,77,0.35);
+  border-radius: 20px;
+  padding: 2px 8px;
+  margin-left: 8px;
+  vertical-align: middle;
 }
 
-function renderAllTimeRecords(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const cards = buildRecordCards();
-
-  el.innerHTML = `<div class="award-grid">` + cards.map(c => `<div class="award-card ${c.cls}">
-    <div class="medal">${c.medal}</div>
-    <h3>${c.title}</h3>
-    <div class="headline-stat">${c.stat}</div>
-    <p>${c.body}</p>
-    ${c.extra}
-  </div>`).join('') + `</div>`;
+/* ---------- Survivor pick logos ---------- */
+.pick-logo{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 6px;
+  padding: 3px;
+}
+.pick-logo img{
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.pick-logo--loss{
+  background: #fbe4e4;
+}
+.pick-logo--win{
+  background: #dff3e3;
+}
+/* ---------- Champions pennant wall ---------- */
+.champ-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap: 28px;
+  justify-content: center;
+}
+.champ-pennant{
+  width: 180px;
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  background: #000000;
+  padding: 5px;
+  transition: transform 0.15s ease;
+}
+.champ-pennant:hover{ transform: translateY(-3px); }
+.champ-pennant-inner{
+  clip-path: polygon(0 0, 100% 0, 100% 62%, 50% 100%, 0 62%);
+  background: linear-gradient(150deg, #E9C766 0%, #F7E2A0 45%, #C9A238 100%);
+  padding: 22px 14px 42px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  position:relative;
+}
+.champ-grommet{
+  position:absolute;
+  top:14px;
+  width:8px;
+  height:8px;
+  border-radius:50%;
+  background:#000000;
+}
+.champ-grommet--left{ left:14px; }
+.champ-grommet--right{ right:14px; }
+.champ-headline{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  color: #000000;
+  text-align:center;
+  margin-top: 8px;
+  line-height: 1.3;
+}
+.champ-ribbon{
+  margin-top: 14px;
+  max-width: 100%;
+  background: #000000;
+  color: #E9C766;
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 0.66rem;
+  letter-spacing: 1px;
+  padding: 5px 14px;
+  clip-path: polygon(6% 0, 94% 0, 100% 50%, 94% 100%, 6% 100%, 0 50%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.champ-pennant-year{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.3rem;
+  color: #000000;
+  margin-top: 16px;
+  letter-spacing: -1px;
 }
 
-function computeH2H(){
-  const keyByLastName = {};
-  TEAMS.forEach(t => { keyByLastName[lastNameOf(t.owner)] = t.key; });
-
-  const matrix = {};
-  TEAMS.forEach(t => { matrix[t.key] = {}; });
-
-  function record(g) {
-    // Skip games that haven't been played yet (placeholder 0-0 scores for
-    // future/unplayed weeks, e.g. the current season's schedule loaded ahead of time).
-    if(g.awayScore === 0 && g.homeScore === 0) return;
-    const awayKey = keyByLastName[lastNameOf(g.awayMgr)];
-    const homeKey = keyByLastName[lastNameOf(g.homeMgr)];
-    if(!awayKey || !homeKey || awayKey === homeKey) return;
-    if(!matrix[awayKey][homeKey]) matrix[awayKey][homeKey] = {w:0,l:0,t:0};
-    if(!matrix[homeKey][awayKey]) matrix[homeKey][awayKey] = {w:0,l:0,t:0};
-    if(g.awayScore > g.homeScore){ matrix[awayKey][homeKey].w++; matrix[homeKey][awayKey].l++; }
-    else if(g.homeScore > g.awayScore){ matrix[homeKey][awayKey].w++; matrix[awayKey][homeKey].l++; }
-    else { matrix[awayKey][homeKey].t++; matrix[homeKey][awayKey].t++; }
-  }
-
-  Object.values(SEASONS).forEach(s => {
-    Object.values(s.schedule || {}).forEach(games => games.forEach(record));
-  });
-
-  return matrix;
+@media (max-width: 560px){
+  .champ-pennant{ width: 150px; }
+  .champ-pennant-year{ font-size: 1.9rem; }
 }
 
-function renderH2H(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const matrix = computeH2H();
-  const order = TEAMS.slice().sort((a,b) => a.key.localeCompare(b.key)).map(t => t.key);
-
-  const headCells = order.map(k => `<th>${k}</th>`).join('');
-  const rows = order.map(rowKey => {
-    const cells = order.map(colKey => {
-      if(rowKey === colKey) return `<td class="self" title="—"></td>`;
-      const rec = matrix[rowKey][colKey];
-      if(!rec) return `<td>—</td>`;
-      const { w, l, t } = rec;
-      let cls = '';
-      if(w > l) cls = 'dominant';
-      else if(l > w) cls = 'trouble';
-      const label = t ? `${w}-${l}-${t}` : `${w}-${l}`;
-      return `<td class="${cls}" title="${rowKey} vs ${colKey}: ${label}">${label}</td>`;
-    }).join('');
-    return `<tr><th>${rowKey}</th>${cells}</tr>`;
-  }).join('');
-
-  el.innerHTML = `<div class="h2h-wrap"><table class="h2h-grid">
-    <thead><tr><th></th>${headCells}</tr></thead>
-    <tbody>${rows}</tbody>
-  </table></div>
-  <div class="h2h-legend">
-    <span><span class="h2h-swatch" style="background:rgba(47,111,237,0.3)"></span> Winning record vs opponent</span>
-    <span><span class="h2h-swatch" style="background:rgba(214,40,57,0.25)"></span> Losing record vs opponent</span>
-    <span>Read as: row's record vs. column · computed from all regular season and playoff games, 2011–2025</span>
-  </div>`;
+/* ---------- Tables ---------- */
+.table-scroll{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
+table{
+  width:100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.84rem;
+  background: var(--panel);
+}
+thead th{
+  text-align:left;
+  font-weight:600;
+  font-size: 0.66rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: var(--navy);
+  padding: 11px 14px;
+  position: sticky;
+  top:0;
+  cursor:pointer;
+  user-select:none;
+  white-space: nowrap;
+}
+thead th:hover{ background: var(--navy-soft); }
+thead th.sorted-asc::after{ content:" \25B2"; color: var(--blue-lt); font-size:0.6rem; }
+thead th.sorted-desc::after{ content:" \25BC"; color: var(--blue-lt); font-size:0.6rem; }
+tbody td{
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+tbody tr:nth-child(even){ background: rgba(47,111,237,0.04); }
+tbody tr:hover{ background: rgba(214,40,57,0.06); }
+td.name-cell{ font-family: var(--body); font-weight:600; white-space: nowrap; }
+.owner-link{ color: inherit; text-decoration: none; }
+.owner-link:hover, .owner-link:focus-visible{ color: var(--blue); text-decoration: underline; }
+td.pos{ color: var(--text-soft); }
+.pill{
+  display:inline-block;
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.66rem;
+  padding: 2px 9px;
+  border-radius: 20px;
+  background: #C89B3C;
+  color: #3D2E0A;
 }
 
-// ---------- Draft History ----------
-function renderDraftHistory(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const years = Object.keys(DRAFT_HISTORY).sort((a,b) => b - a);
-  const params = new URLSearchParams(window.location.search);
-  const requestedYear = params.get('year');
-  const year = (requestedYear && DRAFT_HISTORY[requestedYear]) ? requestedYear : years[0];
-
-  document.title = `${year} Draft — League of NARPS`;
-
-  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
-    <a href="draft.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
-
-  let data = DRAFT_HISTORY[year].slice();
-  let sortKey = 'overall';
-  let sortDir = 'asc';
-
-  function sortData(){
-    data.sort((a,b) => {
-      let av = a[sortKey], bv = b[sortKey];
-      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
-      return sortDir === 'asc' ? av - bv : bv - av;
-    });
-  }
-
-  const tableEl = document.createElement('div');
-
-  function draw(){
-    sortData();
-    const rows = data.map(p => `<tr>
-      <td class="pos">${p.round}</td>
-      <td class="pos">${p.pick}</td>
-      <td class="pos">${p.overall}</td>
-      <td class="name-cell">${p.player}</td>
-      <td class="pos">${p.position}</td>
-      <td class="pos">${p.nflTeam}</td>
-      <td class="name-cell">${p.fantasyTeam}</td>
-      <td>${p.owner}</td>
-    </tr>`).join('');
-
-    tableEl.innerHTML = `<div class="table-scroll"><table id="draft-table">
-      <thead><tr>
-        <th data-key="round">Rd</th>
-        <th data-key="pick">Pk</th>
-        <th data-key="overall">Overall</th>
-        <th data-key="player">Player</th>
-        <th data-key="position">Pos</th>
-        <th data-key="nflTeam">NFL</th>
-        <th data-key="fantasyTeam">Fantasy Team</th>
-        <th data-key="owner">Owner</th>
-      </tr></thead>
-      <tbody>${rows}</tbody>
-    </table></div>
-    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort — by round/pick (default) or by team.</p>`;
-
-    tableEl.querySelectorAll('thead th').forEach(th => {
-      const key = th.dataset.key;
-      th.addEventListener('click', () => {
-        if(sortKey === key){ sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
-        else { sortKey = key; sortDir = 'asc'; }
-        draw();
-      });
-      if(key === sortKey) th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
-    });
-  }
-  draw();
-
-  el.innerHTML = '';
-  const switcherWrap = document.createElement('div');
-  switcherWrap.innerHTML = yearSwitcher;
-  el.appendChild(switcherWrap);
-  el.appendChild(tableEl);
+/* ---------- Awards ---------- */
+.award-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 300px));
+  gap: 16px;
+}
+.award-card{
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--blue);
+}
+.award-card .medal{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size: 0.65rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--red);
+}
+.award-card h3{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 8px 0 10px;
+  color: var(--navy);
+  letter-spacing: -0.3px;
+}
+.award-card .headline-stat{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 2.1rem;
+  color: var(--blue);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
+.award-card .rank-line{
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  color: var(--text-soft);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--line);
+}
+.award-card .rank-line + .rank-line{ margin-top: 4px; padding-top: 0; border-top: none; }
+.award-card .rank-line .rank-num{
+  font-weight: 700;
+  color: var(--navy);
+  margin-right: 6px;
 }
 
-// ---------- Rules & Bylaws History ----------
-function renderRulesHistory(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year).map(y => String(y.year));
-  const params = new URLSearchParams(window.location.search);
-  const requestedYear = params.get('year');
-  const year = (requestedYear && years.includes(requestedYear)) ? requestedYear : years[0];
-  const yearData = RULES_HISTORY.find(y => String(y.year) === year);
-
-  document.title = `${year} Rules & Bylaws — League of NARPS`;
-
-  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
-    <a href="rules.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
-
-  const outcomePill = (v) => {
-    if(v.passed === true) return `<span class="rule-pill rule-passed">Passed</span>`;
-    if(v.passed === false) return `<span class="rule-pill rule-rejected">Rejected</span>`;
-    return `<span class="rule-pill rule-plurality">Voted</span>`;
-  };
-
-  const roundsHtml = yearData ? yearData.rounds.map(r => {
-    const outcomeRank = (v) => v.passed === true ? 0 : v.passed === false ? 1 : 2;
-    const sortedVotes = r.votes.slice().sort((a, b) => outcomeRank(a) - outcomeRank(b));
-    const votesHtml = sortedVotes.map(v => {
-      const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
-      return `
-      <div class="vote-row ${outcomeClass}">
-        <div class="vote-row-main">
-          <span class="vote-category">${v.category}</span>
-          <p class="vote-question">${v.question}</p>
-          <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
-          ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
-          ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
-        </div>
-        ${outcomePill(v)}
-      </div>
-    `;
-    }).join('');
-    return `<div class="rules-round">
-      <h4 class="rules-round-label">${r.label}</h4>
-      <div class="vote-list">${votesHtml}</div>
-    </div>`;
-  }).join('') : '<p class="muted">No rule changes recorded for this year.</p>';
-
-  el.innerHTML = yearSwitcher + roundsHtml;
+/* ---------- Condensed records grid (All-Time Records section) ---------- */
+#records-container .award-grid{
+  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
+  gap: 12px;
+}
+#records-container .award-card{
+  padding: 14px 16px;
+}
+#records-container .award-card .medal{
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+}
+#records-container .award-card h3{
+  font-size: 0.95rem;
+  margin: 5px 0 6px;
+  line-height: 1.25;
+}
+#records-container .award-card .headline-stat{
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+#records-container .award-card p{
+  font-size: 0.78rem;
+  line-height: 1.4;
+}
+#records-container .award-card .rank-line{
+  font-size: 0.66rem;
+  margin-top: 6px;
+  padding-top: 6px;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  initNav();
-  initNavDropdowns();
-});
+/* ---------- Condensed leader grid (Team page — All-Time Record Leader) ---------- */
+#team-leader-grid{
+  grid-template-columns: repeat(auto-fill, minmax(190px, 220px));
+  gap: 12px;
+}
+#team-leader-grid .award-card{
+  padding: 14px 16px;
+}
+#team-leader-grid .award-card .medal{
+  font-size: 0.58rem;
+  letter-spacing: 1px;
+}
+#team-leader-grid .award-card h3{
+  font-size: 0.95rem;
+  margin: 5px 0 6px;
+  line-height: 1.25;
+}
+#team-leader-grid .award-card .headline-stat{
+  font-size: 1.5rem;
+  margin-bottom: 0;
+}
+
+/* ---------- All-Time Records color scheme (by category) ---------- */
+#records-container .cat-regular-season{ border-top-color: var(--blue); }
+#records-container .cat-regular-season .medal{ color: var(--blue); }
+#records-container .cat-regular-season .headline-stat{ color: var(--blue); }
+
+#records-container .cat-single-season{ border-top-color: #0EA5A5; }
+#records-container .cat-single-season .medal{ color: #0EA5A5; }
+#records-container .cat-single-season .headline-stat{ color: #0EA5A5; }
+
+#records-container .cat-weekly{ border-top-color: #DB2777; }
+#records-container .cat-weekly .medal{ color: #DB2777; }
+#records-container .cat-weekly .headline-stat{ color: #DB2777; }
+
+#records-container .cat-playoffs{ border-top-color: #7C3AED; }
+#records-container .cat-playoffs .medal{ color: #7C3AED; }
+#records-container .cat-playoffs .headline-stat{ color: #7C3AED; }
+
+#records-container .cat-championships{ border-top-color: #B8860B; }
+#records-container .cat-championships .medal{ color: #B8860B; }
+#records-container .cat-championships .headline-stat{ color: #B8860B; }
+
+#records-container .cat-single-game{ border-top-color: var(--red); }
+#records-container .cat-single-game .medal{ color: var(--red); }
+#records-container .cat-single-game .headline-stat{ color: var(--red); }
+
+#records-container .cat-consistency{ border-top-color: #2E9E5B; }
+#records-container .cat-consistency .medal{ color: #2E9E5B; }
+#records-container .cat-consistency .headline-stat{ color: #2E9E5B; }
+
+#records-container .cat-streaks{ border-top-color: #E07B39; }
+#records-container .cat-streaks .medal{ color: #E07B39; }
+#records-container .cat-streaks .headline-stat{ color: #E07B39; }
+
+/* ---------- Rules & Bylaws History ---------- */
+.rules-round{ margin-bottom:18px; }
+.rules-round-label{
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.72rem;
+  letter-spacing:0.6px;
+  text-transform:uppercase;
+  color: var(--blue);
+  margin:0 0 10px;
+}
+.vote-list{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+}
+.vote-row{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding: 13px 16px;
+  background: var(--panel);
+  border-left: 3px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.vote-row--passed{ border-left-color: #1F7A45; }
+.vote-row--rejected{ border-left-color: var(--red-dk); }
+.vote-row--voted{ border-left-color: #C89B3C; }
+.vote-row-main{ flex: 1 1 auto; min-width: 0; }
+.vote-category{
+  display:block;
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.6rem;
+  letter-spacing:0.8px;
+  text-transform:uppercase;
+  color: var(--text-soft);
+  margin-bottom:4px;
+}
+.rule-pill{
+  flex: 0 0 auto;
+  margin-top: 1px;
+  display:inline-block;
+  font-family: var(--mono);
+  font-weight:600;
+  font-size:0.6rem;
+  letter-spacing:0.4px;
+  text-transform:uppercase;
+  padding:2px 8px;
+  border-radius:20px;
+  white-space:nowrap;
+}
+.rule-passed{ background: rgba(31,146,84,0.14); color: #1F7A45; }
+.rule-rejected{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
+.rule-plurality{ background: #F0EBD8; color: #7A5E10; }
+.vote-question{
+  font-family: var(--body);
+  font-weight:600;
+  font-size:0.88rem;
+  color: var(--text);
+  margin: 0 0 5px;
+  line-height:1.4;
+}
+.vote-options{
+  margin:0 0 5px;
+  font-family: var(--mono);
+  font-size:0.72rem;
+  color: var(--text-soft);
+  line-height:1.6;
+}
+.vote-result{
+  margin:0 0 3px;
+  font-family: var(--body);
+  font-weight:600;
+  font-size:0.8rem;
+  color: var(--text);
+}
+.vote-result::before{ content: "→ "; color: var(--text-soft); font-weight:500; }
+.vote-note{
+  margin:0;
+  font-family: var(--body);
+  font-size:0.76rem;
+  color: var(--text-soft);
+  font-style:italic;
+}
+@media (max-width: 560px){
+  .vote-row{ flex-direction:column; gap:6px; }
+}
+
+/* ---------- Footer ---------- */
+footer{
+  background: var(--navy);
+  color: rgba(255,255,255,0.6);
+  padding: 26px 0;
+  font-family: var(--mono);
+  font-weight:500;
+  font-size: 0.75rem;
+  text-align:center;
+}
+footer a{ color: var(--blue-lt); text-decoration:none; }
+
+/* ---------- Head-to-head grid ----------*/
+.h2h-wrap{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
+.h2h-grid{
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.76rem;
+  background: var(--panel);
+}
+.h2h-grid th, .h2h-grid td{
+  border: 1px solid var(--line);
+  text-align:center;
+  min-width: 54px;
+  padding: 6px 4px;
+}
+.h2h-grid thead th{
+  background: var(--navy);
+  color: var(--white);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: 0.68rem;
+  padding: 8px 6px;
+  position: static;
+}
+.h2h-grid tbody th{
+  background: var(--bg);
+  text-align:left;
+  font-family: var(--body);
+  font-weight:600;
+  writing-mode: horizontal-tb;
+  white-space: nowrap;
+  padding: 8px 10px;
+}
+.h2h-grid td{ cursor: default; }
+.h2h-grid td.self{ background: repeating-linear-gradient(45deg, var(--line), var(--line) 4px, var(--panel) 4px, var(--panel) 8px); }
+.h2h-grid td.dominant{ background: rgba(47,111,237,0.12); font-weight:600; color: var(--navy); }
+.h2h-grid td.trouble{ background: rgba(214,40,57,0.10); color: var(--red-dk); }
+.h2h-grid td:hover:not(.self){ outline: 2px solid var(--blue); outline-offset:-2px; }
+.h2h-legend{
+  display:flex; gap:18px; flex-wrap:wrap; margin-top:14px;
+  font-family: var(--mono); font-size: 0.75rem; color: var(--text-soft);
+}
+.h2h-legend span{ display:inline-flex; align-items:center; gap:6px; }
+.h2h-swatch{ width:12px; height:12px; border-radius:2px; display:inline-block; }
+
+/* ---------- utility ---------- */
+.muted{ color: var(--text-soft); }
+.center{ text-align:center; }
+:focus-visible{ outline: 2px solid var(--blue); outline-offset: 2px; }
