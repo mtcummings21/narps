@@ -13207,66 +13207,66 @@ const SEASONS = {
     },
     "standings": [
       {
-        "team": "Prino's Powerhouse",
-        "owner": "Joe Prino",
-        "w": 0,
+        "team": "Kareem Pie",
+        "owner": "Seth Thacker",
+        "w": 1,
         "l": 0,
         "t": 0,
-        "pct": 0.0
+        "pct": 1.0
       },
       {
         "team": "George's Gangstas",
         "owner": "Sonny Wright",
-        "w": 0,
+        "w": 1,
         "l": 0,
         "t": 0,
-        "pct": 0.0
+        "pct": 1.0
+      },
+      {
+        "team": "Fantasy Football Team",
+        "owner": "Aaron Burns",
+        "w": 1,
+        "l": 0,
+        "t": 0,
+        "pct": 1.0
+      },
+      {
+        "team": "Route 2 Ravers",
+        "owner": "Joe Garton",
+        "w": 1,
+        "l": 0,
+        "t": 0,
+        "pct": 1.0
       },
       {
         "team": "The Deplorables",
         "owner": "Zach Sizemore",
-        "w": 0,
+        "w": 1,
         "l": 0,
         "t": 0,
-        "pct": 0.0
+        "pct": 1.0
       },
       {
-        "team": "ACLiens",
-        "owner": "Luke Rapp",
+        "team": "Business as Usual",
+        "owner": "Travis West",
         "w": 0,
-        "l": 0,
-        "t": 0,
-        "pct": 0.0
-      },
-      {
-        "team": "Lincoln Legends",
-        "owner": "Tyler Cummings",
-        "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       },
       {
         "team": "Arabian Stallions",
         "owner": "Walid Salameh",
-        "w": 0,
+        "w": 1,
         "l": 0,
         "t": 0,
-        "pct": 0.0
+        "pct": 1.0
       },
       {
-        "team": "Money Badgers",
-        "owner": "Tyler Clay",
+        "team": "ACLiens",
+        "owner": "Luke Rapp",
         "w": 0,
-        "l": 0,
-        "t": 0,
-        "pct": 0.0
-      },
-      {
-        "team": "Fantasy Football Team",
-        "owner": "Aaron Burns",
-        "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       },
@@ -13274,34 +13274,35 @@ const SEASONS = {
         "team": "Free Agents",
         "owner": "Z Hickman",
         "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       },
       {
-        "team": "Business as Usual",
-        "owner": "Travis West",
+        "team": "Money Badgers",
+        "owner": "Tyler Clay",
         "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       },
       {
-        "team": "Kareem Pie",
-        "owner": "Seth Thacker",
+        "team": "Lincoln Legends",
+        "owner": "Tyler Cummings",
         "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       },
       {
-        "team": "Route 2 Ravers",
-        "owner": "Joe Garton",
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
         "w": 0,
-        "l": 0,
+        "l": 1,
         "t": 0,
         "pct": 0.0
       }
+    
     ],
     "playoffs": {},
     "schedule": {
@@ -13309,48 +13310,48 @@ const SEASONS = {
         {
           "away": "Kareem Pie",
           "awayMgr": "Seth Thacker",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 128.8,
+          "homeScore": 111.5,
           "homeMgr": "Travis West",
           "home": "Business as Usual"
         },
         {
           "away": "Money Badgers",
           "awayMgr": "Tyler Clay",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 95.9,
+          "homeScore": 119.1,
           "homeMgr": "Joe Garton",
           "home": "Route 2 Ravers"
         },
         {
           "away": "Free Agents",
           "awayMgr": "Z Hickman",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 97.6,
+          "homeScore": 122.5,
           "homeMgr": "Sonny Wright",
           "home": "George's Gangstas"
         },
         {
           "away": "Arabian Stallions",
           "awayMgr": "Walid Salameh",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 111.4,
+          "homeScore": 80.1,
           "homeMgr": "Tyler Cummings",
           "home": "Lincoln Legends"
         },
         {
           "away": "Prino's Powerhouse",
           "awayMgr": "Joe Prino",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 66.9,
+          "homeScore": 121.2,
           "homeMgr": "Aaron Burns",
           "home": "Fantasy Football Team"
         },
         {
           "away": "The Deplorables",
           "awayMgr": "Zach Sizemore",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 113.5,
+          "homeScore": 108.6,
           "homeMgr": "Luke Rapp",
           "home": "ACLiens"
         }
