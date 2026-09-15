@@ -519,9 +519,9 @@ function renderSeasonDetail(containerId){
   const hasResults = allScoresCount > 0;
   const highlightsSection = hasResults ? `<h2 class="section-title" style="margin-top:40px;">${year} Season Highlights</h2>
   <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
-    <li><strong>League Avg PPM:</strong> ${leagueAvgPPM.toFixed(1)}</li>
-    <li><strong>Longest Win Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
-    <li><strong>Longest Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
+    <li><strong>League Team Avg. Points Per Matchup:</strong> ${leagueAvgPPM.toFixed(1)}</li>
+    <li><strong>Longest Current Winning Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
+    <li><strong>Longest Current Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
     <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner} — ${highGame.week})` : '—'}</li>
     <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner} — ${lowGame.week})` : '—'}</li>
   </ul>` : '';
@@ -530,7 +530,7 @@ function renderSeasonDetail(containerId){
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">Record vs. League</th><th class="center">Top Weekly Scorer</th></tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th></tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
@@ -597,6 +597,10 @@ function renderSeasonDetail(containerId){
     ${draftSection}
     <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? 'Final Regular Season Standings' : 'Standings'}</h2>
     ${standingsTable}
+    <div class="muted" style="font-size:0.85rem; margin:12px 0 0; line-height:1.6;">
+      <p style="margin:0 0 6px;"><strong>Median Record</strong> — an extra win-loss record earned by competing against the league median score of all teams that week, rather than just your direct head-to-head opponent.</p>
+      <p style="margin:0;"><strong>All-Play Record</strong> — a hypothetical win-loss record that shows what your team's record would be if you played a head-to-head matchup against every other team in your league every single week.</p>
+    </div>
     ${highlightsSection}
     ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
