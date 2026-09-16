@@ -325,6 +325,33 @@ function matchupRow(g){
   </tr>`;
 }
 
+function boxscoreSideTable(teamName, score, players){
+  const rows = players.map(p => `<tr>
+    <td class="pos" style="font-family:var(--mono); font-size:0.78rem; color:var(--text-soft);">${p.slot}</td>
+    <td>${p.player}</td>
+    <td class="pos center">${p.pts.toFixed(1)}</td>
+  </tr>`).join('');
+  return `<div class="table-scroll"><table>
+    <thead><tr><th colspan="3" style="text-align:left;">${teamName} — ${score}</th></tr></thead>
+    <tbody>${rows}</tbody>
+  </table></div>`;
+}
+
+function matchupCard(g){
+  const awayWin = g.awayScore > g.homeScore;
+  return `<details style="margin-bottom:8px;">
+    <summary style="cursor:pointer; padding:10px 12px; background:var(--parchment-2); border:1px solid var(--line); border-radius:var(--radius); display:flex; justify-content:space-between; gap:16px;">
+      <span style="${awayWin ? 'font-weight:700;' : ''}">${g.away} ${g.awayScore}</span>
+      <span style="color:var(--text-soft);">at</span>
+      <span style="${!awayWin ? 'font-weight:700;' : ''}">${g.home} ${g.homeScore}</span>
+    </summary>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;">
+      ${boxscoreSideTable(g.away, g.awayScore, g.boxscore.away)}
+      ${boxscoreSideTable(g.home, g.homeScore, g.boxscore.home)}
+    </div>
+  </details>`;
+}
+
 function renderSeasonDetail(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
@@ -573,12 +600,16 @@ function renderSeasonDetail(containerId){
 
   const scheduleWeeks = Object.keys(s.schedule).map(wk => {
     const games = s.schedule[wk];
+    const hasBoxscores = games.some(g => g.boxscore);
+    const body = hasBoxscores
+      ? games.map(matchupCard).join('')
+      : `<div class="table-scroll" style="margin-top:8px;"><table>
+          <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
+          <tbody>${games.map(matchupRow).join('')}</tbody>
+        </table></div>`;
     return `<details style="margin-bottom:8px;">
       <summary style="cursor:pointer; font-family:var(--mono); font-size:0.85rem; padding:10px 12px; background:var(--parchment-2); border:1px solid var(--line); border-radius:var(--radius);">${wk}</summary>
-      <div class="table-scroll" style="margin-top:8px;"><table>
-        <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
-        <tbody>${games.map(matchupRow).join('')}</tbody>
-      </table></div>
+      ${hasBoxscores ? `<div style="margin-top:8px;">${body}</div>` : body}
     </details>`;
   }).join('');
 
