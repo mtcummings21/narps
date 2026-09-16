@@ -532,7 +532,7 @@ function renderSeasonDetail(containerId){
   const WEEKLY_HIGH_PAYOUT = 25;
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th>${showPayouts ? '<th class="center">Payouts</th>' : ''}</tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th>${showPayouts ? '<th class="center">Payouts</th>' : ''}</tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
@@ -541,13 +541,12 @@ function renderSeasonDetail(containerId){
       const mrStr = `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`;
       const apStr = `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`;
       const teamKey = keyByLastName[lastNameOf(t.owner)];
-      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
       const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
+      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
       const payoutTotal = highs * WEEKLY_HIGH_PAYOUT;
       return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>
-      <td class="pos">${t.owner}${paidBadge}</td>
       <td class="center">${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
       <td class="center">${t.pct.toFixed(3)}</td>
       <td class="center">${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
