@@ -984,6 +984,13 @@ const NEWSLETTERS = [
     "year": 2020,
     "title": "LoN Newsletter Vol 3, No 4",
     "url": "https://us19.campaign-archive.com/?u=564d0ae2533148f8fc46b832d&id=17553cc6d4"
+  },
+  {
+    "vol": 9,
+    "no": 1,
+    "year": 2026,
+    "title": "The Week 1 Recap",
+    "url": "newsletter-vol9-no1.html"
   }
 ];
 
