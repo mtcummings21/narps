@@ -528,9 +528,11 @@ function renderSeasonDetail(containerId){
 
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
+  const showPayouts = year === '2026';
+  const WEEKLY_HIGH_PAYOUT = 25;
 
   const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th></tr></thead>
+    <thead><tr><th>#</th><th>Team</th><th>Owner</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th>${showPayouts ? '<th class="center">Payouts</th>' : ''}</tr></thead>
     <tbody>${s.standings.map((t,i) => {
       const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
       const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
@@ -541,6 +543,7 @@ function renderSeasonDetail(containerId){
       const teamKey = keyByLastName[lastNameOf(t.owner)];
       const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
       const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
+      const payoutTotal = highs * WEEKLY_HIGH_PAYOUT;
       return `<tr>
       <td class="pos">${i+1}</td>
       <td class="name-cell">${teamLink}</td>
@@ -552,6 +555,7 @@ function renderSeasonDetail(containerId){
       <td class="center">${mrStr}</td>
       <td class="center">${apStr}</td>
       <td class="pos center">${highs > 0 ? highs : '-'}</td>
+      ${showPayouts ? `<td class="center">${payoutTotal > 0 ? '$' + payoutTotal.toLocaleString('en-US') : '-'}</td>` : ''}
     </tr>`;
     }).join('')}</tbody>
   </table></div>`;
@@ -1094,7 +1098,9 @@ function computeAllTimeRecords(){
     });
 
     const seasonLeaderEntry = Object.entries(seasonPoints).sort((a,b) => b[1]-a[1])[0];
-    if(seasonLeaderEntry){
+    // Only credit a scoring title once the season has actually concluded —
+    // an in-progress season (placeholder "TBD" champion) hasn't been decided yet.
+    if(seasonLeaderEntry && s.champion && s.champion.owner !== 'TBD'){
       const [leaderKey, leaderPoints] = seasonLeaderEntry;
       scoringTitles[leaderKey] = (scoringTitles[leaderKey]||0) + 1;
       if(!scoringTitleYears[leaderKey]) scoringTitleYears[leaderKey] = [];
