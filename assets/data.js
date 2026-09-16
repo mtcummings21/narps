@@ -13321,6 +13321,29 @@ const SEASONS = {
           "homeScore": 111.5,
           "homeMgr": "Travis West",
           "home": "Business as Usual"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Joe Burrow", "pts": 14.0 },
+              { "slot": "RB", "player": "Bijan Robinson", "pts": 27.3 },
+              { "slot": "RB", "player": "David Montgomery", "pts": 27.4 },
+              { "slot": "WR", "player": "Nico Collins", "pts": 17.7 },
+              { "slot": "WR", "player": "Jaylen Waddle", "pts": 0.7 },
+              { "slot": "TE", "player": "Kyle Pitts Sr.", "pts": 0.0 },
+              { "slot": "FLEX", "player": "Jeremiyah Love", "pts": 12.0 },
+              { "slot": "FLEX", "player": "Christian Watson", "pts": 29.7 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Jalen Hurts", "pts": 24.6 },
+              { "slot": "RB", "player": "Chase Brown", "pts": 16.3 },
+              { "slot": "RB", "player": "Quinshon Judkins", "pts": 6.0 },
+              { "slot": "WR", "player": "CeeDee Lamb", "pts": 12.9 },
+              { "slot": "WR", "player": "Malik Nabers", "pts": 9.9 },
+              { "slot": "TE", "player": "Dallas Goedert", "pts": 21.7 },
+              { "slot": "FLEX", "player": "Rhamondre Stevenson", "pts": 12.0 },
+              { "slot": "FLEX", "player": "Michael Wilson", "pts": 8.1 }
+            ]
+          }
         },
         {
           "away": "Money Badgers",
@@ -13329,6 +13352,29 @@ const SEASONS = {
           "homeScore": 119.1,
           "homeMgr": "Joe Garton",
           "home": "Route 2 Ravers"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Bo Nix", "pts": 5.4 },
+              { "slot": "RB", "player": "Christian McCaffrey", "pts": 11.3 },
+              { "slot": "RB", "player": "Ashton Jeanty", "pts": 29.7 },
+              { "slot": "WR", "player": "Emeka Egbuka", "pts": 8.8 },
+              { "slot": "WR", "player": "Marvin Harrison Jr.", "pts": 3.8 },
+              { "slot": "TE", "player": "Trey McBride", "pts": 20.0 },
+              { "slot": "FLEX", "player": "Tyler Warren", "pts": 8.8 },
+              { "slot": "FLEX", "player": "Alec Pierce", "pts": 8.1 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Jared Goff", "pts": 16.4 },
+              { "slot": "RB", "player": "Jonathan Taylor", "pts": 23.6 },
+              { "slot": "RB", "player": "Javonte Williams", "pts": 21.7 },
+              { "slot": "WR", "player": "Terry McLaurin", "pts": 2.4 },
+              { "slot": "WR", "player": "Matthew Golden", "pts": 12.5 },
+              { "slot": "TE", "player": "Mark Andrews", "pts": 6.9 },
+              { "slot": "FLEX", "player": "Breece Hall", "pts": 18.8 },
+              { "slot": "FLEX", "player": "Bucky Irving", "pts": 16.8 }
+            ]
+          }
         },
         {
           "away": "Free Agents",
@@ -13337,6 +13383,29 @@ const SEASONS = {
           "homeScore": 122.5,
           "homeMgr": "Sonny Wright",
           "home": "George's Gangstas"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Drake Maye", "pts": 9.7 },
+              { "slot": "RB", "player": "Derrick Henry", "pts": 34.8 },
+              { "slot": "RB", "player": "Tony Pollard", "pts": 3.9 },
+              { "slot": "WR", "player": "Tetairoa McMillan", "pts": 8.0 },
+              { "slot": "WR", "player": "Zay Flowers", "pts": 23.5 },
+              { "slot": "TE", "player": "Harold Fannin Jr.", "pts": 3.1 },
+              { "slot": "FLEX", "player": "De'Von Achane", "pts": 8.6 },
+              { "slot": "FLEX", "player": "DK Metcalf", "pts": 6.0 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Trevor Lawrence", "pts": 26.1 },
+              { "slot": "RB", "player": "Saquon Barkley", "pts": 8.5 },
+              { "slot": "RB", "player": "Kenneth Walker III", "pts": 32.6 },
+              { "slot": "WR", "player": "DeVonta Smith", "pts": 6.8 },
+              { "slot": "WR", "player": "Ladd McConkey", "pts": 16.7 },
+              { "slot": "TE", "player": "Tucker Kraft", "pts": 8.0 },
+              { "slot": "FLEX", "player": "Luther Burden III", "pts": 7.0 },
+              { "slot": "FLEX", "player": "Parker Washington", "pts": 16.8 }
+            ]
+          }
         },
         {
           "away": "Arabian Stallions",
@@ -13345,6 +13414,29 @@ const SEASONS = {
           "homeScore": 80.1,
           "homeMgr": "Tyler Cummings",
           "home": "Lincoln Legends"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Dak Prescott", "pts": 14.4 },
+              { "slot": "RB", "player": "Omarion Hampton", "pts": 8.3 },
+              { "slot": "RB", "player": "D'Andre Swift", "pts": 31.9 },
+              { "slot": "WR", "player": "Amon-Ra St. Brown", "pts": 23.7 },
+              { "slot": "WR", "player": "Rome Odunze", "pts": 6.2 },
+              { "slot": "TE", "player": "Sam LaPorta", "pts": 7.3 },
+              { "slot": "FLEX", "player": "Cam Skattebo", "pts": 14.1 },
+              { "slot": "FLEX", "player": "Brian Thomas Jr.", "pts": 5.5 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Lamar Jackson", "pts": 24.8 },
+              { "slot": "RB", "player": "Jadarian Price", "pts": 6.8 },
+              { "slot": "RB", "player": "MarShawn Lloyd", "pts": 3.7 },
+              { "slot": "WR", "player": "Ja'Marr Chase", "pts": 2.2 },
+              { "slot": "WR", "player": "Mike Evans", "pts": 13.9 },
+              { "slot": "TE", "player": "Dalton Kincaid", "pts": 15.5 },
+              { "slot": "FLEX", "player": "Rashee Rice", "pts": 8.9 },
+              { "slot": "FLEX", "player": "George Pickens", "pts": 4.3 }
+            ]
+          }
         },
         {
           "away": "Prino's Powerhouse",
@@ -13353,6 +13445,29 @@ const SEASONS = {
           "homeScore": 121.2,
           "homeMgr": "Aaron Burns",
           "home": "Fantasy Football Team"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Justin Herbert", "pts": 13.1 },
+              { "slot": "RB", "player": "Kyren Williams", "pts": 14.0 },
+              { "slot": "RB", "player": "Jaylen Warren", "pts": 7.8 },
+              { "slot": "WR", "player": "Puka Nacua", "pts": 9.9 },
+              { "slot": "WR", "player": "Tee Higgins", "pts": 7.4 },
+              { "slot": "TE", "player": "Michael Mayer", "pts": 6.2 },
+              { "slot": "FLEX", "player": "Carnell Tate", "pts": 5.8 },
+              { "slot": "FLEX", "player": "Quentin Johnston", "pts": 2.7 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Jaxson Dart", "pts": 26.6 },
+              { "slot": "RB", "player": "James Cook III", "pts": 8.4 },
+              { "slot": "RB", "player": "Travis Etienne Jr.", "pts": 11.3 },
+              { "slot": "WR", "player": "Justin Jefferson", "pts": 27.2 },
+              { "slot": "WR", "player": "Garrett Wilson", "pts": 10.9 },
+              { "slot": "TE", "player": "T.J. Hockenson", "pts": 11.6 },
+              { "slot": "FLEX", "player": "DJ Moore", "pts": 18.5 },
+              { "slot": "FLEX", "player": "Jonathon Brooks", "pts": 6.7 }
+            ]
+          }
         },
         {
           "away": "The Deplorables",
@@ -13361,6 +13476,29 @@ const SEASONS = {
           "homeScore": 108.6,
           "homeMgr": "Luke Rapp",
           "home": "ACLiens"
+        ,
+          "boxscore": {
+            "away": [
+              { "slot": "QB", "player": "Josh Allen", "pts": 35.5 },
+              { "slot": "RB", "player": "Jahmyr Gibbs", "pts": 31.1 },
+              { "slot": "RB", "player": "Bhayshul Tuten", "pts": 9.3 },
+              { "slot": "WR", "player": "Drake London", "pts": 4.5 },
+              { "slot": "WR", "player": "Davante Adams", "pts": 4.1 },
+              { "slot": "TE", "player": "Isaiah Likely", "pts": 23.8 },
+              { "slot": "FLEX", "player": "Rico Dowdle", "pts": 3.1 },
+              { "slot": "FLEX", "player": "Courtland Sutton", "pts": 2.1 }
+            ],
+            "home": [
+              { "slot": "QB", "player": "Caleb Williams", "pts": 37.1 },
+              { "slot": "RB", "player": "J.K. Dobbins", "pts": 3.6 },
+              { "slot": "RB", "player": "Jordan Mason", "pts": 11.9 },
+              { "slot": "WR", "player": "Jaxon Smith-Njigba", "pts": 22.2 },
+              { "slot": "WR", "player": "A.J. Brown", "pts": 4.1 },
+              { "slot": "TE", "player": "Colston Loveland", "pts": 0.0 },
+              { "slot": "FLEX", "player": "Chris Olave", "pts": 23.2 },
+              { "slot": "FLEX", "player": "Jameson Williams", "pts": 6.5 }
+            ]
+          }
         }
       ],
       "Week 2": [
