@@ -714,12 +714,27 @@ function renderHeadlines(containerId){
   if(!el) return;
   if(typeof NFL_HEADLINES === 'undefined' || !NFL_HEADLINES.length){ el.innerHTML = ''; return; }
 
+  const latestYear = (typeof SEASONS !== 'undefined') ? Object.keys(SEASONS).sort((a,b) => b - a)[0] : null;
+  const s = latestYear ? SEASONS[latestYear] : null;
+  const standingsCol = (s && s.standings && s.standings.length) ? `
+    <a class="standings-col" href="season.html?year=${latestYear}">
+      <div class="headlines-header">${latestYear} Standings</div>
+      <ul class="standings-mini-list">
+        ${s.standings.map(t => `<li><span>${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span></li>`).join('')}
+      </ul>
+    </a>` : '';
+
   el.innerHTML = `
     <div class="headlines-card">
-      <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
-      <ul class="headlines-list">
-        ${NFL_HEADLINES.map(h => `<li><a href="${h.url}" target="_blank" rel="noopener">${h.title}</a></li>`).join('')}
-      </ul>
+      <div class="headlines-split">
+        <div class="headlines-col">
+          <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
+          <ul class="headlines-list">
+            ${NFL_HEADLINES.map(h => `<li><a href="${h.url}" target="_blank" rel="noopener">${h.title}</a></li>`).join('')}
+          </ul>
+        </div>
+        ${standingsCol}
+      </div>
     </div>
   `;
 }
