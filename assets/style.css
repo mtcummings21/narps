@@ -770,8 +770,8 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 .standings-mini-list li span:first-child{ font-weight: 600; }
 .standings-mini-list li span:last-child{ font-family: var(--mono); color: var(--text-soft); }
 @media (min-width: 900px){
-  .headlines-split{ display: grid; grid-template-columns: 1fr 1fr; }
-  .headlines-col{ border-right: 1px solid var(--line); }
+  .headlines-split{ display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .headlines-col{ border-right: 1px solid var(--line); padding-right: 4px; }
   .standings-col{
     display: block;
     color: inherit;
