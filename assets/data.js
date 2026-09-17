@@ -14178,7 +14178,7 @@ const DRAFT_ORDER = {
 
 // Dues paid, by team key, per season. Add a year entry as owners pay up.
 const PAID_STATUS = {
-  "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings", "Sizemore", "Burns"]
+  "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings", "Sizemore", "Burns", "Wright"]
 };
 
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
@@ -16026,7 +16026,7 @@ const SURVIVOR = {
     "players": [
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
       { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
-      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
+      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
       { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Ronnie", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Lions", "loss": false } ] }
