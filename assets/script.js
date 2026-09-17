@@ -716,11 +716,22 @@ function renderHeadlines(containerId){
 
   const latestYear = (typeof SEASONS !== 'undefined') ? Object.keys(SEASONS).sort((a,b) => b - a)[0] : null;
   const s = latestYear ? SEASONS[latestYear] : null;
+  const seasonPts = {};
+  if(s){
+    Object.values(s.schedule || {}).forEach(games => games.forEach(g => {
+      const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
+      seasonPts[ak] = (seasonPts[ak] || 0) + g.awayScore;
+      seasonPts[hk] = (seasonPts[hk] || 0) + g.homeScore;
+    }));
+  }
   const standingsCol = (s && s.standings && s.standings.length) ? `
     <a class="standings-col" href="season.html?year=${latestYear}">
       <div class="headlines-header">${latestYear} Standings</div>
       <ul class="standings-mini-list">
-        ${s.standings.map((t,i) => `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span></li>`).join('')}
+        ${s.standings.map((t,i) => {
+          const pf = seasonPts[lastNameOf(t.owner)] || 0;
+          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''} &middot; ${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
+        }).join('')}
       </ul>
     </a>` : '';
 
