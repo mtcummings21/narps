@@ -720,7 +720,7 @@ function renderHeadlines(containerId){
     <a class="standings-col" href="season.html?year=${latestYear}">
       <div class="headlines-header">${latestYear} Standings</div>
       <ul class="standings-mini-list">
-        ${s.standings.map(t => `<li><span>${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span></li>`).join('')}
+        ${s.standings.map((t,i) => `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span></li>`).join('')}
       </ul>
     </a>` : '';
 
