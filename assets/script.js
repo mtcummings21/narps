@@ -727,15 +727,19 @@ function renderHeadlines(containerId){
   const standingsCol = (s && s.standings && s.standings.length) ? `
     <a class="standings-col" href="season.html?year=${latestYear}">
       <div class="headlines-header">${latestYear} Standings</div>
+      <div class="standings-mini-headers"><span>Team</span><span>Record</span><span>Points Scored</span></div>
       <ul class="standings-mini-list">
         ${s.standings.map((t,i) => {
           const pf = seasonPts[lastNameOf(t.owner)] || 0;
-          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''} &middot; ${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
+          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
         }).join('')}
       </ul>
     </a>` : '';
 
   el.innerHTML = `
+    <a class="newsletter-banner" href="newsletter-vol9-no1.html">
+      <span>&#128240;</span> Read the latest newsletter — Vol. 9, No. 1: Hot Starts and False Starts &rarr;
+    </a>
     <div class="headlines-card">
       <div class="headlines-split">
         <div class="headlines-col">
