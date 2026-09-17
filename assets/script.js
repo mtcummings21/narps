@@ -745,7 +745,11 @@ function renderHeadlines(containerId){
         <div class="headlines-col">
           <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
           <ul class="headlines-list">
-            ${NFL_HEADLINES.map(h => `<li><a href="${h.url}" target="_blank" rel="noopener">${h.title}</a></li>`).join('')}
+            ${NFL_HEADLINES.map(h => {
+              const isExternal = /^https?:\/\//i.test(h.url);
+              const linkAttrs = isExternal ? ' target="_blank" rel="noopener"' : '';
+              return `<li><a href="${h.url}"${linkAttrs}>${h.title}</a></li>`;
+            }).join('')}
           </ul>
         </div>
         ${standingsCol}
