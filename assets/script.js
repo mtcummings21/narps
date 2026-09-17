@@ -558,33 +558,28 @@ function renderSeasonDetail(containerId){
   const showPayouts = year === '2026';
   const WEEKLY_HIGH_PAYOUT = 25;
 
-  const standingsTable = `<div class="table-scroll"><table>
-    <thead><tr><th>#</th><th>Team</th><th class="center">Record</th><th class="center">Pct</th><th class="center">PF</th><th class="center">PA</th><th class="center">Median Record</th><th class="center">All-Play Record</th><th class="center">Top Weekly Scorer</th>${showPayouts ? '<th class="center">Payouts</th>' : ''}</tr></thead>
-    <tbody>${s.standings.map((t,i) => {
-      const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
-      const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
-      const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
-      const ap = allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
-      const mrStr = `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`;
-      const apStr = `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`;
-      const teamKey = keyByLastName[lastNameOf(t.owner)];
-      const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
-      const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
-      const payoutTotal = highs * WEEKLY_HIGH_PAYOUT;
-      return `<tr>
-      <td class="pos">${i+1}</td>
-      <td class="name-cell">${teamLink}</td>
-      <td class="center">${t.w}-${t.l}${t.t ? '-'+t.t : ''}</td>
-      <td class="center">${t.pct.toFixed(3)}</td>
-      <td class="center">${pts.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td class="center">${pts.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-      <td class="center">${mrStr}</td>
-      <td class="center">${apStr}</td>
-      <td class="pos center">${highs > 0 ? highs : '-'}</td>
-      ${showPayouts ? `<td class="center">${payoutTotal > 0 ? '$' + payoutTotal.toLocaleString('en-US') : '-'}</td>` : ''}
-    </tr>`;
-    }).join('')}</tbody>
-  </table></div>`;
+  const standingsRows = s.standings.map((t,i) => {
+    const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
+    const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
+    const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+    const ap = allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+    const teamKey = keyByLastName[lastNameOf(t.owner)];
+    const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
+    const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
+    return {
+      rank: i + 1,
+      teamName: t.team,
+      teamLink,
+      wins: t.w, losses: t.l, ties: t.t,
+      recordStr: `${t.w}-${t.l}${t.t ? '-'+t.t : ''}`,
+      pct: t.pct,
+      pf: pts.pf, pa: pts.pa,
+      medianWins: mr.w, medianStr: `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`,
+      allPlayWins: ap.w, allPlayStr: `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`,
+      topWeeklyScorer: highs,
+      payout: highs * WEEKLY_HIGH_PAYOUT,
+    };
+  });
 
   const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
     const r = (s.playoffs || {})[rk];
@@ -630,7 +625,7 @@ function renderSeasonDetail(containerId){
     ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
     ${draftSection}
     <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
-    ${standingsTable}
+    <div id="season-standings-mount"></div>
     <div class="muted" style="font-size:0.85rem; margin:12px 0 0; line-height:1.6;">
       <p style="margin:0 0 6px;"><strong>Median Record</strong> — an extra win-loss record earned by competing against the league median score of all teams that week, rather than just your direct head-to-head opponent.</p>
       <p style="margin:0;"><strong>All-Play Record</strong> — a hypothetical win-loss record that shows what your team's record would be if you played a head-to-head matchup against every other team in your league every single week.</p>
@@ -647,6 +642,76 @@ function renderSeasonDetail(containerId){
     if(draftInfo) renderCountdown('season-draft-countdown', draftInfo.iso);
     renderDraftOrder('season-draft-order', year);
   }
+  renderSortableStandingsTable('season-standings-mount', standingsRows, showPayouts);
+}
+
+function renderSortableStandingsTable(containerId, rows, showPayouts){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const data = rows.slice();
+  let sortKey = 'rank';
+  let sortDir = 'asc';
+
+  const columns = [
+    { key: 'rank', label: '#', align: '' },
+    { key: 'teamName', label: 'Team', align: '' },
+    { key: 'wins', label: 'Record', align: 'center' },
+    { key: 'pct', label: 'Pct', align: 'center' },
+    { key: 'pf', label: 'PF', align: 'center' },
+    { key: 'pa', label: 'PA', align: 'center' },
+    { key: 'medianWins', label: 'Median Record', align: 'center' },
+    { key: 'allPlayWins', label: 'All-Play Record', align: 'center' },
+    { key: 'topWeeklyScorer', label: 'Top Weekly Scorer', align: 'center' },
+  ];
+  if(showPayouts) columns.push({ key: 'payout', label: 'Payouts', align: 'center' });
+
+  function sortData(){
+    data.sort((a,b) => {
+      const av = a[sortKey], bv = b[sortKey];
+      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+      return sortDir === 'asc' ? av - bv : bv - av;
+    });
+  }
+
+  function cellValue(row, key){
+    switch(key){
+      case 'rank': return row.rank;
+      case 'teamName': return row.teamLink;
+      case 'wins': return row.recordStr;
+      case 'pct': return row.pct.toFixed(3);
+      case 'pf': return row.pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      case 'pa': return row.pa.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+      case 'medianWins': return row.medianStr;
+      case 'allPlayWins': return row.allPlayStr;
+      case 'topWeeklyScorer': return row.topWeeklyScorer > 0 ? row.topWeeklyScorer : '-';
+      case 'payout': return row.payout > 0 ? '$' + row.payout.toLocaleString('en-US') : '-';
+      default: return '';
+    }
+  }
+
+  function draw(){
+    sortData();
+    el.innerHTML = `<div class="table-scroll"><table>
+      <thead><tr>
+        ${columns.map(c => `<th data-key="${c.key}" class="${c.align} sortable-th">${c.label}</th>`).join('')}
+      </tr></thead>
+      <tbody>${data.map(row => `<tr>
+        ${columns.map(c => `<td class="${c.key === 'teamName' ? 'name-cell' : 'pos ' + c.align}">${cellValue(row, c.key)}</td>`).join('')}
+      </tr>`).join('')}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:0.82rem; margin-top:10px;">Click a column header to sort.</p>`;
+
+    el.querySelectorAll('thead th').forEach(th => {
+      const key = th.dataset.key;
+      th.addEventListener('click', () => {
+        if(sortKey === key){ sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+        else { sortKey = key; sortDir = 'desc'; }
+        draw();
+      });
+      if(key === sortKey) th.classList.add(sortDir === 'asc' ? 'sorted-asc' : 'sorted-desc');
+    });
+  }
+  draw();
 }
 
 // ---------- Draft order ----------
