@@ -758,10 +758,25 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   overflow: hidden;
 }
 .standings-col{ display: none; }
+.standings-mini-headers{
+  display: grid;
+  grid-template-columns: 1fr 64px 96px;
+  gap: 12px;
+  padding: 8px 18px;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  border-bottom: 1px solid var(--line);
+}
+.standings-mini-headers span:nth-child(1){ text-align: left; }
+.standings-mini-headers span:nth-child(2){ text-align: center; }
+.standings-mini-headers span:nth-child(3){ text-align: right; }
 .standings-mini-list{ list-style: none; margin: 0; padding: 0; }
 .standings-mini-list li{
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 64px 96px;
   gap: 12px;
   padding: 9px 18px;
   border-bottom: 1px solid var(--line);
@@ -770,8 +785,24 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   color: var(--navy);
 }
 .standings-mini-list li:last-child{ border-bottom: none; }
-.standings-mini-list li span:first-child{ font-weight: 600; }
-.standings-mini-list li span:last-child{ font-family: var(--mono); color: var(--text-soft); }
+.standings-mini-list li span:nth-child(1){ font-weight: 600; text-align: left; }
+.standings-mini-list li span:nth-child(2){ text-align: center; font-family: var(--mono); color: var(--text-soft); }
+.standings-mini-list li span:nth-child(3){ text-align: right; font-family: var(--mono); color: var(--text-soft); }
+.newsletter-banner{
+  display: block;
+  text-align: center;
+  background: var(--navy);
+  color: #FFFFFF;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 12px 18px;
+  border-radius: var(--radius);
+  text-decoration: none;
+  margin-bottom: 16px;
+  transition: background 0.15s;
+}
+.newsletter-banner:hover{ background: var(--blue); }
 @media (min-width: 900px){
   .headlines-split{ display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
   .standings-col{
