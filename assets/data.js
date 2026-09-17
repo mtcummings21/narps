@@ -14188,7 +14188,12 @@ const NFL_HEADLINES = [
   { title: "Mahomes scores TD on opening drive, 9 months after ACL tear, in Chiefs' 31-10 win over Broncos", url: "https://www.nfl.com/news/broncos-chiefs-on-monday-night-football-what-we-learned-from-kansas-city-s-31-10-win" },
   { title: "Kenneth Walker III's 191 scrimmage yards breaks Jerry Rice's Week 1 record for a reigning Super Bowl MVP", url: "https://www.chiefs.com/news/10-quick-facts-following-the-chiefs-week-1-win-over-denver-upon-further-review" },
   { title: "Myles Garrett headed for knee surgery after Rams' Week 1 loss to 49ers", url: "https://sports.yahoo.com/nfl/breaking-news/article/nfl-ties-post-merger-record-for-most-week-1-points-with-kenneth-walkers-late-td-in-chiefs-win-over-broncos-040502763.html" },
-  { title: "Bears score 59 in season-opening rout of Panthers, but Ben Johnson still finds plenty to fix", url: "https://www.newsbreak.com/news/4887597805761-the-bears-scored-59-points-and-still-found-plenty-to-fix-that-s-exactly-what-ben-johnson-wants" }
+  { title: "Bears score 59 in season-opening rout of Panthers, but Ben Johnson still finds plenty to fix", url: "https://www.newsbreak.com/news/4887597805761-the-bears-scored-59-points-and-still-found-plenty-to-fix-that-s-exactly-what-ben-johnson-wants" },
+  { title: "Cummings' 10-game win streak — 2nd-longest in League of NARPS history — snapped in Week 1", url: "team.html?team=Cummings" },
+  { title: "Caleb Williams drops 37.1, the league's best score of Week 1 — and Rapp still loses", url: "team.html?team=Rapp" },
+  { title: "Seth Thacker's 128.8 in his franchise debut leads the league — and sets a new Kareem Pie record", url: "team.html?team=Thacker" },
+  { title: "Derrick Henry goes for 34.8, but it's not enough to save Free Agents' Week 1", url: "team.html?team=Hickman" },
+  { title: "Aaron Burns' Week 1 win pushes him to 75 career victories", url: "team.html?team=Burns" }
 ];
 
 const SURVIVOR = {
