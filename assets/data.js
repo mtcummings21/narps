@@ -14184,11 +14184,11 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "NFL ties Week 1 scoring record for Super Bowl era with 791 total points", url: "https://www.nfl.com/news/nfl-ties-week-1-scoring-record-for-super-bowl-era" },
-  { title: "Mahomes scores TD on opening drive, 9 months after ACL tear, in Chiefs' 31-10 win over Broncos", url: "https://www.nfl.com/news/broncos-chiefs-on-monday-night-football-what-we-learned-from-kansas-city-s-31-10-win" },
-  { title: "Kenneth Walker III's 191 scrimmage yards breaks Jerry Rice's Week 1 record for a reigning Super Bowl MVP", url: "https://www.chiefs.com/news/10-quick-facts-following-the-chiefs-week-1-win-over-denver-upon-further-review" },
-  { title: "Myles Garrett headed for knee surgery after Rams' Week 1 loss to 49ers", url: "https://sports.yahoo.com/nfl/breaking-news/article/nfl-ties-post-merger-record-for-most-week-1-points-with-kenneth-walkers-late-td-in-chiefs-win-over-broncos-040502763.html" },
-  { title: "Bears score 59 in season-opening rout of Panthers, but Ben Johnson still finds plenty to fix", url: "https://www.newsbreak.com/news/4887597805761-the-bears-scored-59-points-and-still-found-plenty-to-fix-that-s-exactly-what-ben-johnson-wants" },
+  { title: "Josh Allen accounts for 5 TDs as Bills christen new $2.1B Highmark Stadium with 41-31 win over Lions", url: "https://www.nfl.com/news/josh-allen-opens-bills-new-stadium-with-5-tds-in-dominant-win-over-lions" },
+  { title: "Falcons' QB situation turns dire entering Week 2; Stefanski won't name a starter", url: "https://sports.yahoo.com/nfl/live/nfl-news-today-injury-updates-rumors-week-2-rosters-nico-collins-joe-burrow-120656469.html" },
+  { title: "Texans' Nico Collins suffers hamstring injury", url: "https://sports.yahoo.com/nfl/live/nfl-news-today-injury-updates-rumors-week-2-rosters-nico-collins-joe-burrow-120656469.html" },
+  { title: "Bills' DJ Moore suffers AC joint sprain in win over Lions; Week 3 status uncertain", url: "https://www.nfl.com/news/josh-allen-opens-bills-new-stadium-with-5-tds-in-dominant-win-over-lions" },
+  { title: "Woman in Josh Jacobs case seeks to permanently seal evidence in battery matter", url: "https://www.espn.com/nfl/story/_/id/49951016/woman-josh-jacobs-case-wants-evidence-permanently-sealed" },
   { title: "Cummings' 10-game win streak — 2nd-longest in League of NARPS history — snapped in Week 1", url: "season.html?year=2026" },
   { title: "Caleb Williams drops 37.1, the league's best score of Week 1 — and Rapp still loses", url: "season.html?year=2026" },
   { title: "Seth Thacker's 128.8 in his franchise debut leads the league — and sets a new Kareem Pie record", url: "season.html?year=2026" },
