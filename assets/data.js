@@ -16027,7 +16027,7 @@ const SURVIVOR = {
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true } ] },
       { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
       { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false } ] },
-      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
+      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false } ] },
       { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false } ] },
       { "name": "Ronnie", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Lions", "loss": false } ] }
     ]
