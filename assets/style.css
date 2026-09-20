@@ -750,6 +750,10 @@ td.name-cell.picks-name-cell{
   background: var(--panel);
 }
 tbody tr:nth-child(even) .picks-name-cell{ background: #F7F9FC; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) tbody tr:nth-child(even) .picks-name-cell{ background: #1A2540; }
+}
+:root[data-theme="dark"] tbody tr:nth-child(even) .picks-name-cell{ background: #1A2540; }
 tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 
 /* ---------- Top Headlines widget ---------- */
