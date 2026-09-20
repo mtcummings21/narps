@@ -3,6 +3,7 @@
 :root{
   --navy:       #0B2447;   /* deep navy, headers/dark panels */
   --navy-soft:  #16345E;
+  --ink:        #0B2447;   /* fixed dark navy for solid fills/badges — never theme-adaptive */
   --blue:       #2F6FED;   /* modern accent blue */
   --blue-lt:    #6FA0FF;
   --red:        #D62839;   /* accent red */
@@ -22,6 +23,58 @@
   --body: 'Inter', -apple-system, sans-serif;
   --mono: 'JetBrains Mono', 'Courier New', monospace;
 }
+
+/* ---------- Dark mode ---------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --navy:       #EAF0FF;
+    --navy-soft:  #C7D6F5;
+    --blue:       #6FA0FF;
+    --blue-lt:    #9CC0FF;
+    --red:        #FF6B7A;
+    --red-dk:     #FF95A0;
+    --bg:         #0B1220;
+    --panel:      #131B2E;
+    --line:       #26324A;
+    --text:       #E7ECF5;
+    --text-soft:  #9AA7BD;
+    --shadow:     0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+    --shadow-hover: 0 4px 10px rgba(0,0,0,0.35), 0 16px 32px rgba(0,0,0,0.4);
+  }
+}
+:root[data-theme="dark"]{
+  --navy:       #EAF0FF;
+  --navy-soft:  #C7D6F5;
+  --blue:       #6FA0FF;
+  --blue-lt:    #9CC0FF;
+  --red:        #FF6B7A;
+  --red-dk:     #FF95A0;
+  --bg:         #0B1220;
+  --panel:      #131B2E;
+  --line:       #26324A;
+  --text:       #E7ECF5;
+  --text-soft:  #9AA7BD;
+  --shadow:     0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+  --shadow-hover: 0 4px 10px rgba(0,0,0,0.35), 0 16px 32px rgba(0,0,0,0.4);
+}
+
+.theme-toggle{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  color: var(--navy);
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  margin-left: 12px;
+  transition: background 0.15s, border-color 0.15s;
+}
+.theme-toggle:hover{ background: var(--bg); }
 
 *{ box-sizing: border-box; }
 html{ scroll-behavior: smooth; }
@@ -51,7 +104,7 @@ img{ max-width:100%; display:block; }
 
 /* ---------- Header / nav ---------- */
 .site-header{
-  background: var(--white);
+  background: var(--panel);
   color: var(--navy);
   border-bottom: 1px solid var(--line);
   position: sticky;
@@ -109,7 +162,7 @@ img{ max-width:100%; display:block; }
   transition: color 0.15s ease, background 0.15s ease;
 }
 .nav a:hover, .nav a:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav a[aria-current="page"]{ color: var(--white); background: var(--navy); }
+.nav a[aria-current="page"]{ color: var(--white); background: var(--ink); }
 
 /* ---------- Nav dropdown (League History) ---------- */
 .nav-dropdown{ position: relative; }
@@ -132,7 +185,7 @@ img{ max-width:100%; display:block; }
   transition: color 0.15s ease, background 0.15s ease;
 }
 .nav-dropdown-toggle:hover, .nav-dropdown-toggle:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav-dropdown--current .nav-dropdown-toggle{ color: var(--white); background: var(--navy); }
+.nav-dropdown--current .nav-dropdown-toggle{ color: var(--white); background: var(--ink); }
 .nav-caret{ font-size: 0.7rem; transition: transform 0.15s ease; }
 .nav-dropdown.open .nav-caret{ transform: rotate(180deg); }
 .nav-dropdown-menu{
@@ -163,7 +216,7 @@ img{ max-width:100%; display:block; }
   transition: color 0.15s ease, background 0.15s ease;
 }
 .nav-dropdown-menu a:hover, .nav-dropdown-menu a:focus-visible{ color: var(--navy); background: var(--bg); }
-.nav-dropdown-menu a[aria-current="page"]{ color: var(--white); background: var(--navy); }
+.nav-dropdown-menu a[aria-current="page"]{ color: var(--white); background: var(--ink); }
 
 @media (max-width: 720px){
   .nav-dropdown-menu{
@@ -600,7 +653,7 @@ h2.section-title{
 .plaque{
   flex: 0 0 auto;
   width: 172px;
-  background: var(--navy);
+  background: var(--ink);
   color: var(--white);
   border-radius: var(--radius);
   padding: 16px 14px;
@@ -650,7 +703,7 @@ h2.section-title{
 .plaque--recent .team{ color: rgba(11,36,71,0.62); }
 .plaque--recent .repeat-tag{
   color: var(--white);
-  background: var(--navy);
+  background: var(--ink);
 }
 
 /* Runner-up — silver plaque */
@@ -664,7 +717,7 @@ h2.section-title{
 .plaque--silver .team{ color: rgba(11,36,71,0.62); }
 .plaque--silver .repeat-tag{
   color: var(--white);
-  background: var(--navy);
+  background: var(--ink);
 }
 
 /* Third place — bronze plaque */
@@ -678,7 +731,7 @@ h2.section-title{
 .plaque--bronze .team{ color: rgba(11,36,71,0.62); }
 .plaque--bronze .repeat-tag{
   color: var(--white);
-  background: var(--navy);
+  background: var(--ink);
 }
 
 /* Survivor weekly picks: keep player names on one line, and pin the
@@ -791,7 +844,7 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 .newsletter-banner{
   display: block;
   text-align: center;
-  background: var(--navy);
+  background: var(--ink);
   color: #FFFFFF;
   font-family: var(--body);
   font-weight: 600;
@@ -946,7 +999,7 @@ thead th{
   letter-spacing: 0.6px;
   text-transform: uppercase;
   color: var(--white);
-  background: var(--navy);
+  background: var(--ink);
   padding: 11px 14px;
   position: sticky;
   top:0;
@@ -1211,7 +1264,7 @@ td.pos{ color: var(--text-soft); }
 
 /* ---------- Footer ---------- */
 footer{
-  background: var(--navy);
+  background: var(--ink);
   color: rgba(255,255,255,0.6);
   padding: 26px 0;
   font-family: var(--mono);
@@ -1236,7 +1289,7 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
   padding: 6px 4px;
 }
 .h2h-grid thead th{
-  background: var(--navy);
+  background: var(--ink);
   color: var(--white);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
