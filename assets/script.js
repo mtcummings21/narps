@@ -324,7 +324,7 @@ function renderVolumeDetail(containerId){
   el.innerHTML = `<div class="table-scroll"><table>
     <thead><tr><th>Issue</th><th>Title</th><th>Season</th><th></th></tr></thead>
     <tbody>
-      ${issues.map(n => `<tr>
+      ${issues.map(n => `<tr onclick="if(event.target.tagName !== 'A') window.open('${n.url}', '_blank')" style="cursor:pointer;">
         <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
         <td class="name-cell">${n.title}</td>
         <td class="pos">${n.year}</td>
