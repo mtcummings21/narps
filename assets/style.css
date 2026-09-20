@@ -267,6 +267,10 @@ img{ max-width:100%; display:block; }
   position: relative;
   overflow: hidden;
 }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .hero{ background: var(--bg); }
+}
+:root[data-theme="dark"] .hero{ background: var(--bg); }
 .hero::after{
   content:"";
   position:absolute;
