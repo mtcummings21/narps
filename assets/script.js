@@ -1,3 +1,63 @@
+// Apply any stored theme preference immediately, before the rest of the page's
+// scripts run, to minimize a flash of the wrong theme on load.
+(function(){
+  try {
+    const stored = window.localStorage.getItem('lon-theme');
+    if(stored === 'light' || stored === 'dark') document.documentElement.setAttribute('data-theme', stored);
+  } catch(e) {}
+})();
+
+// ---------- Theme (light/dark mode) ----------
+function getStoredTheme(){
+  try {
+    return window.localStorage.getItem('lon-theme');
+  } catch(e) {
+    return null;
+  }
+}
+function setStoredTheme(theme){
+  try {
+    window.localStorage.setItem('lon-theme', theme);
+  } catch(e) {
+    // storage unavailable (private browsing, etc.) — theme just won't persist
+  }
+}
+function currentEffectiveTheme(){
+  const stored = getStoredTheme();
+  if(stored === 'light' || stored === 'dark') return stored;
+  return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+}
+function applyTheme(theme){
+  if(theme === 'light' || theme === 'dark'){
+    document.documentElement.setAttribute('data-theme', theme);
+  } else {
+    document.documentElement.removeAttribute('data-theme');
+  }
+  const btn = document.querySelector('.theme-toggle');
+  if(btn){
+    const effective = currentEffectiveTheme();
+    btn.textContent = effective === 'dark' ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', effective === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+}
+function initThemeToggle(){
+  const stored = getStoredTheme();
+  if(stored === 'light' || stored === 'dark') applyTheme(stored);
+
+  const navWrap = document.querySelector('.site-header .wrap');
+  if(!navWrap || document.querySelector('.theme-toggle')) return;
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = 'theme-toggle';
+  navWrap.appendChild(btn);
+  applyTheme(getStoredTheme());
+  btn.addEventListener('click', () => {
+    const next = currentEffectiveTheme() === 'dark' ? 'light' : 'dark';
+    setStoredTheme(next);
+    applyTheme(next);
+  });
+}
+
 // ---------- Nav toggle (mobile) ----------
 function initNav(){
   const btn = document.querySelector('.nav-toggle');
@@ -1570,4 +1630,5 @@ function renderRulesHistory(containerId){
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initNavDropdowns();
+  initThemeToggle();
 });
