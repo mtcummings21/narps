@@ -400,7 +400,7 @@ function boxscoreSideTable(teamName, score, players){
 function matchupCard(g){
   const awayWin = g.awayScore > g.homeScore;
   return `<details style="margin-bottom:8px;">
-    <summary style="cursor:pointer; padding:10px 12px; background:#FFFFFF; border:1px solid var(--line); border-radius:var(--radius); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; font-size:12px;">
+    <summary style="cursor:pointer; padding:10px 12px; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:var(--radius); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; font-size:12px;">
       <span style="${awayWin ? 'font-weight:700;' : ''}">${g.away} ${g.awayScore}</span>
       <span style="color:var(--text-soft); text-align:center;">at</span>
       <span style="${!awayWin ? 'font-weight:700;' : ''} text-align:right;">${g.home} ${g.homeScore}</span>
