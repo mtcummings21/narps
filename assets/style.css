@@ -1019,7 +1019,7 @@ td.pos{ color: var(--text-soft); }
 }
 .award-card p{ margin:0; color: var(--text-soft); font-size: 0.91rem; }
 .award-card .rank-line{
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 0.76rem;
   color: var(--text-soft);
   margin-top: 8px;
