@@ -1086,7 +1086,12 @@ function renderSurvivor(containerId){
     return rt ? now < new Date(rt).getTime() : false;
   };
 
+  const pinnedNames = ['Ronnie'];
   const picksSorted = sorted.slice().sort((a,b) => {
+    const aPinned = pinnedNames.includes(a.name);
+    const bPinned = pinnedNames.includes(b.name);
+    if(aPinned !== bPinned) return aPinned ? -1 : 1;
+
     const aLoss = a.picks.some(pk => pk.loss);
     const bLoss = b.picks.some(pk => pk.loss);
     if(aLoss !== bLoss) return aLoss ? 1 : -1;
