@@ -918,6 +918,9 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 .pick-logo--win{
   background: #b9e6c4;
 }
+.race-chart .race-team{ opacity: 0.9; transition: opacity 0.15s; }
+.race-chart:hover .race-team{ opacity: 0.15; }
+.race-chart:hover .race-team:hover{ opacity: 1; }
 /* ---------- Champions pennant wall ---------- */
 .champ-grid{
   display:flex;
