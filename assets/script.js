@@ -137,8 +137,9 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.playoffApp}</td>
     <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td>${fmtPct(t.winPct)}</td>
-    <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
+    <td>${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td>${t.gameAvgPF.toFixed(1)}</td>
+    <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
     <td>${t.playoffW}-${t.playoffL}</td>
     <td>${t.highScore.toFixed(1)}</td>
   </tr>`;
@@ -173,8 +174,9 @@ function renderStandings(containerId){
         <th data-key="playoffApp">Playoffs</th>
         <th data-key="record">Record</th>
         <th data-key="winPct">Win%</th>
-        <th data-key="diff">Pt Diff/G</th>
+        <th data-key="totalPF">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
+        <th data-key="diff">Pt Diff/G</th>
         <th data-key="playoffW">Playoff Record</th>
         <th data-key="highScore">Best Gm</th>
       </tr></thead>
@@ -410,6 +412,99 @@ function matchupCard(g){
       ${boxscoreSideTable(g.home, g.homeScore, g.boxscore.home)}
     </div>
   </details>`;
+}
+
+// ---------- Standings race chart (weekly rank tracker) ----------
+function computeWeeklyRanks(s){
+  const weekNum = (wk) => parseInt(wk.replace(/\D/g, ''), 10) || 0;
+  const weekKeys = Object.keys(s.schedule || {})
+    .filter(wk => (s.schedule[wk] || []).some(g => Math.max(g.awayScore, g.homeScore) > 0))
+    .sort((a,b) => weekNum(a) - weekNum(b));
+  if(!weekKeys.length) return null;
+
+  const owners = s.standings.map(r => r.owner);
+  const record = {}, points = {};
+  owners.forEach(o => { record[o] = { w:0, l:0, t:0 }; points[o] = 0; });
+
+  const rankHistory = {}; // owner -> [rank at week1, week2, ...]
+  owners.forEach(o => { rankHistory[o] = []; });
+
+  weekKeys.forEach(wk => {
+    (s.schedule[wk] || []).forEach(g => {
+      if(Math.max(g.awayScore, g.homeScore) <= 0) return;
+      points[g.awayMgr] = (points[g.awayMgr] || 0) + g.awayScore;
+      points[g.homeMgr] = (points[g.homeMgr] || 0) + g.homeScore;
+      if(g.awayScore > g.homeScore){ record[g.awayMgr].w++; record[g.homeMgr].l++; }
+      else if(g.homeScore > g.awayScore){ record[g.homeMgr].w++; record[g.awayMgr].l++; }
+      else { record[g.awayMgr].t++; record[g.homeMgr].t++; }
+    });
+
+    // Apply the league's seeding rule as of this week: top 5 by record (points
+    // tiebreak), remaining teams ranked purely by cumulative points.
+    const byRecord = owners.slice().sort((a,b) => (record[b].w - record[a].w) || (points[b] - points[a]));
+    const top5 = byRecord.slice(0, 5);
+    const rest = byRecord.slice(5).sort((a,b) => points[b] - points[a]);
+    const order = top5.concat(rest);
+    order.forEach((o, i) => rankHistory[o].push(i + 1));
+  });
+
+  return { weekKeys, rankHistory, teamCount: owners.length };
+}
+
+const RACE_CHART_COLORS = [
+  '#2F6FED', '#D62839', '#1F9E5A', '#B8860B', '#7C3AED', '#0EA5A5',
+  '#DB2777', '#EA580C', '#4B5563', '#059669', '#9333EA', '#C2410C', '#0284C7'
+];
+
+function weekNumLabel(wk){
+  const n = parseInt(wk.replace(/\D/g, ''), 10);
+  return isNaN(n) ? wk : `Wk ${n}`;
+}
+
+function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
+  const data = computeWeeklyRanks(s);
+  if(!data || data.weekKeys.length < 2) return '';
+  const { weekKeys, rankHistory, teamCount } = data;
+  const owners = Object.keys(rankHistory);
+
+  const padL = 36, padR = 130, padT = 16, padB = 30;
+  const chartW = 860, chartH = 60 + teamCount * 26;
+  const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  const xStep = weekKeys.length > 1 ? innerW / (weekKeys.length - 1) : 0;
+  const yStep = teamCount > 1 ? innerH / (teamCount - 1) : 0;
+  const xAt = (i) => padL + i * xStep;
+  const yAt = (rank) => padT + (rank - 1) * yStep;
+
+  const ownerColor = {};
+  owners.forEach((o, i) => { ownerColor[o] = RACE_CHART_COLORS[i % RACE_CHART_COLORS.length]; });
+
+  const gridLines = weekKeys.map((wk, i) => `<line x1="${xAt(i)}" y1="${padT}" x2="${xAt(i)}" y2="${padT+innerH}" stroke="var(--line)" stroke-width="1" />`).join('');
+  const rankLines = Array.from({length: teamCount}, (_, i) => i+1).map(r =>
+    `<line x1="${padL}" y1="${yAt(r)}" x2="${padL+innerW}" y2="${yAt(r)}" stroke="var(--line)" stroke-width="1" />`
+  ).join('');
+  const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${weekNumLabel(wk)}</text>`).join('');
+
+  const teamPaths = owners.map(o => {
+    const ranks = rankHistory[o];
+    const pts = ranks.map((r, i) => `${xAt(i)},${yAt(r)}`).join(' ');
+    const lastRank = ranks[ranks.length - 1];
+    const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
+    return `
+      <g class="race-team">
+        <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+          <title>${teamName}</title>
+        </polyline>
+        <circle cx="${xAt(ranks.length-1)}" cy="${yAt(lastRank)}" r="3.5" fill="${ownerColor[o]}" />
+        <text x="${xAt(ranks.length-1) + 10}" y="${yAt(lastRank) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${teamName}</text>
+      </g>
+    `;
+  }).join('');
+
+  return `<div class="table-scroll">
+    <svg class="race-chart" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:700px;">
+      ${gridLines}${rankLines}${weekLabels}${teamPaths}
+    </svg>
+  </div>`;
 }
 
 function renderSeasonDetail(containerId){
@@ -680,6 +775,49 @@ function renderSeasonDetail(containerId){
     <div id="season-draft-order" style="margin-top:16px;"></div>
   ` : '';
 
+  function computeTopStartersByPosition(season){
+    const totals = {}; // "player|pos" -> { player, pos, pts, teamName }
+    Object.values(season.schedule || {}).forEach(games => {
+      games.forEach(g => {
+        if(!g.boxscore) return;
+        ['away', 'home'].forEach(side => {
+          const teamName = g[side];
+          (g.boxscore[side] || []).forEach(p => {
+            const key = p.player + '|' + p.pos;
+            if(!totals[key]) totals[key] = { player: p.player, pos: p.pos, pts: 0, teamName };
+            totals[key].pts += p.pts;
+          });
+        });
+      });
+    });
+    const byPos = { QB: [], RB: [], WR: [], TE: [] };
+    Object.values(totals).forEach(t => {
+      if(byPos[t.pos]) byPos[t.pos].push(t);
+    });
+    const top = {};
+    ['QB', 'RB', 'WR', 'TE'].forEach(pos => {
+      byPos[pos].sort((a,b) => b.pts - a.pts);
+      top[pos] = byPos[pos][0] || null;
+    });
+    return top;
+  }
+
+  const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
+  const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
+  const topStartersSection = hasTopStarters ? `<h2 class="section-title" style="margin-top:40px;">Top Scoring Starters</h2>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Accumulated points scored so far this season — only counts weeks a player was actually in the starting lineup.</p>
+  <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
+    ${['QB','RB','WR','TE'].map(pos => {
+      const t = topStarters[pos];
+      return t ? `<li><strong>${pos}:</strong> ${t.player} (${t.teamName}) — ${t.pts.toFixed(1)} pts</li>` : `<li><strong>${pos}:</strong> —</li>`;
+    }).join('')}
+  </ul>` : '';
+
+  const raceChartSvg = hasResults ? renderStandingsRaceChart(s, keyByLastName, lastNameOf) : '';
+  const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season. Hover a line for the team name.</p>
+  ${raceChartSvg}` : '';
+
   el.innerHTML = `
     ${podium}
     ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
@@ -691,6 +829,8 @@ function renderSeasonDetail(containerId){
       <p style="margin:0;"><strong>All-Play Record</strong> — a hypothetical win-loss record that shows what your team's record would be if you played a head-to-head matchup against every other team in your league every single week.</p>
     </div>
     ${highlightsSection}
+    ${topStartersSection}
+    ${raceChartSection}
     ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
     <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
