@@ -913,10 +913,10 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   display: block;
 }
 .pick-logo--loss{
-  background: #fbe4e4;
+  background: #f5c6c6;
 }
 .pick-logo--win{
-  background: #dff3e3;
+  background: #b9e6c4;
 }
 /* ---------- Champions pennant wall ---------- */
 .champ-grid{
