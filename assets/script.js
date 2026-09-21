@@ -169,8 +169,8 @@ function renderStandings(containerId){
 
   function sortData(list, key, dir){
     list.sort((a,b) => {
-      let av = key === 'record' ? a.winPct : a[key];
-      let bv = key === 'record' ? b.winPct : b[key];
+      let av = key === 'record' ? a.gamesW : a[key];
+      let bv = key === 'record' ? b.gamesW : b[key];
       if(typeof av === 'string') return dir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
       av = av == null ? -Infinity : av;
       bv = bv == null ? -Infinity : bv;
