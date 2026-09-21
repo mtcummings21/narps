@@ -145,28 +145,49 @@ function standingsRowHTML(t, i){
   </tr>`;
 }
 
+function playoffRowHTML(t, i){
+  return `<tr>
+    <td class="pos">${i+1}</td>
+    <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}" class="owner-link">${t.owner}</a><div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
+    <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
+    <td class="pos">${t.playoffApp}</td>
+    <td class="pos">${t.byes}</td>
+    <td>${t.playoffW}-${t.playoffL}</td>
+    <td>${fmtPct(t.playoffWinPct)}</td>
+    <td class="pos">${t.champGameApp}</td>
+    <td>${t.champGameW}-${t.champGameL}</td>
+  </tr>`;
+}
+
 function renderStandings(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  let data = TEAMS.slice();
+  let mode = 'regular';
   let sortKey = 'winPct';
   let sortDir = 'desc';
 
-  function sortData(){
-    data.sort((a,b) => {
-      let av = sortKey === 'record' ? a.winPct : a[sortKey];
-      let bv = sortKey === 'record' ? b.winPct : b[sortKey];
-      if(typeof av === 'string') return sortDir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
+  function sortData(list, key, dir){
+    list.sort((a,b) => {
+      let av = key === 'record' ? a.winPct : a[key];
+      let bv = key === 'record' ? b.winPct : b[key];
+      if(typeof av === 'string') return dir === 'asc' ? av.localeCompare(bv) : bv.localeCompare(av);
       av = av == null ? -Infinity : av;
       bv = bv == null ? -Infinity : bv;
-      return sortDir === 'asc' ? av - bv : bv - av;
+      return dir === 'asc' ? av - bv : bv - av;
     });
+    return list;
   }
 
   function draw(){
-    sortData();
-    el.innerHTML = `<div class="table-scroll"><table id="standings-table">
-      <thead><tr>
+    const data = sortData(TEAMS.slice(), sortKey, sortDir);
+    const isRegular = mode === 'regular';
+
+    const tabsHtml = `<div class="standings-tabs">
+      <button type="button" class="standings-tab${isRegular ? ' active' : ''}" data-mode="regular">Regular Season</button>
+      <button type="button" class="standings-tab${!isRegular ? ' active' : ''}" data-mode="playoffs">Playoffs</button>
+    </div>`;
+
+    const theadHtml = isRegular ? `<tr>
         <th data-key="rank">#</th>
         <th data-key="owner">Owner / Team</th>
         <th data-key="seasons">Seasons</th>
@@ -179,10 +200,40 @@ function renderStandings(containerId){
         <th data-key="diff">Pt Diff/G</th>
         <th data-key="playoffW">Playoff Record</th>
         <th data-key="highScore">Best Gm</th>
-      </tr></thead>
-      <tbody>${data.map(standingsRowHTML).join('')}</tbody>
+      </tr>` : `<tr>
+        <th data-key="rank">#</th>
+        <th data-key="owner">Owner / Team</th>
+        <th data-key="champs">Titles</th>
+        <th data-key="playoffApp">Playoff Apps</th>
+        <th data-key="byes">Byes</th>
+        <th data-key="playoffW">Playoff Record</th>
+        <th data-key="playoffWinPct">Playoff Win%</th>
+        <th data-key="champGameApp">Champ. Gm Apps</th>
+        <th data-key="champGameW">Champ. Gm Record</th>
+      </tr>`;
+
+    const rowFn = isRegular ? standingsRowHTML : playoffRowHTML;
+    const footnote = isRegular
+      ? 'Click a column header to sort. Playoff Record reflects career playoff wins-losses.'
+      : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only.';
+
+    el.innerHTML = `${tabsHtml}
+    <div class="table-scroll"><table id="standings-table">
+      <thead>${theadHtml}</thead>
+      <tbody>${data.map(rowFn).join('')}</tbody>
     </table></div>
-    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort. Playoff Record reflects career playoff wins-losses.</p>`;
+    <p class="muted" style="font-size:0.82rem;margin-top:10px;">${footnote}</p>`;
+
+    el.querySelectorAll('.standings-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const newMode = btn.dataset.mode;
+        if(newMode === mode) return;
+        mode = newMode;
+        sortKey = mode === 'regular' ? 'winPct' : 'playoffWinPct';
+        sortDir = 'desc';
+        draw();
+      });
+    });
 
     el.querySelectorAll('thead th').forEach(th => {
       const key = th.dataset.key;
