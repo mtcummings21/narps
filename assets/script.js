@@ -154,6 +154,7 @@ function playoffRowHTML(t, i){
     <td class="pos">${t.byes}</td>
     <td>${t.playoffW}-${t.playoffL}</td>
     <td>${fmtPct(t.playoffWinPct)}</td>
+    <td>${t.playoffPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td class="pos">${t.champGameApp}</td>
     <td>${t.champGameW}-${t.champGameL}</td>
   </tr>`;
@@ -179,8 +180,11 @@ function renderStandings(containerId){
   }
 
   function draw(){
-    const data = sortData(TEAMS.slice(), sortKey, sortDir);
     const isRegular = mode === 'regular';
+    const sourceList = isRegular
+      ? TEAMS.slice()
+      : TEAMS.map(t => ({ ...t, playoffPF: computeAllTimeRecords().playoffPoints[t.key] || 0 }));
+    const data = sortData(sourceList, sortKey, sortDir);
 
     const tabsHtml = `<div class="standings-tabs">
       <button type="button" class="standings-tab${isRegular ? ' active' : ''}" data-mode="regular">Regular Season</button>
@@ -208,6 +212,7 @@ function renderStandings(containerId){
         <th data-key="byes">Byes</th>
         <th data-key="playoffW">Playoff Record</th>
         <th data-key="playoffWinPct">Playoff Win%</th>
+        <th data-key="playoffPF">Total Playoff PF</th>
         <th data-key="champGameApp">Champ. Gm Apps</th>
         <th data-key="champGameW">Champ. Gm Record</th>
       </tr>`;
