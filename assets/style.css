@@ -921,6 +921,32 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 .race-chart .race-team{ opacity: 0.9; transition: opacity 0.15s; }
 .race-chart:hover .race-team{ opacity: 0.15; }
 .race-chart:hover .race-team:hover{ opacity: 1; }
+.standings-tabs{
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  margin-bottom: 16px;
+}
+.standings-tab{
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 7px 18px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-soft);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+.standings-tab:hover{ color: var(--navy); }
+.standings-tab.active{
+  background: var(--ink);
+  color: var(--white);
+}
 /* ---------- Champions pennant wall ---------- */
 .champ-grid{
   display:flex;
