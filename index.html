@@ -41,7 +41,7 @@
     <div class="stat-row">
       <div class="stat"><div class="num">16</div><div class="label">Seasons Played</div></div>
       <div class="stat"><div class="num">13</div><div class="label">Franchises</div></div>
-      <div class="stat"><div class="num">1,126</div><div class="label">Total Games</div></div>
+      <div class="stat"><div class="num" id="stat-total-games">—</div><div class="label">Total Games</div></div>
       <div class="stat"><div class="num">2011</div><div class="label">Founded</div></div>
     </div>
   </div>
@@ -135,6 +135,7 @@
 <script>
   renderTrophyCase('home-trophy-case', 5);
   renderHeadlines('home-headlines');
+  renderTotalGamesStat('stat-total-games');
 </script>
 </body>
 </html>
