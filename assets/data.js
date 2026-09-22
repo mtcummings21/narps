@@ -14046,16 +14046,16 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Josh Allen accounts for 5 TDs as Bills christen new $2.1B Highmark Stadium with 41-31 win over Lions", url: "https://www.nfl.com/news/josh-allen-opens-bills-new-stadium-with-5-tds-in-dominant-win-over-lions" },
-  { title: "Falcons' QB situation turns dire entering Week 2; Stefanski won't name a starter", url: "https://sports.yahoo.com/nfl/live/nfl-news-today-injury-updates-rumors-week-2-rosters-nico-collins-joe-burrow-120656469.html" },
-  { title: "Texans' Nico Collins suffers hamstring injury", url: "https://sports.yahoo.com/nfl/live/nfl-news-today-injury-updates-rumors-week-2-rosters-nico-collins-joe-burrow-120656469.html" },
-  { title: "Bills' DJ Moore suffers AC joint sprain in win over Lions; Week 3 status uncertain", url: "https://www.nfl.com/news/josh-allen-opens-bills-new-stadium-with-5-tds-in-dominant-win-over-lions" },
-  { title: "Woman in Josh Jacobs case seeks to permanently seal evidence in battery matter", url: "https://www.espn.com/nfl/story/_/id/49951016/woman-josh-jacobs-case-wants-evidence-permanently-sealed" },
-  { title: "Cummings' 10-game win streak — 2nd-longest in League of NARPS history — snapped in Week 1", url: "season.html?year=2026" },
-  { title: "Caleb Williams drops 37.1, the league's best score of Week 1 — and Rapp still loses", url: "season.html?year=2026" },
-  { title: "Seth Thacker's 128.8 in his franchise debut leads the league — and sets a new Kareem Pie record", url: "season.html?year=2026" },
-  { title: "Derrick Henry goes for 34.8, but it's not enough to save Free Agents' Week 1", url: "season.html?year=2026" },
-  { title: "Aaron Burns' Week 1 win pushes him to 75 career victories", url: "season.html?year=2026" }
+  { title: "Falcons name Michael Penix Jr. Week 3 starter, resolving the QB chaos that opened the season", url: "https://www.profootballrumors.com/2026/09/falcons-name-michael-penix-jr-week-3-starting-qb" },
+  { title: "Giants' Jaxson Dart knocked out with an MCL sprain — a scare for Aaron Burns' Fantasy Football Team", url: "https://www.nbcsports.com/fantasy/football/news/2026-nfl-week-3-injury-report-jaxson-dart-mcl-chargers-down-two-tes-more-49ers-injuries" },
+  { title: "Bears' Caleb Williams week-to-week with a hamstring injury, muddying things for Luke Rapp's ACLiens", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-3-injury-panic-meter-jaxson-dart-caleb-williams-jayden-daniels/" },
+  { title: "Commanders' Jayden Daniels dislocates his elbow again, no timeline set — a gut punch for Joe Garton's 2-0 Route 2 Ravers", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-3-injury-panic-meter-jaxson-dart-caleb-williams-jayden-daniels/" },
+  { title: "Patrick Mahomes leads Chiefs to a wild OT win over the Colts, a bright spot for Z Hickman's Free Agents", url: "https://www.espn.com/nfl/story/_/id/49984903/week-2-highlights-best-plays-touchdowns-2026" },
+  { title: "The Deplorables and Route 2 Ravers are the league's last unbeatens after Week 2", url: "season.html?year=2026" },
+  { title: "Tyler Clay's Money Badgers snap Aaron Burns' 4-game win streak in an 87.1-83.6 nail-biter", url: "season.html?year=2026" },
+  { title: "Joe Prino's Powerhouse snaps its early skid, topping Seth Thacker's Kareem Pie 80.2-67.1 in Week 2", url: "season.html?year=2026" },
+  { title: "Luke Rapp's ACLiens drop to 0-2 despite Caleb Williams' league-best 37.1 in Week 1", url: "season.html?year=2026" },
+  { title: "Tyler Cummings' Legends bounce back from their Week 1 upset, routing Business as Usual 98.9-71.7", url: "season.html?year=2026" }
 ];
 
 const SURVIVOR = {
