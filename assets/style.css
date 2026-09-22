@@ -1025,7 +1025,7 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 table{
   width:100%;
   border-collapse: collapse;
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 0.84rem;
   background: var(--panel);
 }
@@ -1315,7 +1315,7 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 .h2h-wrap{ overflow-x:auto; border-radius: var(--radius); border: 1px solid var(--line); }
 .h2h-grid{
   border-collapse: collapse;
-  font-family: var(--mono);
+  font-family: var(--body);
   font-size: 0.76rem;
   background: var(--panel);
 }
