@@ -491,6 +491,9 @@ function matchupCard(g){
 }
 
 // ---------- Standings race chart (weekly rank tracker) ----------
+// Only shown once a season has at least 4 completed weeks of results.
+const RACE_CHART_MIN_WEEKS = 4;
+
 function computeWeeklyRanks(s){
   const weekNum = (wk) => parseInt(wk.replace(/\D/g, ''), 10) || 0;
   const weekKeys = Object.keys(s.schedule || {})
@@ -539,7 +542,7 @@ function weekNumLabel(wk){
 
 function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
   const data = computeWeeklyRanks(s);
-  if(!data || data.weekKeys.length < 2) return '';
+  if(!data || data.weekKeys.length < RACE_CHART_MIN_WEEKS) return '';
   const { weekKeys, rankHistory, teamCount } = data;
   const owners = Object.keys(rankHistory);
 
@@ -902,6 +905,11 @@ function renderSeasonDetail(containerId){
     return top;
   }
 
+  const raceChartSvg = hasResults ? renderStandingsRaceChart(s, keyByLastName, lastNameOf) : '';
+  const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season. Hover a line for the team name.</p>
+  ${raceChartSvg}` : '';
+
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
   const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
   const topStartersSection = hasTopStarters ? `<h2 class="section-title" style="margin-top:40px;">Top Scoring Starters</h2>
@@ -912,11 +920,6 @@ function renderSeasonDetail(containerId){
       return t ? `<li><strong>${pos}:</strong> ${t.player} (${t.teamName}) — ${t.pts.toFixed(1)} pts</li>` : `<li><strong>${pos}:</strong> —</li>`;
     }).join('')}
   </ul>` : '';
-
-  const raceChartSvg = hasResults ? renderStandingsRaceChart(s, keyByLastName, lastNameOf) : '';
-  const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season. Hover a line for the team name.</p>
-  ${raceChartSvg}` : '';
 
   el.innerHTML = `
     ${podium}
