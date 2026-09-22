@@ -563,7 +563,29 @@ function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
   </div>`;
 }
 
+// Merges the lazily-loaded BOXSCORES (from assets/data-boxscores.js) into SEASONS,
+// so game objects get their .boxscore field attached the same way it used to live
+// inline in data.js. Safe to call multiple times or when BOXSCORES isn't loaded yet.
+let _boxscoresAttached = false;
+function attachBoxscores(){
+  if(_boxscoresAttached) return;
+  if(typeof BOXSCORES === 'undefined' || typeof SEASONS === 'undefined') return;
+  Object.keys(BOXSCORES).forEach(year => {
+    const season = SEASONS[year];
+    if(!season || !season.schedule) return;
+    Object.keys(BOXSCORES[year]).forEach(week => {
+      const games = season.schedule[week];
+      if(!games) return;
+      BOXSCORES[year][week].forEach((bs, i) => {
+        if(games[i] && bs) games[i].boxscore = bs;
+      });
+    });
+  });
+  _boxscoresAttached = true;
+}
+
 function renderSeasonDetail(containerId){
+  attachBoxscores();
   const el = document.getElementById(containerId);
   if(!el) return;
   const params = new URLSearchParams(window.location.search);
@@ -821,7 +843,9 @@ function renderSeasonDetail(containerId){
 
   const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
   const hasDraftOrder = typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year];
-  const hasDraftResults = typeof DRAFT_HISTORY !== 'undefined' && DRAFT_HISTORY[year] && DRAFT_HISTORY[year].length > 0;
+  const hasDraftResults = typeof DRAFT_RESULTS_YEARS !== 'undefined'
+    ? DRAFT_RESULTS_YEARS.includes(String(year))
+    : (typeof DRAFT_HISTORY !== 'undefined' && DRAFT_HISTORY[year] && DRAFT_HISTORY[year].length > 0);
   const draftSection = (!seasonStarted && hasDraftOrder && !hasDraftResults) ? `
     ${draftInfo ? `<div class="countdown-card" style="margin:24px 0 32px;">
       <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
