@@ -125,6 +125,26 @@ function renderTrophyCase(containerId, limit){
   }).join('');
 }
 
+// ---------- Homepage hero stats ----------
+// Total regular-season games played across all seasons to date (excludes playoffs
+// and excludes unplayed/placeholder 0-0 weeks of an in-progress season). Rendered
+// live so the homepage stat never needs a manual update after adding a week's results.
+function totalRegularSeasonGamesPlayed(){
+  let count = 0;
+  Object.values(SEASONS || {}).forEach(s => {
+    Object.values(s.schedule || {}).forEach(games => {
+      games.forEach(g => { if(!(g.awayScore === 0 && g.homeScore === 0)) count++; });
+    });
+  });
+  return count;
+}
+
+function renderTotalGamesStat(elId){
+  const el = document.getElementById(elId);
+  if(!el) return;
+  el.textContent = totalRegularSeasonGamesPlayed().toLocaleString('en-US');
+}
+
 // ---------- Standings table ----------
 function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
 
