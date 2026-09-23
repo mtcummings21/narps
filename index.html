@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>League of NARPS — League History</title>
-<meta name="description" content="Sixteen seasons of the League of NARPS: champions, standings, rivalries, and records.">
+<meta name="description" content="Fifteen seasons of the League of NARPS: champions, standings, rivalries, and records.">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/style.css">
 </head>
@@ -37,23 +37,26 @@
   <div class="wrap">
     <p class="eyebrow">The Official Archive</p>
     <h1>League of NARPS</h1>
-    <p class="lede">Sixteen seasons. Thirteen franchises. A lot of questionable lineup decisions. This is the complete, spreadsheet-verified history of the league — every champion, every rivalry, every record.</p>
+    <p class="lede">Fifteen seasons. Twelve franchises. A lot of questionable lineup decisions. This is the complete, spreadsheet-verified history of the league — every champion, every rivalry, every record.</p>
     <div class="stat-row">
-      <div class="stat"><div class="num">16</div><div class="label">Seasons Played</div></div>
-      <div class="stat"><div class="num">13</div><div class="label">Franchises</div></div>
-      <div class="stat"><div class="num" id="stat-total-games">—</div><div class="label">Total Games</div></div>
+      <div class="stat"><div class="num">15</div><div class="label">Seasons Played</div></div>
+      <div class="stat"><div class="num">12</div><div class="label">Franchises</div></div>
+      <div class="stat"><div class="num">1,120</div><div class="label">Total Games</div></div>
       <div class="stat"><div class="num">2011</div><div class="label">Founded</div></div>
     </div>
   </div>
 </section>
 
-<section style="padding-top:32px; padding-bottom:24px; border-top:none;">
+<section style="padding-top:0; padding-bottom:0; border-top:none;">
   <div class="wrap">
-    <div id="home-headlines"></div>
+    <div class="countdown-card">
+      <div class="countdown-title">Kickoff — Wed, Sept 9, 2026 · 8:20 PM ET · Patriots @ Seahawks</div>
+      <div id="kickoff-countdown"></div>
+    </div>
   </div>
 </section>
 
-<section style="padding-top:24px;">
+<section style="padding-top:0;">
   <div class="wrap">
     <div class="memorial-card">
       <div class="memorial-eyebrow">In Memory Of</div>
@@ -72,6 +75,33 @@
         <img class="memorial-photo" src="assets/geiger.jpg" alt="Matt Geiger">
       </div>
     </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">Latest Newsletter</h2>
+      <span class="section-sub">Vol. 9, No. 2</span>
+    </div>
+    <div class="card-grid">
+      <a class="nav-card" href="newsletter-vol9-no2.html">
+        <div class="card-eyebrow">Week 2 Recap</div>
+        <h3>A Generation Crippled</h3>
+        <p>Caleb Williams, Jayden Daniels, and Jaxson Dart all go down hurt, the League of NARPS averages just 91.1 points on the week, and two teams start 2-0.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title">2026 Draft Order</h2>
+      <span class="section-sub">Snake Draft · Round 1</span>
+    </div>
+    <div id="home-draft-order"></div>
+    <p style="margin-top:6px;"><a href="season.html?year=2026" style="font-family:var(--mono); font-size:0.85rem; text-decoration:underline; color:var(--blue);">Full draft order & countdown →</a></p>
   </div>
 </section>
 
@@ -134,8 +164,8 @@
 <script src="assets/script.js"></script>
 <script>
   renderTrophyCase('home-trophy-case', 5);
-  renderHeadlines('home-headlines');
-  renderTotalGamesStat('stat-total-games');
+  renderCountdown('kickoff-countdown', '2026-09-09T20:20:00-04:00');
+  renderDraftOrder('home-draft-order');
 </script>
 </body>
 </html>
