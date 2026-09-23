@@ -991,6 +991,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "The Week 1 Recap",
     "url": "newsletter-vol9-no1.html"
+  },
+  {
+    "vol": 9,
+    "no": 2,
+    "year": 2026,
+    "title": "A Generation Crippled",
+    "url": "newsletter-vol9-no2.html"
   }
 ];
 
