@@ -702,8 +702,8 @@ h2.section-title{
   border-top: 3px solid #A9822B;
   box-shadow: var(--shadow), 0 0 0 1px rgba(169,130,43,0.25);
 }
-.plaque--recent .yr{ color: var(--navy-soft); }
-.plaque--recent .owner{ color: var(--navy); }
+.plaque--recent .yr{ color: rgba(11,36,71,0.72); }
+.plaque--recent .owner{ color: var(--ink); }
 .plaque--recent .team{ color: rgba(11,36,71,0.62); }
 .plaque--recent .repeat-tag{
   color: var(--white);
@@ -716,8 +716,8 @@ h2.section-title{
   border-top: 3px solid #8B939E;
   box-shadow: var(--shadow), 0 0 0 1px rgba(139,147,158,0.25);
 }
-.plaque--silver .yr{ color: var(--navy-soft); }
-.plaque--silver .owner{ color: var(--navy); }
+.plaque--silver .yr{ color: rgba(11,36,71,0.72); }
+.plaque--silver .owner{ color: var(--ink); }
 .plaque--silver .team{ color: rgba(11,36,71,0.62); }
 .plaque--silver .repeat-tag{
   color: var(--white);
@@ -730,8 +730,8 @@ h2.section-title{
   border-top: 3px solid #8A4E28;
   box-shadow: var(--shadow), 0 0 0 1px rgba(138,78,40,0.25);
 }
-.plaque--bronze .yr{ color: var(--navy-soft); }
-.plaque--bronze .owner{ color: var(--navy); }
+.plaque--bronze .yr{ color: rgba(11,36,71,0.72); }
+.plaque--bronze .owner{ color: var(--ink); }
 .plaque--bronze .team{ color: rgba(11,36,71,0.62); }
 .plaque--bronze .repeat-tag{
   color: var(--white);
