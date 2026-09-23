@@ -15897,9 +15897,182 @@ const SURVIVOR = {
 };
 
 // ---------- Rules & Bylaws Voting History ----------
-// Sourced from League of NARPS SurveyMonkey rule-change ballots, 2015–2025.
+// Sourced from League of NARPS SurveyMonkey rule-change ballots, 2013–2025.
 // "passed" = true (adopted) / false (rejected) / null (plurality pick among 3+ options, or informational/logistics)
 const RULES_HISTORY = [
+  {
+    "year": 2013,
+    "rounds": [
+      {
+        "label": "Fantasy Football 2013 Survey",
+        "votes": [
+          {
+            "category": "Draft",
+            "question": "What type of draft should we use?",
+            "options": ["Snake — 80% (8)", "Auction — 20% (2)"],
+            "result": "Snake",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "How many keepers should we have for the 2014 season?",
+            "options": ["1 — 50% (5)", "2 — 40% (4)", "3 — 0% (0)", "None — 10% (1)"],
+            "result": "1 keeper",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "How many transactions should be allowed per week?",
+            "options": ["2 — 33.33% (3)", "3 — 22.22% (2)", "Unlimited — 44.44% (4)"],
+            "result": "Unlimited",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "What type of draft shall we use for NEXT season (if we have keepers)?",
+            "options": ["Random — 33.33% (3)", "Inverse of standings — 33.33% (3)", "Lottery — 33.33% (3)"],
+            "result": "Three-way tie (Random, Inverse of standings, Lottery each 33.33%) — no majority",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "Fantasy Football 2013 — Round 2",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "How many transactions should be allowed per week?",
+            "options": ["2 — 60% (6)", "Unlimited — 40% (4)"],
+            "result": "2",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "What draft order selection should be implemented until keepers are reset?",
+            "options": ["Lottery — 40% (4)", "Inverse of Standings — 40% (4)", "Random — 20% (2)"],
+            "result": "Tied — Lottery and Inverse of Standings each 40% (Random eliminated with 20%)",
+            "passed": null
+          },
+          {
+            "category": "Roster",
+            "question": "What position should be added to the roster? (Note: the RB/WR slot will be removed.)",
+            "options": ["FLEX (RB, WR, or TE) — 80% (8)", "OP (RB, WR, TE, or QB) — 20% (2)"],
+            "result": "FLEX (RB, WR, or TE)",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "After ___ year(s) ALL keepers shall be RESET.",
+            "options": ["1 — 20% (2)", "2 — 40% (4)", "3 — 40% (4)"],
+            "result": "Tied — 2 years and 3 years each 40% (1 year got 20%)",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "Fantasy Football 2013 — Round 3",
+        "votes": [
+          {
+            "category": "Membership",
+            "question": "How many teams shall be in the league?",
+            "options": ["10 — 70% (7)", "12 — 30% (3)"],
+            "result": "10 teams",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "Keepers should be reset the beginning of the _____ season?",
+            "options": ["2016 — 60% (6)", "2017 — 40% (4)"],
+            "result": "2016",
+            "passed": true
+          },
+          {
+            "category": "Draft",
+            "question": "What draft order selection shall be used until keepers are reset?",
+            "options": ["Inverse of Standings — 50% (5)", "Lottery — 50% (5)"],
+            "result": "Tied — Inverse of Standings and Lottery each 50%",
+            "passed": null
+          },
+          {
+            "category": "Roster",
+            "question": "ESPN does not allow for a limit of transactions per week; transactions can only be limited on a per-year basis (most in a season: 31 in 2012; fewest: 6 in 2011). Teams shall be limited to ____ transactions per year?",
+            "options": ["No limit — 40% (4)", "20 — 30% (3)", "15 — 20% (2)", "10 — 10% (1)"],
+            "result": "No majority (No limit led with 40%) — advanced to a runoff",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "Fantasy Football 2013 — Transactions Runoff",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "How many transactions should teams be limited to in a season?",
+            "options": ["20 — 60% (6)", "No limit — 40% (4)"],
+            "result": "20 transactions per season",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "year": 2014,
+    "rounds": [
+      {
+        "label": "2014 Fantasy Football I",
+        "votes": [
+          {
+            "category": "Membership",
+            "question": "Are you in favor of expanding the League to include a total of twelve (12) members?",
+            "options": ["YES — 55.56% (5)", "NO — 44.44% (4)"],
+            "result": "YES — expand to 12 members",
+            "passed": true
+          },
+          {
+            "category": "Playoffs",
+            "question": "Are you in favor of changing to a two-week playoff matchup (the result of a two-week playoff matchup would be a shortened regular season)?",
+            "options": ["YES — 2 week playoff matchup — 55.56% (5)", "NO — 1 week playoff matchup — 44.44% (4)"],
+            "result": "YES — 2-week playoff matchup",
+            "passed": true
+          },
+          {
+            "category": "Playoffs",
+            "question": "What should be the last week of the playoffs?",
+            "options": ["15 — 33.33% (3)", "16 — 66.67% (6)", "17 — 0% (0)"],
+            "result": "Week 16",
+            "passed": true
+          },
+          {
+            "category": "Roster",
+            "question": "What type of transaction system should be used?",
+            "options": ["No Waivers — 44.44% (4)", "Waivers — 44.44% (4)", "Auction — 11.11% (1)"],
+            "result": "Tied — No Waivers and Waivers each 44.44% (Auction got 11.11%)",
+            "passed": null
+          }
+        ]
+      },
+      {
+        "label": "Fantasy Football II",
+        "votes": [
+          {
+            "category": "Roster",
+            "question": "What type of transaction system should we use?",
+            "options": ["Waivers — 55.56% (5)", "No Waivers — 44.44% (4)"],
+            "result": "Waivers",
+            "passed": true
+          },
+          {
+            "category": "Finances",
+            "question": "Do you favor increasing fees from $20 to $30, for which the first year $5 from each member will be used to purchase a trophy for the League?",
+            "options": ["YES — 55.56% (5)", "NO — 44.44% (4)"],
+            "result": "YES — dues increased to $30",
+            "passed": true
+          }
+        ]
+      }
+    ]
+  },
   {
     "year": 2015,
     "rounds": [
