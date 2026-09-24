@@ -373,7 +373,7 @@ function renderAwards(containerId){
 function renderVolumesList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => a - b);
+  const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => b - a);
   el.innerHTML = `<div class="card-grid">` + vols.map(v => {
     const issues = NEWSLETTERS.filter(n => n.vol === v).sort((a,b) => a.no - b.no);
     const years = Array.from(new Set(issues.map(n => n.year))).sort((a,b) => a - b);
