@@ -1843,8 +1843,11 @@ function renderRulesHistory(containerId){
 
   document.title = `${year} Rules & Bylaws — League of NARPS`;
 
-  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
-    <a href="rules.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
+  const yearSwitcher = `<div style="margin-bottom:24px;">
+    <select id="rules-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
+      ${years.map(y => `<option value="${y}" ${y === year ? 'selected' : ''}>${y}</option>`).join('')}
+    </select>
+  </div>`;
 
   const outcomePill = (v) => {
     if(v.passed === true) return `<span class="rule-pill rule-passed">Passed</span>`;
@@ -1877,6 +1880,13 @@ function renderRulesHistory(containerId){
   }).join('') : '<p class="muted">No rule changes recorded for this year.</p>';
 
   el.innerHTML = yearSwitcher + roundsHtml;
+
+  const select = document.getElementById('rules-year-select');
+  if(select){
+    select.addEventListener('change', () => {
+      window.location.href = `rules.html?year=${select.value}`;
+    });
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
