@@ -1279,8 +1279,11 @@ function renderSurvivor(containerId){
 
   document.title = `${year} Survivor — League of NARPS`;
 
-  const yearSwitcher = years.length > 1 ? `<div style="display:flex; gap:8px; margin-bottom:24px;">${years.map(y => `
-    <a href="survivor.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>` : '';
+  const yearSwitcher = years.length > 1 ? `<div style="margin-bottom:24px;">
+    <select id="survivor-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
+      ${years.map(y => `<option value="${y}" ${y === year ? 'selected' : ''}>${y}</option>`).join('')}
+    </select>
+  </div>` : '';
 
   const sorted = s.players.slice().sort((a,b) => {
     if(a.result === 'Winner') return -1;
@@ -1385,6 +1388,13 @@ function renderSurvivor(containerId){
     ${lockNote}
     ${picksTable}
   `;
+
+  const select = document.getElementById('survivor-year-select');
+  if(select){
+    select.addEventListener('change', () => {
+      window.location.href = `survivor.html?year=${select.value}`;
+    });
+  }
 }
 
 // ---------- Head-to-head (computed from verified season data) ----------
@@ -1767,8 +1777,11 @@ function renderDraftHistory(containerId){
 
   document.title = `${year} Draft — League of NARPS`;
 
-  const yearSwitcher = `<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px;">${years.map(y => `
-    <a href="draft.html?year=${y}" style="font-family:var(--mono); font-size:0.85rem; padding:6px 14px; border-radius:20px; text-decoration:none; ${y === year ? 'background:var(--navy); color:var(--white);' : 'background:var(--panel); color:var(--text-soft); border:1px solid var(--line);'}">${y}</a>`).join('')}</div>`;
+  const yearSwitcher = `<div style="margin-bottom:24px;">
+    <select id="draft-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
+      ${years.map(y => `<option value="${y}" ${y === year ? 'selected' : ''}>${y}</option>`).join('')}
+    </select>
+  </div>`;
 
   let data = DRAFT_HISTORY[year].slice();
   let sortKey = 'overall';
@@ -1829,6 +1842,13 @@ function renderDraftHistory(containerId){
   switcherWrap.innerHTML = yearSwitcher;
   el.appendChild(switcherWrap);
   el.appendChild(tableEl);
+
+  const select = document.getElementById('draft-year-select');
+  if(select){
+    select.addEventListener('change', () => {
+      window.location.href = `draft.html?year=${select.value}`;
+    });
+  }
 }
 
 // ---------- Rules & Bylaws History ----------
