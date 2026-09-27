@@ -1263,8 +1263,8 @@ function nflLogo(teamName, opts = {}){
   const abbr = NFL_LOGO_ABBR[teamName];
   const size = opts.size || 26;
   if(!abbr) return teamName;
-  const resultClass = opts.loss === true ? ' pick-logo--loss' : (opts.loss === false ? ' pick-logo--win' : '');
-  const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : teamName);
+  const resultClass = opts.loss === true ? ' pick-logo--loss' : (opts.loss === false ? ' pick-logo--win' : ' pick-logo--pending');
+  const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : `${teamName} (pending)`);
   return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
 function renderSurvivor(containerId){
