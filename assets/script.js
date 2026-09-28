@@ -1334,6 +1334,10 @@ function renderSurvivor(containerId){
 
   const pinnedNames = ['Aaron', 'Zach', 'Ronnie'];
   const picksSorted = sorted.slice().sort((a,b) => {
+    if(year === '2026'){
+      const aOut = a.result === 'Eliminated', bOut = b.result === 'Eliminated';
+      if(aOut !== bOut) return aOut ? 1 : -1;
+    }
     const aIdx = pinnedNames.indexOf(a.name);
     const bIdx = pinnedNames.indexOf(b.name);
     if(aIdx !== -1 || bIdx !== -1){
