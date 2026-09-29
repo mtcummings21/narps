@@ -14053,16 +14053,16 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Falcons name Michael Penix Jr. Week 3 starter, resolving the QB chaos that opened the season", url: "https://www.profootballrumors.com/2026/09/falcons-name-michael-penix-jr-week-3-starting-qb" },
-  { title: "Giants' Jaxson Dart knocked out with an MCL sprain — a scare for Aaron Burns' Fantasy Football Team", url: "https://www.nbcsports.com/fantasy/football/news/2026-nfl-week-3-injury-report-jaxson-dart-mcl-chargers-down-two-tes-more-49ers-injuries" },
-  { title: "Bears' Caleb Williams week-to-week with a hamstring injury, muddying things for Luke Rapp's ACLiens", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-3-injury-panic-meter-jaxson-dart-caleb-williams-jayden-daniels/" },
-  { title: "Commanders' Jayden Daniels dislocates his elbow again, no timeline set — a gut punch for Joe Garton's 2-0 Route 2 Ravers", url: "https://www.cbssports.com/nfl/news/2026-nfl-week-3-injury-panic-meter-jaxson-dart-caleb-williams-jayden-daniels/" },
-  { title: "Patrick Mahomes leads Chiefs to a wild OT win over the Colts, a bright spot for Z Hickman's Free Agents", url: "https://www.espn.com/nfl/story/_/id/49984903/week-2-highlights-best-plays-touchdowns-2026" },
-  { title: "The Deplorables and Route 2 Ravers are the league's last unbeatens after Week 2", url: "season.html?year=2026" },
-  { title: "Tyler Clay's Money Badgers snap Aaron Burns' 4-game win streak in an 87.1-83.6 nail-biter", url: "season.html?year=2026" },
-  { title: "Joe Prino's Powerhouse snaps its early skid, topping Seth Thacker's Kareem Pie 80.2-67.1 in Week 2", url: "season.html?year=2026" },
-  { title: "Luke Rapp's ACLiens drop to 0-2 despite Caleb Williams' league-best 37.1 in Week 1", url: "season.html?year=2026" },
-  { title: "Tyler Cummings' Legends bounce back from their Week 1 upset, routing Business as Usual 98.9-71.7", url: "season.html?year=2026" }
+  { title: "Dolphins' De'Von Achane tears his ACL and is expected to miss the rest of the season — a brutal blow to Z Hickman's Free Agents", url: "https://www.nbcsports.com/fantasy/football/news/sunday-aftermath-week-3-injury-apocalypse-j-j-mccarthys-trade-and-much-more" },
+  { title: "Jahmyr Gibbs piles up 164 scrimmage yards and 3 TDs, powering Zach Sizemore's Deplorables to the week's top score", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
+  { title: "Bijan Robinson bulldozes for 194 rushing yards and 2 TDs, a monster day for Seth Thacker's Kareem Pie", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
+  { title: "Brock Purdy throws 4 touchdown passes, a huge night for Joe Prino's Powerhouse", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
+  { title: "Vikings' Justin Jefferson leaves with an ankle injury after two catches, worrying news for Aaron Burns' Fantasy Football Team", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
+  { title: "Jets' Breece Hall battling a thigh injury, a concern for Joe Garton's Route 2 Ravers", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
+  { title: "The Deplorables are the league's lone unbeaten at 3-0 after a league-best 131.3 in Week 3", url: "season.html?year=2026" },
+  { title: "Z Hickman's Free Agents top Route 2 Ravers 97.4-83.9, handing Joe Garton his first loss of the season", url: "season.html?year=2026" },
+  { title: "Joe Prino's Powerhouse hang 127.4 on Tyler Cummings' Legends, who fall to 1-2", url: "season.html?year=2026" },
+  { title: "Business as Usual and Luke Rapp's ACLiens are the league's only winless teams at 0-3", url: "season.html?year=2026" }
 ];
 
 const SURVIVOR = {
