@@ -148,6 +148,31 @@ function renderTotalGamesStat(elId){
 // ---------- Standings table ----------
 function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
 
+// Longest regular-season winning streak per franchise (consecutive regular-season
+// wins in chronological order, carrying across seasons; a loss or tie ends it;
+// unplayed 0-0 games are skipped). Playoff games are not part of SEASONS.schedule.
+function computeLongestWinStreaks(){
+  const keyByLast = {};
+  TEAMS.forEach(t => { keyByLast[lastNameOf(t.owner)] = t.key; });
+  const weekNum = wk => parseInt(String(wk).replace(/\D/g,''),10) || 0;
+  const cur = {}, best = {};
+  Object.keys(SEASONS || {}).sort((a,b) => a - b).forEach(yr => {
+    const sched = SEASONS[yr].schedule || {};
+    Object.keys(sched).sort((a,b) => weekNum(a) - weekNum(b)).forEach(wk => {
+      sched[wk].forEach(g => {
+        if(g.awayScore === 0 && g.homeScore === 0) return;
+        [[g.awayMgr, g.awayScore, g.homeScore], [g.homeMgr, g.homeScore, g.awayScore]].forEach(([m, pf, pa]) => {
+          const k = keyByLast[lastNameOf(m)];
+          if(!k) return;
+          if(pf > pa){ cur[k] = (cur[k] || 0) + 1; if(cur[k] > (best[k] || 0)) best[k] = cur[k]; }
+          else cur[k] = 0;
+        });
+      });
+    });
+  });
+  return best;
+}
+
 function standingsRowHTML(t, i){
   return `<tr>
     <td class="pos">${i+1}</td>
@@ -160,7 +185,7 @@ function standingsRowHTML(t, i){
     <td>${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td>${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
-    <td>${t.playoffW}-${t.playoffL}</td>
+    <td class="pos">${t.winStreak}</td>
     <td>${t.highScore.toFixed(1)}</td>
   </tr>`;
 }
@@ -186,6 +211,7 @@ function renderStandings(containerId){
   let mode = 'regular';
   let sortKey = 'winPct';
   let sortDir = 'desc';
+  const streaks = computeLongestWinStreaks();
 
   function sortData(list, key, dir){
     list.sort((a,b) => {
@@ -202,7 +228,7 @@ function renderStandings(containerId){
   function draw(){
     const isRegular = mode === 'regular';
     const sourceList = isRegular
-      ? TEAMS.slice()
+      ? TEAMS.map(t => ({ ...t, winStreak: streaks[t.key] || 0 }))
       : TEAMS.map(t => ({ ...t, playoffPF: computeAllTimeRecords().playoffPoints[t.key] || 0 }));
     const data = sortData(sourceList, sortKey, sortDir);
 
@@ -222,7 +248,7 @@ function renderStandings(containerId){
         <th data-key="totalPF">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
         <th data-key="diff">Pt Diff/G</th>
-        <th data-key="playoffW">Playoff Record</th>
+        <th data-key="winStreak">Longest Win Streak</th>
         <th data-key="highScore">Best Gm</th>
       </tr>` : `<tr>
         <th data-key="rank">#</th>
@@ -239,7 +265,7 @@ function renderStandings(containerId){
 
     const rowFn = isRegular ? standingsRowHTML : playoffRowHTML;
     const footnote = isRegular
-      ? 'Click a column header to sort. Playoff Record reflects career playoff wins-losses.'
+      ? 'Click a column header to sort. Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
       : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only.';
 
     el.innerHTML = `${tabsHtml}
