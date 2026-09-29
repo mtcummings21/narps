@@ -13261,6 +13261,14 @@ const SEASONS = {
         "pct": 0.667
       },
       {
+        "team": "Fantasy Football Team",
+        "owner": "Aaron Burns",
+        "w": 1,
+        "l": 2,
+        "t": 0,
+        "pct": 0.333
+      },
+      {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 2,
@@ -13275,14 +13283,6 @@ const SEASONS = {
         "l": 1,
         "t": 0,
         "pct": 0.667
-      },
-      {
-        "team": "Fantasy Football Team",
-        "owner": "Aaron Burns",
-        "w": 1,
-        "l": 2,
-        "t": 0,
-        "pct": 0.333
       },
       {
         "team": "Arabian Stallions",
