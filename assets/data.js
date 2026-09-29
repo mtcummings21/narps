@@ -13269,6 +13269,14 @@ const SEASONS = {
         "pct": 0.333
       },
       {
+        "team": "Arabian Stallions",
+        "owner": "Walid Salameh",
+        "w": 1,
+        "l": 2,
+        "t": 0,
+        "pct": 0.333
+      },
+      {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 2,
@@ -13285,12 +13293,12 @@ const SEASONS = {
         "pct": 0.667
       },
       {
-        "team": "Arabian Stallions",
-        "owner": "Walid Salameh",
-        "w": 1,
-        "l": 2,
+        "team": "ACLiens",
+        "owner": "Luke Rapp",
+        "w": 0,
+        "l": 3,
         "t": 0,
-        "pct": 0.333
+        "pct": 0
       },
       {
         "team": "Lincoln Legends",
@@ -13299,14 +13307,6 @@ const SEASONS = {
         "l": 2,
         "t": 0,
         "pct": 0.333
-      },
-      {
-        "team": "ACLiens",
-        "owner": "Luke Rapp",
-        "w": 0,
-        "l": 3,
-        "t": 0,
-        "pct": 0
       },
       {
         "team": "Business as Usual",
