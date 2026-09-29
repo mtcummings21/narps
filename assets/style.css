@@ -1361,3 +1361,9 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 .muted{ color: var(--text-soft); }
 .center{ text-align:center; }
 :focus-visible{ outline: 2px solid var(--blue); outline-offset: 2px; }
+
+/* All-time standings: center everything except the Owner / Team column */
+#standings-table th,
+#standings-table td{ text-align:center; }
+#standings-table th:nth-child(2),
+#standings-table td:nth-child(2){ text-align:left; }
