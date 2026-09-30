@@ -14047,7 +14047,7 @@ const DRAFT_ORDER = {
 
 // Dues paid, by team key, per season. Add a year entry as owners pay up.
 const PAID_STATUS = {
-  "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings", "Sizemore", "Burns", "Wright"]
+  "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings", "Sizemore", "Burns", "Wright", "Salameh"]
 };
 
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
