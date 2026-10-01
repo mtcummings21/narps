@@ -1131,8 +1131,8 @@ function renderHeadlines(containerId){
     </a>` : '';
 
   el.innerHTML = `
-    <a class="newsletter-banner" href="newsletter-vol9-no2.html">
-      <span>&#128240;</span> Read the latest newsletter — Vol. 9, No. 2: A Generation Crippled &rarr;
+    <a class="newsletter-banner" href="newsletter-vol9-no3.html">
+      <span>&#128240;</span> Read the latest newsletter — Vol. 9, No. 3: The First 2026 Power Rankings &rarr;
     </a>
     <div class="headlines-card">
       <div class="headlines-split">
