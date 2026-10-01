@@ -15903,8 +15903,8 @@ const SURVIVOR = {
       { "name": "Ronnie", "result": "Eliminated", "eliminatedWeek": 3, "picks": [ { "week": 1, "team": "Lions", "loss": false }, { "week": 2, "team": "Ravens", "loss": true }, { "week": 3, "team": "Seahawks", "loss": true } ] },
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false } ] },
       { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] },
-      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false } ] },
-      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false } ] },
+      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] },
+      { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Vikings", "loss": null } ] },
       { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false } ] }
     ]
   }
