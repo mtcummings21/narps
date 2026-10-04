@@ -15901,11 +15901,11 @@ const SURVIVOR = {
     "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00", "2": "2026-09-20T13:00:00-04:00", "3": "2026-09-27T13:00:00-04:00", "4": "2026-10-04T13:00:00-04:00" },
     "players": [
       { "name": "Ronnie", "result": "Eliminated", "eliminatedWeek": 3, "picks": [ { "week": 1, "team": "Lions", "loss": false }, { "week": 2, "team": "Ravens", "loss": true }, { "week": 3, "team": "Seahawks", "loss": true } ] },
-      { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] },
-      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] },
-      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] },
+      { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": false } ] },
+      { "name": "Cummings", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": false } ] },
+      { "name": "Luke", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": false } ] },
       { "name": "Aaron", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Vikings", "loss": null } ] },
-      { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": null } ] }
+      { "name": "Zach", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Jaguars", "loss": false }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": false } ] }
     ]
   }
 };
