@@ -1323,7 +1323,7 @@ function renderSurvivor(containerId){
       <div class="owner">${s.champion}</div>
       <div class="team">Last one standing</div>
     </div>
-  </div>` : `<p class="muted">Picks haven't started yet — check back once Week 1 kicks off.</p>`;
+  </div>` : '';
 
   const leaderboardRows = sorted.map((p, i) => {
     const result = p.result === 'Winner' ? 'Winner 🏆'
