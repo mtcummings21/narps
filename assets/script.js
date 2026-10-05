@@ -517,8 +517,8 @@ function matchupCard(g){
 }
 
 // ---------- Standings race chart (weekly rank tracker) ----------
-// Only shown once a season has at least 4 completed weeks of results.
-const RACE_CHART_MIN_WEEKS = 4;
+// Only shown once a season has at least 3 completed weeks of results.
+const RACE_CHART_MIN_WEEKS = 3;
 
 function computeWeeklyRanks(s){
   const weekNum = (wk) => parseInt(wk.replace(/\D/g, ''), 10) || 0;
@@ -532,7 +532,9 @@ function computeWeeklyRanks(s){
   owners.forEach(o => { record[o] = { w:0, l:0, t:0 }; points[o] = 0; });
 
   const rankHistory = {}; // owner -> [rank at week1, week2, ...]
-  owners.forEach(o => { rankHistory[o] = []; });
+  const pointsHistory = {}; // owner -> [cumulative points after week1, week2, ...]
+  const pointsRankHistory = {}; // owner -> [rank by cumulative points after each week]
+  owners.forEach(o => { rankHistory[o] = []; pointsHistory[o] = []; pointsRankHistory[o] = []; });
 
   weekKeys.forEach(wk => {
     (s.schedule[wk] || []).forEach(g => {
@@ -551,9 +553,13 @@ function computeWeeklyRanks(s){
     const rest = byRecord.slice(5).sort((a,b) => points[b] - points[a]);
     const order = top5.concat(rest);
     order.forEach((o, i) => rankHistory[o].push(i + 1));
+
+    // Total points scored race: pure rank by cumulative points.
+    owners.forEach(o => pointsHistory[o].push(points[o]));
+    owners.slice().sort((a,b) => points[b] - points[a]).forEach((o, i) => pointsRankHistory[o].push(i + 1));
   });
 
-  return { weekKeys, rankHistory, teamCount: owners.length };
+  return { weekKeys, rankHistory, pointsHistory, pointsRankHistory, teamCount: owners.length };
 }
 
 const RACE_CHART_COLORS = [
@@ -567,12 +573,25 @@ function weekNumLabel(wk){
 }
 
 function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
+  return renderRaceChart(s, 'standings');
+}
+
+function renderPointsRaceChart(s){
+  return renderRaceChart(s, 'points');
+}
+
+// mode 'standings': rank by the league's seeding rule. mode 'points': rank by total points scored,
+// with each team's running point total shown in the label and tooltips.
+function renderRaceChart(s, mode){
   const data = computeWeeklyRanks(s);
   if(!data || data.weekKeys.length < RACE_CHART_MIN_WEEKS) return '';
-  const { weekKeys, rankHistory, teamCount } = data;
+  const isPoints = mode === 'points';
+  const { weekKeys, teamCount } = data;
+  const rankHistory = isPoints ? data.pointsRankHistory : data.rankHistory;
   const owners = Object.keys(rankHistory);
+  const fmtPts = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-  const padL = 36, padR = 130, padT = 16, padB = 30;
+  const padL = 36, padR = isPoints ? 200 : 130, padT = 16, padB = 30;
   const chartW = 860, chartH = 60 + teamCount * 26;
   const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
   const xStep = weekKeys.length > 1 ? innerW / (weekKeys.length - 1) : 0;
@@ -594,13 +613,17 @@ function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
     const pts = ranks.map((r, i) => `${xAt(i)},${yAt(r)}`).join(' ');
     const lastRank = ranks[ranks.length - 1];
     const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
+    const totalPts = isPoints ? data.pointsHistory[o][ranks.length - 1] : null;
+    const endLabel = isPoints ? `${teamName} · ${fmtPts(totalPts)}` : teamName;
+    const weekDots = isPoints ? ranks.map((r, i) => `<circle cx="${xAt(i)}" cy="${yAt(r)}" r="4" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName} — ${weekNumLabel(weekKeys[i])}: ${fmtPts(data.pointsHistory[o][i])} pts (#${r})</title></circle>`).join('') : '';
     return `
       <g class="race-team">
         <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
-          <title>${teamName}</title>
+          <title>${endLabel}</title>
         </polyline>
         <circle cx="${xAt(ranks.length-1)}" cy="${yAt(lastRank)}" r="3.5" fill="${ownerColor[o]}" />
-        <text x="${xAt(ranks.length-1) + 10}" y="${yAt(lastRank) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${teamName}</text>
+        ${weekDots}
+        <text x="${xAt(ranks.length-1) + 10}" y="${yAt(lastRank) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${endLabel}</text>
       </g>
     `;
   }).join('');
@@ -935,6 +958,10 @@ function renderSeasonDetail(containerId){
   const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
   <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season. Hover a line for the team name.</p>
   ${raceChartSvg}` : '';
+  const pointsRaceSvg = hasResults ? renderPointsRaceChart(s) : '';
+  const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" style="margin-top:40px;">Points Race</h2>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank by total points scored after every week of the season. Hover a line or dot for the running point total.</p>
+  ${pointsRaceSvg}` : '';
 
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
   const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
@@ -960,6 +987,7 @@ function renderSeasonDetail(containerId){
     ${highlightsSection}
     ${topStartersSection}
     ${raceChartSection}
+    ${pointsRaceSection}
     ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
     <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
