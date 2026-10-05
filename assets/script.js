@@ -1387,7 +1387,12 @@ function renderSurvivor(containerId){
   const picksTableRows = picksSorted.map(p => {
     const cells = weekCols.map(w => {
       const pk = p.picks.find(x => x.week === w);
-      if(!pk) return `<td class="pos center">—</td>`;
+      if(!pk){
+        if(year === '2026' && p.result === 'Eliminated' && p.eliminatedWeek != null && w > p.eliminatedWeek){
+          return `<td class="pos center" title="Eliminated — Week ${p.eliminatedWeek}" style="color:var(--red); font-weight:700; font-size:1.1rem;">X</td>`;
+        }
+        return `<td class="pos center">—</td>`;
+      }
       if(isLocked(w)) return `<td class="pos center" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
       return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
     }).join('');
