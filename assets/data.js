@@ -15898,7 +15898,9 @@ const SURVIVOR = {
   },
   "2026": {
     "champion": null,
-    "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00", "2": "2026-09-20T13:00:00-04:00", "3": "2026-09-27T13:00:00-04:00", "4": "2026-10-04T13:00:00-04:00", "5": "2026-10-08T20:15:00-04:00" },
+    "weekRevealTimes": { "1": "2026-09-13T13:00:00-04:00", "2": "2026-09-20T13:00:00-04:00", "3": "2026-09-27T13:00:00-04:00", "4": "2026-10-04T13:00:00-04:00", "5": "2026-10-11T13:00:00-04:00" },
+    // Teams whose game kicks off before the weekly reveal (e.g. Thursday night) reveal at their own time: { week: { Team: ISO } }
+    "teamRevealTimes": { "5": { "Cowboys": "2026-10-08T20:15:00-04:00" } },
     "players": [
       { "name": "Ronnie", "result": "Eliminated", "eliminatedWeek": 3, "picks": [ { "week": 1, "team": "Lions", "loss": false }, { "week": 2, "team": "Ravens", "loss": true }, { "week": 3, "team": "Seahawks", "loss": true } ] },
       { "name": "Z", "result": "Active", "eliminatedWeek": null, "picks": [ { "week": 1, "team": "Chargers", "loss": true }, { "week": 2, "team": "49ers", "loss": false }, { "week": 3, "team": "Chiefs", "loss": false }, { "week": 4, "team": "Ravens", "loss": false } ] },

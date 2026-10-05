@@ -1357,6 +1357,13 @@ function renderSurvivor(containerId){
     const rt = revealTimes[w];
     return rt ? now < new Date(rt).getTime() : false;
   };
+  // Per-team early reveal (e.g. a Thursday-night game) overrides the weekly reveal time
+  const teamRevealTimes = s.teamRevealTimes || {};
+  const pickRevealTime = (w, team) => (teamRevealTimes[w] && teamRevealTimes[w][team]) || revealTimes[w];
+  const isPickLocked = (w, team) => {
+    const rt = pickRevealTime(w, team);
+    return rt ? now < new Date(rt).getTime() : false;
+  };
 
   const pinnedNames = ['Aaron', 'Zach', 'Ronnie'];
   const picksSorted = sorted.slice().sort((a,b) => {
@@ -1393,7 +1400,7 @@ function renderSurvivor(containerId){
         }
         return `<td class="pos center">—</td>`;
       }
-      if(isLocked(w)) return `<td class="pos center" title="Picks reveal ${new Date(revealTimes[w]).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
+      if(isPickLocked(w, pk.team)) return `<td class="pos center" title="Picks reveal ${new Date(pickRevealTime(w, pk.team)).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
       return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
     }).join('');
     return `<tr>
