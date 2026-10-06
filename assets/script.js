@@ -1470,6 +1470,45 @@ function renderSurvivor(containerId){
 // ---------- Head-to-head (computed from verified season data) ----------
 function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
 
+// ---------- Derived franchise playoff stats ----------
+// Byes and championship-game appearances/record are computed from each season's
+// playoff bracket (SEASONS[year].playoffs) instead of being hand-entered on TEAMS,
+// so they update automatically when a new season's playoffs are added to data.js.
+// A bye is any team listed in a round's `byes`; a championship game is any game in a
+// round whose label contains "Championship" (the 3rd-place round is excluded).
+function applyDerivedPlayoffStats(){
+  if(typeof TEAMS === 'undefined' || typeof SEASONS === 'undefined') return;
+  const keyByLast = {};
+  TEAMS.forEach(t => {
+    keyByLast[lastNameOf(t.owner)] = t.key;
+    t.byes = 0; t.champGameApp = 0; t.champGameW = 0; t.champGameL = 0;
+  });
+  const byKey = {};
+  TEAMS.forEach(t => { byKey[t.key] = t; });
+  const normTeam = n => (n || '').replace(/^The\s+/i, '').trim().toLowerCase();
+  Object.values(SEASONS).forEach(s => {
+    const ownerByTeam = {};
+    (s.standings || []).forEach(r => { ownerByTeam[normTeam(r.team)] = r.owner; });
+    Object.entries(s.playoffs || {}).forEach(([roundKey, round]) => {
+      (round.byes || []).forEach(b => {
+        const t = byKey[keyByLast[lastNameOf(ownerByTeam[normTeam(b.team)])]];
+        if(t) t.byes++;
+      });
+      if(roundKey === 'thirdPlace' || !/championship/i.test(round.label || '')) return;
+      (round.games || []).forEach(g => {
+        const away = byKey[keyByLast[lastNameOf(g.awayMgr)]];
+        const home = byKey[keyByLast[lastNameOf(g.homeMgr)]];
+        [away, home].forEach(t => { if(t) t.champGameApp++; });
+        if(g.awayScore === g.homeScore) return;
+        const [w, l] = g.awayScore > g.homeScore ? [away, home] : [home, away];
+        if(w) w.champGameW++;
+        if(l) l.champGameL++;
+      });
+    });
+  });
+}
+applyDerivedPlayoffStats();
+
 // ---------- All-Time Records (computed from verified season data) ----------
 function computeAllTimeRecords(){
   const keyByLastName = {};
