@@ -576,8 +576,86 @@ function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
   return renderRaceChart(s, 'standings');
 }
 
+// Points Race: each team's cumulative points behind that week's scoring leader.
+// Y axis is actual points behind (0 = leader, at the top).
 function renderPointsRaceChart(s){
-  return renderRaceChart(s, 'points');
+  const data = computeWeeklyRanks(s);
+  if(!data || data.weekKeys.length < RACE_CHART_MIN_WEEKS) return '';
+  const { weekKeys, pointsHistory, teamCount } = data;
+  const owners = Object.keys(pointsHistory);
+  const fmtPts = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const round1 = (v) => Math.round(v * 10) / 10;
+
+  // behind[owner][i] = leader's cumulative points after week i minus this owner's
+  const leaderPts = weekKeys.map((_, i) => Math.max(...owners.map(o => pointsHistory[o][i])));
+  const behind = {};
+  owners.forEach(o => { behind[o] = pointsHistory[o].map((p, i) => round1(leaderPts[i] - p)); });
+
+  // Y scale: 0 at top down to a rounded-up max deficit, with ~5 evenly spaced ticks
+  const maxBehind = Math.max(1, ...owners.map(o => Math.max(...behind[o])));
+  const step = [5, 10, 20, 25, 50, 100, 200, 250, 500].find(st => maxBehind / st <= 6) || 1000;
+  const yMax = Math.ceil(maxBehind / step) * step;
+
+  const padL = 56, padR = 220, padT = 16, padB = 30;
+  const chartW = 860, chartH = 60 + teamCount * 26;
+  const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  const xStep = weekKeys.length > 1 ? innerW / (weekKeys.length - 1) : 0;
+  const xAt = (i) => padL + i * xStep;
+  const yAt = (v) => padT + (v / yMax) * innerH;
+
+  const ownerColor = {};
+  owners.forEach((o, i) => { ownerColor[o] = RACE_CHART_COLORS[i % RACE_CHART_COLORS.length]; });
+
+  const gridLines = weekKeys.map((wk, i) => `<line x1="${xAt(i)}" y1="${padT}" x2="${xAt(i)}" y2="${padT+innerH}" stroke="var(--line)" stroke-width="1" />`).join('');
+  const ticks = [];
+  for(let v = 0; v <= yMax; v += step) ticks.push(v);
+  const yGrid = ticks.map(v => `
+    <line x1="${padL}" y1="${yAt(v)}" x2="${padL+innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
+    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v === 0 ? '0' : '−' + v}</text>`).join('');
+  const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points behind leader</text>`;
+  const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${weekNumLabel(wk)}</text>`).join('');
+
+  // End-of-line labels, nudged apart so teams bunched near each other stay readable
+  const last = weekKeys.length - 1;
+  const labelGap = 13;
+  const labels = owners
+    .map(o => ({ o, y: yAt(behind[o][last]) }))
+    .sort((a, b) => a.y - b.y);
+  labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + labelGap); });
+  const overflow = labels.length ? labels[labels.length-1].ly - (padT + innerH + 4) : 0;
+  if(overflow > 0){
+    for(let i = labels.length - 1; i >= 0; i--){
+      const cap = i === labels.length - 1 ? labels[i].ly - overflow : labels[i+1].ly - labelGap;
+      labels[i].ly = Math.min(labels[i].ly, cap);
+    }
+  }
+  const labelY = {};
+  labels.forEach(l => { labelY[l.o] = l.ly; });
+
+  const teamPaths = owners.map(o => {
+    const vals = behind[o];
+    const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
+    const lastVal = vals[last];
+    const endLabel = lastVal === 0 ? `${teamName} · Leader` : `${teamName} · −${fmtPts(lastVal)}`;
+    const pts = vals.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
+    const weekDots = vals.map((v, i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="5" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName} — ${weekNumLabel(weekKeys[i])}: ${v === 0 ? 'leader' : fmtPts(v) + ' behind'} (${fmtPts(pointsHistory[o][i])} pts)</title></circle>`).join('');
+    return `
+      <g class="race-team">
+        <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+          <title>${endLabel}</title>
+        </polyline>
+        <circle cx="${xAt(last)}" cy="${yAt(lastVal)}" r="3.5" fill="${ownerColor[o]}" />
+        ${weekDots}
+        <text x="${xAt(last) + 10}" y="${labelY[o] + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${endLabel}</text>
+      </g>
+    `;
+  }).join('');
+
+  return `<div class="table-scroll">
+    <svg class="race-chart" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:700px;">
+      ${gridLines}${yGrid}${yTitle}${weekLabels}${teamPaths}
+    </svg>
+  </div>`;
 }
 
 // mode 'standings': rank by the league's seeding rule. mode 'points': rank by total points scored,
@@ -960,7 +1038,7 @@ function renderSeasonDetail(containerId){
   ${raceChartSvg}` : '';
   const pointsRaceSvg = hasResults ? renderPointsRaceChart(s) : '';
   const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" style="margin-top:40px;">Points Race</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank by total points scored after every week of the season. Hover a line or dot for the running point total.</p>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team trails the season's scoring leader after every week. Hover a line or dot for the exact gap and running point total.</p>
   ${pointsRaceSvg}` : '';
 
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
