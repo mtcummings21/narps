@@ -14060,16 +14060,16 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Dolphins' De'Von Achane tears his ACL and is expected to miss the rest of the season — a brutal blow to Z Hickman's Free Agents", url: "https://www.nbcsports.com/fantasy/football/news/sunday-aftermath-week-3-injury-apocalypse-j-j-mccarthys-trade-and-much-more" },
-  { title: "Jahmyr Gibbs piles up 164 scrimmage yards and 3 TDs, powering Zach Sizemore's Deplorables to the week's top score", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
-  { title: "Bijan Robinson bulldozes for 194 rushing yards and 2 TDs, a monster day for Seth Thacker's Kareem Pie", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
-  { title: "Brock Purdy throws 4 touchdown passes, a huge night for Joe Prino's Powerhouse", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
-  { title: "Vikings' Justin Jefferson leaves with an ankle injury after two catches, worrying news for Aaron Burns' Fantasy Football Team", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
-  { title: "Jets' Breece Hall battling a thigh injury, a concern for Joe Garton's Route 2 Ravers", url: "https://fulltimefantasy.com/2026/09/28/nfl-week-3-roundup-injuries-fantasy-winners-the-week-4-battle-plan/" },
-  { title: "The Deplorables are the league's lone unbeaten at 3-0 after a league-best 131.3 in Week 3", url: "season.html?year=2026" },
-  { title: "Z Hickman's Free Agents top Route 2 Ravers 97.4-83.9, handing Joe Garton his first loss of the season", url: "season.html?year=2026" },
-  { title: "Joe Prino's Powerhouse hang 127.4 on Tyler Cummings' Legends, who fall to 1-2", url: "season.html?year=2026" },
-  { title: "Business as Usual and Luke Rapp's ACLiens are the league's only winless teams at 0-3", url: "season.html?year=2026" }
+  { title: "Tetairoa McMillan torches the Lions for 14 catches, 192 yards and 2 TDs, a 38.2-point day for Z Hickman's Free Agents", url: "https://www.nbcsports.com/fantasy/football/player-news/2026-10-05/tetairoa-mcmillan-sets-career-mark-in-receiving" },
+  { title: "CeeDee Lamb hauls in 17 catches for 189 yards and a TD, powering Travis West's Business as Usual to their first win of the season", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
+  { title: "Kyren Williams racks up 147 yards and 2 TDs on 26 touches, carrying Joe Prino's Powerhouse to the week's top score", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
+  { title: "Kenneth Walker III runs for 140-plus yards, but Saquon Barkley (hamstring) and Ladd McConkey (foot) both exit early for Sonny Wright's George's Gangstas", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
+  { title: "Ja'Marr Chase (concussion) and Rashee Rice (hamstring) leave early and Lamar Jackson tweaks an ankle, a brutal afternoon for Tyler Cummings' Legends", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
+  { title: "Bills' DJ Moore re-injures his shoulder and Marcus Mariota exits with a knee/ankle injury, rough news for Aaron Burns' Fantasy Football Team", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
+  { title: "Five teams share the top at 3-1: The Deplorables, Free Agents, Prino's Powerhouse, Kareem Pie and Money Badgers", url: "season.html?year=2026" },
+  { title: "Joe Prino's Powerhouse hand The Deplorables their first loss, 137.5-101.9", url: "season.html?year=2026" },
+  { title: "Tyler Clay's Money Badgers edge Tyler Cummings' Legends 69.2-68.5, and Seth Thacker's Kareem Pie slip past Route 2 Ravers 109.4-107.9", url: "season.html?year=2026" },
+  { title: "Luke Rapp's ACLiens fall to 0-4, the league's only winless team, after a 90.4-67.6 loss to Walid Salameh's Arabian Stallions", url: "season.html?year=2026" }
 ];
 
 const SURVIVOR = {
