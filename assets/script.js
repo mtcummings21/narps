@@ -173,6 +173,45 @@ function computeLongestWinStreaks(){
   return best;
 }
 
+// All-time median and all-play records per franchise, from every played regular-season
+// week (same rules as the season standings): median = beat/lose to that week's league
+// median score (equal = tie); all-play = compare against every other team's score that week.
+function computeAllTimeMedianAllPlay(){
+  const keyByLast = {};
+  TEAMS.forEach(t => { keyByLast[lastNameOf(t.owner)] = t.key; });
+  const med = {}, ap = {};
+  TEAMS.forEach(t => { med[t.key] = { w:0, l:0, t:0 }; ap[t.key] = { w:0, l:0, t:0 }; });
+  Object.values(SEASONS || {}).forEach(s => {
+    Object.values(s.schedule || {}).forEach(games => {
+      const wk = [];
+      games.forEach(g => {
+        if(g.awayScore === 0 && g.homeScore === 0) return; // unplayed placeholder
+        wk.push([keyByLast[lastNameOf(g.awayMgr)], g.awayScore]);
+        wk.push([keyByLast[lastNameOf(g.homeMgr)], g.homeScore]);
+      });
+      if(!wk.length) return;
+      const sorted = wk.map(x => x[1]).sort((a,b) => a - b);
+      const mid = Math.floor(sorted.length / 2);
+      const median = sorted.length % 2 === 0 ? (sorted[mid-1] + sorted[mid]) / 2 : sorted[mid];
+      wk.forEach(([k, sc], i) => {
+        if(!k) return;
+        if(sc > median) med[k].w++; else if(sc < median) med[k].l++; else med[k].t++;
+        wk.forEach(([, oSc], j) => {
+          if(i === j) return;
+          if(sc > oSc) ap[k].w++; else if(sc < oSc) ap[k].l++; else ap[k].t++;
+        });
+      });
+    });
+  });
+  const pct = r => { const g = r.w + r.l + r.t; return g ? (r.w + 0.5 * r.t) / g : 0; };
+  const str = r => `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`;
+  const out = {};
+  TEAMS.forEach(t => {
+    out[t.key] = { medianStr: str(med[t.key]), medianPct: pct(med[t.key]), allPlayStr: str(ap[t.key]), allPlayPct: pct(ap[t.key]) };
+  });
+  return out;
+}
+
 function standingsRowHTML(t, i){
   return `<tr>
     <td class="pos">${i+1}</td>
@@ -182,6 +221,8 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.playoffApp}</td>
     <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td>${fmtPct(t.winPct)}</td>
+    <td>${t.medianStr}</td>
+    <td>${t.allPlayStr}</td>
     <td>${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td>${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
@@ -212,6 +253,7 @@ function renderStandings(containerId){
   let sortKey = 'winPct';
   let sortDir = 'desc';
   const streaks = computeLongestWinStreaks();
+  const medAp = computeAllTimeMedianAllPlay();
 
   function sortData(list, key, dir){
     list.sort((a,b) => {
@@ -228,7 +270,7 @@ function renderStandings(containerId){
   function draw(){
     const isRegular = mode === 'regular';
     const sourceList = isRegular
-      ? TEAMS.map(t => ({ ...t, winStreak: streaks[t.key] || 0 }))
+      ? TEAMS.map(t => ({ ...t, winStreak: streaks[t.key] || 0, ...medAp[t.key] }))
       : TEAMS.map(t => ({ ...t, playoffPF: computeAllTimeRecords().playoffPoints[t.key] || 0 }));
     const data = sortData(sourceList, sortKey, sortDir);
 
@@ -245,6 +287,8 @@ function renderStandings(containerId){
         <th data-key="playoffApp">Playoffs</th>
         <th data-key="record">Record</th>
         <th data-key="winPct">Win%</th>
+        <th data-key="medianPct">Median Record</th>
+        <th data-key="allPlayPct">All-Play Record</th>
         <th data-key="totalPF">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
         <th data-key="diff">Pt Diff/G</th>
@@ -265,7 +309,7 @@ function renderStandings(containerId){
 
     const rowFn = isRegular ? standingsRowHTML : playoffRowHTML;
     const footnote = isRegular
-      ? 'Click a column header to sort. Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
+      ? 'Click a column header to sort. Median Record is wins and losses against each week\'s league median score; All-Play Record is what your record would be playing every team every week (both sort by win %). Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
       : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only.';
 
     el.innerHTML = `${tabsHtml}
