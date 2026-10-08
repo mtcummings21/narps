@@ -1296,6 +1296,29 @@ function renderCountdown(containerId, targetDateStr, liveMessage){
   timer = setInterval(update, 1000);
 }
 
+// ---------- Homepage: current-season button in the hero ----------
+// Points to the most recent season in SEASONS and shows how far it has gone,
+// so it updates itself each week and rolls over to next year automatically.
+function renderCurrentSeasonCTA(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof SEASONS === 'undefined') return;
+  const year = Object.keys(SEASONS).sort((a,b) => b - a)[0];
+  const s = SEASONS[year];
+  if(!s) return;
+  const weekNum = wk => parseInt(String(wk).replace(/\D/g, ''), 10) || 0;
+  const played = Object.keys(s.schedule || {})
+    .filter(wk => (s.schedule[wk] || []).some(g => Math.max(g.awayScore, g.homeScore) > 0))
+    .map(weekNum);
+  const lastWeek = played.length ? Math.max(...played) : 0;
+  const finished = s.champion && s.champion.owner && s.champion.owner !== 'TBD';
+  const status = finished ? `Champion: ${s.champion.team}`
+    : lastWeek ? `Through Week ${lastWeek}` : 'Season kicks off soon';
+  el.innerHTML = `<a class="season-cta" href="season.html?year=${year}">
+    <span class="season-cta-main">${year} Season <span aria-hidden="true">&rarr;</span></span>
+    <span class="season-cta-sub">${status} · Standings, scores &amp; box scores</span>
+  </a>`;
+}
+
 // ---------- Top Headlines (homepage NFL news widget) ----------
 function renderHeadlines(containerId){
   const el = document.getElementById(containerId);
@@ -1322,6 +1345,7 @@ function renderHeadlines(containerId){
           return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
         }).join('')}
       </ul>
+      <div class="standings-col-more">See the full ${latestYear} season — scores, box scores &amp; charts &rarr;</div>
     </a>` : '';
 
   el.innerHTML = `

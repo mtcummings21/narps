@@ -316,6 +316,34 @@ img{ max-width:100%; display:block; }
   position: relative;
 }
 
+/* Homepage hero: current-season button */
+.season-cta{
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0 0 30px;
+  padding: 14px 22px;
+  border-radius: var(--radius-sm);
+  background: var(--white);
+  color: #0B2447;
+  text-decoration: none;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.18);
+  position: relative;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.season-cta:hover{ transform: translateY(-1px); box-shadow: 0 10px 26px rgba(0,0,0,0.24); }
+.season-cta:focus-visible{ outline: 3px solid var(--blue-lt); outline-offset: 3px; }
+.season-cta-main{
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.season-cta-sub{
+  font-family: var(--body);
+  font-size: 0.85rem;
+  color: #5B6577;
+}
+
 .stat-row{
   display:flex;
   flex-wrap:wrap;
@@ -830,6 +858,15 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   transition: background 0.15s;
 }
 .standings-col:hover{ background: rgba(47,111,237,0.05); }
+.standings-col-more{
+  padding: 12px 18px;
+  border-top: 1px solid var(--line);
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--blue);
+}
+.standings-col:hover .standings-col-more{ text-decoration: underline; }
 .standings-mini-headers{
   display: grid;
   grid-template-columns: 1fr 64px 96px;
