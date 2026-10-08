@@ -1439,3 +1439,7 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 #standings-table th:nth-child(2),
 #standings-table td:nth-child(2){ text-align:left; }
 #standings-table td.num{ text-align:right; }
+#standings-table td.grp-l{ border-left: 1px solid var(--line); }
+#standings-table td.grp-r{ border-right: 1px solid var(--line); }
+#standings-table th.grp-l{ border-left: 1px solid rgba(255,255,255,0.22); }
+#standings-table th.grp-r{ border-right: 1px solid rgba(255,255,255,0.22); }

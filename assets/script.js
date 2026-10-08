@@ -219,12 +219,12 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.seasons} yrs</td>
     <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
     <td class="pos">${t.playoffApp}</td>
-    <td class="num">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
+    <td class="num grp-l">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td class="num">${fmtPct(t.winPct)}</td>
-    <td class="num">${t.medianStr}</td>
+    <td class="num grp-l">${t.medianStr}</td>
     <td class="num">${fmtPct(t.medianPct)}</td>
-    <td class="num">${t.allPlayStr}</td>
-    <td class="num">${fmtPct(t.allPlayPct)}</td>
+    <td class="num grp-l">${t.allPlayStr}</td>
+    <td class="num grp-r">${fmtPct(t.allPlayPct)}</td>
     <td class="num">${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td class="num">${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
@@ -296,12 +296,12 @@ function renderStandings(containerId){
         <th data-key="seasons">Seasons</th>
         <th data-key="champs">Titles</th>
         <th data-key="playoffApp">Playoffs</th>
-        <th data-key="record">Record</th>
+        <th data-key="record" class="grp-l">Record</th>
         <th data-key="winPct">Win%</th>
-        <th data-key="medianW">Median Record</th>
+        <th data-key="medianW" class="grp-l">Median Record</th>
         <th data-key="medianPct">Median Win%</th>
-        <th data-key="allPlayW">All-Play Record</th>
-        <th data-key="allPlayPct">All-Play Win%</th>
+        <th data-key="allPlayW" class="grp-l">All-Play Record</th>
+        <th data-key="allPlayPct" class="grp-r">All-Play Win%</th>
         <th data-key="totalPF">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
         <th data-key="diff">Pt Diff/G</th>
@@ -325,7 +325,7 @@ function renderStandings(containerId){
       ? 'Click a column header to sort. Median Record is wins and losses against each week\'s league median score; All-Play Record is what your record would be playing every team every week. Use Columns to show or hide columns. Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
       : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only. Use Columns to show or hide columns.';
 
-    const colDefs = [...theadHtml.matchAll(/<th data-key="([^"]+)">([^<]+)<\/th>/g)].map(m => ({ key: m[1], label: m[2] }));
+    const colDefs = [...theadHtml.matchAll(/<th data-key="([^"]+)"[^>]*>([^<]+)<\/th>/g)].map(m => ({ key: m[1], label: m[2] }));
     const hiddenNow = hidden[mode].filter(k => colDefs.some(c => c.key === k));
     const pickerHtml = `<details class="col-picker"${pickerOpen ? ' open' : ''}>
       <summary>Columns${hiddenNow.length ? ` <span class="col-picker-count">${hiddenNow.length} hidden</span>` : ''}</summary>
