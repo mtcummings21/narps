@@ -207,7 +207,7 @@ function computeAllTimeMedianAllPlay(){
   const str = r => `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`;
   const out = {};
   TEAMS.forEach(t => {
-    out[t.key] = { medianStr: str(med[t.key]), medianPct: pct(med[t.key]), allPlayStr: str(ap[t.key]), allPlayPct: pct(ap[t.key]) };
+    out[t.key] = { medianStr: str(med[t.key]), medianW: med[t.key].w, medianPct: pct(med[t.key]), allPlayStr: str(ap[t.key]), allPlayW: ap[t.key].w, allPlayPct: pct(ap[t.key]) };
   });
   return out;
 }
@@ -222,7 +222,9 @@ function standingsRowHTML(t, i){
     <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td>${fmtPct(t.winPct)}</td>
     <td>${t.medianStr}</td>
+    <td>${fmtPct(t.medianPct)}</td>
     <td>${t.allPlayStr}</td>
+    <td>${fmtPct(t.allPlayPct)}</td>
     <td>${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td>${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
@@ -254,6 +256,15 @@ function renderStandings(containerId){
   let sortDir = 'desc';
   const streaks = computeLongestWinStreaks();
   const medAp = computeAllTimeMedianAllPlay();
+  const HIDE_STORE = 'lon-standings-hidden-cols';
+  const ALWAYS_SHOWN = ['rank', 'owner'];
+  let hidden = { regular: [], playoffs: [] };
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(HIDE_STORE) || 'null');
+    if(saved && Array.isArray(saved.regular) && Array.isArray(saved.playoffs)) hidden = saved;
+  } catch(e) {}
+  const saveHidden = () => { try { window.localStorage.setItem(HIDE_STORE, JSON.stringify(hidden)); } catch(e) {} };
+  let pickerOpen = false;
 
   function sortData(list, key, dir){
     list.sort((a,b) => {
@@ -287,8 +298,10 @@ function renderStandings(containerId){
         <th data-key="playoffApp">Playoffs</th>
         <th data-key="record">Record</th>
         <th data-key="winPct">Win%</th>
-        <th data-key="medianPct">Median Record</th>
-        <th data-key="allPlayPct">All-Play Record</th>
+        <th data-key="medianW">Median Record</th>
+        <th data-key="medianPct">Median Win%</th>
+        <th data-key="allPlayW">All-Play Record</th>
+        <th data-key="allPlayPct">All-Play Win%</th>
         <th data-key="totalPF">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
         <th data-key="diff">Pt Diff/G</th>
@@ -309,21 +322,52 @@ function renderStandings(containerId){
 
     const rowFn = isRegular ? standingsRowHTML : playoffRowHTML;
     const footnote = isRegular
-      ? 'Click a column header to sort. Median Record is wins and losses against each week\'s league median score; All-Play Record is what your record would be playing every team every week (both sort by win %). Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
-      : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only.';
+      ? 'Click a column header to sort. Median Record is wins and losses against each week\'s league median score; All-Play Record is what your record would be playing every team every week. Use Columns to show or hide columns. Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
+      : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only. Use Columns to show or hide columns.';
 
-    el.innerHTML = `${tabsHtml}
+    const colDefs = [...theadHtml.matchAll(/<th data-key="([^"]+)">([^<]+)<\/th>/g)].map(m => ({ key: m[1], label: m[2] }));
+    const hiddenNow = hidden[mode].filter(k => colDefs.some(c => c.key === k));
+    const pickerHtml = `<details class="col-picker"${pickerOpen ? ' open' : ''}>
+      <summary>Columns${hiddenNow.length ? ` <span class="col-picker-count">${hiddenNow.length} hidden</span>` : ''}</summary>
+      <div class="col-picker-menu">
+        ${colDefs.filter(c => !ALWAYS_SHOWN.includes(c.key)).map(c =>
+          `<label><input type="checkbox" data-col="${c.key}"${hiddenNow.includes(c.key) ? '' : ' checked'}> ${c.label}</label>`).join('')}
+        ${hiddenNow.length ? '<button type="button" class="col-picker-reset">Show all</button>' : ''}
+      </div>
+    </details>`;
+
+    el.innerHTML = `<div class="standings-toolbar">${tabsHtml}${pickerHtml}</div>
     <div class="table-scroll"><table id="standings-table">
       <thead>${theadHtml}</thead>
       <tbody>${data.map(rowFn).join('')}</tbody>
     </table></div>
     <p class="muted" style="font-size:0.82rem;margin-top:10px;">${footnote}</p>`;
 
+    // Hide chosen columns (header + every cell in that column position)
+    const table = el.querySelector('#standings-table');
+    colDefs.forEach((c, idx) => {
+      if(!hiddenNow.includes(c.key)) return;
+      table.querySelectorAll(`tr > :nth-child(${idx + 1})`).forEach(cell => { cell.style.display = 'none'; });
+    });
+    const picker = el.querySelector('.col-picker');
+    picker.addEventListener('toggle', () => { pickerOpen = picker.open; });
+    picker.querySelectorAll('input[data-col]').forEach(cb => {
+      cb.addEventListener('change', () => {
+        const k = cb.dataset.col;
+        hidden[mode] = cb.checked ? hidden[mode].filter(x => x !== k) : [...new Set([...hidden[mode], k])];
+        saveHidden();
+        draw();
+      });
+    });
+    const resetBtn = picker.querySelector('.col-picker-reset');
+    if(resetBtn) resetBtn.addEventListener('click', () => { hidden[mode] = []; saveHidden(); draw(); });
+
     el.querySelectorAll('.standings-tab').forEach(btn => {
       btn.addEventListener('click', () => {
         const newMode = btn.dataset.mode;
         if(newMode === mode) return;
         mode = newMode;
+        pickerOpen = false;
         sortKey = mode === 'regular' ? 'winPct' : 'playoffWinPct';
         sortDir = 'desc';
         draw();

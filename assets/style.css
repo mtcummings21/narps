@@ -949,6 +949,77 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   background: var(--ink);
   color: var(--white);
 }
+/* All-time standings: tabs + column picker */
+.standings-toolbar{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-bottom: 16px;
+}
+.standings-toolbar .standings-tabs{ margin-bottom: 0; }
+.col-picker{ position: relative; }
+.col-picker > summary{
+  list-style: none;
+  cursor: pointer;
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 9px 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--text);
+  user-select: none;
+}
+.col-picker > summary::-webkit-details-marker{ display: none; }
+.col-picker > summary::after{ content: " \25BE"; color: var(--text-soft); }
+.col-picker[open] > summary{ border-color: var(--blue); }
+.col-picker-count{ color: var(--text-soft); font-weight: 500; margin-left: 4px; }
+.col-picker-menu{
+  position: absolute;
+  right: 0;
+  top: calc(100% + 6px);
+  z-index: 20;
+  min-width: 220px;
+  max-width: calc(100vw - 32px);
+  padding: 8px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-hover);
+}
+.col-picker-menu label{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-family: var(--body);
+  font-size: 0.85rem;
+  color: var(--text);
+  cursor: pointer;
+}
+.col-picker-menu label:hover{ background: var(--bg); }
+.col-picker-menu input{ accent-color: var(--blue); }
+.col-picker-reset{
+  width: 100%;
+  margin-top: 6px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--blue);
+  font-family: var(--body);
+  font-weight: 600;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+@media (max-width: 600px){
+  .col-picker-menu{ left: 0; right: auto; }
+}
+
 /* ---------- Champions pennant wall ---------- */
 .champ-grid{
   display:flex;
