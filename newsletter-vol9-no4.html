@@ -37,6 +37,14 @@
   .nl-stat-highlight{ background:#EEF3FD; border-left:3px solid var(--blue); padding:10px 16px; margin:16px 0; font-size:0.92rem; border-radius:0 6px 6px 0; }
   table.nl-standings th, table.nl-standings td{ text-align:center; }
   table.nl-standings td.name-cell{ text-align:left; }
+  html{ scroll-behavior:smooth; }
+  .nl-section h2[id]{ scroll-margin-top:96px; }
+  .nl-toc{ background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:14px 20px; margin:32px 0 0; }
+  .nl-toc-title{ font-family:var(--mono); font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--text-soft); margin:0 0 8px; }
+  .nl-toc ol{ margin:0; padding-left:20px; font-size:0.95rem; line-height:1.9; }
+  .nl-toc a{ color:var(--blue); text-decoration:none; font-weight:600; }
+  .nl-toc a:hover, .nl-toc a:focus-visible{ text-decoration:underline; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
 </style>
 </head>
 <body>
@@ -73,6 +81,17 @@
 
 <section class="wrap" style="max-width:820px; margin:0 auto; padding:0 24px;">
 
+  <nav class="nl-toc" aria-label="In this issue">
+    <p class="nl-toc-title">In This Issue</p>
+    <ol>
+      <li><a href="#record-watch">Record Watch</a></li>
+      <li><a href="#site-updates">Site Updates</a></li>
+      <li><a href="#points-race">Points Race</a></li>
+      <li><a href="#standings">Week 4 Standings</a></li>
+      <li><a href="#power-rankings">Power Rankings</a></li>
+    </ol>
+  </nav>
+
   <div class="nl-section">
     <p class="nl-lede">Ok, I lied. I thought it would be good to take a break from publishing a newsletter and Power Rankings this week, but I had more time than I thought. I already have something cooking up for next week that differs from prior newsletters. Anyways, keep reading to learn about teams breaking records, site updates, and another edition of the Power Rankings.</p>
     <p class="nl-lede">Week 4 of the NFL was a roller coaster of emotions for NARPS owners as we saw a large disparity between the higher and lower scoring teams. Notably, we had three teams post a score of 130+ points, led by the Powerhouse with a high score of 137.5 points. Conversely, we also saw three teams fail to reach the 70-point threshold, including a 69.2-68.5 barn burner won by the Money Badgers over the Lincoln Legends. The biggest story of Week 4 involved two referees who received suspensions for their in-game conduct. Fantasy fans can rest assured that the “stripes” were held accountable for their actions. As the NFL season starts to settle in, NARPS owners look to solidify their starting lineups in a season that has been riddled with injuries on all fronts.</p>
@@ -81,7 +100,7 @@
   <!-- DRAFT: TC's additional items go here -->
 
   <div class="nl-section">
-    <h2>Record Watch</h2>
+    <h2 id="record-watch">Record Watch</h2>
     <ul class="nl-feature-list">
       <li><strong>The 20,000 Club.</strong> The Powerhouse became the first franchise in league history to reach 20,000 career points in Week 3, and George’s Gangstas followed in Week 4. The Deplorables are now just 25.4 points from the 20,000 mark and the Legends are 74.7 points away.</li>
       <li><strong>Century marks.</strong> The Powerhouse’s 137.5 points in Week 4 was the franchise’s 100th triple-digit game, making it the fourth franchise to reach 100, and it was also its league-leading 27th weekly high score. Meanwhile, the Deplorables’ 101.9 pulled them into a tie with the Money Badgers for the most 100-point games ever (103). George’s Gangstas sit at 99, one big week from joining the club.</li>
@@ -90,7 +109,7 @@
   </div>
 
   <div class="nl-section">
-    <h2>Site Updates</h2>
+    <h2 id="site-updates">Site Updates</h2>
     <p class="nl-lede" style="margin-bottom:10px;">A few new features have been added to the website since the last issue:</p>
     <ul class="nl-feature-list">
       <li><strong>The 2026 race charts are live.</strong> As promised, the <a href="season.html?year=2026">2026 Season page</a> now has its Standings Race chart, which tracks where every team sits in the standings each week. It’s joined by a new <strong>Points Race</strong> chart (see below) that shows how far each team trails the league’s scoring leader week by week. Remember, the top scoring team for the season is awarded $100.</li>
@@ -101,7 +120,7 @@
   </div>
 
   <div class="nl-section">
-    <h2>Points Race</h2>
+    <h2 id="points-race">Points Race</h2>
     <p class="nl-lede" style="margin-bottom:10px;">How far each team trails the league’s scoring leader after every week of the season. Hover a line or dot for the exact gap and running point total.</p>
     <div class="table-scroll">
     <svg class="race-chart" viewBox="0 0 860 372" style="width:100%; height:auto; min-width:700px;">
@@ -233,7 +252,7 @@
     <p class="muted" style="font-size:0.82rem; margin-top:6px;">2026 regular season, Weeks 1&ndash;4. See the <a href="season.html?year=2026">2026 season page</a> for the latest version.</p>
   </div>
   <div class="nl-section">
-    <h2>Week 4 Standings</h2>
+    <h2 id="standings">Week 4 Standings</h2>
     <div class="table-scroll">
       <table class="nl-standings">
         <thead><tr><th>#</th><th style="text-align:left;">Team</th><th>Record</th><th>Pct</th><th>PF</th><th>PA</th><th>Median Record</th><th>All-Play Record</th><th>Top Weekly Scorer</th><th>Payouts</th></tr></thead>
@@ -257,7 +276,7 @@
   </div>
 
   <div class="nl-section">
-    <h2>Power Rankings</h2>
+    <h2 id="power-rankings">Power Rankings</h2>
 
     <div class="nl-card">
       <span class="nl-record">3-1</span>
