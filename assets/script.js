@@ -219,14 +219,14 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.seasons} yrs</td>
     <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
     <td class="pos">${t.playoffApp}</td>
-    <td>${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
-    <td>${fmtPct(t.winPct)}</td>
-    <td>${t.medianStr}</td>
-    <td>${fmtPct(t.medianPct)}</td>
-    <td>${t.allPlayStr}</td>
-    <td>${fmtPct(t.allPlayPct)}</td>
-    <td>${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
-    <td>${t.gameAvgPF.toFixed(1)}</td>
+    <td class="num">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
+    <td class="num">${fmtPct(t.winPct)}</td>
+    <td class="num">${t.medianStr}</td>
+    <td class="num">${fmtPct(t.medianPct)}</td>
+    <td class="num">${t.allPlayStr}</td>
+    <td class="num">${fmtPct(t.allPlayPct)}</td>
+    <td class="num">${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+    <td class="num">${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
     <td class="pos">${t.winStreak}</td>
     <td>${t.highScore.toFixed(1)}</td>

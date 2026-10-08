@@ -1438,3 +1438,4 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 #standings-table td{ text-align:center; }
 #standings-table th:nth-child(2),
 #standings-table td:nth-child(2){ text-align:left; }
+#standings-table td.num{ text-align:right; }
