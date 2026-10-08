@@ -953,6 +953,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "The First 2026 Power Rankings",
     "url": "newsletter-vol9-no3.html"
+  },
+  {
+    "vol": 9,
+    "no": 4,
+    "year": 2026,
+    "title": "Feast or Famine",
+    "url": "newsletter-vol9-no4.html"
   }
 ];
 
