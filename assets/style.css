@@ -934,6 +934,14 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 }
 
 /* ---------- Survivor pick logos ---------- */
+.pick-name{
+  margin-top: 3px;
+  font-family: var(--body);
+  font-size: 0.68rem;
+  line-height: 1.1;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
 .pick-logo{
   display: inline-flex;
   align-items: center;

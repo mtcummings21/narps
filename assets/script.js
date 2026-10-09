@@ -1621,7 +1621,7 @@ function renderSurvivor(containerId){
         return `<td class="pos center">—</td>`;
       }
       if(isPickLocked(w, pk.team)) return `<td class="pos center" title="Picks reveal ${new Date(pickRevealTime(w, pk.team)).toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' })} ET">🔒</td>`;
-      return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}</td>`;
+      return `<td class="pos center">${nflLogo(pk.team, { size: 29, loss: pk.loss })}<div class="pick-name">${pk.team}</div></td>`;
     }).join('');
     return `<tr>
       <td class="name-cell picks-name-cell">${p.name}</td>
