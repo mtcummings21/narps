@@ -1588,6 +1588,8 @@ function renderSurvivor(containerId){
     if(year === '2026'){
       const aOut = a.result === 'Eliminated', bOut = b.result === 'Eliminated';
       if(aOut !== bOut) return aOut ? 1 : -1;
+      // Eliminated players: most recent elimination first, earliest at the bottom
+      if(aOut && bOut) return ((b.eliminatedWeek || 0) - (a.eliminatedWeek || 0)) || a.name.localeCompare(b.name);
     }
     const aIdx = pinnedNames.indexOf(a.name);
     const bIdx = pinnedNames.indexOf(b.name);
