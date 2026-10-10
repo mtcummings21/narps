@@ -1450,11 +1450,14 @@ function renderTeamDetail(containerId){
     const seasonStarted = s.standings.some(r => (r.w||0) + (r.l||0) + (r.t||0) > 0);
     let finish = 'TBD';
     if(seasonStarted){
-      const rank = s.standings.indexOf(row) + 1;
-      finish = `${rank}${rank===1?'st':rank===2?'nd':rank===3?'rd':'th'} place`;
-      if(lastName(s.champion.owner) === lastName(t.owner)) finish = 'Champion 🏆';
-      else if(lastName(s.second.owner) === lastName(t.owner)) finish = 'Runner-up';
-      else if(lastName(s.third.owner) === lastName(t.owner)) finish = 'Third place';
+      const ord = n => `${n}${n%100>=11&&n%100<=13?'th':n%10===1?'st':n%10===2?'nd':n%10===3?'rd':'th'}`;
+      const seasonDone = s.champion && s.champion.owner && s.champion.owner !== 'TBD';
+      if(seasonDone){
+        const place = finalPlacements(s)[lastName(t.owner)];
+        finish = place === 1 ? 'Champion 🏆' : place === 2 ? 'Runner-up' : place === 3 ? 'Third place' : `${ord(place)} place`;
+      } else {
+        finish = `${ord(s.standings.indexOf(row) + 1)} (in progress)`;
+      }
     }
     return `<tr>
       <td class="pos">${y}</td>
@@ -1661,6 +1664,40 @@ function renderSurvivor(containerId){
 
 // ---------- Head-to-head (computed from verified season data) ----------
 function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase(); }
+
+// ---------- Final season placement ----------
+// Final league finish for every team in a completed season, keyed by owner last name.
+// 1st-3rd come from champion/second/third, 4th is the 3rd-place-game loser. Other playoff
+// teams rank by how far they advanced (later elimination round = better), then by
+// regular-season standing. Non-playoff teams follow in regular-season standing order.
+function finalPlacements(s){
+  const ln = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
+  const out = {};
+  const taken = new Set();
+  const set = (name, place) => { const k = ln(name); if(k && !taken.has(k)){ out[k] = place; taken.add(k); } };
+  set(s.champion && s.champion.owner, 1);
+  set(s.second && s.second.owner, 2);
+  set(s.third && s.third.owner, 3);
+  const playoffs = s.playoffs || {};
+  (playoffs.thirdPlace && playoffs.thirdPlace.games || []).forEach(g => {
+    set(g.awayScore > g.homeScore ? g.homeMgr : g.awayMgr, 4);
+  });
+  const standIdx = {};
+  (s.standings || []).forEach((r, i) => { standIdx[ln(r.owner)] = i; });
+  const elim = {};
+  Object.keys(playoffs).filter(k => k !== 'thirdPlace').sort().forEach((k, ri) => {
+    (playoffs[k].games || []).forEach(g => {
+      if(g.awayScore === g.homeScore) return;
+      const loser = ln(g.awayScore > g.homeScore ? g.homeMgr : g.awayMgr);
+      if(!taken.has(loser)) elim[loser] = ri;
+    });
+  });
+  let next = taken.size + 1;
+  Object.keys(elim).sort((a, b) => (elim[b] - elim[a]) || ((standIdx[a] ?? 99) - (standIdx[b] ?? 99)))
+    .forEach(k => { out[k] = next++; taken.add(k); });
+  (s.standings || []).forEach(r => { const k = ln(r.owner); if(!taken.has(k)){ out[k] = next++; taken.add(k); } });
+  return out;
+}
 
 // ---------- Derived franchise playoff stats ----------
 // Byes and championship-game appearances/record are computed from each season's
