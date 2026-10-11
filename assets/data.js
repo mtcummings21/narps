@@ -16686,7 +16686,8 @@ const PREMIER_LEAGUE = {
         { week: 2, team: "Hull City",         opponent: "Coventry City",  venue: "A", score: "1–0", result: "W" },
         { week: 3, team: "Nottingham Forest", opponent: "Tottenham",      venue: "H", score: "0–0", result: "D" },
         { week: 4, team: "Aston Villa",       opponent: "Nottingham Forest", venue: "H", score: "1–2", result: "L" },
-        { week: 5, team: "Hull City",         opponent: "Newcastle United", venue: "A", score: "1–2", result: "L" }
+        { week: 5, team: "Hull City",         opponent: "Newcastle United", venue: "A", score: "1–2", result: "L" },
+        { week: 6, team: "Crystal Palace",    opponent: "Nottingham Forest", venue: "H", score: null,  result: null }
       ]}
     ]
   }
