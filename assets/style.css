@@ -1508,3 +1508,4 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 }
 :root[data-theme="dark"] .pl-logo{ background:#fff; border-radius:50%; padding:2px; }
 :root[data-theme="dark"] .pl-crest-bg{ fill:#fff; }
+.pl-usage th:not(:first-child), .pl-usage td:not(:first-child){ text-align:center; }

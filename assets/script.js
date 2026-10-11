@@ -1650,7 +1650,7 @@ function renderPremierLeague(containerId){
       <tbody>${weekRows}</tbody>
     </table></div>
     <h3>Club Usage</h3>
-    <div class="table-scroll"><table>
+    <div class="table-scroll"><table class="pl-usage">
       <thead><tr><th>Club</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
       <tbody>${usageRows}</tbody>
     </table></div>` : ''}`;
