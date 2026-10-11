@@ -16655,3 +16655,29 @@ const RULES_HISTORY = [
 // whether to show the draft-order/countdown widget, without loading the full
 // draft pick-by-pick history from data-draft-history.js).
 const DRAFT_RESULTS_YEARS = ["2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"];
+
+// ---------- Premier League pick'em ----------
+// One club per matchweek: win 3, draw 1, loss 0. Each club can be picked twice per season.
+// result: "W" | "D" | "L" (leave null until the match is played). score is from the picked club's side.
+const PREMIER_LEAGUE = {
+  "2026": {
+    season: "2026–27",
+    players: [
+      { name: "TC", picks: [
+        { week: 1, team: "Manchester United", opponent: "Hull City",      venue: "A", score: "0–2", result: "L" },
+        { week: 2, team: "Liverpool",         opponent: "Nottingham Forest", venue: "H", score: "2–2", result: "D" },
+        { week: 3, team: "Manchester City",   opponent: "Coventry City",  venue: "H", score: "1–0", result: "W" },
+        { week: 4, team: "Crystal Palace",    opponent: "Ipswich Town",   venue: "H", score: "2–3", result: "L" },
+        { week: 5, team: "Nottingham Forest", opponent: "Coventry City",  venue: "H", score: "0–1", result: "L" },
+        { week: 6, team: "Brighton",          opponent: "Sunderland",     venue: "A", score: null,  result: "W" }
+      ]},
+      { name: "BD", picks: [
+        { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
+        { week: 2, team: "Hull City",         opponent: "Coventry City",  venue: "A", score: "1–0", result: "W" },
+        { week: 3, team: "Nottingham Forest", opponent: "Tottenham",      venue: "H", score: "0–0", result: "D" },
+        { week: 4, team: "Aston Villa",       opponent: "Nottingham Forest", venue: "H", score: "1–2", result: "L" },
+        { week: 5, team: "Hull City",         opponent: "Newcastle United", venue: "A", score: "1–2", result: "L" }
+      ]}
+    ]
+  }
+};

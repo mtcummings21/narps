@@ -1494,3 +1494,9 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 .game-rules h3{ font-family: var(--display); color: var(--navy); margin: 28px 0 10px; }
 .game-rules .table-scroll{ margin-bottom: 8px; }
 .game-rules thead th{ cursor: default; }
+.pl-res{ display:inline-block; min-width:22px; padding:1px 6px; border-radius:4px; font-family: var(--mono); font-size:0.7rem; font-weight:700; text-align:center; background: var(--line); color: var(--text); }
+.pl-res--W{ background:#1f9d55; color:#fff; }
+.pl-res--D{ background:#c9a227; color:#fff; }
+.pl-res--L{ background: var(--red); color:#fff; }
+.pl-detail{ font-size:0.72rem; color: var(--text-soft); margin-top:2px; }
+td.pl-maxed{ color: var(--red); font-weight:700; }

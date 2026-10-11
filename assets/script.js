@@ -1514,6 +1514,65 @@ function nflLogo(teamName, opts = {}){
   const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : `${teamName} (pending)`);
   return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
+// ---------- Premier League pick'em ----------
+function renderPremierLeague(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
+  const params = new URLSearchParams(window.location.search);
+  const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
+  const s = PREMIER_LEAGUE[year];
+  if(!s){ el.innerHTML = ''; return; }
+  const PTS = { W: 3, D: 1, L: 0 };
+
+  const rows = s.players.map(p => {
+    const done = p.picks.filter(pk => pk.result);
+    const count = r => done.filter(pk => pk.result === r).length;
+    return { name: p.name, picks: p.picks.length, w: count('W'), d: count('D'), l: count('L'),
+             pts: done.reduce((t, pk) => t + PTS[pk.result], 0) };
+  }).sort((a,b) => b.pts - a.pts || b.w - a.w);
+
+  let rank = 0;
+  const standingsRows = rows.map((r, i) => {
+    if(i === 0 || r.pts !== rows[i-1].pts) rank = i + 1;
+    return `<tr><td class="pos">${rank}</td><td class="name-cell">${r.name}</td><td>${r.picks}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td><strong>${r.pts}</strong></td></tr>`;
+  }).join('');
+
+  const maxWeek = Math.max(0, ...s.players.flatMap(p => p.picks.map(pk => pk.week)));
+  const pickCell = (p, w) => {
+    const pk = p.picks.find(x => x.week === w);
+    if(!pk) return '<td class="muted">—</td>';
+    const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
+    const detail = pk.opponent ? `<div class="pl-detail">${pk.venue === 'A' ? 'at' : 'vs'} ${pk.opponent}${pk.score ? ' · ' + pk.score : ''}</div>` : '';
+    return `<td>${res} ${pk.team}${detail}</td>`;
+  };
+  const weekRows = Array.from({ length: maxWeek }, (_, i) => i + 1)
+    .map(w => `<tr><td class="pos">${w}</td>${s.players.map(p => pickCell(p, w)).join('')}</tr>`).join('');
+
+  const clubs = [...new Set(s.players.flatMap(p => p.picks.map(pk => pk.team)))].sort();
+  const usageRows = clubs.map(c => `<tr><td class="name-cell">${c}</td>${s.players.map(p => {
+    const n = p.picks.filter(pk => pk.team === c).length;
+    return `<td${n >= 2 ? ' class="pl-maxed"' : ''}>${n ? n + ' / 2' : '—'}</td>`;
+  }).join('')}</tr>`).join('');
+
+  el.innerHTML = `
+    <h3>${s.season} Standings</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>#</th><th>Player</th><th>Picks</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr></thead>
+      <tbody>${standingsRows}</tbody>
+    </table></div>
+    ${maxWeek ? `<h3>Weekly Picks</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Wk</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
+      <tbody>${weekRows}</tbody>
+    </table></div>
+    <h3>Club Usage</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Club</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
+      <tbody>${usageRows}</tbody>
+    </table></div>` : ''}`;
+}
+
 function renderSurvivor(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
