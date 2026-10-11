@@ -16667,6 +16667,9 @@ const PL_LOGO_ID = {
   "Manchester United": 360, "Newcastle United": 361, "Nottingham Forest": 393, "Sunderland": 366, "Tottenham": 367
 };
 
+// Crests that are too dark to read on the dark theme; these get a light chip behind them.
+const PL_LOGO_LIGHT_BG = ["Tottenham"];
+
 const PREMIER_LEAGUE = {
   "2026": {
     season: "2026–27",

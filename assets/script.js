@@ -1518,7 +1518,8 @@ function nflLogo(teamName, opts = {}){
 function plLogo(team, size = 20){
   const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[team] : null;
   if(!id) return '';
-  return `<img class="pl-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" alt="" width="${size}" height="${size}" loading="lazy">`;
+  const lightBg = typeof PL_LOGO_LIGHT_BG !== 'undefined' && PL_LOGO_LIGHT_BG.includes(team);
+  return `<img class="pl-logo${lightBg ? ' pl-logo--light-bg' : ''}" src="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" alt="" width="${size}" height="${size}" loading="lazy">`;
 }
 
 // Cumulative points race. Each player's line starts at 0 and steps through the weeks they have a
@@ -1576,7 +1577,7 @@ function renderPremierLeagueRace(s){
       const tip = `${x.name} — Wk ${pt.week}: ${pt.pick.team} (${pt.pick.result}${pt.pick.score ? ' ' + pt.pick.score : ''}) · ${pt.total} pts`;
       const r = crest / 2 + 2;
       return `<g><title>${tip}</title>
-        <circle cx="${cx + dx}" cy="${cy}" r="${r}" fill="var(--panel)" stroke="${x.color}" stroke-width="2" />
+        <circle cx="${cx + dx}" cy="${cy}" r="${r}" fill="${typeof PL_LOGO_LIGHT_BG !== 'undefined' && PL_LOGO_LIGHT_BG.includes(pt.pick.team) ? '#FFFFFF' : 'var(--panel)'}" stroke="${x.color}" stroke-width="2" />
         ${id ? `<image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${cx + dx - crest / 2 + 2}" y="${cy - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
       </g>`;
     }).join('');
