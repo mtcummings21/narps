@@ -1501,7 +1501,10 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 .pl-detail{ font-size:0.72rem; color: var(--text-soft); margin-top:2px; }
 td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-logo{ display:inline-block; vertical-align:-4px; object-fit:contain; margin-right:2px; }
+/* Dark mode: put every club crest on a light background so dark crests stay readable */
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) .pl-logo--light-bg{ background:#fff; border-radius:50%; padding:2px; }
+  :root:not([data-theme="light"]) .pl-logo{ background:#fff; border-radius:50%; padding:2px; }
+  :root:not([data-theme="light"]) .pl-crest-bg{ fill:#fff; }
 }
-:root[data-theme="dark"] .pl-logo--light-bg{ background:#fff; border-radius:50%; padding:2px; }
+:root[data-theme="dark"] .pl-logo{ background:#fff; border-radius:50%; padding:2px; }
+:root[data-theme="dark"] .pl-crest-bg{ fill:#fff; }
