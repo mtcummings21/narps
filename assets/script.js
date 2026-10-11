@@ -1597,6 +1597,25 @@ function renderPremierLeagueRace(s){
     </div>`;
 }
 
+function renderPremierLeagueTable(s){
+  if(!s.table || !s.table.rows || !s.table.rows.length) return '';
+  const rows = s.table.rows.map(r => ({ ...r, gd: r.gf - r.ga, pts: r.w * 3 + r.d }))
+    .sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.club.localeCompare(b.club));
+  const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
+  const body = rows.map((r, i) => `<tr>
+      <td class="pos">${i + 1}</td>
+      <td class="name-cell">${plLogo(r.club, 18)} ${r.club}</td>
+      <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
+      <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td><td><strong>${r.pts}</strong></td>
+    </tr>`).join('');
+  return `<h3>Premier League Table</h3>
+    <p class="muted" style="margin-top:-4px;">${s.table.asOf}</p>
+    <div class="table-scroll"><table class="pl-table">
+      <thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
+      <tbody>${body}</tbody>
+    </table></div>`;
+}
+
 function renderPremierLeague(containerId){
   const el = document.getElementById(containerId);
   if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
@@ -1653,7 +1672,8 @@ function renderPremierLeague(containerId){
     <div class="table-scroll"><table class="pl-usage">
       <thead><tr><th>Club</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
       <tbody>${usageRows}</tbody>
-    </table></div>` : ''}`;
+    </table></div>` : ''}
+    ${renderPremierLeagueTable(s)}`;
 }
 
 function renderPremierLeaguePlayer(containerId){
