@@ -16662,6 +16662,8 @@ const DRAFT_RESULTS_YEARS = ["2011","2012","2013","2014","2015","2016","2017","2
 const PREMIER_LEAGUE = {
   "2026": {
     season: "2026–27",
+    clubs: ["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham",
+            "Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham"],
     players: [
       { name: "TC", picks: [
         { week: 1, team: "Manchester United", opponent: "Hull City",      venue: "A", score: "0–2", result: "L" },

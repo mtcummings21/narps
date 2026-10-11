@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Player — Premier League — League of NARPS</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="stylesheet" href="assets/style.css">
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-1NRE0CFT45"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-1NRE0CFT45');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img src="assets/logo.png" alt="League of NARPS" class="brand-logo"><small>EST. 2011</small></a>
+    <button class="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav class="nav" id="site-nav">
+      <a href="index.html">Home</a>
+      <a href="champions.html">Champions</a>
+      <div class="nav-dropdown" id="history-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">League History <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="standings.html">All-Time Standings</a>
+          <a href="seasons.html">Seasons</a>
+          <a href="draft.html">Draft History</a>
+          <a href="rules.html">Rules</a>
+        </div>
+      </div>
+      <a href="teams.html">Teams</a>
+      <a href="newsletters.html">Newsletters</a>
+      <div class="nav-dropdown nav-dropdown--current" id="games-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">Other Games <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="survivor.html">Survivor</a>
+          <a href="premier-league.html" aria-current="page">Premier League</a>
+          <a href="super-bowl-squares.html">Super Bowl Squares</a>
+          <a href="march-madness.html">March Madness</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<section style="padding-top:48px;">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 class="section-title" id="pl-player-title">Premier League</h2>
+      <span class="section-sub" id="pl-player-sub">Pick'em</span>
+    </div>
+    <div class="game-rules">
+      <div id="pl-player-container"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">League of NARPS — league history archive · built from the official league spreadsheet</div>
+</footer>
+
+<script src="assets/data.js"></script>
+<script src="assets/script.js"></script>
+<script>renderPremierLeaguePlayer('pl-player-container');</script>
+</body>
+</html>

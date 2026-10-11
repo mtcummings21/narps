@@ -1535,7 +1535,7 @@ function renderPremierLeague(containerId){
   let rank = 0;
   const standingsRows = rows.map((r, i) => {
     if(i === 0 || r.pts !== rows[i-1].pts) rank = i + 1;
-    return `<tr><td class="pos">${rank}</td><td class="name-cell">${r.name}</td><td>${r.picks}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td><strong>${r.pts}</strong></td></tr>`;
+    return `<tr><td class="pos">${rank}</td><td class="name-cell"><a href="premier-league-player.html?player=${encodeURIComponent(r.name)}">${r.name}</a></td><td>${r.picks}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td><td><strong>${r.pts}</strong></td></tr>`;
   }).join('');
 
   const maxWeek = Math.max(0, ...s.players.flatMap(p => p.picks.map(pk => pk.week)));
@@ -1563,7 +1563,7 @@ function renderPremierLeague(containerId){
     </table></div>
     ${maxWeek ? `<h3>Weekly Picks</h3>
     <div class="table-scroll"><table>
-      <thead><tr><th>Wk</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
+      <thead><tr><th>Wk</th>${s.players.map(p => `<th><a href="premier-league-player.html?player=${encodeURIComponent(p.name)}" style="color:inherit;">${p.name}</a></th>`).join('')}</tr></thead>
       <tbody>${weekRows}</tbody>
     </table></div>
     <h3>Club Usage</h3>
@@ -1571,6 +1571,74 @@ function renderPremierLeague(containerId){
       <thead><tr><th>Club</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
       <tbody>${usageRows}</tbody>
     </table></div>` : ''}`;
+}
+
+function renderPremierLeaguePlayer(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
+  const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
+  const s = PREMIER_LEAGUE[year];
+  const p = s && s.players.find(x => x.name === params.get('player'));
+  if(!p){
+    el.innerHTML = `<p class="muted">Player not found. <a href="premier-league.html">Back to Premier League</a></p>`;
+    return;
+  }
+  const PTS = { W: 3, D: 1, L: 0 };
+  const total = pl => pl.picks.filter(pk => pk.result).reduce((t, pk) => t + PTS[pk.result], 0);
+  const pts = total(p);
+  const rank = 1 + s.players.filter(x => total(x) > pts).length;
+  const count = r => p.picks.filter(pk => pk.result === r).length;
+
+  document.title = `${p.name} — Premier League — League of NARPS`;
+  const titleEl = document.getElementById('pl-player-title');
+  if(titleEl) titleEl.textContent = p.name;
+  const subEl = document.getElementById('pl-player-sub');
+  if(subEl) subEl.textContent = `${s.season} Pick'em`;
+
+  const clubs = (s.clubs || [...new Set(p.picks.map(pk => pk.team))]).map(c => {
+    const used = p.picks.filter(pk => pk.team === c);
+    return { club: c, n: used.length, weeks: used.map(pk => pk.week),
+             pts: used.filter(pk => pk.result).reduce((t, pk) => t + PTS[pk.result], 0) };
+  }).sort((a,b) => b.n - a.n || a.club.localeCompare(b.club));
+  const clubRows = clubs.map(c => `<tr>
+      <td class="name-cell">${c.club}</td>
+      <td${c.n >= 2 ? ' class="pl-maxed"' : ''}>${c.n}</td>
+      <td>${Math.max(0, 2 - c.n)}</td>
+      <td>${c.weeks.length ? c.weeks.join(', ') : '—'}</td>
+      <td>${c.n ? c.pts : '—'}</td>
+    </tr>`).join('');
+
+  let running = 0;
+  const weekRows = p.picks.slice().sort((a,b) => a.week - b.week).map(pk => {
+    const wp = pk.result ? PTS[pk.result] : null;
+    if(wp !== null) running += wp;
+    const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
+    return `<tr>
+      <td class="pos">${pk.week}</td>
+      <td class="name-cell">${pk.team}</td>
+      <td>${pk.opponent ? (pk.venue === 'A' ? 'at ' : 'vs ') + pk.opponent : '—'}</td>
+      <td>${pk.score || '—'}</td>
+      <td>${res}</td>
+      <td>${wp === null ? '—' : wp}</td>
+      <td><strong>${running}</strong></td>
+    </tr>`;
+  }).join('');
+
+  el.innerHTML = `
+    <p class="muted"><strong>${pts} pts</strong> · ${count('W')}–${count('D')}–${count('L')} · ${rank === 1 ? '1st' : rank === 2 ? '2nd' : rank === 3 ? '3rd' : rank + 'th'} of ${s.players.length}</p>
+    <h3>Clubs Picked</h3>
+    <div class="table-scroll"><table>
+      <thead><tr><th>Club</th><th>Times Picked</th><th>Left</th><th>Weeks</th><th>Pts</th></tr></thead>
+      <tbody>${clubRows}</tbody>
+    </table></div>
+    <h3>Weekly Picks</h3>
+    ${p.picks.length ? `<div class="table-scroll"><table>
+      <thead><tr><th>Wk</th><th>Club</th><th>Opponent</th><th>Score</th><th>Result</th><th>Pts</th><th>Total</th></tr></thead>
+      <tbody>${weekRows}</tbody>
+    </table></div>` : '<p class="muted">No picks yet.</p>'}
+    <p style="margin-top:24px;"><a href="premier-league.html">&larr; Back to Premier League</a></p>`;
 }
 
 function renderSurvivor(containerId){
