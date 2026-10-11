@@ -1687,6 +1687,79 @@ function renderPremierLeagueTableRace(s, weeks){
     </div>`;
 }
 
+// Premier League schedule: one matchweek at a time, grouped by day in the viewer's timezone.
+function renderPremierLeagueSchedule(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
+  const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
+  const s = PREMIER_LEAGUE[year];
+  if(!s || !s.fixtures){ el.innerHTML = '<p class="muted">No schedule yet.</p>'; return; }
+  const weeks = Object.keys(s.fixtures).map(Number).sort((a,b) => a - b);
+
+  // Current week = first matchweek whose last kickoff was less than ~3 hours ago (or later).
+  const now = Date.now();
+  const current = weeks.find(w => Math.max(...s.fixtures[w].map(f => Date.parse(f[0]))) + 3 * 3600e3 > now) || weeks[weeks.length - 1];
+  let week = parseInt(params.get('week'), 10);
+  if(!weeks.includes(week)) week = current;
+
+  const dayFmt = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+  const shortFmt = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
+  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+  const range = w => {
+    const ds = s.fixtures[w].map(f => new Date(f[0]));
+    const a = shortFmt.format(ds[0]), b = shortFmt.format(ds[ds.length - 1]);
+    if(a === b) return a;
+    return a.split(' ')[0] === b.split(' ')[0] ? `${a}–${b.split(' ')[1]}` : `${a} – ${b}`;
+  };
+  const picksFor = w => {
+    const m = {};
+    (s.players || []).forEach(p => p.picks.filter(pk => pk.week === w).forEach(pk => { (m[pk.team] = m[pk.team] || []).push(p.name); }));
+    return m;
+  };
+
+  function draw(){
+    const games = s.fixtures[week].slice().sort((a,b) => Date.parse(a[0]) - Date.parse(b[0]));
+    const results = (s.results && s.results[week]) || [];
+    const picks = picksFor(week);
+    const scoreOf = (h, a) => results.find(r => r[0] === h && r[3] === a);
+    const chips = team => (picks[team] || []).map(n => `<span class="pl-pick-chip">${n}</span>`).join('');
+    let lastDay = '';
+    const rows = games.map(([ko, h, a]) => {
+      const d = new Date(ko);
+      const day = dayFmt.format(d);
+      const head = day !== lastDay ? `<div class="pl-sched-day">${day}</div>` : '';
+      lastDay = day;
+      const r = scoreOf(h, a);
+      const mid = r ? `<span class="pl-sched-score">${r[1]} – ${r[2]}</span>` : `<span class="pl-sched-time">${timeFmt.format(d)}</span>`;
+      return `${head}<div class="pl-sched-row">
+          <span class="pl-sched-team pl-sched-home">${chips(h)}<span class="pl-sched-name">${h}</span>${plLogo(h, 20)}</span>
+          ${mid}
+          <span class="pl-sched-team pl-sched-away">${plLogo(a, 20)}<span class="pl-sched-name">${a}</span>${chips(a)}</span>
+        </div>`;
+    }).join('');
+    const opts = weeks.map(w => `<option value="${w}"${w === week ? ' selected' : ''}>Week ${w} · ${range(w)}${w === current ? ' · Current' : ''}</option>`).join('');
+    el.innerHTML = `
+      <div class="pl-sched-nav">
+        <button type="button" class="pl-sched-step" data-step="-1" ${week === weeks[0] ? 'disabled' : ''} aria-label="Previous matchweek">&larr;</button>
+        <select id="pl-week-select" aria-label="Matchweek">${opts}</select>
+        <button type="button" class="pl-sched-step" data-step="1" ${week === weeks[weeks.length - 1] ? 'disabled' : ''} aria-label="Next matchweek">&rarr;</button>
+      </div>
+      <div class="pl-sched">${rows}</div>
+      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone. Kickoff times for later matchweeks are provisional and may move for TV.${Object.keys(picks).length ? ' Name tags mark that week\'s pick\'em picks.' : ''}</p>`;
+    el.querySelector('#pl-week-select').addEventListener('change', e => go(parseInt(e.target.value, 10)));
+    el.querySelectorAll('.pl-sched-step').forEach(b => b.addEventListener('click', () => go(week + parseInt(b.dataset.step, 10))));
+  }
+  function go(w){
+    if(!weeks.includes(w)) return;
+    week = w;
+    try { const u = new URL(window.location.href); u.searchParams.set('week', w); history.replaceState(null, '', u); } catch(e){}
+    draw();
+  }
+  draw();
+}
+
 function renderPremierLeague(containerId){
   const el = document.getElementById(containerId);
   if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
