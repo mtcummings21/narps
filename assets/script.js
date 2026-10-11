@@ -1631,7 +1631,7 @@ function renderPremierLeague(containerId){
   const weekRows = Array.from({ length: maxWeek }, (_, i) => i + 1)
     .map(w => `<tr><td class="pos">${w}</td>${s.players.map(p => pickCell(p, w)).join('')}</tr>`).join('');
 
-  const clubs = [...new Set(s.players.flatMap(p => p.picks.map(pk => pk.team)))].sort();
+  const clubs = [...new Set([...(s.clubs || []), ...s.players.flatMap(p => p.picks.map(pk => pk.team))])].sort();
   const usageRows = clubs.map(c => `<tr><td class="name-cell">${plLogo(c, 18)} ${c}</td>${s.players.map(p => {
     const n = p.picks.filter(pk => pk.team === c).length;
     return `<td${n >= 2 ? ' class="pl-maxed"' : ''}>${n ? n + ' / 2' : '—'}</td>`;
