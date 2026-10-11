@@ -1597,10 +1597,29 @@ function renderPremierLeagueRace(s){
     </div>`;
 }
 
-function renderPremierLeagueTable(s){
-  if(!s.table || !s.table.rows || !s.table.rows.length) return '';
-  const rows = s.table.rows.map(r => ({ ...r, gd: r.gf - r.ga, pts: r.w * 3 + r.d }))
+// League standings after a given matchweek, computed from PREMIER_LEAGUE[year].results.
+function plStandingsAfter(s, week){
+  const t = {};
+  const row = c => t[c] || (t[c] = { club: c, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0 });
+  (s.clubs || []).forEach(row);
+  Object.keys(s.results || {}).map(Number).filter(w => w <= week).forEach(w => {
+    s.results[w].forEach(([home, hg, ag, away]) => {
+      [[home, hg, ag], [away, ag, hg]].forEach(([c, f, a]) => {
+        const r = row(c);
+        r.p++; r.gf += f; r.ga += a;
+        if(f > a) r.w++; else if(f === a) r.d++; else r.l++;
+      });
+    });
+  });
+  return Object.values(t).map(r => ({ ...r, gd: r.gf - r.ga, pts: r.w * 3 + r.d }))
     .sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.club.localeCompare(b.club));
+}
+
+function renderPremierLeagueTable(s){
+  const weeks = Object.keys(s.results || {}).map(Number).sort((a,b) => a - b);
+  if(!weeks.length) return '';
+  const last = weeks[weeks.length - 1];
+  const rows = plStandingsAfter(s, last);
   const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
   const body = rows.map((r, i) => `<tr>
       <td class="pos">${i + 1}</td>
@@ -1609,11 +1628,63 @@ function renderPremierLeagueTable(s){
       <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td><td><strong>${r.pts}</strong></td>
     </tr>`).join('');
   return `<h3>Premier League Table</h3>
-    <p class="muted" style="margin-top:-4px;">${s.table.asOf}</p>
+    <p class="muted" style="margin-top:-4px;">After Matchweek ${last}</p>
     <div class="table-scroll"><table class="pl-table">
       <thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
       <tbody>${body}</tbody>
-    </table></div>`;
+    </table></div>
+    ${renderPremierLeagueTableRace(s, weeks)}`;
+}
+
+// Position-by-matchweek bump chart for the real league table. Every node is the club's crest,
+// so identity never depends on line color; hovering a club highlights its path.
+function renderPremierLeagueTableRace(s, weeks){
+  if(weeks.length < 2) return '';
+  const byWeek = weeks.map(w => plStandingsAfter(s, w));
+  const clubs = byWeek[byWeek.length - 1].map(r => r.club);
+  const n = clubs.length;
+  const pos = {};
+  clubs.forEach(c => { pos[c] = byWeek.map(tbl => tbl.findIndex(r => r.club === c) + 1); });
+  const ptsAt = (c, i) => byWeek[i].find(r => r.club === c).pts;
+
+  const padL = 34, padR = 200, padT = 16, padB = 34, rowH = 26;
+  const chartW = 660, chartH = padT + padB + (n - 1) * rowH;
+  const innerW = chartW - padL - padR;
+  const xAt = i => padL + 14 + (weeks.length > 1 ? i / (weeks.length - 1) : 0) * (innerW - 14);
+  const yAt = p => padT + (p - 1) * rowH;
+  const crest = 18;
+
+  const rowLines = Array.from({ length: n }, (_, i) => i + 1).map(p => `
+    <text x="${padL - 6}" y="${yAt(p) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${p}</text>`).join('');
+  const weekLines = weeks.map((w, i) => `
+    <line x1="${xAt(i)}" y1="${padT - 8}" x2="${xAt(i)}" y2="${yAt(n) + 8}" stroke="var(--line)" stroke-width="1" />
+    <text x="${xAt(i)}" y="${yAt(n) + 26}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Wk ${w}</text>`).join('');
+
+  const paths = clubs.map(c => {
+    const ps = pos[c];
+    const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[c] : null;
+    const poly = ps.map((p, i) => `${xAt(i)},${yAt(p)}`).join(' ');
+    const nodes = ps.map((p, i) => `<g><title>${c} — after Wk ${weeks[i]}: ${p}${p === 1 ? 'st' : p === 2 ? 'nd' : p === 3 ? 'rd' : 'th'}, ${ptsAt(c, i)} pts</title>
+        <circle class="pl-crest-bg" cx="${xAt(i)}" cy="${yAt(p)}" r="${crest / 2 + 1}" fill="var(--panel)" stroke="var(--line)" stroke-width="1" />
+        ${id ? `<image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${xAt(i) - crest / 2 + 2}" y="${yAt(p) - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
+      </g>`).join('');
+    const lp = ps[ps.length - 1];
+    const move = ps[ps.length - 2] - lp;
+    const moveTxt = move > 0 ? `▲${move}` : move < 0 ? `▼${-move}` : '';
+    return `<g class="race-team pl-bump-club">
+      <polyline points="${poly}" fill="none" stroke="var(--text-soft)" stroke-opacity="0.45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+      ${nodes}
+      <text x="${xAt(weeks.length - 1) + 16}" y="${yAt(lp) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="var(--text)">${c} <tspan font-family="var(--mono)" font-weight="400" fill="var(--text-soft)">${ptsAt(c, weeks.length - 1)} pts ${moveTxt}</tspan></text>
+    </g>`;
+  }).join('');
+
+  return `<h3>Table Race</h3>
+    <p class="muted" style="margin-top:-4px;">League position after each matchweek. Hover a club to follow its path.</p>
+    <div class="table-scroll" style="border:0;">
+      <svg class="race-chart pl-bump" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:560px;" role="img" aria-label="Premier League position by matchweek">
+        ${weekLines}${rowLines}${paths}
+      </svg>
+    </div>`;
 }
 
 function renderPremierLeague(containerId){

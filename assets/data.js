@@ -16672,30 +16672,68 @@ const PREMIER_LEAGUE = {
     season: "2026–27",
     clubs: ["Arsenal","Aston Villa","Bournemouth","Brentford","Brighton","Chelsea","Coventry City","Crystal Palace","Everton","Fulham",
             "Hull City","Ipswich Town","Leeds United","Liverpool","Manchester City","Manchester United","Newcastle United","Nottingham Forest","Sunderland","Tottenham"],
-    // Actual Premier League table (GD and points are computed). Update after each completed matchweek.
-    table: {
-      asOf: "After Matchweek 5",
-      rows: [
-      { club: "Arsenal", p: 5, w: 4, d: 0, l: 1, gf: 8, ga: 4 },
-      { club: "Aston Villa", p: 5, w: 1, d: 1, l: 3, gf: 4, ga: 9 },
-      { club: "Bournemouth", p: 5, w: 0, d: 3, l: 2, gf: 6, ga: 8 },
-      { club: "Brentford", p: 5, w: 2, d: 3, l: 0, gf: 10, ga: 4 },
-      { club: "Brighton", p: 5, w: 3, d: 1, l: 1, gf: 16, ga: 5 },
-      { club: "Chelsea", p: 5, w: 2, d: 1, l: 2, gf: 10, ga: 12 },
-      { club: "Coventry City", p: 5, w: 1, d: 0, l: 4, gf: 1, ga: 10 },
-      { club: "Crystal Palace", p: 5, w: 1, d: 1, l: 3, gf: 6, ga: 11 },
-      { club: "Everton", p: 5, w: 2, d: 3, l: 0, gf: 6, ga: 3 },
-      { club: "Fulham", p: 5, w: 0, d: 2, l: 3, gf: 5, ga: 8 },
-      { club: "Hull City", p: 5, w: 2, d: 2, l: 1, gf: 6, ga: 4 },
-      { club: "Ipswich Town", p: 5, w: 2, d: 0, l: 3, gf: 7, ga: 11 },
-      { club: "Leeds United", p: 5, w: 2, d: 3, l: 0, gf: 7, ga: 3 },
-      { club: "Liverpool", p: 5, w: 2, d: 3, l: 0, gf: 7, ga: 4 },
-      { club: "Manchester City", p: 5, w: 5, d: 0, l: 0, gf: 13, ga: 5 },
-      { club: "Manchester United", p: 5, w: 1, d: 2, l: 2, gf: 8, ga: 8 },
-      { club: "Newcastle United", p: 5, w: 2, d: 2, l: 1, gf: 9, ga: 9 },
-      { club: "Nottingham Forest", p: 5, w: 1, d: 2, l: 2, gf: 4, ga: 5 },
-      { club: "Sunderland", p: 5, w: 1, d: 1, l: 3, gf: 6, ga: 10 },
-      { club: "Tottenham", p: 5, w: 0, d: 2, l: 3, gf: 2, ga: 8 }
+    // Actual Premier League results by matchweek: [home, homeGoals, awayGoals, away].
+    // The league table and its race chart are computed from these; add each completed matchweek.
+    results: {
+      1: [
+        ["Arsenal", 3, 0, "Coventry City"],
+        ["Brentford", 3, 0, "Tottenham"],
+        ["Everton", 2, 0, "Crystal Palace"],
+        ["Ipswich Town", 2, 1, "Sunderland"],
+        ["Nottingham Forest", 0, 1, "Leeds United"],
+        ["Hull City", 2, 0, "Manchester United"],
+        ["Newcastle United", 2, 2, "Liverpool"],
+        ["Brighton", 4, 0, "Aston Villa"],
+        ["Manchester City", 2, 1, "Bournemouth"],
+        ["Fulham", 2, 3, "Chelsea"]
+      ],
+      2: [
+        ["Crystal Palace", 1, 4, "Manchester City"],
+        ["Tottenham", 0, 2, "Newcastle United"],
+        ["Bournemouth", 1, 1, "Everton"],
+        ["Coventry City", 0, 1, "Hull City"],
+        ["Liverpool", 2, 2, "Nottingham Forest"],
+        ["Manchester United", 5, 2, "Ipswich Town"],
+        ["Chelsea", 4, 3, "Brighton"],
+        ["Leeds United", 1, 1, "Brentford"],
+        ["Sunderland", 1, 0, "Fulham"],
+        ["Aston Villa", 0, 1, "Arsenal"]
+      ],
+      3: [
+        ["Ipswich Town", 0, 2, "Liverpool"],
+        ["Hull City", 0, 0, "Aston Villa"],
+        ["Brentford", 1, 1, "Sunderland"],
+        ["Brighton", 1, 1, "Leeds United"],
+        ["Fulham", 2, 3, "Crystal Palace"],
+        ["Manchester City", 1, 0, "Coventry City"],
+        ["Nottingham Forest", 0, 0, "Tottenham"],
+        ["Newcastle United", 2, 2, "Bournemouth"],
+        ["Arsenal", 2, 1, "Chelsea"],
+        ["Everton", 2, 2, "Manchester United"]
+      ],
+      4: [
+        ["Sunderland", 0, 2, "Arsenal"],
+        ["Tottenham", 0, 0, "Everton"],
+        ["Bournemouth", 2, 2, "Brentford"],
+        ["Aston Villa", 1, 2, "Nottingham Forest"],
+        ["Chelsea", 2, 2, "Hull City"],
+        ["Crystal Palace", 2, 3, "Ipswich Town"],
+        ["Liverpool", 0, 0, "Fulham"],
+        ["Manchester United", 0, 1, "Manchester City"],
+        ["Coventry City", 0, 5, "Brighton"],
+        ["Leeds United", 4, 1, "Newcastle United"]
+      ],
+      5: [
+        ["Brentford", 3, 0, "Chelsea"],
+        ["Nottingham Forest", 0, 1, "Coventry City"],
+        ["Brighton", 3, 0, "Arsenal"],
+        ["Everton", 1, 0, "Ipswich Town"],
+        ["Newcastle United", 2, 1, "Hull City"],
+        ["Tottenham", 2, 3, "Aston Villa"],
+        ["Fulham", 1, 1, "Manchester United"],
+        ["Bournemouth", 0, 1, "Liverpool"],
+        ["Leeds United", 0, 0, "Crystal Palace"],
+        ["Manchester City", 5, 3, "Sunderland"]
       ]
     },
     players: [
