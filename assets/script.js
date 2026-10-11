@@ -1515,6 +1515,88 @@ function nflLogo(teamName, opts = {}){
   return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
 // ---------- Premier League pick'em ----------
+function plLogo(team, size = 20){
+  const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[team] : null;
+  if(!id) return '';
+  return `<img class="pl-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" alt="" width="${size}" height="${size}" loading="lazy">`;
+}
+
+// Cumulative points race. Each player's line starts at 0 and steps through the weeks they have a
+// settled pick; each point carries the crest of the club picked that week.
+function renderPremierLeagueRace(s){
+  const PTS = { W: 3, D: 1, L: 0 };
+  const series = s.players.map((p, i) => {
+    let run = 0;
+    const pts = [{ week: 0, total: 0 }];
+    p.picks.filter(pk => pk.result).sort((a,b) => a.week - b.week).forEach(pk => {
+      run += PTS[pk.result];
+      pts.push({ week: pk.week, total: run, pick: pk });
+    });
+    return { name: p.name, color: RACE_CHART_COLORS[i % RACE_CHART_COLORS.length], pts };
+  }).filter(x => x.pts.length > 1);
+  if(!series.length) return '';
+
+  const maxWeek = Math.max(...series.flatMap(x => x.pts.map(pt => pt.week)));
+  const maxPts = Math.max(3, ...series.flatMap(x => x.pts.map(pt => pt.total)));
+  const yMax = Math.ceil(maxPts / 3) * 3;
+  const padL = 40, padR = 90, padT = 24, padB = 46;
+  const chartW = 640, chartH = 310;
+  const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  const xAt = w => padL + (maxWeek ? w / maxWeek : 0) * innerW;
+  const yAt = v => padT + innerH - (v / yMax) * innerH;
+
+  const yTicks = Array.from({ length: yMax / 3 + 1 }, (_, i) => i * 3);
+  const grid = yTicks.map(v => `
+    <line x1="${padL}" y1="${yAt(v)}" x2="${padL + innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
+    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v}</text>`).join('');
+  const xLabels = Array.from({ length: maxWeek + 1 }, (_, w) =>
+    `<text x="${xAt(w)}" y="${padT + innerH + 34}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${w === 0 ? 'Start' : 'Wk ' + w}</text>`).join('');
+  const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points</text>`;
+
+  // Nudge crests apart horizontally when two players sit on the same spot.
+  const spotCount = {};
+  series.forEach(x => x.pts.forEach(pt => { const k = pt.week + ':' + pt.total; spotCount[k] = (spotCount[k] || 0) + 1; }));
+  const spotSeen = {};
+  const crest = 22;
+
+  const labelX = padL + innerW + 26;
+  const labels = series.map(x => ({ x, y: yAt(x.pts[x.pts.length - 1].total) })).sort((a,b) => a.y - b.y);
+  labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + 20); });
+  const labelY = new Map(labels.map(l => [l.x, l.ly]));
+
+  const lines = series.map(x => {
+    const poly = x.pts.map(pt => `${xAt(pt.week)},${yAt(pt.total)}`).join(' ');
+    const marks = x.pts.map(pt => {
+      const cx = xAt(pt.week), cy = yAt(pt.total);
+      if(!pt.pick) return `<circle cx="${cx}" cy="${cy}" r="3.5" fill="${x.color}" />`;
+      const k = pt.week + ':' + pt.total;
+      const n = spotCount[k], idx = spotSeen[k] = (spotSeen[k] || 0) + 1;
+      const dx = n > 1 ? (idx - (n + 1) / 2) * (crest + 4) : 0;
+      const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[pt.pick.team] : null;
+      const tip = `${x.name} — Wk ${pt.week}: ${pt.pick.team} (${pt.pick.result}${pt.pick.score ? ' ' + pt.pick.score : ''}) · ${pt.total} pts`;
+      const r = crest / 2 + 2;
+      return `<g><title>${tip}</title>
+        <circle cx="${cx + dx}" cy="${cy}" r="${r}" fill="var(--panel)" stroke="${x.color}" stroke-width="2" />
+        ${id ? `<image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${cx + dx - crest / 2 + 2}" y="${cy - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
+      </g>`;
+    }).join('');
+    const last = x.pts[x.pts.length - 1];
+    return `<g class="race-team">
+      <polyline points="${poly}" fill="none" stroke="${x.color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+      ${marks}
+      <rect x="${labelX}" y="${labelY.get(x) - 5}" width="10" height="10" rx="2" fill="${x.color}" />
+      <text x="${labelX + 15}" y="${labelY.get(x) + 4}" font-size="12" font-family="var(--body)" font-weight="700" fill="var(--text)">${x.name} · ${last.total}</text>
+    </g>`;
+  }).join('');
+
+  return `<h3>Points Race</h3>
+    <div class="table-scroll" style="border:0;">
+      <svg class="race-chart pl-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:520px;" role="img" aria-label="Cumulative points by week">
+        ${grid}${yTitle}${xLabels}${lines}
+      </svg>
+    </div>`;
+}
+
 function renderPremierLeague(containerId){
   const el = document.getElementById(containerId);
   if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
@@ -1544,13 +1626,13 @@ function renderPremierLeague(containerId){
     if(!pk) return '<td class="muted">—</td>';
     const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
     const detail = pk.opponent ? `<div class="pl-detail">${pk.venue === 'A' ? 'at' : 'vs'} ${pk.opponent}${pk.score ? ' · ' + pk.score : ''}</div>` : '';
-    return `<td>${res} ${pk.team}${detail}</td>`;
+    return `<td>${res} ${plLogo(pk.team, 18)} ${pk.team}${detail}</td>`;
   };
   const weekRows = Array.from({ length: maxWeek }, (_, i) => i + 1)
     .map(w => `<tr><td class="pos">${w}</td>${s.players.map(p => pickCell(p, w)).join('')}</tr>`).join('');
 
   const clubs = [...new Set(s.players.flatMap(p => p.picks.map(pk => pk.team)))].sort();
-  const usageRows = clubs.map(c => `<tr><td class="name-cell">${c}</td>${s.players.map(p => {
+  const usageRows = clubs.map(c => `<tr><td class="name-cell">${plLogo(c, 18)} ${c}</td>${s.players.map(p => {
     const n = p.picks.filter(pk => pk.team === c).length;
     return `<td${n >= 2 ? ' class="pl-maxed"' : ''}>${n ? n + ' / 2' : '—'}</td>`;
   }).join('')}</tr>`).join('');
@@ -1561,6 +1643,7 @@ function renderPremierLeague(containerId){
       <thead><tr><th>#</th><th>Player</th><th>Picks</th><th>W</th><th>D</th><th>L</th><th>Pts</th></tr></thead>
       <tbody>${standingsRows}</tbody>
     </table></div>
+    ${renderPremierLeagueRace(s)}
     ${maxWeek ? `<h3>Weekly Picks</h3>
     <div class="table-scroll"><table>
       <thead><tr><th>Wk</th>${s.players.map(p => `<th><a href="premier-league-player.html?player=${encodeURIComponent(p.name)}" style="color:inherit;">${p.name}</a></th>`).join('')}</tr></thead>
@@ -1603,7 +1686,7 @@ function renderPremierLeaguePlayer(containerId){
              pts: used.filter(pk => pk.result).reduce((t, pk) => t + PTS[pk.result], 0) };
   }).sort((a,b) => b.n - a.n || a.club.localeCompare(b.club));
   const clubRows = clubs.map(c => `<tr>
-      <td class="name-cell">${c.club}</td>
+      <td class="name-cell">${plLogo(c.club, 18)} ${c.club}</td>
       <td${c.n >= 2 ? ' class="pl-maxed"' : ''}>${c.n}</td>
       <td>${Math.max(0, 2 - c.n)}</td>
       <td>${c.weeks.length ? c.weeks.join(', ') : '—'}</td>
@@ -1617,7 +1700,7 @@ function renderPremierLeaguePlayer(containerId){
     const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
     return `<tr>
       <td class="pos">${pk.week}</td>
-      <td class="name-cell">${pk.team}</td>
+      <td class="name-cell">${plLogo(pk.team, 18)} ${pk.team}</td>
       <td>${pk.opponent ? (pk.venue === 'A' ? 'at ' : 'vs ') + pk.opponent : '—'}</td>
       <td>${pk.score || '—'}</td>
       <td>${res}</td>

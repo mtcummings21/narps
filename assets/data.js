@@ -16659,6 +16659,14 @@ const DRAFT_RESULTS_YEARS = ["2011","2012","2013","2014","2015","2016","2017","2
 // ---------- Premier League pick'em ----------
 // One club per matchweek: win 3, draw 1, loss 0. Each club can be picked twice per season.
 // result: "W" | "D" | "L" (leave null until the match is played). score is from the picked club's side.
+// ESPN team ids for club crests: https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png
+const PL_LOGO_ID = {
+  "Arsenal": 359, "Aston Villa": 362, "Bournemouth": 349, "Brentford": 337, "Brighton": 331,
+  "Chelsea": 363, "Coventry City": 388, "Crystal Palace": 384, "Everton": 368, "Fulham": 370,
+  "Hull City": 306, "Ipswich Town": 373, "Leeds United": 357, "Liverpool": 364, "Manchester City": 382,
+  "Manchester United": 360, "Newcastle United": 361, "Nottingham Forest": 393, "Sunderland": 366, "Tottenham": 367
+};
+
 const PREMIER_LEAGUE = {
   "2026": {
     season: "2026–27",

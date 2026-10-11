@@ -1500,3 +1500,4 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 .pl-res--L{ background: var(--red); color:#fff; }
 .pl-detail{ font-size:0.72rem; color: var(--text-soft); margin-top:2px; }
 td.pl-maxed{ color: var(--red); font-weight:700; }
+.pl-logo{ display:inline-block; vertical-align:-4px; object-fit:contain; margin-right:2px; }
