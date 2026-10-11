@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Survivor — League of NARPS</title>
+<title>Super Bowl Squares — League of NARPS</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/style.css">
 
@@ -40,9 +40,9 @@
       <div class="nav-dropdown nav-dropdown--current" id="games-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">Other Games <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
         <div class="nav-dropdown-menu">
-          <a href="survivor.html" aria-current="page">Survivor</a>
+          <a href="survivor.html">Survivor</a>
           <a href="premier-league.html">Premier League</a>
-          <a href="super-bowl-squares.html">Super Bowl Squares</a>
+          <a href="super-bowl-squares.html" aria-current="page">Super Bowl Squares</a>
           <a href="march-madness.html">March Madness</a>
         </div>
       </div>
@@ -53,11 +53,14 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title">Survivor Pool</h2>
-      <span class="section-sub">NFL Eliminator</span>
+      <h2 class="section-title">Super Bowl Squares</h2>
+      <span class="section-sub">10 × 10 Grid</span>
     </div>
-    <p class="muted" style="max-width:65ch;">Pick a team to win each week — pick the same team twice and it's your problem. Two losses and you're out. Last one standing wins.</p>
-    <div id="survivor-container"></div>
+    <div class="game-rules">
+      <p class="muted">Every square purchased is entered into a random draw to set its place on the 10 × 10 grid. The two Super Bowl teams are then assigned to the X and Y axes, and the numbers 0 through 9 are drawn at random for each team's ten slots.</p>
+      <h3>How to Win</h3>
+      <p class="muted">At the end of every quarter, take the last digit of each team's score. The square where those two numbers meet on the grid wins that quarter.</p>
+    </div>
   </div>
 </section>
 
@@ -67,6 +70,5 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderSurvivor('survivor-container');</script>
 </body>
 </html>

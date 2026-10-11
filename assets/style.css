@@ -1488,3 +1488,9 @@ footer a{ color: var(--blue-lt); text-decoration:none; }
 #standings-table td.grp-r{ border-right: 1px solid var(--line); }
 #standings-table th.grp-l{ border-left: 1px solid rgba(255,255,255,0.22); }
 #standings-table th.grp-r{ border-right: 1px solid rgba(255,255,255,0.22); }
+
+/* ---------- Other Games pages ---------- */
+.game-rules{ max-width: 65ch; }
+.game-rules h3{ font-family: var(--display); color: var(--navy); margin: 28px 0 10px; }
+.game-rules .table-scroll{ margin-bottom: 8px; }
+.game-rules thead th{ cursor: default; }

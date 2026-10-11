@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Survivor — League of NARPS</title>
+<title>Premier League — League of NARPS</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/style.css">
 
@@ -40,8 +40,8 @@
       <div class="nav-dropdown nav-dropdown--current" id="games-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">Other Games <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
         <div class="nav-dropdown-menu">
-          <a href="survivor.html" aria-current="page">Survivor</a>
-          <a href="premier-league.html">Premier League</a>
+          <a href="survivor.html">Survivor</a>
+          <a href="premier-league.html" aria-current="page">Premier League</a>
           <a href="super-bowl-squares.html">Super Bowl Squares</a>
           <a href="march-madness.html">March Madness</a>
         </div>
@@ -53,11 +53,23 @@
 <section style="padding-top:48px;">
   <div class="wrap">
     <div class="section-head">
-      <h2 class="section-title">Survivor Pool</h2>
-      <span class="section-sub">NFL Eliminator</span>
+      <h2 class="section-title">Premier League</h2>
+      <span class="section-sub">Weekly Pick'em</span>
     </div>
-    <p class="muted" style="max-width:65ch;">Pick a team to win each week — pick the same team twice and it's your problem. Two losses and you're out. Last one standing wins.</p>
-    <div id="survivor-container"></div>
+    <div class="game-rules">
+      <p class="muted">Pick one Premier League team each week. If your team wins you get 3 points, a draw gets you 1, and a loss gets you nothing. You can only pick each team twice all season, so save the big clubs for the right weeks. Most points at the end of the season wins.</p>
+      <h3>Scoring</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Result</th><th>Points</th></tr></thead>
+          <tbody>
+            <tr><td>Win</td><td>3</td></tr>
+            <tr><td>Draw</td><td>1</td></tr>
+            <tr><td>Loss</td><td>0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -67,6 +79,5 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
-<script>renderSurvivor('survivor-container');</script>
 </body>
 </html>
