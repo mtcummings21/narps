@@ -1825,7 +1825,7 @@ function renderSurvivor(containerId){
   const s = SURVIVOR[year];
   if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
 
-  document.title = `${year} Survivor — League of NARPS`;
+  document.title = `${year} NFL Survivor — League of NARPS`;
 
   const yearSwitcher = years.length > 1 ? `<div style="margin-bottom:24px;">
     <select id="survivor-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
