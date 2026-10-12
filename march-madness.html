@@ -56,7 +56,7 @@
       <h2 class="section-title">March Madness</h2>
       <span class="section-sub">NCAA Tournament Challenge</span>
     </div>
-    <div class="game-rules">
+    <div class="game-rules mm-page">
       <p class="muted">Fill out a bracket for the NCAA men's tournament. You score points for every team you correctly pick to advance, with bonus points for upsets. Most points wins.</p>
       <h3>Scoring</h3>
       <div class="table-scroll">
@@ -88,6 +88,7 @@
         </table>
       </div>
       <p class="muted">Tiebreaker: record first. If records are tied, total points in the championship game.</p>
+      <div id="mm-container"></div>
     </div>
   </div>
 </section>
@@ -98,5 +99,6 @@
 
 <script src="assets/data.js"></script>
 <script src="assets/script.js"></script>
+<script>renderMarchMadness('mm-container');</script>
 </body>
 </html>

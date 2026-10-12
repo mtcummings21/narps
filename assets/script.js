@@ -1514,6 +1514,107 @@ function nflLogo(teamName, opts = {}){
   const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : `${teamName} (pending)`);
   return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
+// ---------- March Madness pool ----------
+const MM_REGIONS = ['East', 'West', 'South', 'Midwest'];
+function mmScore(pool, entry){
+  const seed = {}, field = {};
+  MM_REGIONS.forEach(r => { field[r] = pool.field[r].map(([t, s]) => { seed[t] = s; return t; }); });
+  const R = pool.results, P = pool.points;
+  const out = { byRound: [0,0,0,0,0,0], correct: [0,0,0,0,0,0], bonus: 0, upsets: [] };
+  const credit = (rd, win, lose, pick) => {
+    if(pick !== win) return;
+    out.byRound[rd] += P[rd]; out.correct[rd]++;
+    if(seed[win] > seed[lose]){ const b = seed[win] - seed[lose]; out.bonus += b; out.upsets.push({ win, lose, b, rd }); }
+  };
+  MM_REGIONS.forEach(r => {
+    let prev = field[r];
+    for(let rd = 0; rd < 4; rd++){
+      R[r][rd].forEach((win, i) => { const a = prev[2*i], b = prev[2*i+1]; credit(rd, win, win === a ? b : a, entry[r][rd][i]); });
+      prev = R[r][rd];
+    }
+  });
+  const semis = [[R.East[3][0], R.South[3][0]], [R.West[3][0], R.Midwest[3][0]]];
+  semis.forEach(([a, b], i) => { const win = R.F4[i]; credit(4, win, win === a ? b : a, entry.F4[i]); });
+  const [a, b] = R.F4; credit(5, R.Champion, R.Champion === a ? b : a, entry.Champion);
+  out.total = out.byRound.reduce((x, y) => x + y, 0) + out.bonus;
+  out.seed = seed;
+  return out;
+}
+
+function renderMarchMadness(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof MARCH_MADNESS === 'undefined') return;
+  const years = Object.keys(MARCH_MADNESS).sort((a,b) => b - a);
+  const params = new URLSearchParams(window.location.search);
+  const year = (params.get('year') && MARCH_MADNESS[params.get('year')]) ? params.get('year') : years[0];
+  const pool = MARCH_MADNESS[year];
+  const R = pool.results;
+  const rows = Object.entries(pool.entries).map(([name, e]) => ({ name, e, s: mmScore(pool, e) }))
+    .sort((a,b) => b.s.total - a.s.total || a.name.localeCompare(b.name));
+  const pot = rows.length * (pool.entryFee || 0);
+  const pay = (pool.payouts && pool.payouts[pot]) || [];
+  let rank = 0;
+  rows.forEach((x, i) => { if(i === 0 || x.s.total !== rows[i-1].s.total) rank = i + 1; x.rank = rank; x.pay = pay[rank - 1] || 0; });
+  const seed = rows.length ? rows[0].s.seed : {};
+  const team = t => `<span class="mm-seed">${seed[t] || ''}</span> ${t}`;
+  const actualF4 = new Set(MM_REGIONS.map(r => R[r][3][0]));
+  const pickTag = (t, ok) => `<span class="mm-pick ${ok ? 'mm-pick--ok' : 'mm-pick--miss'}">${team(t)}</span>`;
+
+  const standings = rows.map(x => `<tr>
+      <td class="pos">${x.rank}</td>
+      <td class="name-cell">${x.name}</td>
+      ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
+      <td>${x.s.bonus}</td>
+      <td><strong>${x.s.total}</strong></td>
+      <td>${x.pay ? '$' + x.pay : '—'}</td>
+    </tr>`).join('');
+
+  const picks = rows.map(x => {
+    const f4 = MM_REGIONS.map(r => x.e[r][3][0]);
+    return `<tr>
+      <td class="name-cell">${x.name}</td>
+      <td class="mm-picks">${f4.map(t => pickTag(t, actualF4.has(t))).join(' ')}</td>
+      <td class="mm-picks">${x.e.F4.map(t => pickTag(t, R.F4.includes(t))).join(' ')}</td>
+      <td class="mm-picks">${pickTag(x.e.Champion, x.e.Champion === R.Champion)}</td>
+    </tr>`;
+  }).join('');
+
+  const allUps = rows.flatMap(x => x.s.upsets.map(u => ({ ...u, who: x.name })));
+  const byGame = {};
+  allUps.forEach(u => { const k = u.win + '|' + u.lose; (byGame[k] = byGame[k] || { ...u, who: [] }).who.push(u.who); });
+  const roundName = ['First Round', 'Second Round', 'Sweet 16', 'Elite 8', 'Final Four', 'Championship'];
+  const upsetRows = Object.values(byGame).sort((a,b) => b.b - a.b || a.who.length - b.who.length).slice(0, 8).map(u => `<tr>
+      <td>${team(u.win)} over ${team(u.lose)}</td>
+      <td>${roundName[u.rd]}</td>
+      <td>+${u.b}</td>
+      <td>${u.who.join(', ')}</td>
+    </tr>`).join('');
+
+  const leader = rows[0];
+  el.innerHTML = `
+    <div class="mm-summary">
+      <div><div class="mm-label">${year} National Champion</div><div class="mm-big">${team(R.Champion)}</div></div>
+      <div><div class="mm-label">Pool Winner</div><div class="mm-big">${leader.name} <span class="muted" style="font-size:0.9rem;">${leader.s.total} pts</span></div></div>
+      <div><div class="mm-label">Final Four</div><div>${MM_REGIONS.map(r => team(R[r][3][0])).join(' · ')}</div></div>
+    </div>
+    <h3>${year} Standings</h3>
+    <div class="table-scroll"><table class="mm-table">
+      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th><th>Upsets</th><th>Total</th><th>Payout</th></tr></thead>
+      <tbody>${standings}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:0.8rem;">${rows.length} entries · $${pot} pool. Column points are for correct picks in that round; Upsets is the seed-difference bonus.</p>
+    <h3>Final Four Picks</h3>
+    <div class="table-scroll"><table class="mm-table mm-picks-table">
+      <thead><tr><th>Entry</th><th>Final Four</th><th>Title Game</th><th>Champion</th></tr></thead>
+      <tbody>${picks}</tbody>
+    </table></div>
+    <h3>Best Upset Calls</h3>
+    <div class="table-scroll"><table class="mm-table">
+      <thead><tr><th>Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
+      <tbody>${upsetRows}</tbody>
+    </table></div>`;
+}
+
 // ---------- Super Bowl Squares ----------
 function renderSuperBowlSquares(containerId){
   const el = document.getElementById(containerId);

@@ -1598,3 +1598,17 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .sb-page{ max-width:none; }
 .sb-page > p, .sb-page > h3, .sb-page .sb-summary, .sb-page .table-scroll:has(.sb-winners){ max-width:65ch; }
 .sb-grid th.sb-row, .sb-grid th.sb-corner{ min-width:30px; width:30px; }
+
+/* ---------- March Madness pool ---------- */
+.mm-page{ max-width:none; }
+.mm-page > p, .mm-page > h3, .mm-page > .table-scroll:has(table:not(.mm-table)){ max-width:65ch; }
+.mm-summary{ display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px 24px; margin:26px 0 8px; padding:16px 18px; border:1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.mm-label{ font-family: var(--mono); font-size:0.68rem; letter-spacing:0.8px; text-transform:uppercase; color: var(--text-soft); margin-bottom:4px; }
+.mm-big{ font-size:1.1rem; font-weight:700; }
+.mm-seed{ font-family: var(--mono); font-size:0.72em; color: var(--text-soft); }
+.mm-table th:not(:nth-child(-n+2)), .mm-table td:not(:nth-child(-n+2)){ text-align:center; }
+.mm-picks-table td, .mm-picks-table th{ text-align:left !important; }
+.mm-picks{ white-space:normal !important; }
+.mm-pick{ display:inline-block; padding:2px 7px; margin:2px 2px 2px 0; border-radius:6px; font-size:0.78rem; font-weight:600; border:1px solid var(--line); white-space:nowrap; }
+.mm-pick--ok{ background: rgba(31,157,85,0.12); border-color:#1f9d55; color:#1f9d55; }
+.mm-pick--miss{ color: var(--text-soft); text-decoration: line-through; }
