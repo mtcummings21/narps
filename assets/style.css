@@ -1542,3 +1542,7 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
   .pl-sched-row{ gap:8px; padding:9px 10px; font-size:0.8rem; }
   .pl-sched-score, .pl-sched-time{ min-width:52px; }
 }
+@media (max-width: 720px){
+  /* Other Games dropdown: line its items up with the "Other Games" label */
+  #games-dropdown .nav-dropdown-menu{ margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
+}
