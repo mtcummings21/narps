@@ -1673,6 +1673,10 @@ function renderPremierLeagueSchedule(containerId){
     const games = s.fixtures[week].slice().sort((a,b) => Date.parse(a[0]) - Date.parse(b[0]));
     const results = (s.results && s.results[week]) || [];
     const scoreOf = (h, a) => results.find(r => r[0] === h && r[3] === a);
+    const nameHtml = team => {
+      const short = (typeof PL_SHORT_NAME !== 'undefined') ? PL_SHORT_NAME[team] : null;
+      return short ? `<span class="pl-name-full">${team}</span><span class="pl-name-short">${short}</span>` : team;
+    };
     const chips = team => {
       const u = usage(team, week);
       return u.length ? `<span class="pl-chips">${u.map(x => `<span class="pl-pick-chip${x.now ? ' pl-pick-chip--now' : ''}${x.n >= 2 ? ' pl-pick-chip--max' : ''}" title="${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}">${x.name} ${x.n}/2</span>`).join('')}</span>` : '';
@@ -1686,9 +1690,9 @@ function renderPremierLeagueSchedule(containerId){
       const r = scoreOf(h, a);
       const mid = r ? `<span class="pl-sched-score">${r[1]} – ${r[2]}</span>` : `<span class="pl-sched-time">${timeFmt.format(d)}</span>`;
       return `${head}<div class="pl-sched-row">
-          <span class="pl-sched-team pl-sched-home"><span class="pl-sched-line"><span class="pl-sched-name">${h}</span>${plLogo(h, 20)}</span>${chips(h)}</span>
+          <span class="pl-sched-team pl-sched-home"><span class="pl-sched-line"><span class="pl-sched-name">${nameHtml(h)}</span>${plLogo(h, 20)}</span>${chips(h)}</span>
           ${mid}
-          <span class="pl-sched-team pl-sched-away"><span class="pl-sched-line">${plLogo(a, 20)}<span class="pl-sched-name">${a}</span></span>${chips(a)}</span>
+          <span class="pl-sched-team pl-sched-away"><span class="pl-sched-line">${plLogo(a, 20)}<span class="pl-sched-name">${nameHtml(a)}</span></span>${chips(a)}</span>
         </div>`;
     }).join('');
     const opts = weeks.map(w => `<option value="${w}"${w === week ? ' selected' : ''}>Week ${w} · ${range(w)}${w === current ? ' · Current' : ''}</option>`).join('');

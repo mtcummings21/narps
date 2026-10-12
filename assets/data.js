@@ -16667,6 +16667,12 @@ const PL_LOGO_ID = {
   "Manchester United": 360, "Newcastle United": 361, "Nottingham Forest": 393, "Sunderland": 366, "Tottenham": 367
 };
 
+// Shorter club names used on the schedule at phone width.
+const PL_SHORT_NAME = {
+  "Manchester City": "Man. City", "Manchester United": "Man. United",
+  "Nottingham Forest": "Nottingham", "Newcastle United": "Newcastle"
+};
+
 const PREMIER_LEAGUE = {
   "2026": {
     season: "2026–27",

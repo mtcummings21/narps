@@ -1554,3 +1554,8 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-sched-score, .pl-sched-time{ align-self:start; min-height:22px; display:flex; align-items:center; justify-content:center; }
 .pl-sched-line{ align-items:flex-start; line-height:22px; }
 .pl-sched-line .pl-logo{ margin-top:1px; vertical-align:top; }
+.pl-name-short{ display:none; }
+@media (max-width: 560px){
+  .pl-name-full{ display:none; }
+  .pl-name-short{ display:inline; }
+}
