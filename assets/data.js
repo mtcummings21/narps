@@ -16791,7 +16791,8 @@ const PREMIER_LEAGUE = {
         ["Manchester United", 1, 1, "Tottenham"],
         ["Crystal Palace", 3, 1, "Nottingham Forest"],
         ["Hull City", 2, 2, "Everton"],
-        ["Liverpool", 0, 3, "Manchester City"]
+        ["Liverpool", 0, 3, "Manchester City"],
+        ["Coventry City", 4, 1, "Newcastle United"]
       ]
     },
     players: [
