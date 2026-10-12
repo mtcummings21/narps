@@ -1520,25 +1520,77 @@ function mmScore(pool, entry){
   const seed = {}, field = {};
   MM_REGIONS.forEach(r => { field[r] = pool.field[r].map(([t, s]) => { seed[t] = s; return t; }); });
   const R = pool.results, P = pool.points;
-  const out = { byRound: [0,0,0,0,0,0], correct: [0,0,0,0,0,0], bonus: 0, upsets: [] };
-  const credit = (rd, win, lose, pick) => {
+  const D = pool.gameDays || null;
+  const out = { byRound: [0,0,0,0,0,0], correct: [0,0,0,0,0,0], bonus: 0, upsets: [], byDay: (pool.days || []).map(() => 0) };
+  const credit = (rd, win, lose, pick, day) => {
     if(pick !== win) return;
     out.byRound[rd] += P[rd]; out.correct[rd]++;
-    if(seed[win] > seed[lose]){ const b = seed[win] - seed[lose]; out.bonus += b; out.upsets.push({ win, lose, b, rd }); }
+    let pts = P[rd];
+    if(seed[win] > seed[lose]){ const b = seed[win] - seed[lose]; out.bonus += b; pts += b; out.upsets.push({ win, lose, b, rd }); }
+    if(day != null && out.byDay.length) out.byDay[day] += pts;
   };
   MM_REGIONS.forEach(r => {
     let prev = field[r];
     for(let rd = 0; rd < 4; rd++){
-      R[r][rd].forEach((win, i) => { const a = prev[2*i], b = prev[2*i+1]; credit(rd, win, win === a ? b : a, entry[r][rd][i]); });
+      R[r][rd].forEach((win, i) => { const a = prev[2*i], b = prev[2*i+1]; credit(rd, win, win === a ? b : a, entry[r][rd][i], D ? D[r][rd][i] : null); });
       prev = R[r][rd];
     }
   });
   const semis = [[R.East[3][0], R.South[3][0]], [R.West[3][0], R.Midwest[3][0]]];
-  semis.forEach(([a, b], i) => { const win = R.F4[i]; credit(4, win, win === a ? b : a, entry.F4[i]); });
-  const [a, b] = R.F4; credit(5, R.Champion, R.Champion === a ? b : a, entry.Champion);
+  semis.forEach(([a, b], i) => { const win = R.F4[i]; credit(4, win, win === a ? b : a, entry.F4[i], D ? D.F4[i] : null); });
+  const [a, b] = R.F4; credit(5, R.Champion, R.Champion === a ? b : a, entry.Champion, D ? D.Champion : null);
   out.total = out.byRound.reduce((x, y) => x + y, 0) + out.bonus;
   out.seed = seed;
   return out;
+}
+
+// Pool race: running total after each tournament day for every entry. Colors follow the entry
+// (assigned by final standing), every line is direct-labelled at its end, hover highlights one entry.
+function renderMarchMadnessRace(pool, rows){
+  if(!pool.days || !pool.gameDays || rows.length < 2) return '';
+  const days = pool.days;
+  const series = rows.map((x, i) => {
+    let run = 0;
+    return { name: x.name, slot: (i % 8) + 1, pts: [0, ...x.s.byDay.map(v => (run += v))], day: x.s.byDay };
+  });
+  const maxPts = Math.max(...series.map(x => x.pts[x.pts.length - 1]));
+  const step = 20, yMax = Math.ceil(maxPts / step) * step;
+  const padL = 40, padR = 150, padT = 14, padB = 46;
+  const chartW = 760, chartH = 420;
+  const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  const xAt = i => padL + (i / days.length) * innerW;
+  const yAt = v => padT + innerH - (v / yMax) * innerH;
+  const roundOf = ['R64', 'R64', 'R32', 'R32', 'S16', 'S16', 'E8', 'E8', 'F4', 'Final'];
+  const grid = Array.from({ length: yMax / step + 1 }, (_, i) => i * step).map(v => `
+    <line x1="${padL}" y1="${yAt(v)}" x2="${padL + innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
+    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v}</text>`).join('');
+  const xLabels = ['Start', ...days].map((d, i) => `
+    <text x="${xAt(i)}" y="${padT + innerH + 18}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${d}</text>
+    ${i ? `<text x="${xAt(i)}" y="${padT + innerH + 32}" font-size="9" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle" opacity="0.75">${roundOf[i - 1]}</text>` : ''}`).join('');
+  const gap = 17, labelX = padL + innerW + 12;
+  const labels = series.map(x => ({ x, y: yAt(x.pts[x.pts.length - 1]) })).sort((a, b) => a.y - b.y);
+  labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + gap); });
+  const lines = labels.map(({ x, ly }) => {
+    const col = `var(--mm-s${x.slot})`;
+    const last = x.pts[x.pts.length - 1];
+    const poly = x.pts.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
+    const dots = x.pts.slice(1).map((v, i) => `<circle cx="${xAt(i + 1)}" cy="${yAt(v)}" r="7" fill="transparent"><title>${x.name} — ${days[i]}: +${x.day[i]} (${v} total)</title></circle>`).join('');
+    return `<g class="mm-race-entry">
+      <polyline points="${poly}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+      <circle cx="${xAt(days.length)}" cy="${yAt(last)}" r="3.5" fill="${col}" />
+      <path d="M${xAt(days.length) + 4},${yAt(last)} L${labelX - 3},${ly}" stroke="var(--line)" fill="none" />
+      <rect x="${labelX}" y="${ly - 4.5}" width="9" height="9" rx="2" fill="${col}" />
+      <text x="${labelX + 14}" y="${ly + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="var(--text)">${x.name} <tspan font-family="var(--mono)" font-weight="700">${last}</tspan></text>
+      ${dots}
+    </g>`;
+  }).join('');
+  return `<h3>Pool Race</h3>
+    <p class="muted" style="margin-top:-4px;">Running total after each day of the tournament (correct picks plus upset bonuses). Hover a line for that day's points.</p>
+    <div class="table-scroll" style="border:0;">
+      <svg class="mm-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; max-width:${chartW}px; height:auto; min-width:600px;" role="img" aria-label="March Madness pool points by tournament day">
+        ${grid}${xLabels}${lines}
+      </svg>
+    </div>`;
 }
 
 function renderMarchMadness(containerId){
@@ -1603,6 +1655,7 @@ function renderMarchMadness(containerId){
       <tbody>${standings}</tbody>
     </table></div>
     <p class="muted" style="font-size:0.8rem;">${rows.length} entries · $${pot} pool. Column points are for correct picks in that round; Upsets is the seed-difference bonus.</p>
+    ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
     <div class="table-scroll"><table class="mm-table mm-picks-table">
       <thead><tr><th>Entry</th><th>Final Four</th><th>Title Game</th><th>Champion</th></tr></thead>

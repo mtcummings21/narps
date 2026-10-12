@@ -16849,6 +16849,16 @@ const MARCH_MADNESS = {
   "2026": {
     entryFee: 50,
     points: [2, 3, 5, 8, 13, 21],
+    // Day each game was played (index into days), same shape as results. First-round pods played their
+    // second-round game two days later; Sweet 16/Elite 8: South+West Thu/Sat, East+Midwest Fri/Sun.
+    days: ["Mar 19", "Mar 20", "Mar 21", "Mar 22", "Mar 26", "Mar 27", "Mar 28", "Mar 29", "Apr 4", "Apr 6"],
+    gameDays: {
+      East:    [[0, 0, 1, 1, 0, 0, 1, 1], [2, 3, 2, 3], [5, 5], [7]],
+      West:    [[1, 1, 0, 0, 0, 0, 1, 1], [3, 2, 2, 3], [4, 4], [6]],
+      South:   [[1, 1, 0, 0, 0, 0, 0, 0], [3, 2, 2, 2], [4, 4], [6]],
+      Midwest: [[0, 0, 1, 1, 1, 1, 1, 1], [2, 3, 3, 3], [5, 5], [7]],
+      F4: [8, 8], Champion: 9
+    },
     payouts: { 300: [200, 100], 400: [300, 100], 500: [300, 150, 50], 600: [350, 200, 50] },
     field: {
       East: [["Duke", 1], ["Siena", 16], ["Ohio St.", 8], ["TCU", 9], ["St. John's", 5], ["Northern Iowa", 12], ["Kansas", 4], ["California Baptist", 13], ["Louisville", 6], ["South Florida", 11], ["Michigan St.", 3], ["North Dakota St.", 14], ["UCLA", 7], ["UCF", 10], ["Connecticut", 2], ["Furman", 15]],

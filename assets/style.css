@@ -1612,3 +1612,13 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-pick{ display:inline-block; padding:2px 7px; margin:2px 2px 2px 0; border-radius:6px; font-size:0.78rem; font-weight:600; border:1px solid var(--line); white-space:nowrap; }
 .mm-pick--ok{ background: rgba(31,157,85,0.12); border-color:#1f9d55; color:#1f9d55; }
 .mm-pick--miss{ color: var(--text-soft); text-decoration: line-through; }
+/* March Madness pool race: validated 8-slot categorical palette, light + dark steps */
+.mm-race{ --mm-s1:#2a78d6; --mm-s2:#eb6834; --mm-s3:#1baf7a; --mm-s4:#eda100; --mm-s5:#e87ba4; --mm-s6:#008300; --mm-s7:#6250d6; --mm-s8:#e34948; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .mm-race{ --mm-s1:#3987e5; --mm-s2:#d95926; --mm-s3:#199e70; --mm-s4:#c98500; --mm-s5:#d55181; --mm-s6:#008300; --mm-s7:#9085e9; --mm-s8:#e66767; }
+}
+:root[data-theme="dark"] .mm-race{ --mm-s1:#3987e5; --mm-s2:#d95926; --mm-s3:#199e70; --mm-s4:#c98500; --mm-s5:#d55181; --mm-s6:#008300; --mm-s7:#9085e9; --mm-s8:#e66767; }
+.mm-race .mm-race-entry{ transition: opacity 0.15s; }
+.mm-race:hover .mm-race-entry{ opacity:0.2; }
+.mm-race:hover .mm-race-entry:hover{ opacity:1; }
+.mm-race .mm-race-entry:hover polyline{ stroke-width:3.5; }
