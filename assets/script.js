@@ -1834,7 +1834,7 @@ function renderPremierLeague(containerId){
     const detail = pk.opponent ? `<div class="pl-detail">${pk.venue === 'A' ? 'at' : 'vs'} ${pk.opponent}${pk.score ? ' · ' + pk.score : ''}</div>` : '';
     return `<td>${res} ${plLogo(pk.team, 18)} ${pk.team}${detail}</td>`;
   };
-  const weekRows = Array.from({ length: maxWeek }, (_, i) => i + 1)
+  const weekRows = Array.from({ length: maxWeek }, (_, i) => maxWeek - i)
     .map(w => `<tr><td class="pos">${w}</td>${s.players.map(p => pickCell(p, w)).join('')}</tr>`).join('');
 
   const clubs = [...new Set([...(s.clubs || []), ...s.players.flatMap(p => p.picks.map(pk => pk.team))])].sort();
