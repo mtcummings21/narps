@@ -1565,3 +1565,8 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-prace:hover .pl-prace-club:hover{ opacity: 1; }
 .pl-prace .pl-prace-club:hover polyline{ stroke: var(--blue); stroke-opacity: 1; stroke-width: 3; }
 .pl-prace .pl-prace-club:hover .pl-prace-end{ fill: var(--blue); }
+/* BD's schedule tags in green (TC stays blue); "used up" red still wins */
+.pl-pick-chip--BD{ border-color:#1f9d55; color:#1f9d55; }
+.pl-pick-chip--BD.pl-pick-chip--now{ background:#1f9d55; color:#fff; }
+.pl-pick-chip--BD.pl-pick-chip--max{ border-color: var(--red); color: var(--red); }
+.pl-pick-chip--BD.pl-pick-chip--now.pl-pick-chip--max{ background: var(--red); color:#fff; }

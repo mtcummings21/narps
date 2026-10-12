@@ -1766,7 +1766,7 @@ function renderPremierLeagueSchedule(containerId){
     };
     const chips = team => {
       const u = usage(team, week);
-      return u.length ? `<span class="pl-chips">${u.map(x => `<span class="pl-pick-chip${x.now ? ' pl-pick-chip--now' : ''}${x.n >= 2 ? ' pl-pick-chip--max' : ''}" title="${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}">${x.name} ${x.n}/2</span>`).join('')}</span>` : '';
+      return u.length ? `<span class="pl-chips">${u.map(x => `<span class="pl-pick-chip pl-pick-chip--${x.name}${x.now ? ' pl-pick-chip--now' : ''}${x.n >= 2 ? ' pl-pick-chip--max' : ''}" title="${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}">${x.name} ${x.n}/2</span>`).join('')}</span>` : '';
     };
     let lastDay = '';
     const rows = games.map(([ko, h, a]) => {
@@ -1790,7 +1790,7 @@ function renderPremierLeagueSchedule(containerId){
         <button type="button" class="pl-sched-step" data-step="1" ${week === weeks[weeks.length - 1] ? 'disabled' : ''} aria-label="Next matchweek">&rarr;</button>
       </div>
       <div class="pl-sched">${rows}</div>
-      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone${tzName ? ` (${tzName})` : ''}. Kickoff times for later matchweeks are provisional and may move for TV.<br><span class="pl-pick-chip pl-pick-chip--now">TC 1/2</span> picked this week &nbsp; <span class="pl-pick-chip">TC 1/2</span> picked in another week &nbsp; <span class="pl-pick-chip pl-pick-chip--max">TC 2/2</span> used up</p>`;
+      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone${tzName ? ` (${tzName})` : ''}. Kickoff times for later matchweeks are provisional and may move for TV.<br><span class="pl-pick-chip pl-pick-chip--TC pl-pick-chip--now">TC 1/2</span> <span class="pl-pick-chip pl-pick-chip--BD pl-pick-chip--now">BD 1/2</span> picked this week &nbsp; <span class="pl-pick-chip pl-pick-chip--TC">TC 1/2</span> <span class="pl-pick-chip pl-pick-chip--BD">BD 1/2</span> picked in another week &nbsp; <span class="pl-pick-chip pl-pick-chip--max">2/2</span> used up</p>`;
     el.querySelector('#pl-week-select').addEventListener('change', e => go(parseInt(e.target.value, 10)));
     el.querySelectorAll('.pl-sched-step').forEach(b => b.addEventListener('click', () => go(week + parseInt(b.dataset.step, 10))));
   }
