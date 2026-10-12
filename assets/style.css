@@ -1548,3 +1548,9 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
   .nav-dropdown-menu{ margin-left: 0; margin-right: 0; padding-left: 0; padding-right: 0; }
   .nav-dropdown-menu a{ padding-left: 14px; padding-right: 14px; }
 }
+/* Schedule rows: keep both club names (and the kickoff time) on the top line, tags hang below */
+.pl-sched-row{ align-items:start; }
+.pl-sched-line{ min-height:22px; }
+.pl-sched-score, .pl-sched-time{ align-self:start; min-height:22px; display:flex; align-items:center; justify-content:center; }
+.pl-sched-line{ align-items:flex-start; line-height:22px; }
+.pl-sched-line .pl-logo{ margin-top:1px; vertical-align:top; }
