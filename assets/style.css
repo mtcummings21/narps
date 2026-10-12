@@ -1570,3 +1570,24 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-pick-chip--BD.pl-pick-chip--now{ background:#1f9d55; color:#fff; }
 .pl-pick-chip--BD.pl-pick-chip--max{ border-color: var(--red); color: var(--red); }
 .pl-pick-chip--BD.pl-pick-chip--now.pl-pick-chip--max{ background: var(--red); color:#fff; }
+
+/* ---------- Super Bowl Squares ---------- */
+.sb-summary{ margin: 22px 0 6px; padding: 16px 18px; border:1px solid var(--line); border-radius: var(--radius); background: var(--panel); }
+.sb-title{ font-family: var(--mono); font-size:0.72rem; letter-spacing:0.8px; text-transform:uppercase; color: var(--text-soft); }
+.sb-final{ font-size:1.15rem; margin:6px 0 2px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.sb-logo{ display:inline-block; width:22px; height:22px; object-fit:contain; vertical-align:-6px; margin:0 3px; }
+.sb-digit{ font-family: var(--mono); font-weight:700; }
+.sb-winners td, .sb-winners th{ text-align:center; }
+.sb-winners td:nth-child(4){ text-align:left; }
+.sb-grid{ border-collapse:separate; border-spacing:2px; background:transparent; min-width:560px; table-layout:fixed; }
+.sb-grid th, .sb-grid td{ padding:0; border:0; text-align:center; position:static; cursor:default; }
+.sb-grid thead th.sb-col, .sb-grid th.sb-row{ background: var(--ink); color: var(--white); font-family: var(--mono); font-size:0.85rem; font-weight:700; height:30px; border-radius:6px; }
+.sb-grid th.sb-row{ width:30px; }
+.sb-grid th.sb-corner{ background:transparent; width:30px; }
+.sb-grid td{ background: var(--panel); border:1px solid var(--line); border-radius:6px; height:44px; font-size:0.68rem; font-weight:600; color: var(--text); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; position:relative; }
+.sb-grid tbody tr:nth-child(even) td{ background: var(--panel); }
+.sb-grid td.sb-win{ background: var(--blue) !important; border-color: var(--blue); color:#fff; }
+.sb-name{ display:block; padding:0 3px; overflow:hidden; text-overflow:ellipsis; }
+.sb-q{ display:block; font-family: var(--mono); font-size:0.58rem; font-weight:700; opacity:0.9; margin-bottom:1px; }
+.sb-year{ font-family: var(--mono); font-size:0.85rem; padding:8px 12px; border-radius:8px; border:1px solid var(--line); background: var(--panel); color: var(--text); margin-top:16px; }
+@media (max-width: 560px){ .sb-winners th, .sb-winners td{ padding-left:8px; padding-right:8px; } }

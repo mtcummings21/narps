@@ -1514,6 +1514,66 @@ function nflLogo(teamName, opts = {}){
   const label = opts.loss === true ? `${teamName} (loss)` : (opts.loss === false ? `${teamName} (win)` : `${teamName} (pending)`);
   return `<span class="pick-logo${resultClass}" style="width:${size}px;height:${size}px;" title="${label}"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/${abbr}.png" alt="${label}" loading="lazy"></span>`;
 }
+// ---------- Super Bowl Squares ----------
+function renderSuperBowlSquares(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof SUPER_BOWL_SQUARES === 'undefined') return;
+  const years = Object.keys(SUPER_BOWL_SQUARES).sort((a,b) => b - a);
+  const params = new URLSearchParams(window.location.search);
+  const year = (params.get('year') && SUPER_BOWL_SQUARES[params.get('year')]) ? params.get('year') : years[0];
+  const g = SUPER_BOWL_SQUARES[year];
+  const logo = t => (typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/${NFL_LOGO_ABBR[t]}.png" alt="">` : '';
+  const Q = ['1st', '2nd', '3rd', 'Final'];
+  const wins = (g.scores || []).map((sc, q) => {
+    const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
+    return { q, sc, r, c, who: (r >= 0 && c >= 0) ? g.grid[r][c] : null, pay: (g.payouts || [])[q] || 0 };
+  });
+  const winAt = {};
+  wins.forEach(w => { (winAt[w.r + ',' + w.c] = winAt[w.r + ',' + w.c] || []).push(w); });
+  const final = g.scores && g.scores[3];
+  const dateStr = g.date ? new Date(g.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
+  const yearSwitcher = years.length > 1 ? `<select id="sb-year" class="sb-year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${SUPER_BOWL_SQUARES[y].name}</option>`).join('')}</select>` : '';
+
+  const winnerRows = wins.map(w => `<tr>
+      <td>${Q[w.q]}</td>
+      <td style="white-space:nowrap;">${w.sc.side} – ${w.sc.top}</td>
+      <td><span class="sb-digit">${w.sc.side % 10}</span> / <span class="sb-digit">${w.sc.top % 10}</span></td>
+      <td class="name-cell">${w.who || '—'}</td>
+      <td>$${w.pay}</td>
+    </tr>`).join('');
+
+  // Money won per person
+  const won = {};
+  wins.forEach(w => { if(w.who) won[w.who] = (won[w.who] || 0) + w.pay; });
+
+  const head = `<tr><th class="sb-corner"></th>${g.top.digits.map(d => `<th class="sb-col">${d}</th>`).join('')}</tr>`;
+  const body = g.grid.map((row, r) => `<tr><th class="sb-row">${g.side.digits[r]}</th>${row.map((name, c) => {
+      const w = winAt[r + ',' + c];
+      const tag = w ? `<span class="sb-q">${w.map(x => x.q === 3 ? 'F' : 'Q' + (x.q + 1)).join(' ')}</span>` : '';
+      return `<td class="${w ? 'sb-win' : ''}" title="${name} · ${g.side.team} ${g.side.digits[r]}, ${g.top.team} ${g.top.digits[c]}">${tag}<span class="sb-name">${name}</span></td>`;
+    }).join('')}</tr>`).join('');
+
+  el.innerHTML = `
+    ${yearSwitcher}
+    <div class="sb-summary">
+      <div class="sb-title">${g.name}</div>
+      <div class="sb-final">${logo(g.side.team)}<strong>${g.side.team} ${final ? final.side : ''}</strong><span class="muted">–</span>${g.top.team} ${final ? final.top : ''}${logo(g.top.team)}</div>
+      <div class="muted">${dateStr}</div>
+    </div>
+    <h3>Winners</h3>
+    <div class="table-scroll"><table class="sb-winners">
+      <thead><tr><th>Qtr</th><th>${g.side.team.slice(0,3).toUpperCase()}–${g.top.team.slice(0,3).toUpperCase()}</th><th>Digits</th><th>Winner</th><th>Payout</th></tr></thead>
+      <tbody>${winnerRows}</tbody>
+    </table></div>
+    <h3>The Grid</h3>
+    <p class="muted" style="margin-top:-4px;">${logo(g.side.team)} ${g.side.full} down the side &nbsp;·&nbsp; ${logo(g.top.team)} ${g.top.full} across the top. Highlighted squares won.</p>
+    <div class="table-scroll" style="border:0;"><table class="sb-grid">
+      <thead>${head}</thead><tbody>${body}</tbody>
+    </table></div>`;
+  const sel = el.querySelector('#sb-year');
+  if(sel) sel.addEventListener('change', e => { const u = new URL(window.location.href); u.searchParams.set('year', e.target.value); window.location.href = u; });
+}
+
 // ---------- Premier League pick'em ----------
 function plLogo(team, size = 20){
   const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[team] : null;

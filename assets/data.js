@@ -16814,3 +16814,29 @@ const PREMIER_LEAGUE = {
     ]
   }
 };
+
+// ---------- Super Bowl Squares ----------
+// grid[row][col]: rows follow side.digits (top to bottom), columns follow top.digits (left to right).
+// scores are cumulative at the end of each quarter. Winner of a quarter = square at (side last digit, top last digit).
+const SUPER_BOWL_SQUARES = {
+  "2026": {
+    name: "Super Bowl LX",
+    date: "2026-02-08",
+    top:  { team: "Patriots", full: "New England Patriots", digits: [4, 6, 9, 0, 1, 8, 5, 7, 3, 2] },
+    side: { team: "Seahawks", full: "Seattle Seahawks",     digits: [4, 6, 9, 8, 0, 5, 1, 3, 7, 2] },
+    payouts: [100, 100, 100, 200],
+    scores: [ { top: 0, side: 3 }, { top: 0, side: 9 }, { top: 0, side: 12 }, { top: 13, side: 29 } ],
+    grid: [
+        ["Ronnie", "Aaron", "Aaron", "Walid", "Bry", "Twest", "Seth", "Sizemore", "Bry", "Aaron"],
+        ["Ronnie", "Sizemore", "Walid", "Z", "Z", "Cummings", "Ronnie", "Prino", "Walid", "Ronnie"],
+        ["Prino", "Z", "Walid", "Z", "Aaron", "Z", "Walid", "Prino", "Seth", "Prino"],
+        ["Cummings", "Aaron", "Pat", "Pat", "Bry", "Ronnie", "Cummings", "Pat", "Sizemore", "MK"],
+        ["Ronnie", "Sizemore", "Seth", "Walid", "Twest", "Seth", "Sizemore", "Prino", "Twest", "Sizemore"],
+        ["Walid", "Ronnie", "Pat", "MK", "Aaron", "Prino", "Sizemore", "Twest", "Twest", "Prino"],
+        ["Cummings", "MK", "Cummings", "Z", "Aaron", "Aaron", "Cummings", "Bry", "Ronnie", "Ronnie"],
+        ["Walid", "Aaron", "Twest", "Cummings", "Twest", "Twest", "Z", "Z", "Ronnie", "Walid"],
+        ["Walid", "Aaron", "Prino", "Cummings", "MK", "Prino", "Z", "Sizemore", "Twest", "Bry"],
+        ["Cummings", "Pat", "Seth", "MK", "Prino", "Twest", "Sizemore", "Z", "Sizemore", "Cummings"]
+    ]
+  }
+};
