@@ -1634,14 +1634,15 @@ function renderPremierLeagueTable(s){
   const body = rows.map((r, i) => `<tr>
       <td class="pos">${i + 1}</td>
       <td class="name-cell">${plLogo(r.club, 18)} ${r.club}</td>
+      <td><strong>${r.pts}</strong></td>
       <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
-      <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td><td><strong>${r.pts}</strong></td>
+      <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td>
     </tr>`).join('');
   const played = s.results[last].length, total = (s.fixtures && s.fixtures[last]) ? s.fixtures[last].length : played;
   const asOf = played < total ? `Through Matchweek ${last} · ${played} of ${total} matches played` : `After Matchweek ${last}`;
   return `<p class="muted" style="margin-top:0;">${asOf}</p>
     <div class="table-scroll"><table class="pl-table">
-      <thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
+      <thead><tr><th>#</th><th>Club</th><th>Pts</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th></tr></thead>
       <tbody>${body}</tbody>
     </table></div>`;
 }
