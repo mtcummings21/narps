@@ -1632,59 +1632,7 @@ function renderPremierLeagueTable(s){
     <div class="table-scroll"><table class="pl-table">
       <thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
       <tbody>${body}</tbody>
-    </table></div>
-    ${renderPremierLeagueTableRace(s, weeks)}`;
-}
-
-// Position-by-matchweek bump chart for the real league table. Every node is the club's crest,
-// so identity never depends on line color; hovering a club highlights its path.
-function renderPremierLeagueTableRace(s, weeks){
-  if(weeks.length < 2) return '';
-  const byWeek = weeks.map(w => plStandingsAfter(s, w));
-  const clubs = byWeek[byWeek.length - 1].map(r => r.club);
-  const n = clubs.length;
-  const pos = {};
-  clubs.forEach(c => { pos[c] = byWeek.map(tbl => tbl.findIndex(r => r.club === c) + 1); });
-  const ptsAt = (c, i) => byWeek[i].find(r => r.club === c).pts;
-
-  const padL = 34, padR = 200, padT = 16, padB = 34, rowH = 26;
-  const chartW = 660, chartH = padT + padB + (n - 1) * rowH;
-  const innerW = chartW - padL - padR;
-  const xAt = i => padL + 14 + (weeks.length > 1 ? i / (weeks.length - 1) : 0) * (innerW - 14);
-  const yAt = p => padT + (p - 1) * rowH;
-  const crest = 18;
-
-  const rowLines = Array.from({ length: n }, (_, i) => i + 1).map(p => `
-    <text x="${padL - 6}" y="${yAt(p) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${p}</text>`).join('');
-  const weekLines = weeks.map((w, i) => `
-    <line x1="${xAt(i)}" y1="${padT - 8}" x2="${xAt(i)}" y2="${yAt(n) + 8}" stroke="var(--line)" stroke-width="1" />
-    <text x="${xAt(i)}" y="${yAt(n) + 26}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Wk ${w}</text>`).join('');
-
-  const paths = clubs.map(c => {
-    const ps = pos[c];
-    const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[c] : null;
-    const poly = ps.map((p, i) => `${xAt(i)},${yAt(p)}`).join(' ');
-    const nodes = ps.map((p, i) => `<g><title>${c} — after Wk ${weeks[i]}: ${p}${p === 1 ? 'st' : p === 2 ? 'nd' : p === 3 ? 'rd' : 'th'}, ${ptsAt(c, i)} pts</title>
-        <circle class="pl-crest-bg" cx="${xAt(i)}" cy="${yAt(p)}" r="${crest / 2 + 1}" fill="var(--panel)" stroke="var(--line)" stroke-width="1" />
-        ${id ? `<image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${xAt(i) - crest / 2 + 2}" y="${yAt(p) - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
-      </g>`).join('');
-    const lp = ps[ps.length - 1];
-    const move = ps[ps.length - 2] - lp;
-    const moveTxt = move > 0 ? `▲${move}` : move < 0 ? `▼${-move}` : '';
-    return `<g class="race-team pl-bump-club">
-      <polyline points="${poly}" fill="none" stroke="var(--text-soft)" stroke-opacity="0.45" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
-      ${nodes}
-      <text x="${xAt(weeks.length - 1) + 16}" y="${yAt(lp) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="var(--text)">${c} <tspan font-family="var(--mono)" font-weight="400" fill="var(--text-soft)">${ptsAt(c, weeks.length - 1)} pts ${moveTxt}</tspan></text>
-    </g>`;
-  }).join('');
-
-  return `<h3>Table Race</h3>
-    <p class="muted" style="margin-top:-4px;">League position after each matchweek. Hover a club to follow its path.</p>
-    <div class="table-scroll" style="border:0;">
-      <svg class="race-chart pl-bump" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:560px;" role="img" aria-label="Premier League position by matchweek">
-        ${weekLines}${rowLines}${paths}
-      </svg>
-    </div>`;
+    </table></div>`;
 }
 
 // Premier League schedule: one matchweek at a time, grouped by day in the viewer's timezone.
@@ -1706,25 +1654,29 @@ function renderPremierLeagueSchedule(containerId){
 
   const dayFmt = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
   const shortFmt = new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' });
-  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit', timeZoneName: 'short' });
+  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+  const tzName = (() => { try { return new Intl.DateTimeFormat('en-US', { timeZoneName: 'short' }).formatToParts(new Date(s.fixtures[week][0][0])).find(x => x.type === 'timeZoneName').value; } catch(e){ return ''; } })();
   const range = w => {
     const ds = s.fixtures[w].map(f => new Date(f[0]));
     const a = shortFmt.format(ds[0]), b = shortFmt.format(ds[ds.length - 1]);
     if(a === b) return a;
     return a.split(' ')[0] === b.split(' ')[0] ? `${a}–${b.split(' ')[1]}` : `${a} – ${b}`;
   };
-  const picksFor = w => {
-    const m = {};
-    (s.players || []).forEach(p => p.picks.filter(pk => pk.week === w).forEach(pk => { (m[pk.team] = m[pk.team] || []).push(p.name); }));
-    return m;
-  };
+  // For a club: each player's season pick count, and whether that player picked it in week w.
+  const usage = (team, w) => (s.players || []).map(p => ({
+    name: p.name,
+    n: p.picks.filter(pk => pk.team === team).length,
+    now: p.picks.some(pk => pk.team === team && pk.week === w)
+  })).filter(u => u.n > 0);
 
   function draw(){
     const games = s.fixtures[week].slice().sort((a,b) => Date.parse(a[0]) - Date.parse(b[0]));
     const results = (s.results && s.results[week]) || [];
-    const picks = picksFor(week);
     const scoreOf = (h, a) => results.find(r => r[0] === h && r[3] === a);
-    const chips = team => (picks[team] || []).map(n => `<span class="pl-pick-chip">${n}</span>`).join('');
+    const chips = team => {
+      const u = usage(team, week);
+      return u.length ? `<span class="pl-chips">${u.map(x => `<span class="pl-pick-chip${x.now ? ' pl-pick-chip--now' : ''}${x.n >= 2 ? ' pl-pick-chip--max' : ''}" title="${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}">${x.name} ${x.n}/2</span>`).join('')}</span>` : '';
+    };
     let lastDay = '';
     const rows = games.map(([ko, h, a]) => {
       const d = new Date(ko);
@@ -1734,9 +1686,9 @@ function renderPremierLeagueSchedule(containerId){
       const r = scoreOf(h, a);
       const mid = r ? `<span class="pl-sched-score">${r[1]} – ${r[2]}</span>` : `<span class="pl-sched-time">${timeFmt.format(d)}</span>`;
       return `${head}<div class="pl-sched-row">
-          <span class="pl-sched-team pl-sched-home">${chips(h)}<span class="pl-sched-name">${h}</span>${plLogo(h, 20)}</span>
+          <span class="pl-sched-team pl-sched-home"><span class="pl-sched-line"><span class="pl-sched-name">${h}</span>${plLogo(h, 20)}</span>${chips(h)}</span>
           ${mid}
-          <span class="pl-sched-team pl-sched-away">${plLogo(a, 20)}<span class="pl-sched-name">${a}</span>${chips(a)}</span>
+          <span class="pl-sched-team pl-sched-away"><span class="pl-sched-line">${plLogo(a, 20)}<span class="pl-sched-name">${a}</span></span>${chips(a)}</span>
         </div>`;
     }).join('');
     const opts = weeks.map(w => `<option value="${w}"${w === week ? ' selected' : ''}>Week ${w} · ${range(w)}${w === current ? ' · Current' : ''}</option>`).join('');
@@ -1747,7 +1699,7 @@ function renderPremierLeagueSchedule(containerId){
         <button type="button" class="pl-sched-step" data-step="1" ${week === weeks[weeks.length - 1] ? 'disabled' : ''} aria-label="Next matchweek">&rarr;</button>
       </div>
       <div class="pl-sched">${rows}</div>
-      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone. Kickoff times for later matchweeks are provisional and may move for TV.${Object.keys(picks).length ? ' Name tags mark that week\'s pick\'em picks.' : ''}</p>`;
+      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone${tzName ? ` (${tzName})` : ''}. Kickoff times for later matchweeks are provisional and may move for TV.<br><span class="pl-pick-chip pl-pick-chip--now">TC 1/2</span> picked this week &nbsp; <span class="pl-pick-chip">TC 1/2</span> picked in another week &nbsp; <span class="pl-pick-chip pl-pick-chip--max">TC 2/2</span> used up</p>`;
     el.querySelector('#pl-week-select').addEventListener('change', e => go(parseInt(e.target.value, 10)));
     el.querySelectorAll('.pl-sched-step').forEach(b => b.addEventListener('click', () => go(week + parseInt(b.dataset.step, 10))));
   }
@@ -1829,7 +1781,7 @@ function renderPremierLeaguePlayer(containerId){
   const s = PREMIER_LEAGUE[year];
   const p = s && s.players.find(x => x.name === params.get('player'));
   if(!p){
-    el.innerHTML = `<p class="muted">Player not found. <a href="premier-league.html">Back to Premier League</a></p>`;
+    el.innerHTML = `<p class="muted">Player not found. <a href="premier-league.html">Back to Premier Pick 2</a></p>`;
     return;
   }
   const PTS = { W: 3, D: 1, L: 0 };
@@ -1838,7 +1790,7 @@ function renderPremierLeaguePlayer(containerId){
   const rank = 1 + s.players.filter(x => total(x) > pts).length;
   const count = r => p.picks.filter(pk => pk.result === r).length;
 
-  document.title = `${p.name} — Premier League — League of NARPS`;
+  document.title = `${p.name} — Premier Pick 2 — League of NARPS`;
   const titleEl = document.getElementById('pl-player-title');
   if(titleEl) titleEl.textContent = p.name;
   const subEl = document.getElementById('pl-player-sub');
@@ -1885,7 +1837,7 @@ function renderPremierLeaguePlayer(containerId){
       <thead><tr><th>Wk</th><th>Club</th><th>Opponent</th><th>Score</th><th>Result</th><th>Pts</th><th>Total</th></tr></thead>
       <tbody>${weekRows}</tbody>
     </table></div>` : '<p class="muted">No picks yet.</p>'}
-    <p style="margin-top:24px;"><a href="premier-league.html">&larr; Back to Premier League</a></p>`;
+    <p style="margin-top:24px;"><a href="premier-league.html">&larr; Back to Premier Pick 2</a></p>`;
 }
 
 function renderSurvivor(containerId){
