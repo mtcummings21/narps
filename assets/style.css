@@ -1622,3 +1622,4 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-race:hover .mm-race-entry{ opacity:0.2; }
 .mm-race:hover .mm-race-entry:hover{ opacity:1; }
 .mm-race .mm-race-entry:hover polyline{ stroke-width:3.5; }
+.mm-podium{ margin-top:28px; }

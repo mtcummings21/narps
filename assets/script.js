@@ -1618,7 +1618,6 @@ function renderMarchMadness(containerId){
       ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
       <td>${x.s.bonus}</td>
       <td><strong>${x.s.total}</strong></td>
-      <td>${x.pay ? '$' + x.pay : '—'}</td>
     </tr>`).join('');
 
   const picks = rows.map(x => {
@@ -1642,19 +1641,28 @@ function renderMarchMadness(containerId){
       <td>${u.who.join(', ')}</td>
     </tr>`).join('');
 
-  const leader = rows[0];
+  const plaque = (x, cls, label) => x ? `<div class="plaque ${cls}">
+      <div class="yr">${label}</div>
+      <div class="owner">${x.name}</div>
+      <div class="team">${x.s.total} pts</div>
+    </div>` : '';
+  const podium = `<div class="trophy-case mm-podium">
+    ${plaque(rows[0], 'plaque--recent', `${year} CHAMPION`)}
+    ${plaque(rows[1], 'plaque--silver', 'RUNNER-UP')}
+    ${plaque(rows[2], 'plaque--bronze', 'THIRD PLACE')}
+  </div>`;
   el.innerHTML = `
+    ${podium}
     <div class="mm-summary">
       <div><div class="mm-label">${year} National Champion</div><div class="mm-big">${team(R.Champion)}</div></div>
-      <div><div class="mm-label">Pool Winner</div><div class="mm-big">${leader.name} <span class="muted" style="font-size:0.9rem;">${leader.s.total} pts</span></div></div>
       <div><div class="mm-label">Final Four</div><div>${MM_REGIONS.map(r => team(R[r][3][0])).join(' · ')}</div></div>
     </div>
     <h3>${year} Standings</h3>
     <div class="table-scroll"><table class="mm-table">
-      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th><th>Upsets</th><th>Total</th><th>Payout</th></tr></thead>
+      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th><th>Upsets</th><th>Total</th></tr></thead>
       <tbody>${standings}</tbody>
     </table></div>
-    <p class="muted" style="font-size:0.8rem;">${rows.length} entries · $${pot} pool. Column points are for correct picks in that round; Upsets is the seed-difference bonus.</p>
+    <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Column points are for correct picks in that round; Upsets is the seed-difference bonus.</p>
     ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
     <div class="table-scroll"><table class="mm-table mm-picks-table">
