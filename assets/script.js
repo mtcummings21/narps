@@ -1615,6 +1615,16 @@ function plStandingsAfter(s, week){
     .sort((a,b) => b.pts - a.pts || b.gd - a.gd || b.gf - a.gf || a.club.localeCompare(b.club));
 }
 
+// League Table tab: the actual Premier League standings.
+function renderPremierLeagueTablePage(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
+  const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
+  el.innerHTML = renderPremierLeagueTable(PREMIER_LEAGUE[year]) || '<p class="muted">No results yet.</p>';
+}
+
 function renderPremierLeagueTable(s){
   const weeks = Object.keys(s.results || {}).map(Number).sort((a,b) => a - b);
   if(!weeks.length) return '';
@@ -1627,8 +1637,7 @@ function renderPremierLeagueTable(s){
       <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
       <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td><td><strong>${r.pts}</strong></td>
     </tr>`).join('');
-  return `<h3>Premier League Table</h3>
-    <p class="muted" style="margin-top:-4px;">After Matchweek ${last}</p>
+  return `<p class="muted" style="margin-top:0;">After Matchweek ${last}</p>
     <div class="table-scroll"><table class="pl-table">
       <thead><tr><th>#</th><th>Club</th><th>P</th><th>W</th><th>D</th><th>L</th><th>GF</th><th>GA</th><th>GD</th><th>Pts</th></tr></thead>
       <tbody>${body}</tbody>
@@ -1772,8 +1781,7 @@ function renderPremierLeague(containerId){
     <div class="table-scroll"><table class="pl-usage">
       <thead><tr><th>Club</th>${s.players.map(p => `<th>${p.name}</th>`).join('')}</tr></thead>
       <tbody>${usageRows}</tbody>
-    </table></div>` : ''}
-    ${renderPremierLeagueTable(s)}`;
+    </table></div>` : ''}`;
 }
 
 function renderPremierLeaguePlayer(containerId){
