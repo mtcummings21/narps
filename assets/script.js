@@ -1622,7 +1622,82 @@ function renderPremierLeagueTablePage(containerId){
   const params = new URLSearchParams(window.location.search);
   const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
   const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
-  el.innerHTML = renderPremierLeagueTable(PREMIER_LEAGUE[year]) || '<p class="muted">No results yet.</p>';
+  const s = PREMIER_LEAGUE[year];
+  el.innerHTML = (renderPremierLeagueTable(s) || '<p class="muted">No results yet.</p>') + renderPremierLeaguePointsRace(s);
+}
+
+// Cumulative points by matchweek for every club. Lines are neutral; each club is labelled with its crest
+// and name at the end of its line, and hovering a club highlights it. A club's line stops at the last
+// matchweek it has actually played (so a game in hand doesn't read as a 0-point week).
+function renderPremierLeaguePointsRace(s){
+  const weeks = Object.keys(s.results || {}).map(Number).sort((a,b) => a - b);
+  if(weeks.length < 2) return '';
+  const clubs = (s.clubs && s.clubs.length) ? s.clubs.slice() : [...new Set(weeks.flatMap(w => s.results[w].flatMap(r => [r[0], r[3]])))];
+  const series = clubs.map(c => {
+    let pts = 0;
+    const pts0 = [{ i: 0, pts: 0 }];
+    weeks.forEach((w, wi) => {
+      const g = s.results[w].find(r => r[0] === c || r[3] === c);
+      if(!g) return;
+      const [f, a] = g[0] === c ? [g[1], g[2]] : [g[2], g[1]];
+      pts += f > a ? 3 : f === a ? 1 : 0;
+      pts0.push({ i: wi + 1, pts, w, res: f > a ? 'W' : f === a ? 'D' : 'L', score: `${f}–${a}`, opp: g[0] === c ? g[3] : g[0], home: g[0] === c });
+    });
+    return { club: c, pts: pts0 };
+  });
+  const order = plStandingsAfter(s, weeks[weeks.length - 1]).map(r => r.club);
+  series.sort((a,b) => order.indexOf(a.club) - order.indexOf(b.club));
+
+  const maxPts = Math.max(3, ...series.map(x => x.pts[x.pts.length - 1].pts));
+  const yMax = Math.ceil(maxPts / 3) * 3;
+  const padL = 36, padR = 190, padT = 14, padB = 30;
+  const chartW = 700, chartH = 560;
+  const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  const xAt = i => padL + (i / weeks.length) * innerW;
+  const yAt = v => padT + innerH - (v / yMax) * innerH;
+
+  const grid = Array.from({ length: yMax / 3 + 1 }, (_, i) => i * 3).map(v => `
+    <line x1="${padL}" y1="${yAt(v)}" x2="${padL + innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
+    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v}</text>`).join('');
+  const xLabels = [0, ...weeks].map((w, i) => `<text x="${xAt(i)}" y="${padT + innerH + 20}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${i === 0 ? 'Start' : 'Wk ' + w}</text>`).join('');
+  const yTitle = `<text transform="translate(11 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points</text>`;
+
+  // End labels: nudge apart so tied clubs stay readable, keeping table order within a tie.
+  const gap = 24, labelX = padL + innerW + 34;
+  const labels = series.map(x => ({ x, y: yAt(x.pts[x.pts.length - 1].pts) }));
+  labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + gap); });
+  const over = labels.length ? labels[labels.length - 1].ly - (padT + innerH) : 0;
+  if(over > 0){
+    for(let i = labels.length - 1; i >= 0; i--){
+      const cap = i === labels.length - 1 ? labels[i].ly - over : labels[i+1].ly - gap;
+      labels[i].ly = Math.min(labels[i].ly, cap);
+    }
+  }
+  const crest = 18;
+  const lines = labels.map(({ x, ly }, rank) => {
+    const last = x.pts[x.pts.length - 1];
+    const poly = x.pts.map(p => `${xAt(p.i)},${yAt(p.pts)}`).join(' ');
+    const dots = x.pts.slice(1).map(p => `<circle cx="${xAt(p.i)}" cy="${yAt(p.pts)}" r="6" fill="transparent"><title>${x.club} — Wk ${p.w}: ${p.res} ${p.score} ${p.home ? 'vs' : 'at'} ${p.opp} · ${p.pts} pts</title></circle>`).join('');
+    const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[x.club] : null;
+    const name = (typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[x.club]) || x.club;
+    return `<g class="pl-prace-club">
+      <polyline points="${poly}" fill="none" stroke="var(--text-soft)" stroke-opacity="0.4" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
+      <circle class="pl-prace-end" cx="${xAt(last.i)}" cy="${yAt(last.pts)}" r="3" fill="var(--text-soft)" />
+      <path d="M${xAt(last.i) + 4},${yAt(last.pts)} L${labelX - crest / 2 - 6},${ly}" stroke="var(--line)" stroke-width="1" fill="none" />
+      ${id ? `<circle class="pl-crest-bg" cx="${labelX}" cy="${ly}" r="${crest / 2 + 1}" fill="var(--panel)" stroke="var(--line)" stroke-width="1" /><image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${labelX - crest / 2 + 2}" y="${ly - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
+      <text x="${labelX + crest / 2 + 6}" y="${ly + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="var(--text)">${name} <tspan font-family="var(--mono)" font-weight="700">${last.pts}</tspan></text>
+      ${dots}
+      <rect x="${labelX - crest / 2 - 2}" y="${ly - gap / 2}" width="${padR - 30}" height="${gap}" fill="transparent"><title>${x.club}: ${last.pts} pts</title></rect>
+    </g>`;
+  }).join('');
+
+  return `<h3 style="margin-top:32px;">Points Race</h3>
+    <p class="muted" style="margin-top:-4px;">Each club's running points total by matchweek. Hover a club or its line to highlight it.</p>
+    <div class="table-scroll" style="border:0;">
+      <svg class="pl-prace" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:560px;" role="img" aria-label="Premier League points by matchweek for every club">
+        ${grid}${yTitle}${xLabels}${lines}
+      </svg>
+    </div>`;
 }
 
 function renderPremierLeagueTable(s){

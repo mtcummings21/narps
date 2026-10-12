@@ -1559,3 +1559,9 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
   .pl-name-full{ display:none; }
   .pl-name-short{ display:inline; }
 }
+/* League Table points race: hover a club to highlight its line */
+.pl-prace .pl-prace-club{ transition: opacity 0.15s; }
+.pl-prace:hover .pl-prace-club{ opacity: 0.25; }
+.pl-prace:hover .pl-prace-club:hover{ opacity: 1; }
+.pl-prace .pl-prace-club:hover polyline{ stroke: var(--blue); stroke-opacity: 1; stroke-width: 3; }
+.pl-prace .pl-prace-club:hover .pl-prace-end{ fill: var(--blue); }
