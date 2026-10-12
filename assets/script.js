@@ -1624,9 +1624,9 @@ function renderMarchMadness(containerId){
     const f4 = MM_REGIONS.map(r => x.e[r][3][0]);
     return `<tr>
       <td class="name-cell">${x.name}</td>
-      <td class="mm-picks">${f4.map(t => pickTag(t, actualF4.has(t))).join(' ')}</td>
-      <td class="mm-picks">${x.e.F4.map(t => pickTag(t, R.F4.includes(t))).join(' ')}</td>
-      <td class="mm-picks">${pickTag(x.e.Champion, x.e.Champion === R.Champion)}</td>
+      ${f4.map((t, i) => `<td class="mm-pick-cell${i === 0 ? ' mm-group-start' : ''}">${pickTag(t, actualF4.has(t))}</td>`).join('')}
+      ${x.e.F4.map((t, i) => `<td class="mm-pick-cell${i === 0 ? ' mm-group-start' : ''}">${pickTag(t, R.F4.includes(t))}</td>`).join('')}
+      <td class="mm-pick-cell mm-group-start">${pickTag(x.e.Champion, x.e.Champion === R.Champion)}</td>
     </tr>`;
   }).join('');
 
@@ -1666,7 +1666,10 @@ function renderMarchMadness(containerId){
     ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
     <div class="table-scroll"><table class="mm-table mm-picks-table">
-      <thead><tr><th>Entry</th><th>Final Four</th><th>Title Game</th><th>Champion</th></tr></thead>
+      <thead>
+        <tr><th rowspan="2">Entry</th><th colspan="4" class="mm-group-start">Final Four</th><th colspan="2" class="mm-group-start">Title Game</th><th rowspan="2" class="mm-group-start">Champion</th></tr>
+        <tr class="mm-subhead"><th class="mm-group-start">East</th><th>West</th><th>South</th><th>Midwest</th><th class="mm-group-start">East/South</th><th>West/Midwest</th></tr>
+      </thead>
       <tbody>${picks}</tbody>
     </table></div>
     <h3>Best Upset Calls</h3>

@@ -1607,7 +1607,13 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-big{ font-size:1.1rem; font-weight:700; }
 .mm-seed{ font-family: var(--mono); font-size:0.72em; color: var(--text-soft); }
 .mm-table th:not(:nth-child(-n+2)), .mm-table td:not(:nth-child(-n+2)){ text-align:center; }
-.mm-picks-table td, .mm-picks-table th{ text-align:left !important; }
+.mm-picks-table th, .mm-picks-table td{ text-align:center !important; }
+.mm-picks-table th:first-child, .mm-picks-table td:first-child{ text-align:left !important; }
+.mm-picks-table thead th{ position:static; cursor:default; }
+.mm-picks-table .mm-subhead th{ font-size:0.6rem; opacity:0.85; padding-top:4px; }
+.mm-picks-table .mm-group-start{ border-left:1px solid var(--line); }
+.mm-picks-table thead .mm-group-start{ border-left-color: rgba(255,255,255,0.18); }
+.mm-pick-cell{ padding-left:6px !important; padding-right:6px !important; }
 .mm-picks{ white-space:normal !important; }
 .mm-pick{ display:inline-block; padding:2px 7px; margin:2px 2px 2px 0; border-radius:6px; font-size:0.78rem; font-weight:600; border:1px solid var(--line); white-space:nowrap; }
 .mm-pick--ok{ background: rgba(31,157,85,0.12); border-color:#1f9d55; color:#1f9d55; }
