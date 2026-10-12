@@ -1608,7 +1608,7 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-seed{ font-family: var(--mono); font-size:0.72em; color: var(--text-soft); }
 .mm-table th:not(:nth-child(-n+2)), .mm-table td:not(:nth-child(-n+2)){ text-align:center; }
 .mm-picks-table th, .mm-picks-table td{ text-align:center !important; }
-.mm-picks-table th:first-child, .mm-picks-table td:first-child{ text-align:left !important; }
+.mm-picks-table tbody td:first-child{ text-align:left !important; }
 .mm-picks-table thead th{ position:static; cursor:default; }
 .mm-picks-table .mm-subhead th{ font-size:0.6rem; opacity:0.85; padding-top:4px; }
 .mm-picks-table .mm-group-start{ border-left:1px solid var(--line); }
@@ -1629,3 +1629,4 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-race:hover .mm-race-entry:hover{ opacity:1; }
 .mm-race .mm-race-entry:hover polyline{ stroke-width:3.5; }
 .mm-podium{ margin-top:28px; }
+.mm-table th.mm-center{ text-align:center; }

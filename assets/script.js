@@ -1674,7 +1674,7 @@ function renderMarchMadness(containerId){
     </table></div>
     <h3>Best Upset Calls</h3>
     <div class="table-scroll"><table class="mm-table">
-      <thead><tr><th>Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
+      <thead><tr><th class="mm-center">Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
       <tbody>${upsetRows}</tbody>
     </table></div>`;
 }
