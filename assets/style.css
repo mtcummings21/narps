@@ -1591,3 +1591,10 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .sb-q{ display:block; font-family: var(--mono); font-size:0.58rem; font-weight:700; opacity:0.9; margin-bottom:1px; }
 .sb-year{ font-family: var(--mono); font-size:0.85rem; padding:8px 12px; border-radius:8px; border:1px solid var(--line); background: var(--panel); color: var(--text); margin-top:16px; }
 @media (max-width: 560px){ .sb-winners th, .sb-winners td{ padding-left:8px; padding-right:8px; } }
+/* Squares grid: size columns to fit full names (scrolls sideways on phones) */
+.sb-grid{ table-layout:auto; min-width:0; width:auto; }
+.sb-grid td{ min-width:68px; padding:0 6px; text-overflow:clip; overflow:visible; }
+.sb-name{ overflow:visible; text-overflow:clip; padding:0; }
+.sb-page{ max-width:none; }
+.sb-page > p, .sb-page > h3, .sb-page .sb-summary, .sb-page .table-scroll:has(.sb-winners){ max-width:65ch; }
+.sb-grid th.sb-row, .sb-grid th.sb-corner{ min-width:30px; width:30px; }
