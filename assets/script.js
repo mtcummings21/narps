@@ -1457,7 +1457,7 @@ function renderTeamDetail(containerId){
   podium.sort((a,b) => (a.place - b.place) || (a.y - b.y));
   const ordShort = ['', '1st', '2nd', '3rd'];
   const top3Badges = podium.length
-    ? `<div class="podium-badges">${podium.map(f => `<span class="podium-badge podium-badge--${f.place}" title="${ordShort[f.place]} place, ${f.y}"><b>${ordShort[f.place]}</b>${f.y}</span>`).join('')}</div>`
+    ? `<div class="podium-badges">${podium.map(f => `<span class="podium-badge podium-badge--${f.place}" title="${ordShort[f.place]} place, ${f.y}"><b>${ordShort[f.place]}</b></span>`).join('')}</div>`
     : '<p>No top-3 finishes yet</p>';
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
