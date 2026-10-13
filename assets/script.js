@@ -1445,10 +1445,25 @@ function renderTeamDetail(containerId){
 
   const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
 
+  // Every 1st/2nd/3rd place finish, shown as medal badges: all 1sts, then 2nds, then 3rds (oldest first within each).
+  const lnTop = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
+  const podium = [];
+  Object.keys(SEASONS).forEach(y => {
+    const s = SEASONS[y];
+    if(!(s.champion && s.champion.owner && s.champion.owner !== 'TBD')) return;
+    const place = finalPlacements(s)[lnTop(t.owner)];
+    if(place >= 1 && place <= 3) podium.push({ y, place });
+  });
+  podium.sort((a,b) => (a.place - b.place) || (a.y - b.y));
+  const ordShort = ['', '1st', '2nd', '3rd'];
+  const top3Badges = podium.length
+    ? `<div class="podium-badges">${podium.map(f => `<span class="podium-badge podium-badge--${f.place}" title="${ordShort[f.place]} place, ${f.y}"><b>${ordShort[f.place]}</b>${f.y}</span>`).join('')}</div>`
+    : '<p>No top-3 finishes yet</p>';
+
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
     <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
-    <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div><p>Times finishing 1st, 2nd, or 3rd in the league</p></div>
+    <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div>${top3Badges}</div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
     <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
