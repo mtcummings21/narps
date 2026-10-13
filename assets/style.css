@@ -1630,3 +1630,13 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-race .mm-race-entry:hover polyline{ stroke-width:3.5; }
 .mm-podium{ margin-top:28px; }
 .mm-table th.mm-center{ text-align:center; }
+
+/* Week-over-week rank movement on the current season standings */
+.rank-with-move{ display:inline-flex; align-items:baseline; gap:6px; white-space:nowrap; }
+.rank-move{ font-family:var(--mono); font-size:0.7rem; font-weight:700; }
+.rank-move.up{ color:#1f9e5a; }
+.rank-move.down{ color:#d62839; }
+.rank-move.same{ color:var(--text-soft); font-weight:400; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .rank-move.up{ color:#3ccf85; } :root:not([data-theme="light"]) .rank-move.down{ color:#ff6b6b; } }
+:root[data-theme="dark"] .rank-move.up{ color:#3ccf85; }
+:root[data-theme="dark"] .rank-move.down{ color:#ff6b6b; }

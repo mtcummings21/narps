@@ -1029,7 +1029,17 @@ function renderSeasonDetail(containerId){
   const showPayouts = year === '2026';
   const WEEKLY_HIGH_PAYOUT = 25;
 
+  // Week-over-week rank movement, shown only for the current (latest) season once 2+ weeks are played.
+  const isLatestSeason = year === Object.keys(SEASONS).sort((a,b) => b - a)[0];
+  const weeklyRanks = isLatestSeason ? computeWeeklyRanks(s) : null;
+  const showMoves = !!(weeklyRanks && weeklyRanks.weekKeys.length >= 2);
+
   const standingsRows = s.standings.map((t,i) => {
+    let move = null;
+    if(showMoves){
+      const h = weeklyRanks.rankHistory[t.owner] || [];
+      if(h.length >= 2) move = h[h.length - 2] - h[h.length - 1];
+    }
     const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
     const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
     const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
@@ -1039,6 +1049,7 @@ function renderSeasonDetail(containerId){
     const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
     return {
       rank: i + 1,
+      move,
       teamName: t.team,
       teamLink,
       wins: t.w, losses: t.l, ties: t.t,
@@ -1198,7 +1209,13 @@ function renderSortableStandingsTable(containerId, rows, showPayouts){
 
   function cellValue(row, key){
     switch(key){
-      case 'rank': return row.rank;
+      case 'rank': {
+        if(row.move === null || row.move === undefined) return row.rank;
+        const mv = row.move > 0 ? `<span class="rank-move up" title="Up ${row.move} from last week">&#9650;${row.move}</span>`
+          : row.move < 0 ? `<span class="rank-move down" title="Down ${-row.move} from last week">&#9660;${-row.move}</span>`
+          : `<span class="rank-move same" title="No change from last week">&ndash;</span>`;
+        return `<span class="rank-with-move">${row.rank}${mv}</span>`;
+      }
       case 'teamName': return row.teamLink;
       case 'wins': return row.recordStr;
       case 'pct': return row.pct.toFixed(3);
