@@ -16936,6 +16936,25 @@ const SUPER_BOWL_SQUARES = {
         ["Geiger", "Prino", "Todd", "Bry", "Z", "Clay", "Walid", "Twest", "Martha", "Geiger"],
         ["Walid", "Pat", "Walid", "Prino", "Martha", "Clay", "Sonny", "Geiger", "Forrest", "Forrest"]
     ]
+  },
+  "2019": {
+    name: "Super Bowl LIII",
+    date: "2019-02-03",
+    top:  { team: "Patriots", full: "New England Patriots", digits: [1,  3,  8,  5,  0,  9,  6,  7,  2,  4] },
+    side: { team: "Rams", full: "Los Angeles Rams", digits: [3,  4,  0,  1,  2,  7,  6,  9,  5,  8] },
+    scores: [ { top: 0, side: 0 }, { top: 3, side: 0 }, { top: 3, side: 3 }, { top: 13, side: 3 } ],
+    grid: [
+        ["Prino", "Sizemore", "Sonny", "Cummings", "Sonny", "Sizemore", "Z", "Sizemore", "Prino", "Sonny"],
+        ["Big Vic", "Prino", "Sonny", "Luke", "Z", "Cummings", "Walid", "Clay", "Sizemore", "Big Vic"],
+        ["Clay", "Prino", "Cummings", "Big Vic", "Cummings", "Big Vic", "Clay", "Aaron", "Luke", "Aaron"],
+        ["Sonny", "Aaron", "Sonny", "Clay", "Luke", "Sizemore", "Walid", "Prino", "Luke", "Clay"],
+        ["Clay", "Prino", "Sizemore", "Sonny", "Luke", "Aaron", "Aaron", "Z", "Big Vic", "Clay"],
+        ["Sizemore", "Cummings", "Clay", "Z", "Z", "Luke", "Aaron", "Clay", "Prino", "Luke"],
+        ["Big Vic", "Aaron", "Clay", "Sizemore", "Big Vic", "Prino", "Z", "Cummings", "Cummings", "Aaron"],
+        ["Walid", "Walid", "Sonny", "Z", "Sonny", "Luke", "Big Vic", "Luke", "Sonny", "Sizemore"],
+        ["Walid", "Aaron", "Cummings", "Big Vic", "Walid", "Aaron", "Walid", "Big Vic", "Cummings", "Walid"],
+        ["Prino", "Cummings", "Luke", "Walid", "Z", "Z", "Walid", "Z", "Sizemore", "Prino"]
+    ]
   }
 };
 
