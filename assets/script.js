@@ -1706,6 +1706,7 @@ function renderSuperBowlSquares(containerId){
   const g = SUPER_BOWL_SQUARES[year];
   const logo = t => (typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/${NFL_LOGO_ABBR[t]}.png" alt="">` : '';
   const Q = ['1st', '2nd', '3rd', 'Final'];
+  const abbr = t => ((typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) || t.slice(0,3)).toUpperCase();
   const wins = (g.scores || []).map((sc, q) => {
     const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
     return { q, sc, r, c, who: (r >= 0 && c >= 0) ? g.grid[r][c] : null, pay: (g.payouts || [])[q] || 0 };
@@ -1721,7 +1722,7 @@ function renderSuperBowlSquares(containerId){
       <td style="white-space:nowrap;">${w.sc.side} – ${w.sc.top}</td>
       <td><span class="sb-digit">${w.sc.side % 10}</span> / <span class="sb-digit">${w.sc.top % 10}</span></td>
       <td class="name-cell">${w.who || '—'}</td>
-      <td>$${w.pay}</td>
+      ${g.payouts ? `<td>$${w.pay}</td>` : ''}
     </tr>`).join('');
 
   // Money won per person
@@ -1744,7 +1745,7 @@ function renderSuperBowlSquares(containerId){
     </div>
     <h3>Winners</h3>
     <div class="table-scroll"><table class="sb-winners">
-      <thead><tr><th>Qtr</th><th>${g.side.team.slice(0,3).toUpperCase()}–${g.top.team.slice(0,3).toUpperCase()}</th><th>Digits</th><th>Winner</th><th>Payout</th></tr></thead>
+      <thead><tr><th>Qtr</th><th>${abbr(g.side.team)}–${abbr(g.top.team)}</th><th>Digits</th><th>Winner</th>${g.payouts ? '<th>Payout</th>' : ''}</tr></thead>
       <tbody>${winnerRows}</tbody>
     </table></div>
     <h3>The Grid</h3>

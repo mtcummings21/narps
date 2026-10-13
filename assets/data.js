@@ -16839,6 +16839,45 @@ const SUPER_BOWL_SQUARES = {
         ["Walid", "Aaron", "Prino", "Cummings", "MK", "Prino", "Z", "Sizemore", "Twest", "Bry"],
         ["Cummings", "Pat", "Seth", "MK", "Prino", "Twest", "Sizemore", "Z", "Sizemore", "Cummings"]
     ]
+  },
+  "2024": {
+    name: "Super Bowl LVIII",
+    date: "2024-02-11",
+    top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  4,  8,  6,  0,  3,  9,  5,  2,  7] },
+    side: { team: "49ers", full: "San Francisco 49ers", digits: [6,  0,  3,  8,  9,  1,  2,  4,  7,  5] },
+    scores: [ { top: 0, side: 0 }, { top: 3, side: 10 }, { top: 13, side: 10 }, { top: 25, side: 22 } ],
+    // Tied 19-19 after regulation; the final square uses the overtime final (25-22).
+    grid: [
+        ["Clay", "Zach", "Zach", "Twest", "Z", "Aaron", "Aaron", "Garton", "Clay", "Prino"],
+        ["Twest", "Sonny", "Z", "Aaron", "Z", "Ronnie", "Clay", "Ronnie", "Sonny", "Cummings"],
+        ["Z", "Clay", "Ronnie", "Twest", "Prino", "Cummings", "Twest", "Clay", "Zach", "Geiger"],
+        ["Bry", "Cummings", "Cummings", "Aaron", "Prino", "Aaron", "Prino", "Z", "Zach", "Ronnie"],
+        ["Sonny", "Cummings", "Ronnie", "Z", "Sonny", "Z", "Garton", "Prino", "Prino", "Aaron"],
+        ["Cummings", "Bry", "Bry", "Cummings", "Ronnie", "Clay", "Z", "Cummings", "Twest", "Ronnie"],
+        ["Cummings", "Z", "Garton", "Prino", "Twest", "Cummings", "Clay", "Geiger", "Z", "Geiger"],
+        ["Ronnie", "Zach", "Clay", "Bry", "Aaron", "Aaron", "Aaron", "Garton", "Zach", "Zach"],
+        ["Garton", "Bry", "Ronnie", "Prino", "Twest", "Geiger", "Aaron", "Ronnie", "Twest", "Zach"],
+        ["Zach", "Twest", "Prino", "Zach", "Clay", "Clay", "Prino", "Twest", "Sonny", "Geiger"]
+    ]
+  },
+  "2023": {
+    name: "Super Bowl LVII",
+    date: "2023-02-12",
+    top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  8,  9,  3,  6,  5,  2,  7,  4,  0] },
+    side: { team: "Eagles", full: "Philadelphia Eagles", digits: [8,  1,  6,  4,  0,  5,  3,  2,  7,  9] },
+    scores: [ { top: 7, side: 7 }, { top: 14, side: 24 }, { top: 21, side: 27 }, { top: 38, side: 35 } ],
+    grid: [
+        ["Clay", "Beirne", "Seth", "Geiger", "Sonny", "JC", "Geiger", "JC", "Clay", "Twest"],
+        ["Martha", "JC", "Martha", "Twest", "Geiger", "Pat", "Geiger", "Martha", "Twest", "MK"],
+        ["MK", "Twest", "Geiger", "Twest", "Aaron", "Sonny", "Cummings", "Cummings", "Clay", "Aaron"],
+        ["Sonny", "Prino", "Cummings", "Prino", "Bry", "Zach", "Aaron", "Big Vic", "Aaron", "Bry"],
+        ["Geiger", "Martha", "Geiger", "Twest", "MK", "Twest", "Zach", "Big Vic", "Martha", "Geiger"],
+        ["Beirne", "JC", "Geiger", "Aaron", "Clay", "Beirne", "Martha", "MK", "Cummings", "Z"],
+        ["Pat", "Zach", "Pat", "Twest", "Martha", "Aaron", "Aaron", "Cummings", "Zach", "Bry"],
+        ["Aaron", "Prino", "Beirne", "Bry", "Seth", "Geiger", "Clay", "Big Vic", "Martha", "Big Vic"],
+        ["Aaron", "Z", "Z", "Martha", "Beirne", "Martha", "Sonny", "Aaron", "Pat", "Cummings"],
+        ["Cummings", "Twest", "Cummings", "Twest", "Z", "Pat", "Cummings", "Prino", "JC", "Cummings"]
+    ]
   }
 };
 
