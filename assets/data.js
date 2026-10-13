@@ -24,7 +24,6 @@ const TEAMS = [
     "gameAvgPA": 97.1,
     "diff": 4.52,
     "topScoringSeasons": 1,
-    "highScore": 161,
     "mostDrafted": {
       "count": 3,
       "entries": [
@@ -60,7 +59,6 @@ const TEAMS = [
     "gameAvgPA": 97.03,
     "diff": 3.48,
     "topScoringSeasons": 2,
-    "highScore": 154,
     "mostDrafted": {
       "count": 3,
       "entries": [
@@ -94,7 +92,6 @@ const TEAMS = [
     "gameAvgPA": 99.68,
     "diff": 0.98,
     "topScoringSeasons": 3,
-    "highScore": 170.8,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -124,7 +121,6 @@ const TEAMS = [
     "gameAvgPA": 96.89,
     "diff": 2.22,
     "topScoringSeasons": 3,
-    "highScore": 184,
     "mostDrafted": {
       "count": 3,
       "entries": [
@@ -158,7 +154,6 @@ const TEAMS = [
     "gameAvgPA": 98.15,
     "diff": 2.08,
     "topScoringSeasons": null,
-    "highScore": 146.4,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -188,7 +183,6 @@ const TEAMS = [
     "gameAvgPA": 98.38,
     "diff": 1.02,
     "topScoringSeasons": 2,
-    "highScore": 154.7,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -218,7 +212,6 @@ const TEAMS = [
     "gameAvgPA": 97.16,
     "diff": 1.75,
     "topScoringSeasons": 1,
-    "highScore": 155.1,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -249,7 +242,6 @@ const TEAMS = [
     "gameAvgPA": 98.37,
     "diff": -0.05,
     "topScoringSeasons": 1,
-    "highScore": 138.4,
     "mostDrafted": {
       "count": 3,
       "entries": [
@@ -282,7 +274,6 @@ const TEAMS = [
     "gameAvgPA": 97.53,
     "diff": -0.14,
     "topScoringSeasons": 1,
-    "highScore": 160.2,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -313,7 +304,6 @@ const TEAMS = [
     "gameAvgPA": 100.23,
     "diff": -4.73,
     "topScoringSeasons": null,
-    "highScore": 143.3,
     "mostDrafted": {
       "count": 4,
       "entries": [
@@ -343,7 +333,6 @@ const TEAMS = [
     "gameAvgPA": 99.98,
     "diff": -4.9,
     "topScoringSeasons": null,
-    "highScore": 168.7,
     "mostDrafted": {
       "count": 3,
       "entries": [
@@ -374,7 +363,6 @@ const TEAMS = [
     "gameAvgPA": 100.52,
     "diff": -6.67,
     "topScoringSeasons": null,
-    "highScore": 142.5,
     "mostDrafted": {
       "count": 7,
       "entries": [
@@ -404,7 +392,6 @@ const TEAMS = [
     "gameAvgPA": 96.58,
     "diff": 2.8,
     "topScoringSeasons": null,
-    "highScore": 128.8,
     "mostDrafted": {
       "count": 1,
       "entries": [
