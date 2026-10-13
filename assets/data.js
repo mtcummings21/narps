@@ -16878,6 +16878,25 @@ const SUPER_BOWL_SQUARES = {
         ["Aaron", "Z", "Z", "Martha", "Beirne", "Martha", "Sonny", "Aaron", "Pat", "Cummings"],
         ["Cummings", "Twest", "Cummings", "Twest", "Z", "Pat", "Cummings", "Prino", "JC", "Cummings"]
     ]
+  },
+  "2021": {
+    name: "Super Bowl LV",
+    date: "2021-02-07",
+    top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  9,  2,  7,  4,  8,  3,  0,  6,  5] },
+    side: { team: "Buccaneers", full: "Tampa Bay Buccaneers", digits: [0,  4,  9,  3,  8,  2,  5,  6,  7,  1] },
+    scores: [ { top: 3, side: 7 }, { top: 6, side: 21 }, { top: 9, side: 31 }, { top: 9, side: 31 } ],
+    grid: [
+        ["Clay", "Ronnie", "Geiger", "Austin", "Bry", "Pat", "Martha", "Seth", "Prino", "Geiger"],
+        ["Big Vic", "Martha", "Walid", "Zach", "Ronnie", "Prino", "Clay", "Larry", "Aaron", "Martha"],
+        ["Zach", "Pat", "Martha", "Clay", "Ronnie", "Zach", "Cummings", "Walid", "Geiger", "Austin"],
+        ["Austin", "Seth", "Walid", "Walid", "Clay", "Ronnie", "Twest", "Z", "Big Vic", "Cummings"],
+        ["Clay", "Cummings", "Z", "Bry", "Z", "Martha", "Ronnie", "Twest", "Seth", "Geiger"],
+        ["Z", "Geiger", "Ronnie", "Z", "Martha", "Kevin", "Bry", "Austin", "Twest", "Larry"],
+        ["Martha", "Cummings", "Bry", "Cummings", "Twest", "Pat", "Cummings", "Beirne", "Geiger", "Zach"],
+        ["Martha", "Beirne", "Aaron", "Geiger", "Kevin", "Aaron", "Walid", "Big Vic", "Aaron", "Seth"],
+        ["Bry", "Geiger", "Big Vic", "Prino", "Twest", "Prino", "Zach", "Beirne", "Twest", "Seth"],
+        ["Beirne", "Aaron", "Walid", "Big Vic", "Twest", "Geiger", "Pat", "Walid", "Prino", "Pat"]
+    ]
   }
 };
 

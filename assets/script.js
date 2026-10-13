@@ -1715,7 +1715,7 @@ function renderSuperBowlSquares(containerId){
   wins.forEach(w => { (winAt[w.r + ',' + w.c] = winAt[w.r + ',' + w.c] || []).push(w); });
   const final = g.scores && g.scores[3];
   const dateStr = g.date ? new Date(g.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
-  const yearSwitcher = years.length > 1 ? `<select id="sb-year" class="sb-year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${SUPER_BOWL_SQUARES[y].name}</option>`).join('')}</select>` : '';
+  const yearSwitcher = years.length > 1 ? `<select id="sb-year" class="sb-year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${SUPER_BOWL_SQUARES[y].name} (${y - 1})</option>`).join('')}</select>` : '';
 
   const winnerRows = wins.map(w => `<tr>
       <td>${Q[w.q]}</td>
