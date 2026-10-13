@@ -1551,7 +1551,7 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .sb-grid th.sb-corner{ background:transparent; width:30px; }
 .sb-grid td{ background: var(--panel); border:1px solid var(--line); border-radius:6px; height:44px; font-size:0.68rem; font-weight:600; color: var(--text); overflow:hidden; white-space:nowrap; text-overflow:ellipsis; position:relative; }
 .sb-grid tbody tr:nth-child(even) td{ background: var(--panel); }
-.sb-grid td.sb-win{ background: var(--blue) !important; border-color: var(--blue); color:#fff; }
+.sb-grid td.sb-win{ background: #1a7f45 !important; border-color: #1a7f45; color:#fff; }
 .sb-name{ display:block; padding:0 3px; overflow:hidden; text-overflow:ellipsis; }
 .sb-q{ display:block; font-family: var(--mono); font-size:0.58rem; font-weight:700; opacity:0.9; margin-bottom:1px; }
 .sb-year{ font-family: var(--mono); font-size:0.85rem; padding:8px 12px; border-radius:8px; border:1px solid var(--line); background: var(--panel); color: var(--text); margin-top:16px; }
