@@ -1986,7 +1986,7 @@ function renderPremierLeagueTable(s){
   const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
   const body = rows.map((r, i) => `<tr>
       <td class="pos">${i + 1}</td>
-      <td class="name-cell">${plLogo(r.club, 18)} ${r.club}</td>
+      <td class="name-cell">${plLogo(r.club, 18)} ${(typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[r.club]) ? `<span class="pl-name-full">${r.club}</span><span class="pl-name-short">${PL_SHORT_NAME[r.club]}</span>` : r.club}</td>
       <td><strong>${r.pts}</strong></td>
       <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
       <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td>
