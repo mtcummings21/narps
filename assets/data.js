@@ -16822,6 +16822,7 @@ const PREMIER_LEAGUE = {
 const SUPER_BOWL_SQUARES = {
   "2026": {
     name: "Super Bowl LX",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/_super_bowl_logo_primary_2025sportslogosnet5684.gif",
     date: "2026-02-08",
     top:  { team: "Patriots", full: "New England Patriots", digits: [4, 6, 9, 0, 1, 8, 5, 7, 3, 2] },
     side: { team: "Seahawks", full: "Seattle Seahawks",     digits: [4, 6, 9, 8, 0, 5, 1, 3, 7, 2] },
@@ -16842,6 +16843,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2024": {
     name: "Super Bowl LVIII",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59322162023.gif",
     date: "2024-02-11",
     top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  4,  8,  6,  0,  3,  9,  5,  2,  7] },
     side: { team: "49ers", full: "San Francisco 49ers", digits: [6,  0,  3,  8,  9,  1,  2,  4,  7,  5] },
@@ -16862,6 +16864,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2023": {
     name: "Super Bowl LVII",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59322412022.gif",
     date: "2023-02-12",
     top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  8,  9,  3,  6,  5,  2,  7,  4,  0] },
     side: { team: "Eagles", full: "Philadelphia Eagles", digits: [8,  1,  6,  4,  0,  5,  3,  2,  7,  9] },
@@ -16881,6 +16884,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2021": {
     name: "Super Bowl LV",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59397962020.gif",
     date: "2021-02-07",
     top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  9,  2,  7,  4,  8,  3,  0,  6,  5] },
     side: { team: "Buccaneers", full: "Tampa Bay Buccaneers", digits: [0,  4,  9,  3,  8,  2,  5,  6,  7,  1] },
@@ -16900,6 +16904,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2022": {
     name: "Super Bowl LVI",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59361682021.gif",
     date: "2022-02-13",
     top:  { team: "Rams", full: "Los Angeles Rams", digits: [4,  6,  0,  7,  5,  2,  3,  8,  9,  1] },
     side: { team: "Bengals", full: "Cincinnati Bengals", digits: [0,  8,  1,  5,  9,  2,  7,  6,  4,  3] },
@@ -16919,6 +16924,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2020": {
     name: "Super Bowl LIV",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59333522019.gif",
     date: "2020-02-02",
     top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [9,  3,  6,  1,  7,  4,  0,  8,  2,  5] },
     side: { team: "49ers", full: "San Francisco 49ers", digits: [0,  1,  6,  8,  4,  9,  2,  5,  3,  7] },
@@ -16939,6 +16945,7 @@ const SUPER_BOWL_SQUARES = {
   },
   "2019": {
     name: "Super Bowl LIII",
+    logo: "https://content.sportslogos.net/logos/7/593/thumbs/59363842017.gif",
     date: "2019-02-03",
     top:  { team: "Patriots", full: "New England Patriots", digits: [1,  3,  8,  5,  0,  9,  6,  7,  2,  4] },
     side: { team: "Rams", full: "Los Angeles Rams", digits: [3,  4,  0,  1,  2,  7,  6,  9,  5,  8] },

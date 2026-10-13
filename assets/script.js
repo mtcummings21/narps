@@ -1718,7 +1718,7 @@ function renderSuperBowlSquares(containerId){
       const team = (t, pts, won) => `<div class="sb-card-team${won ? ' won' : ''}">${logo(t.team)}<span>${t.team}</span><strong>${f ? pts : ''}</strong></div>`;
       const w = winnersOf(g);
       return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
-        <div class="sb-card-head"><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div>
+        <div class="sb-card-head">${g.logo ? `<img class="sb-card-logo" src="${g.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div></div>
         ${team(g.side, f && f.side, sideWon)}${team(g.top, f && f.top, f && !sideWon)}
         <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? 'Final' : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
       </a>`;
