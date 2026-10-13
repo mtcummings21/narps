@@ -1650,7 +1650,7 @@ h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 
 /* Team page: top-3 finish badges */
 .podium-badges{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
-.podium-badge{ display:inline-flex; align-items:baseline; gap:5px; padding:3px 9px; border-radius:999px; font-size:0.8rem; font-weight:600; color:#2b2410; border:1px solid transparent; }
+.podium-badge{ display:inline-flex; align-items:center; justify-content:center; width:40px; height:40px; flex:none; padding:0; border-radius:50%; font-size:0.78rem; font-weight:600; color:#2b2410; border:1px solid transparent; }
 .podium-badge b{ font-weight:800; }
 .podium-badge--1{ background:linear-gradient(135deg,#f6dc7c,#d9ab2f); border-color:#c49a2a; }
 .podium-badge--2{ background:linear-gradient(135deg,#eef0f3,#b9c0ca); border-color:#a3abb6; color:#2a3038; }
