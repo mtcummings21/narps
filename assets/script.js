@@ -1435,6 +1435,14 @@ function renderTeamDetail(containerId){
     }
   }
 
+  // NFL Survivor titles: survivor entries use short names, mapped here to league franchises.
+  const SURVIVOR_NAME_TO_KEY = { 'Aaron': 'Burns', 'Clay': 'Clay', 'Seth': 'Thacker', 'Z': 'Hickman', 'Z Hickman': 'Hickman',
+    'Zach': 'Sizemore', 'Sizemore': 'Sizemore', 'Cummings': 'Cummings', 'Luke': 'Rapp', 'Geiger': 'Geiger', 'Prino': 'Prino',
+    'Twest': 'West', 'Walid': 'Salameh', 'Sonny': 'Wright', 'Garton': 'Garton' };
+  const survivorYears = (typeof SURVIVOR !== 'undefined') ? Object.keys(SURVIVOR).sort((a,b) => a - b)
+    .filter(y => (SURVIVOR[y].players || []).some(p => p.result === 'Winner' && SURVIVOR_NAME_TO_KEY[p.name] === key)) : [];
+  const survivorCard = `<div class="award-card"><div class="medal">NFL Survivor Titles</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length ? `<a href="survivor.html?year=${survivorYears[survivorYears.length - 1]}" style="color:inherit;">${survivorYears.join(', ')}</a>` : 'No survivor wins yet'}</p></div>`;
+
   const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
@@ -1444,6 +1452,7 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
     <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
+    ${survivorCard}
     ${mostDraftedCard}
   </div>`;
 
