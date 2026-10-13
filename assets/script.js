@@ -520,7 +520,7 @@ function renderVolumeDetail(containerId){
         <td class="pos">Vol. ${n.vol}, No. ${n.no}</td>
         <td class="name-cell">${n.title}</td>
         <td class="pos">${n.year}</td>
-        <td><a href="${n.url}" target="_blank" rel="noopener" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--field); white-space:nowrap;">Read →</a></td>
+        <td><a href="${n.url}" target="_blank" rel="noopener" style="font-size:0.85rem; text-decoration:underline; color:var(--field); white-space:nowrap;">Read</a></td>
       </tr>`).join('')}
     </tbody>
   </table></div>`;
@@ -1331,7 +1331,7 @@ function renderCurrentSeasonCTA(containerId){
   const status = finished ? `Champion: ${s.champion.team}`
     : lastWeek ? `Through Week ${lastWeek}` : 'Season kicks off soon';
   el.innerHTML = `<a class="season-cta" href="season.html?year=${year}">
-    <span class="season-cta-main">${year} Season <span aria-hidden="true">&rarr;</span></span>
+    <span class="season-cta-main">${year} season</span>
     <span class="season-cta-sub">${status} · Standings, scores &amp; box scores</span>
   </a>`;
 }
@@ -1362,17 +1362,17 @@ function renderHeadlines(containerId){
           return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
         }).join('')}
       </ul>
-      <div class="standings-col-more">See the full ${latestYear} season — scores, box scores &amp; charts &rarr;</div>
+      <div class="standings-col-more">Full ${latestYear} season, with scores, box scores and charts</div>
     </a>` : '';
 
   el.innerHTML = `
     <a class="newsletter-banner" href="newsletter-vol9-no4.html">
-      <span>&#128240;</span> Read the latest newsletter — Vol. 9, No. 4: Feast or Famine &rarr;
+      Read the latest newsletter: Vol. 9, No. 4, “Feast or Famine”
     </a>
     <div class="headlines-card">
       <div class="headlines-split">
         <div class="headlines-col">
-          <div class="headlines-header"><span class="headlines-icon" aria-hidden="true">&#9776;</span> Top Headlines</div>
+          <div class="headlines-header">Top headlines</div>
           <ul class="headlines-list">
             ${NFL_HEADLINES.map(h => {
               const isExternal = /^https?:\/\//i.test(h.url);
@@ -1481,7 +1481,7 @@ function renderTeamDetail(containerId){
       <td>${row.w}-${row.l}${row.t ? '-'+row.t : ''}</td>
       <td>${row.pct.toFixed(3)}</td>
       <td class="name-cell">${finish}</td>
-      <td><a href="season.html?year=${y}" style="font-family:var(--mono); font-size:0.8rem; text-decoration:underline; color:var(--blue);">View season →</a></td>
+      <td><a href="season.html?year=${y}" style="font-size:0.85rem; text-decoration:underline; color:var(--blue);">View season</a></td>
     </tr>`;
   }).join('');
 
