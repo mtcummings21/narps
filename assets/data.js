@@ -13185,100 +13185,99 @@ const SEASONS = {
       {
         "team": "The Deplorables",
         "owner": "Zach Sizemore",
-        "w": 3,
+        "w": 4,
         "l": 1,
         "t": 0,
-        "pct": 0.75
+        "pct": 0.8
+      },
+      {
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
+        "w": 4,
+        "l": 1,
+        "t": 0,
+        "pct": 0.8
       },
       {
         "team": "Free Agents",
         "owner": "Z Hickman",
         "w": 3,
-        "l": 1,
+        "l": 2,
         "t": 0,
-        "pct": 0.75
-      },
-      {
-        "team": "Prino's Powerhouse",
-        "owner": "Joe Prino",
-        "w": 3,
-        "l": 1,
-        "t": 0,
-        "pct": 0.75
+        "pct": 0.6
       },
       {
         "team": "Kareem Pie",
         "owner": "Seth Thacker",
         "w": 3,
-        "l": 1,
+        "l": 2,
         "t": 0,
-        "pct": 0.75
+        "pct": 0.6
       },
       {
-        "team": "Money Badgers",
-        "owner": "Tyler Clay",
+        "team": "George's Gangstas",
+        "owner": "Sonny Wright",
         "w": 3,
-        "l": 1,
+        "l": 2,
         "t": 0,
-        "pct": 0.75
+        "pct": 0.6
       },
       {
         "team": "Route 2 Ravers",
         "owner": "Joe Garton",
         "w": 2,
-        "l": 2,
+        "l": 3,
         "t": 0,
-        "pct": 0.5
+        "pct": 0.4
       },
       {
         "team": "Fantasy Football Team",
         "owner": "Aaron Burns",
-        "w": 1,
+        "w": 2,
         "l": 3,
         "t": 0,
-        "pct": 0.25
+        "pct": 0.4
       },
       {
         "team": "Arabian Stallions",
         "owner": "Walid Salameh",
         "w": 2,
-        "l": 2,
+        "l": 3,
         "t": 0,
-        "pct": 0.5
+        "pct": 0.4
+      },
+      {
+        "team": "Lincoln Legends",
+        "owner": "Tyler Cummings",
+        "w": 2,
+        "l": 3,
+        "t": 0,
+        "pct": 0.4
       },
       {
         "team": "Business as Usual",
         "owner": "Travis West",
         "w": 1,
-        "l": 3,
+        "l": 4,
         "t": 0,
-        "pct": 0.25
-      },
-      {
-        "team": "George's Gangstas",
-        "owner": "Sonny Wright",
-        "w": 2,
-        "l": 2,
-        "t": 0,
-        "pct": 0.5
+        "pct": 0.2
       },
       {
         "team": "ACLiens",
         "owner": "Luke Rapp",
-        "w": 0,
+        "w": 1,
         "l": 4,
         "t": 0,
-        "pct": 0
+        "pct": 0.2
       },
       {
-        "team": "Lincoln Legends",
-        "owner": "Tyler Cummings",
-        "w": 1,
-        "l": 3,
+        "team": "Money Badgers",
+        "owner": "Tyler Clay",
+        "w": 3,
+        "l": 2,
         "t": 0,
-        "pct": 0.25
+        "pct": 0.6
       }
-    
     ],
     "playoffs": {},
     "schedule": {
@@ -13486,48 +13485,48 @@ const SEASONS = {
         {
           "away": "Kareem Pie",
           "awayMgr": "Seth Thacker",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 89.8,
+          "homeScore": 95.8,
           "homeMgr": "Sonny Wright",
           "home": "George's Gangstas"
         },
         {
           "away": "Route 2 Ravers",
           "awayMgr": "Joe Garton",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 114.7,
+          "homeScore": 120.5,
           "homeMgr": "Tyler Cummings",
           "home": "Lincoln Legends"
         },
         {
           "away": "Business as Usual",
           "awayMgr": "Travis West",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 78.5,
+          "homeScore": 101.6,
           "homeMgr": "Aaron Burns",
           "home": "Fantasy Football Team"
         },
         {
           "away": "Money Badgers",
           "awayMgr": "Tyler Clay",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 74.7,
+          "homeScore": 98.4,
           "homeMgr": "Luke Rapp",
           "home": "ACLiens"
         },
         {
           "away": "Free Agents",
           "awayMgr": "Z Hickman",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 99.5,
+          "homeScore": 156.8,
           "homeMgr": "Zach Sizemore",
           "home": "The Deplorables"
         },
         {
           "away": "Arabian Stallions",
           "awayMgr": "Walid Salameh",
-          "awayScore": 0,
-          "homeScore": 0,
+          "awayScore": 75.9,
+          "homeScore": 123.2,
           "homeMgr": "Joe Prino",
           "home": "Prino's Powerhouse"
         }
@@ -14015,16 +14014,16 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Tetairoa McMillan torches the Lions for 14 catches, 192 yards and 2 TDs, a 38.2-point day for Z Hickman's Free Agents", url: "https://www.nbcsports.com/fantasy/football/player-news/2026-10-05/tetairoa-mcmillan-sets-career-mark-in-receiving" },
-  { title: "CeeDee Lamb hauls in 17 catches for 189 yards and a TD, powering Travis West's Business as Usual to their first win of the season", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
-  { title: "Kyren Williams racks up 147 yards and 2 TDs on 26 touches, carrying Joe Prino's Powerhouse to the week's top score", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
-  { title: "Kenneth Walker III runs for 140-plus yards, but Saquon Barkley (hamstring) and Ladd McConkey (foot) both exit early for Sonny Wright's George's Gangstas", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
-  { title: "Ja'Marr Chase (concussion) and Rashee Rice (hamstring) leave early and Lamar Jackson tweaks an ankle, a brutal afternoon for Tyler Cummings' Legends", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
-  { title: "Bills' DJ Moore re-injures his shoulder and Marcus Mariota exits with a knee/ankle injury, rough news for Aaron Burns' Fantasy Football Team", url: "https://fantasysixpack.net/2026-fantasy-football-week-4-recap-injury-fallout/" },
-  { title: "Five teams share the top at 3-1: The Deplorables, Free Agents, Prino's Powerhouse, Kareem Pie and Money Badgers", url: "season.html?year=2026" },
-  { title: "Joe Prino's Powerhouse hand The Deplorables their first loss, 137.5-101.9", url: "season.html?year=2026" },
-  { title: "Tyler Clay's Money Badgers edge Tyler Cummings' Legends 69.2-68.5, and Seth Thacker's Kareem Pie slip past Route 2 Ravers 109.4-107.9", url: "season.html?year=2026" },
-  { title: "Luke Rapp's ACLiens fall to 0-4, the league's only winless team, after a 90.4-67.6 loss to Walid Salameh's Arabian Stallions", url: "season.html?year=2026" }
+  { title: "Drake Maye throws for 374 yards and accounts for 5 TDs, a 39.3-point day for Z Hickman's Free Agents, who still lose by 57", url: "https://www.boston25news.com/news/local/drake-maye-accounts-5-tds-patriots-roll-past-raiders-45-17/7BFABPYCXVDMZEZWNWJLYR4XFA/" },
+  { title: "Jahmyr Gibbs piles up 207 yards and 2 TDs for 35.2 points as Zach Sizemore's Deplorables post the season-high 156.8", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
+  { title: "Jaylen Warren breaks an 80-yard catch-and-run TD and a 50-yard TD run, 188 scrimmage yards and 33.8 points for Joe Prino's Powerhouse", url: "https://abcnews.com/Sports/wireStory/jaylen-warrens-brilliance-leads-steelers-past-colts-34-137181535" },
+  { title: "Christian Watson goes 6-143-2, but David Montgomery leaves with a groin injury after 1.1 points and Seth Thacker's Kareem Pie fall 95.8-89.8", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
+  { title: "Parker Washington scores twice in London for Sonny Wright's George's Gangstas, but Will Shipley exits with a foot injury", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
+  { title: "Injury report: Deebo Samuel (hamstring) for The Deplorables, T.J. Hockenson (concussion) for Fantasy Football Team, TreVeyon Henderson (ankle) for Prino's Powerhouse, Roman Wilson (wrist) for Money Badgers", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
+  { title: "The Deplorables and Prino's Powerhouse share the lead at 4-1; Free Agents, Kareem Pie, George's Gangstas and Money Badgers sit at 3-2", url: "season.html?year=2026" },
+  { title: "Luke Rapp's ACLiens win for the first time, 98.4-74.7 over Tyler Clay's Money Badgers, who drop from 5th to 12th on points", url: "season.html?year=2026" },
+  { title: "Tyler Cummings' Lincoln Legends hold off Joe Garton's Route 2 Ravers 120.5-114.7 behind Jacoby Brissett and Mike Evans, the Ravers' third straight loss", url: "season.html?year=2026" },
+  { title: "Bench mob: Joe Prino leaves Jayden Daniels' 32.1 on the bench and still wins by 47, and Aaron Burns sits Jordan Love's 25.2 in a 101.6-78.5 win", url: "season.html?year=2026" }
 ];
 
 const SURVIVOR = {
