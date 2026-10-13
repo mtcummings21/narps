@@ -16897,6 +16897,25 @@ const SUPER_BOWL_SQUARES = {
         ["Bry", "Geiger", "Big Vic", "Prino", "Twest", "Prino", "Zach", "Beirne", "Twest", "Seth"],
         ["Beirne", "Aaron", "Walid", "Big Vic", "Twest", "Geiger", "Pat", "Walid", "Prino", "Pat"]
     ]
+  },
+  "2022": {
+    name: "Super Bowl LVI",
+    date: "2022-02-13",
+    top:  { team: "Rams", full: "Los Angeles Rams", digits: [4,  6,  0,  7,  5,  2,  3,  8,  9,  1] },
+    side: { team: "Bengals", full: "Cincinnati Bengals", digits: [0,  8,  1,  5,  9,  2,  7,  6,  4,  3] },
+    scores: [ { top: 7, side: 3 }, { top: 13, side: 10 }, { top: 16, side: 20 }, { top: 23, side: 20 } ],
+    grid: [
+        ["Sonny", "Walid", "Aaron", "Aaron", "Clay", "Pat", "Z", "Walid", "Austin", "Ronnie"],
+        ["Bry", "Aaron", "Clay", "Martha", "Z", "Austin", "Pat", "Beirne", "Big Vic", "Clay"],
+        ["Ronnie", "Seth", "Sonny", "Big Vic", "Walid", "Twest", "Cummings", "Prino", "Cummings", "Sonny"],
+        ["Twest", "Sonny", "Prino", "Prino", "Z", "Bry", "Clay", "Martha", "Cummings", "Twest"],
+        ["Clay", "Aaron", "Luke", "Twest", "Aaron", "Zach", "Bry", "Pat", "Big Vic", "Ronnie"],
+        ["Seth", "Luke", "Walid", "Beirne", "Walid", "Martha", "Seth", "Cummings", "Z", "Martha"],
+        ["MK", "Seth", "Luke", "Twest", "Ronnie", "Big Vic", "Beirne", "Seth", "Austin", "Bry"],
+        ["Zach", "Twest", "Zach", "Martha", "Twest", "Beirne", "Luke", "MK", "Austin", "Prino"],
+        ["Bry", "Pat", "Big Vic", "Twest", "Walid", "Twest", "MK", "Aaron", "Sonny", "MK"],
+        ["Cummings", "Z", "Cummings", "Walid", "Beirne", "MK", "Zach", "Prino", "Cummings", "Pat"]
+    ]
   }
 };
 
