@@ -176,11 +176,12 @@ function computeLongestWinStreaks(){
 // All-time median and all-play records per franchise, from every played regular-season
 // week (same rules as the season standings): median = beat/lose to that week's league
 // median score (equal = tie); all-play = compare against every other team's score that week.
+// Also tracks each franchise's best regular-season game (Best Gm), so it never needs hand-entering.
 function computeAllTimeMedianAllPlay(){
   const keyByLast = {};
   TEAMS.forEach(t => { keyByLast[lastNameOf(t.owner)] = t.key; });
-  const med = {}, ap = {};
-  TEAMS.forEach(t => { med[t.key] = { w:0, l:0, t:0 }; ap[t.key] = { w:0, l:0, t:0 }; });
+  const med = {}, ap = {}, hi = {};
+  TEAMS.forEach(t => { med[t.key] = { w:0, l:0, t:0 }; ap[t.key] = { w:0, l:0, t:0 }; hi[t.key] = 0; });
   Object.values(SEASONS || {}).forEach(s => {
     Object.values(s.schedule || {}).forEach(games => {
       const wk = [];
@@ -195,6 +196,7 @@ function computeAllTimeMedianAllPlay(){
       const median = sorted.length % 2 === 0 ? (sorted[mid-1] + sorted[mid]) / 2 : sorted[mid];
       wk.forEach(([k, sc], i) => {
         if(!k) return;
+        if(sc > hi[k]) hi[k] = sc;
         if(sc > median) med[k].w++; else if(sc < median) med[k].l++; else med[k].t++;
         wk.forEach(([, oSc], j) => {
           if(i === j) return;
@@ -207,7 +209,7 @@ function computeAllTimeMedianAllPlay(){
   const str = r => `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`;
   const out = {};
   TEAMS.forEach(t => {
-    out[t.key] = { medianStr: str(med[t.key]), medianW: med[t.key].w, medianPct: pct(med[t.key]), allPlayStr: str(ap[t.key]), allPlayW: ap[t.key].w, allPlayPct: pct(ap[t.key]) };
+    out[t.key] = { medianStr: str(med[t.key]), medianW: med[t.key].w, medianPct: pct(med[t.key]), allPlayStr: str(ap[t.key]), allPlayW: ap[t.key].w, allPlayPct: pct(ap[t.key]), highScore: hi[t.key] };
   });
   return out;
 }
