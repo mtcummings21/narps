@@ -16916,6 +16916,26 @@ const SUPER_BOWL_SQUARES = {
         ["Bry", "Pat", "Big Vic", "Twest", "Walid", "Twest", "MK", "Aaron", "Sonny", "MK"],
         ["Cummings", "Z", "Cummings", "Walid", "Beirne", "MK", "Zach", "Prino", "Cummings", "Pat"]
     ]
+  },
+  "2020": {
+    name: "Super Bowl LIV",
+    date: "2020-02-02",
+    top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [9,  3,  6,  1,  7,  4,  0,  8,  2,  5] },
+    side: { team: "49ers", full: "San Francisco 49ers", digits: [0,  1,  6,  8,  4,  9,  2,  5,  3,  7] },
+    payouts: [50, 100, 150, 200],
+    scores: [ { top: 7, side: 3 }, { top: 10, side: 10 }, { top: 10, side: 20 }, { top: 31, side: 20 } ],
+    grid: [
+        ["Zach", "Dwayne", "Geiger", "Martha", "Geiger", "Ronnie", "Zach", "Big Vic", "Geiger", "Big Vic"],
+        ["Ronnie", "Prino", "Twest", "Bry", "Casey", "Geiger", "Dwayne", "Cummings", "Cummings", "Pat"],
+        ["Austin", "Dwayne", "Prino", "Clay", "Bry", "Aaron", "Casey", "Austin", "Twest", "Cummings"],
+        ["Forrest", "Z", "Prino", "Geiger", "Forrest", "Martha", "Zach", "Z", "Aaron", "Aaron"],
+        ["Clay", "Geiger", "Cummings", "Geiger", "Walid", "Dwayne", "Austin", "Martha", "Casey", "Aaron"],
+        ["Big Vic", "Casey", "Bry", "Sonny", "Z", "Aaron", "Todd", "Ronnie", "Walid", "Cummings"],
+        ["Todd", "Twest", "Walid", "Geiger", "Big Vic", "Big Vic", "Martha", "Martha", "Martha", "Seth"],
+        ["Pat", "Bry", "Pat", "Clay", "Walid", "Twest", "Todd", "Martha", "Martha", "Walid"],
+        ["Geiger", "Prino", "Todd", "Bry", "Z", "Clay", "Walid", "Twest", "Martha", "Geiger"],
+        ["Walid", "Pat", "Walid", "Prino", "Martha", "Clay", "Sonny", "Geiger", "Forrest", "Forrest"]
+    ]
   }
 };
 
