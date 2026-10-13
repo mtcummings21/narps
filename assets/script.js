@@ -1719,7 +1719,7 @@ function renderSuperBowlSquares(containerId){
       const w = winnersOf(g);
       return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
         <div class="sb-card-head">${g.logo ? `<img class="sb-card-logo" src="${g.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div></div>
-        ${team(g.side, f && f.side, sideWon)}${team(g.top, f && f.top, f && !sideWon)}
+        ${sideWon ? team(g.side, f.side, true) + team(g.top, f.top, false) : team(g.top, f && f.top, !!f) + team(g.side, f && f.side, false)}
         <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? (g.lastLabel ? g.lastLabel + ' Qtr' : 'Final') : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
       </a>`;
     }).join('')}</div>`;
