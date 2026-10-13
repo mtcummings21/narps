@@ -1655,3 +1655,4 @@ h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 .podium-badge--1{ background:linear-gradient(135deg,#f6dc7c,#d9ab2f); border-color:#c49a2a; }
 .podium-badge--2{ background:linear-gradient(135deg,#eef0f3,#b9c0ca); border-color:#a3abb6; color:#2a3038; }
 .podium-badge--3{ background:linear-gradient(135deg,#e9b98f,#b97a48); border-color:#a8693a; color:#2e1a0b; }
+@media (min-width: 768px){ .podium-badge{ width:23px; height:23px; font-size:0.5rem; } }
