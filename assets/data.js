@@ -16850,7 +16850,6 @@ const SUPER_BOWL_SQUARES = {
     // That year the last square was paid on the score at the end of the 4th quarter (19-19), not the OT final.
     scores: [ { top: 0, side: 0 }, { top: 3, side: 10 }, { top: 13, side: 10 }, { top: 19, side: 19 } ],
     finalScore: { top: 25, side: 22, ot: true },
-    lastLabel: "4th",
     note: "This game went to overtime. That year the last square was won by the score at the end of the 4th quarter (19–19), not the overtime final.",
     grid: [
         ["Clay", "Zach", "Zach", "Twest", "Z", "Aaron", "Aaron", "Garton", "Clay", "Prino"],

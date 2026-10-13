@@ -1703,7 +1703,7 @@ function renderSuperBowlSquares(containerId){
   const years = Object.keys(SUPER_BOWL_SQUARES).sort((a,b) => b - a);
   const params = new URLSearchParams(window.location.search);
   const logo = t => (typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/${NFL_LOGO_ABBR[t]}.png" alt="">` : '';
-  const Q = ['1st', '2nd', '3rd', 'Final'];
+  const Q = ['1st', '2nd', '3rd', '4th'];
   const winnersOf = g => (g.scores || []).map(sc => {
     const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
     return (r >= 0 && c >= 0) ? g.grid[r][c] : null;
@@ -1720,7 +1720,7 @@ function renderSuperBowlSquares(containerId){
       return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
         <div class="sb-card-head">${g.logo ? `<img class="sb-card-logo" src="${g.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div></div>
         ${sideWon ? team(g.side, f.side, true) + team(g.top, f.top, false) : team(g.top, f && f.top, !!f) + team(g.side, f && f.side, false)}
-        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? (g.lastLabel ? g.lastLabel + ' Qtr' : 'Final') : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
+        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q} Qtr</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
       </a>`;
     }).join('')}</div>`;
     return;
@@ -1740,7 +1740,7 @@ function renderSuperBowlSquares(containerId){
   const yearSwitcher = years.length > 1 ? `<select id="sb-year" class="sb-year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${SUPER_BOWL_SQUARES[y].name} (${y - 1})</option>`).join('')}</select>` : '';
 
   const winnerRows = wins.map(w => `<tr>
-      <td>${w.q === 3 && g.lastLabel ? g.lastLabel : Q[w.q]}</td>
+      <td>${Q[w.q]}</td>
       <td style="white-space:nowrap;">${w.sc.side} – ${w.sc.top}</td>
       <td><span class="sb-digit">${w.sc.side % 10}</span> / <span class="sb-digit">${w.sc.top % 10}</span></td>
       <td class="name-cell">${w.who || '—'}</td>
@@ -1754,7 +1754,7 @@ function renderSuperBowlSquares(containerId){
   const head = `<tr><th class="sb-corner"></th>${g.top.digits.map(d => `<th class="sb-col">${d}</th>`).join('')}</tr>`;
   const body = g.grid.map((row, r) => `<tr><th class="sb-row">${g.side.digits[r]}</th>${row.map((name, c) => {
       const w = winAt[r + ',' + c];
-      const tag = w ? `<span class="sb-q">${w.map(x => x.q === 3 ? (g.lastLabel ? 'Q4' : 'F') : 'Q' + (x.q + 1)).join(' ')}</span>` : '';
+      const tag = w ? `<span class="sb-q">${w.map(x => 'Q' + (x.q + 1)).join(' ')}</span>` : '';
       return `<td class="${w ? 'sb-win' : ''}" title="${name} · ${g.side.team} ${g.side.digits[r]}, ${g.top.team} ${g.top.digits[c]}">${tag}<span class="sb-name">${name}</span></td>`;
     }).join('')}</tr>`).join('');
 
