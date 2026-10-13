@@ -1702,10 +1702,32 @@ function renderSuperBowlSquares(containerId){
   if(!el || typeof SUPER_BOWL_SQUARES === 'undefined') return;
   const years = Object.keys(SUPER_BOWL_SQUARES).sort((a,b) => b - a);
   const params = new URLSearchParams(window.location.search);
-  const year = (params.get('year') && SUPER_BOWL_SQUARES[params.get('year')]) ? params.get('year') : years[0];
-  const g = SUPER_BOWL_SQUARES[year];
   const logo = t => (typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/${NFL_LOGO_ABBR[t]}.png" alt="">` : '';
   const Q = ['1st', '2nd', '3rd', 'Final'];
+  const winnersOf = g => (g.scores || []).map(sc => {
+    const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
+    return (r >= 0 && c >= 0) ? g.grid[r][c] : null;
+  });
+
+  // Landing view: one card per Super Bowl, newest first. Clicking a card opens its grid.
+  if(!params.get('year') || !SUPER_BOWL_SQUARES[params.get('year')]){
+    el.innerHTML = `<h3>Past Super Bowls</h3><div class="sb-list">${years.map(y => {
+      const g = SUPER_BOWL_SQUARES[y];
+      const f = g.scores && g.scores[3];
+      const sideWon = f && f.side > f.top;
+      const team = (t, pts, won) => `<div class="sb-card-team${won ? ' won' : ''}">${logo(t.team)}<span>${t.team}</span><strong>${f ? pts : ''}</strong></div>`;
+      const w = winnersOf(g);
+      return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
+        <div class="sb-card-head"><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div>
+        ${team(g.side, f && f.side, sideWon)}${team(g.top, f && f.top, f && !sideWon)}
+        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? 'Final' : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
+      </a>`;
+    }).join('')}</div>`;
+    return;
+  }
+
+  const year = params.get('year');
+  const g = SUPER_BOWL_SQUARES[year];
   const abbr = t => ((typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) || t.slice(0,3)).toUpperCase();
   const wins = (g.scores || []).map((sc, q) => {
     const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
@@ -1736,11 +1758,14 @@ function renderSuperBowlSquares(containerId){
       return `<td class="${w ? 'sb-win' : ''}" title="${name} · ${g.side.team} ${g.side.digits[r]}, ${g.top.team} ${g.top.digits[c]}">${tag}<span class="sb-name">${name}</span></td>`;
     }).join('')}</tr>`).join('');
 
+  const sideWon = final && final.side > final.top;
+  const fin = (t, pts, won) => won ? `<strong>${t} ${pts}</strong>` : `${t} ${pts}`;
   el.innerHTML = `
+    <p class="sb-back"><a href="super-bowl-squares.html">← All Super Bowls</a></p>
     ${yearSwitcher}
     <div class="sb-summary">
       <div class="sb-title">${g.name}</div>
-      <div class="sb-final">${logo(g.side.team)}<strong>${g.side.team} ${final ? final.side : ''}</strong><span class="muted">–</span>${g.top.team} ${final ? final.top : ''}${logo(g.top.team)}</div>
+      <div class="sb-final">${logo(g.side.team)}${fin(g.side.team, final ? final.side : '', sideWon)}<span class="muted">–</span>${fin(g.top.team, final ? final.top : '', final && !sideWon)}${logo(g.top.team)}</div>
       <div class="muted">${dateStr}</div>
     </div>
     <h3>Winners</h3>

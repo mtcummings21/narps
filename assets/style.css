@@ -1610,3 +1610,22 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 td.num, .num{ font-variant-numeric: tabular-nums; }
 h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 .hero h1{ letter-spacing: -0.5px; font-weight: 800; }
+
+/* Super Bowl Squares landing list */
+.sb-list{ display:grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap:16px; margin-top:12px; }
+.sb-card{ padding:18px 20px; }
+.sb-card-head{ display:flex; flex-direction:column; gap:2px; margin-bottom:12px; }
+.sb-card-name{ white-space:nowrap; }
+.sb-card-name{ font-family: var(--display); font-stretch: 78%; font-weight:700; font-size:1.3rem; color: var(--navy); }
+.sb-card-head .muted{ font-size:0.82rem; }
+.sb-card-team{ display:flex; align-items:center; gap:8px; padding:4px 0; color: var(--text-soft); }
+.sb-card-team span{ flex:1; }
+.sb-card-team strong{ font-weight:600; }
+.sb-card-team.won{ color: var(--text); }
+.sb-card-team.won span, .sb-card-team.won strong{ font-weight:700; }
+.sb-card-team .sb-logo{ margin:0; vertical-align:middle; }
+.sb-card-winners{ display:grid; grid-template-columns:auto 1fr; gap:4px 14px; margin:12px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:0.9rem; }
+.sb-card-winners dt{ color: var(--text-soft); }
+.sb-card-winners dd{ margin:0; font-weight:600; color: var(--text); }
+.sb-back{ margin:0 0 4px; }
+.sb-back a{ color: var(--blue); text-decoration: underline; font-size:0.95rem; }
