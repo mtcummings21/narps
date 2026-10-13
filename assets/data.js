@@ -16847,8 +16847,11 @@ const SUPER_BOWL_SQUARES = {
     date: "2024-02-11",
     top:  { team: "Chiefs", full: "Kansas City Chiefs", digits: [1,  4,  8,  6,  0,  3,  9,  5,  2,  7] },
     side: { team: "49ers", full: "San Francisco 49ers", digits: [6,  0,  3,  8,  9,  1,  2,  4,  7,  5] },
-    scores: [ { top: 0, side: 0 }, { top: 3, side: 10 }, { top: 13, side: 10 }, { top: 25, side: 22 } ],
-    // Tied 19-19 after regulation; the final square uses the overtime final (25-22).
+    // That year the last square was paid on the score at the end of the 4th quarter (19-19), not the OT final.
+    scores: [ { top: 0, side: 0 }, { top: 3, side: 10 }, { top: 13, side: 10 }, { top: 19, side: 19 } ],
+    finalScore: { top: 25, side: 22, ot: true },
+    lastLabel: "4th",
+    note: "This game went to overtime. That year the last square was won by the score at the end of the 4th quarter (19–19), not the overtime final.",
     grid: [
         ["Clay", "Zach", "Zach", "Twest", "Z", "Aaron", "Aaron", "Garton", "Clay", "Prino"],
         ["Twest", "Sonny", "Z", "Aaron", "Z", "Ronnie", "Clay", "Ronnie", "Sonny", "Cummings"],

@@ -1713,14 +1713,14 @@ function renderSuperBowlSquares(containerId){
   if(!params.get('year') || !SUPER_BOWL_SQUARES[params.get('year')]){
     el.innerHTML = `<h3>Past Super Bowls</h3><div class="sb-list">${years.map(y => {
       const g = SUPER_BOWL_SQUARES[y];
-      const f = g.scores && g.scores[3];
+      const f = g.finalScore || (g.scores && g.scores[3]);
       const sideWon = f && f.side > f.top;
       const team = (t, pts, won) => `<div class="sb-card-team${won ? ' won' : ''}">${logo(t.team)}<span>${t.team}</span><strong>${f ? pts : ''}</strong></div>`;
       const w = winnersOf(g);
       return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
         <div class="sb-card-head">${g.logo ? `<img class="sb-card-logo" src="${g.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div></div>
         ${team(g.side, f && f.side, sideWon)}${team(g.top, f && f.top, f && !sideWon)}
-        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? 'Final' : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
+        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q === 'Final' ? (g.lastLabel ? g.lastLabel + ' Qtr' : 'Final') : q + ' Qtr'}</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
       </a>`;
     }).join('')}</div>`;
     return;
@@ -1735,12 +1735,12 @@ function renderSuperBowlSquares(containerId){
   });
   const winAt = {};
   wins.forEach(w => { (winAt[w.r + ',' + w.c] = winAt[w.r + ',' + w.c] || []).push(w); });
-  const final = g.scores && g.scores[3];
+  const final = g.finalScore || (g.scores && g.scores[3]);
   const dateStr = g.date ? new Date(g.date + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : '';
   const yearSwitcher = years.length > 1 ? `<select id="sb-year" class="sb-year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${SUPER_BOWL_SQUARES[y].name} (${y - 1})</option>`).join('')}</select>` : '';
 
   const winnerRows = wins.map(w => `<tr>
-      <td>${Q[w.q]}</td>
+      <td>${w.q === 3 && g.lastLabel ? g.lastLabel : Q[w.q]}</td>
       <td style="white-space:nowrap;">${w.sc.side} – ${w.sc.top}</td>
       <td><span class="sb-digit">${w.sc.side % 10}</span> / <span class="sb-digit">${w.sc.top % 10}</span></td>
       <td class="name-cell">${w.who || '—'}</td>
@@ -1754,7 +1754,7 @@ function renderSuperBowlSquares(containerId){
   const head = `<tr><th class="sb-corner"></th>${g.top.digits.map(d => `<th class="sb-col">${d}</th>`).join('')}</tr>`;
   const body = g.grid.map((row, r) => `<tr><th class="sb-row">${g.side.digits[r]}</th>${row.map((name, c) => {
       const w = winAt[r + ',' + c];
-      const tag = w ? `<span class="sb-q">${w.map(x => x.q === 3 ? 'F' : 'Q' + (x.q + 1)).join(' ')}</span>` : '';
+      const tag = w ? `<span class="sb-q">${w.map(x => x.q === 3 ? (g.lastLabel ? 'Q4' : 'F') : 'Q' + (x.q + 1)).join(' ')}</span>` : '';
       return `<td class="${w ? 'sb-win' : ''}" title="${name} · ${g.side.team} ${g.side.digits[r]}, ${g.top.team} ${g.top.digits[c]}">${tag}<span class="sb-name">${name}</span></td>`;
     }).join('')}</tr>`).join('');
 
@@ -1766,8 +1766,9 @@ function renderSuperBowlSquares(containerId){
     <div class="sb-summary">
       <div class="sb-title">${g.name}</div>
       <div class="sb-final">${logo(g.side.team)}${fin(g.side.team, final ? final.side : '', sideWon)}<span class="muted">–</span>${fin(g.top.team, final ? final.top : '', final && !sideWon)}${logo(g.top.team)}</div>
-      <div class="muted">${dateStr}</div>
+      <div class="muted">${dateStr}${final && final.ot ? ' · Overtime' : ''}</div>
     </div>
+    ${g.note ? `<p class="muted sb-note">${g.note}</p>` : ''}
     <h3>Winners</h3>
     <div class="table-scroll"><table class="sb-winners">
       <thead><tr><th>Qtr</th><th>${abbr(g.side.team)}–${abbr(g.top.team)}</th><th>Digits</th><th>Winner</th>${g.payouts ? '<th>Payout</th>' : ''}</tr></thead>
