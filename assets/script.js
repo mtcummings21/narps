@@ -400,7 +400,8 @@ function renderAwards(containerId){
   const byMaxPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>b.playoffWinPct-a.playoffWinPct)[0];
   const byMinPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>a.playoffWinPct-b.playoffWinPct)[0];
 
-  const highScore = byMax('highScore');
+  const medAp = computeAllTimeMedianAllPlay();
+  const highScore = TEAMS.map(t => ({ ...t, highScore: medAp[t.key].highScore })).sort((a,b) => b.highScore - a.highScore)[0];
   const bestDiff = byMax('diff');
   const worstDiff = byMin('diff');
   const bestWinPct = byMax('winPct');
