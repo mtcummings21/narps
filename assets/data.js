@@ -14005,8 +14005,6 @@ const NFL_HEADLINES = [
   { title: "Jahmyr Gibbs piles up 207 yards and 2 TDs for 35.2 points as Zach Sizemore's Deplorables post the season-high 156.8", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
   { title: "Jaylen Warren breaks an 80-yard catch-and-run TD and a 50-yard TD run, 188 scrimmage yards and 33.8 points for Joe Prino's Powerhouse", url: "https://abcnews.com/Sports/wireStory/jaylen-warrens-brilliance-leads-steelers-past-colts-34-137181535" },
   { title: "Christian Watson goes 6-143-2, but David Montgomery leaves with a groin injury after 1.1 points and Seth Thacker's Kareem Pie fall 95.8-89.8", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
-  { title: "Parker Washington scores twice in London for Sonny Wright's George's Gangstas, but Will Shipley exits with a foot injury", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
-  { title: "Injury report: Deebo Samuel (hamstring) for The Deplorables, T.J. Hockenson (concussion) for Fantasy Football Team, TreVeyon Henderson (ankle) for Prino's Powerhouse, Roman Wilson (wrist) for Money Badgers", url: "https://fantasysixpack.net/2026-fantasy-football-week-5-recap/" },
   { title: "The Deplorables and Prino's Powerhouse share the lead at 4-1; Free Agents, Kareem Pie, George's Gangstas and Money Badgers sit at 3-2", url: "season.html?year=2026" },
   { title: "Luke Rapp's ACLiens win for the first time, 98.4-74.7 over Tyler Clay's Money Badgers, who drop from 5th to 12th on points", url: "season.html?year=2026" },
   { title: "Tyler Cummings' Lincoln Legends hold off Joe Garton's Route 2 Ravers 120.5-114.7 behind Jacoby Brissett and Mike Evans, the Ravers' third straight loss", url: "season.html?year=2026" },
