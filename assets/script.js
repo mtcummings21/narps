@@ -1483,7 +1483,7 @@ function renderTeamDetail(containerId){
         <div class="champ-ribbon">${t.owner.toUpperCase()}</div>
         <div class="champ-pennant-year">${c.year}</div>
       </div>
-    </div>`).join('')}</div>` : `<p class="muted">No championships yet — but there's always next year.</p>`;
+    </div>`).join('')}</div>` : `<p class="muted">No championships yet.</p>`;
 
   const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
   const years = Object.keys(SEASONS).sort((a,b) => b - a);
