@@ -225,7 +225,7 @@ function standingsRowHTML(t, i){
     <td class="pos">${t.playoffApp}</td>
     <td class="num grp-l">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
     <td class="num">${fmtPct(t.winPct)}</td>
-    <td class="num">${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
+    <td class="num grp-l">${t.totalPF.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</td>
     <td class="num">${t.gameAvgPF.toFixed(1)}</td>
     <td>${t.diff > 0 ? '+' : ''}${t.diff.toFixed(1)}</td>
     <td class="num grp-l">${t.medianStr}</td>
@@ -302,7 +302,7 @@ function renderStandings(containerId){
         <th data-key="playoffApp">Playoffs</th>
         <th data-key="record" class="grp-l">Record</th>
         <th data-key="winPct">Win%</th>
-        <th data-key="totalPF">Total PF</th>
+        <th data-key="totalPF" class="grp-l">Total PF</th>
         <th data-key="gameAvgPF">Avg PF</th>
         <th data-key="diff">Pt Diff/G</th>
         <th data-key="medianW" class="grp-l">Median Record</th>
