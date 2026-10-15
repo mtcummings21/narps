@@ -2990,6 +2990,6 @@ function renderScoreStrip(containerId){
   el.innerHTML = `<div class="wrap ss-wrap">
     <a class="ss-label" href="season.html?year=${year}">${wk}<span>Final</span></a>
     <div class="ss-games">${s.schedule[wk].map(g => `<a class="ss-game" href="season.html?year=${year}">
-      ${row(g.away, g.awayScore, g.awayScore > g.homeScore)}${row(g.home, g.homeScore, g.homeScore > g.awayScore)}</a>`).join('')}</div>
+      ${g.homeScore > g.awayScore ? row(g.home, g.homeScore, true) + row(g.away, g.awayScore, false) : row(g.away, g.awayScore, g.awayScore > g.homeScore) + row(g.home, g.homeScore, false)}</a>`).join('')}</div>
   </div>`;
 }
