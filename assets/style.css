@@ -1680,3 +1680,6 @@ tbody td{ padding: 7px 12px; }
 .ss-team.won{ color: var(--text); font-weight:700; }
 .nav-dropdown-toggle{ border-radius: 0; }
 .nav-dropdown--current .nav-dropdown-toggle{ color: var(--navy); background: none; box-shadow: inset 0 -3px 0 var(--red); }
+.ss-game--pl{ min-width:180px; }
+.ss-game--pl .ss-name{ display:inline-flex; align-items:center; gap:6px; }
+.ss-game--pl .pl-logo{ flex:none; }

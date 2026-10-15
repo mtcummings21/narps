@@ -2993,3 +2993,21 @@ function renderScoreStrip(containerId){
       ${g.homeScore > g.awayScore ? row(g.home, g.homeScore, true) + row(g.away, g.awayScore, false) : row(g.away, g.awayScore, g.awayScore > g.homeScore) + row(g.home, g.homeScore, false)}</a>`).join('')}</div>
   </div>`;
 }
+
+// ---------- Premier Pick 2: scoreboard strip (latest matchweek with results) ----------
+function renderPLScoreStrip(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const key = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a)[0];
+  const pl = PREMIER_LEAGUE[key];
+  const weeks = Object.keys(pl.results || {}).filter(w => (pl.results[w] || []).length).sort((a,b) => a - b);
+  if(!weeks.length){ el.remove(); return; }
+  const wk = weeks[weeks.length - 1];
+  const short = t => (typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[t]) || t;
+  const row = (team, goals, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${plLogo(team, 16)} ${short(team)}</span><span class="ss-pts">${goals}</span></span>`;
+  el.innerHTML = `<div class="wrap ss-wrap">
+    <a class="ss-label" href="premier-league-schedule.html">Matchweek ${wk}<span>Full time</span></a>
+    <div class="ss-games">${pl.results[wk].map(([home, hg, ag, away]) => `<a class="ss-game ss-game--pl" href="premier-league-schedule.html">
+      ${ag > hg ? row(away, ag, true) + row(home, hg, false) : row(home, hg, hg > ag) + row(away, ag, false)}</a>`).join('')}</div>
+  </div>`;
+}
