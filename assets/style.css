@@ -1657,3 +1657,26 @@ h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 .podium-badge--2{ background:linear-gradient(135deg,#eef0f3,#b9c0ca); border-color:#a3abb6; color:#2a3038; }
 .podium-badge--3{ background:linear-gradient(135deg,#e9b98f,#b97a48); border-color:#a8693a; color:#2e1a0b; }
 @media (min-width: 768px){ .podium-badge{ width:23px; height:23px; font-size:0.5rem; } }
+
+/* ---------- Sports-site polish (preview) ---------- */
+.site-header{ border-top: 3px solid var(--red); }
+.nav a{ border-radius: 0; }
+.nav a[aria-current="page"]{ color: var(--navy); background: none; box-shadow: inset 0 -3px 0 var(--red); }
+.theme-toggle svg{ display:block; }
+thead th{ padding: 9px 12px; }
+tbody td{ padding: 7px 12px; }
+/* Scoreboard strip */
+.score-strip{ background: var(--panel); border-bottom: 1px solid var(--line); }
+.ss-wrap{ display:flex; align-items:stretch; gap:0; padding-top:0; padding-bottom:0; }
+.ss-label{ display:flex; flex-direction:column; justify-content:center; padding:8px 16px 8px 0; margin-right:4px; border-right:1px solid var(--line);
+  font-family: var(--display); font-stretch: 78%; font-weight:800; font-size:0.95rem; color: var(--navy); text-decoration:none; white-space:nowrap; }
+.ss-label span{ font-family: var(--body); font-stretch: normal; font-weight:600; font-size:0.68rem; color: var(--text-soft); }
+.ss-games{ display:flex; overflow-x:auto; scrollbar-width:thin; }
+.ss-game{ display:flex; flex-direction:column; gap:2px; min-width:210px; padding:8px 14px; border-right:1px solid var(--line); text-decoration:none; color: var(--text-soft); font-size:0.78rem; }
+.ss-game:hover{ background: var(--bg); }
+.ss-team{ display:flex; justify-content:space-between; gap:12px; }
+.ss-name{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:150px; }
+.ss-pts{ font-variant-numeric: tabular-nums; }
+.ss-team.won{ color: var(--text); font-weight:700; }
+.nav-dropdown-toggle{ border-radius: 0; }
+.nav-dropdown--current .nav-dropdown-toggle{ color: var(--navy); background: none; box-shadow: inset 0 -3px 0 var(--red); }

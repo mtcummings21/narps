@@ -36,7 +36,9 @@ function applyTheme(theme){
   const btn = document.querySelector('.theme-toggle');
   if(btn){
     const effective = currentEffectiveTheme();
-    btn.textContent = effective === 'dark' ? '☀️' : '🌙';
+    btn.innerHTML = effective === 'dark'
+      ? '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>'
+      : '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
     btn.setAttribute('aria-label', effective === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
   }
 }
@@ -1406,7 +1408,7 @@ function renderTeamsList(containerId){
   const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
   el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
     <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
-      <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Seasons`}</div>
+      <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Season${t.seasons === 1 ? '' : 's'}`}</div>
       <h3>${t.owner}</h3>
       <p>${t.team} — ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
     </a>`).join('') + `</div>`;
@@ -2971,3 +2973,23 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavDropdowns();
   initThemeToggle();
 });
+
+
+// ---------- Homepage scoreboard strip (latest completed week) ----------
+function renderScoreStrip(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof SEASONS === 'undefined') return;
+  const year = Object.keys(SEASONS).sort((a,b) => b - a)[0];
+  const s = SEASONS[year];
+  const weeks = Object.keys(s.schedule || {}).filter(w => /^Week \d+$/.test(w)
+    && s.schedule[w].some(g => g.awayScore || g.homeScore)).sort((a,b) => parseInt(a.slice(5)) - parseInt(b.slice(5)));
+  if(!weeks.length){ el.remove(); return; }
+  const wk = weeks[weeks.length - 1];
+  const fmt = n => Number(n).toFixed(1);
+  const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
+  el.innerHTML = `<div class="wrap ss-wrap">
+    <a class="ss-label" href="season.html?year=${year}">${wk}<span>Final</span></a>
+    <div class="ss-games">${s.schedule[wk].map(g => `<a class="ss-game" href="season.html?year=${year}">
+      ${row(g.away, g.awayScore, g.awayScore > g.homeScore)}${row(g.home, g.homeScore, g.homeScore > g.awayScore)}</a>`).join('')}</div>
+  </div>`;
+}
