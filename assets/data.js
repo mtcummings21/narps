@@ -14004,6 +14004,7 @@ const DRAFT_ORDER = {
 // the rest is paid once the season has a champion. place = 1st/2nd/3rd prize money.
 // 2025: Burns and Sizemore split the 1st and 2nd prizes ($1,450) 800/650 before the title game.
 const PAYOUT_RULES = {
+  "2023": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [725, 725, 200] }, // 1st and 2nd split $1,450 evenly
   "2024": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [1000, 450, 200] },
   "2025": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [800, 650, 200] },
   "2026": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [1000, 450, 200] }
