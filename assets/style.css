@@ -263,7 +263,7 @@ img{ max-width:100%; display:block; }
 .hero{
   background: var(--ink);
   color: var(--white);
-  padding: 72px 0 40px;
+  padding: 72px 0 24px;
   position: relative;
   overflow: hidden;
 }
@@ -1687,7 +1687,6 @@ tbody td{ padding: 7px 12px; }
 /* Homepage: mobile spacing and one-line team names in the standings box */
 .short-label{ display:none; }
 @media (max-width: 600px){
-  .hero{ padding-bottom: 32px; }
   .season-cta{ margin-bottom: 0; }
   .standings-mini-headers, .standings-mini-list li{ grid-template-columns: minmax(0,1fr) 38px 52px; gap: 8px; padding-left: 14px; padding-right: 14px; }
   .standings-mini-list li span:nth-child(1){ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
