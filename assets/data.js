@@ -16822,6 +16822,14 @@ const PREMIER_LEAGUE = {
 // grid[row][col]: rows follow side.digits (top to bottom), columns follow top.digits (left to right).
 // scores are cumulative at the end of each quarter. Winner of a quarter = square at (side last digit, top last digit).
 const SUPER_BOWL_SQUARES = {
+  "2025": {
+    name: "Super Bowl LIX",
+    date: "2025-02-09",
+    noContest: true,
+    top:  { team: "Chiefs", full: "Kansas City Chiefs" },
+    side: { team: "Eagles", full: "Philadelphia Eagles" },
+    finalScore: { top: 22, side: 40 }
+  },
   "2026": {
     name: "Super Bowl LX",
     logo: "https://content.sportslogos.net/logos/7/593/thumbs/_super_bowl_logo_primary_2025sportslogosnet5684.gif",

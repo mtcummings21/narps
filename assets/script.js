@@ -1740,7 +1740,7 @@ function renderSuperBowlSquares(containerId){
   const params = new URLSearchParams(window.location.search);
   const logo = t => (typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/nfl/500/${NFL_LOGO_ABBR[t]}.png" alt="">` : '';
   const Q = ['1st', '2nd', '3rd', '4th'];
-  const winnersOf = g => (g.scores || []).map(sc => {
+  const winnersOf = g => g.noContest ? [] : (g.scores || []).map(sc => {
     const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
     return (r >= 0 && c >= 0) ? g.grid[r][c] : null;
   });
@@ -1756,7 +1756,7 @@ function renderSuperBowlSquares(containerId){
       return `<a class="nav-card sb-card" href="super-bowl-squares.html?year=${y}">
         <div class="sb-card-head">${g.logo ? `<img class="sb-card-logo" src="${g.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${g.name}</span><span class="muted">${y - 1} season</span></div></div>
         ${sideWon ? team(g.side, f.side, true) + team(g.top, f.top, false) : team(g.top, f && f.top, !!f) + team(g.side, f && f.side, false)}
-        <dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q} Qtr</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>
+        ${g.noContest ? `<p class="muted sb-card-none">No contest this year</p>` : `<dl class="sb-card-winners">${Q.map((q, i) => `<dt>${q} Qtr</dt><dd>${w[i] || '—'}</dd>`).join('')}</dl>`}
       </a>`;
     }).join('')}</div>`;
     return;
@@ -1765,7 +1765,7 @@ function renderSuperBowlSquares(containerId){
   const year = params.get('year');
   const g = SUPER_BOWL_SQUARES[year];
   const abbr = t => ((typeof NFL_LOGO_ABBR !== 'undefined' && NFL_LOGO_ABBR[t]) || t.slice(0,3)).toUpperCase();
-  const wins = (g.scores || []).map((sc, q) => {
+  const wins = g.noContest ? [] : (g.scores || []).map((sc, q) => {
     const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
     return { q, sc, r, c, who: (r >= 0 && c >= 0) ? g.grid[r][c] : null, pay: (g.payouts || [])[q] || 0 };
   });
@@ -1787,8 +1787,8 @@ function renderSuperBowlSquares(containerId){
   const won = {};
   wins.forEach(w => { if(w.who) won[w.who] = (won[w.who] || 0) + w.pay; });
 
-  const head = `<tr><th class="sb-corner"></th>${g.top.digits.map(d => `<th class="sb-col">${d}</th>`).join('')}</tr>`;
-  const body = g.grid.map((row, r) => `<tr><th class="sb-row">${g.side.digits[r]}</th>${row.map((name, c) => {
+  const head = g.noContest ? '' : `<tr><th class="sb-corner"></th>${g.top.digits.map(d => `<th class="sb-col">${d}</th>`).join('')}</tr>`;
+  const body = g.noContest ? '' : g.grid.map((row, r) => `<tr><th class="sb-row">${g.side.digits[r]}</th>${row.map((name, c) => {
       const w = winAt[r + ',' + c];
       const tag = w ? `<span class="sb-q">${w.map(x => 'Q' + (x.q + 1)).join(' ')}</span>` : '';
       return `<td class="${w ? 'sb-win' : ''}" title="${name} · ${g.side.team} ${g.side.digits[r]}, ${g.top.team} ${g.top.digits[c]}">${tag}<span class="sb-name">${name}</span></td>`;
@@ -1805,7 +1805,7 @@ function renderSuperBowlSquares(containerId){
       <div class="muted">${dateStr}${final && final.ot ? ' · Overtime' : ''}</div>
     </div>
     ${g.note ? `<p class="muted sb-note">${g.note}</p>` : ''}
-    <h3>Winners</h3>
+    ${g.noContest ? `<p class="sb-note">No contest this year</p>` : `<h3>Winners</h3>
     <div class="table-scroll"><table class="sb-winners">
       <thead><tr><th>Qtr</th><th>${abbr(g.side.team)}–${abbr(g.top.team)}</th><th>Digits</th><th>Winner</th>${g.payouts ? '<th>Payout</th>' : ''}</tr></thead>
       <tbody>${winnerRows}</tbody>
@@ -1814,7 +1814,7 @@ function renderSuperBowlSquares(containerId){
     <p class="muted" style="margin-top:-4px;">${logo(g.side.team)} ${g.side.full} down the side &nbsp;·&nbsp; ${logo(g.top.team)} ${g.top.full} across the top. Highlighted squares won.</p>
     <div class="table-scroll" style="border:0;"><table class="sb-grid">
       <thead>${head}</thead><tbody>${body}</tbody>
-    </table></div>`;
+    </table></div>`}`;
   const sel = el.querySelector('#sb-year');
   if(sel) sel.addEventListener('change', e => { const u = new URL(window.location.href); u.searchParams.set('year', e.target.value); window.location.href = u; });
 }
