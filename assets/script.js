@@ -2992,16 +2992,19 @@ function renderScoreStrip(containerId){
   const showUpcoming = nextWk && Date.now() >= flipAt(nextWk);
   if(!lastScored && !showUpcoming){ el.remove(); return; }
   const link = `season.html?year=${year}`;
+  const rank = {};
+  (s.standings || []).forEach((r, i) => { rank[r.team] = i + 1; });
+  const rk = team => rank[team] ? `<span class="ss-rank">${rank[team]}</span>` : '';
   let label, games;
   if(showUpcoming){
     const rec = {};
     (s.standings || []).forEach(r => { rec[r.team] = `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`; });
-    const row = team => `<span class="ss-team"><span class="ss-name">${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
+    const row = team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
     label = `${nextWk}<span>This week</span>`;
     games = s.schedule[nextWk].map(g => `<a class="ss-game" href="${link}">${row(g.away)}${row(g.home)}</a>`).join('');
   } else {
     const fmt = n => Number(n).toFixed(1);
-    const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
+    const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
     label = `${lastScored}<span>Final</span>`;
     games = s.schedule[lastScored].map(g => `<a class="ss-game" href="${link}">
       ${g.homeScore > g.awayScore ? row(g.home, g.homeScore, true) + row(g.away, g.awayScore, false) : row(g.away, g.awayScore, g.awayScore > g.homeScore) + row(g.home, g.homeScore, false)}</a>`).join('');
