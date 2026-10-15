@@ -1672,10 +1672,10 @@ tbody td{ padding: 7px 12px; }
   font-family: var(--display); font-stretch: 78%; font-weight:800; font-size:0.95rem; color: var(--navy); text-decoration:none; white-space:nowrap; }
 .ss-label span{ font-family: var(--body); font-stretch: normal; font-weight:600; font-size:0.68rem; color: var(--text-soft); }
 .ss-games{ display:flex; overflow-x:auto; scrollbar-width:thin; }
-.ss-game{ display:flex; flex-direction:column; gap:2px; min-width:210px; padding:8px 14px; border-right:1px solid var(--line); text-decoration:none; color: var(--text-soft); font-size:0.78rem; }
+.ss-game{ display:flex; flex-direction:column; gap:2px; min-width:236px; padding:8px 14px; border-right:1px solid var(--line); text-decoration:none; color: var(--text-soft); font-size:0.78rem; }
 .ss-game:hover{ background: var(--bg); }
 .ss-team{ display:flex; justify-content:space-between; gap:12px; }
-.ss-name{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:150px; }
+.ss-name{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:186px; }
 .ss-pts{ font-variant-numeric: tabular-nums; }
 .ss-team.won{ color: var(--text); font-weight:700; }
 .nav-dropdown-toggle{ border-radius: 0; }
