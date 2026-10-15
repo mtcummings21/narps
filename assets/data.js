@@ -947,6 +947,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "Feast or Famine",
     "url": "newsletter-vol9-no4.html"
+  },
+  {
+    "vol": 9,
+    "no": 5,
+    "year": 2026,
+    "title": "NARPS Franchises and their NFL Equivalents",
+    "url": "newsletter-vol9-no5.html"
   }
 ];
 

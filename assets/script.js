@@ -1369,8 +1369,8 @@ function renderHeadlines(containerId){
     </a>` : '';
 
   el.innerHTML = `
-    <a class="newsletter-banner" href="newsletter-vol9-no4.html">
-      Read the latest newsletter: Vol. 9, No. 4, “Feast or Famine”
+    <a class="newsletter-banner" href="newsletter-vol9-no5.html">
+      Read the latest newsletter: Vol. 9, No. 5, “NARPS Franchises and their NFL Equivalents”
     </a>
     <div class="headlines-card">
       <div class="headlines-split">
