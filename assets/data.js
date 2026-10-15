@@ -16824,6 +16824,7 @@ const PREMIER_LEAGUE = {
 const SUPER_BOWL_SQUARES = {
   "2025": {
     name: "Super Bowl LIX",
+    logo: "https://content.sportslogos.net/logos/7/593/full/_super_bowl_logo_primary_2024_sportslogosnet-8375.png",
     date: "2025-02-09",
     noContest: true,
     top:  { team: "Chiefs", full: "Kansas City Chiefs" },
