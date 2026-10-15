@@ -263,7 +263,7 @@ img{ max-width:100%; display:block; }
 .hero{
   background: var(--ink);
   color: var(--white);
-  padding: 72px 0 52px;
+  padding: 72px 0 40px;
   position: relative;
   overflow: hidden;
 }
@@ -302,7 +302,7 @@ img{ max-width:100%; display:block; }
   display: inline-flex;
   flex-direction: column;
   gap: 2px;
-  margin: 0 0 30px;
+  margin: 0;
   padding: 14px 22px;
   border-radius: var(--radius-sm);
   background: #D62839;
