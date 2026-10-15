@@ -2994,7 +2994,7 @@ function renderScoreStrip(containerId){
   const link = `season.html?year=${year}`;
   const rank = {};
   (s.standings || []).forEach((r, i) => { rank[r.team] = i + 1; });
-  const rk = team => rank[team] ? `<span class="ss-rank">${rank[team]}</span>` : '';
+  const rk = team => rank[team] ? `<span class="ss-rank">${rank[team]})</span>` : '';
   let label, games;
   if(showUpcoming){
     const rec = {};

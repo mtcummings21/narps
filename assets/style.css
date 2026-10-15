@@ -1695,4 +1695,4 @@ tbody td{ padding: 7px 12px; }
   .standings-mini-headers .short-label{ display:inline; }
 }
 .ss-rec{ color: var(--text-soft); font-size: 0.74rem; }
-.ss-rank{ display:inline-block; min-width:1.4em; color: var(--text-soft); font-size: 0.7rem; font-weight: 600; }
+.ss-rank{ display:inline-block; min-width:1.9em; margin-right:5px; text-align:right; color: var(--text-soft); font-size: 0.7rem; font-weight: 600; }
