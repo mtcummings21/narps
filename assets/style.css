@@ -1629,6 +1629,7 @@ h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 .sb-card-winners{ display:grid; grid-template-columns:auto 1fr; gap:4px 14px; margin:12px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:0.9rem; }
 .sb-card-winners dt{ color: var(--text-soft); }
 .sb-card-winners dd{ margin:0; font-weight:600; color: var(--text); }
+.sb-card .sb-card-none{ margin:12px 0 0; padding-top:12px; border-top:1px solid var(--line); font-size:0.9rem; }
 .sb-back{ margin:0 0 4px; }
 .sb-back a{ color: var(--blue); text-decoration: underline; font-size:0.95rem; }
 
