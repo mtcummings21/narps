@@ -305,13 +305,13 @@ img{ max-width:100%; display:block; }
   margin: 0 0 30px;
   padding: 14px 22px;
   border-radius: var(--radius-sm);
-  background: var(--white);
-  color: #0B2447;
+  background: #D62839;
+  color: #FFFFFF;
   text-decoration: none;
   position: relative;
   transition: background 0.15s;
 }
-.season-cta:hover{ background: #E8EEF8; }
+.season-cta:hover{ background: #B01F2E; }
 .season-cta:focus-visible{ outline: 3px solid var(--blue-lt); outline-offset: 3px; }
 .season-cta-main{
   font-family: var(--display);
@@ -321,7 +321,7 @@ img{ max-width:100%; display:block; }
 .season-cta-sub{
   font-family: var(--body);
   font-size: 0.85rem;
-  color: #5B6577;
+  color: rgba(255,255,255,0.85);
 }
 
 .stat-row{
@@ -1683,3 +1683,15 @@ tbody td{ padding: 7px 12px; }
 .ss-game--pl{ min-width:180px; }
 .ss-game--pl .ss-name{ display:inline-flex; align-items:center; gap:6px; }
 .ss-game--pl .pl-logo{ flex:none; }
+
+/* Homepage: mobile spacing and one-line team names in the standings box */
+.short-label{ display:none; }
+@media (max-width: 600px){
+  .hero{ padding-bottom: 32px; }
+  .season-cta{ margin-bottom: 0; }
+  .standings-mini-headers, .standings-mini-list li{ grid-template-columns: minmax(0,1fr) 38px 52px; gap: 8px; padding-left: 14px; padding-right: 14px; }
+  .standings-mini-list li span:nth-child(1){ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .standings-mini-list .pts-unit{ display:none; }
+  .standings-mini-headers .full-label{ display:none; }
+  .standings-mini-headers .short-label{ display:inline; }
+}

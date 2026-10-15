@@ -1345,7 +1345,7 @@ function renderCurrentSeasonCTA(containerId){
   const status = finished ? `Champion: ${s.champion.team}`
     : lastWeek ? `Through Week ${lastWeek}` : 'Season kicks off soon';
   el.innerHTML = `<a class="season-cta" href="season.html?year=${year}">
-    <span class="season-cta-main">${year} season</span>
+    <span class="season-cta-main">${year} Season</span>
     <span class="season-cta-sub">${status} · Standings, scores &amp; box scores</span>
   </a>`;
 }
@@ -1369,11 +1369,11 @@ function renderHeadlines(containerId){
   const standingsCol = (s && s.standings && s.standings.length) ? `
     <a class="standings-col" href="season.html?year=${latestYear}">
       <div class="headlines-header">${latestYear} Standings</div>
-      <div class="standings-mini-headers"><span>Team</span><span>Record</span><span>Points Scored</span></div>
+      <div class="standings-mini-headers"><span>Team</span><span>Record</span><span><span class="full-label">Points Scored</span><span class="short-label">PF</span></span></div>
       <ul class="standings-mini-list">
         ${s.standings.map((t,i) => {
           const pf = seasonPts[lastNameOf(t.owner)] || 0;
-          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} pts</span></li>`;
+          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}<span class="pts-unit"> pts</span></span></li>`;
         }).join('')}
       </ul>
       <div class="standings-col-more">Full ${latestYear} season, with scores, box scores and charts</div>
