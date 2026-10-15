@@ -2981,16 +2981,34 @@ function renderScoreStrip(containerId){
   if(!el || typeof SEASONS === 'undefined') return;
   const year = Object.keys(SEASONS).sort((a,b) => b - a)[0];
   const s = SEASONS[year];
-  const weeks = Object.keys(s.schedule || {}).filter(w => /^Week \d+$/.test(w)
-    && s.schedule[w].some(g => g.awayScore || g.homeScore)).sort((a,b) => parseInt(a.slice(5)) - parseInt(b.slice(5)));
-  if(!weeks.length){ el.remove(); return; }
-  const wk = weeks[weeks.length - 1];
-  const fmt = n => Number(n).toFixed(1);
-  const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
+  const num = w => parseInt(w.slice(5), 10);
+  const allWeeks = Object.keys(s.schedule || {}).filter(w => /^Week \d+$/.test(w)).sort((a,b) => num(a) - num(b));
+  const scored = allWeeks.filter(w => s.schedule[w].some(g => g.awayScore || g.homeScore));
+  const lastScored = scored[scored.length - 1];
+  // Next week's matchups take over at 6:00 AM ET on the Thursday that NFL week starts (before TNF).
+  const nextWk = allWeeks.find(w => !scored.includes(w) && (!lastScored || num(w) > num(lastScored)));
+  const wk1 = (typeof NFL_WEEK1_THURSDAY !== 'undefined') && NFL_WEEK1_THURSDAY[year];
+  const flipAt = w => wk1 ? new Date(wk1 + 'T10:00:00Z').getTime() + (num(w) - 1) * 7 * 864e5 : Infinity;
+  const showUpcoming = nextWk && Date.now() >= flipAt(nextWk);
+  if(!lastScored && !showUpcoming){ el.remove(); return; }
+  const link = `season.html?year=${year}`;
+  let label, games;
+  if(showUpcoming){
+    const rec = {};
+    (s.standings || []).forEach(r => { rec[r.team] = `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`; });
+    const row = team => `<span class="ss-team"><span class="ss-name">${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
+    label = `${nextWk}<span>This week</span>`;
+    games = s.schedule[nextWk].map(g => `<a class="ss-game" href="${link}">${row(g.away)}${row(g.home)}</a>`).join('');
+  } else {
+    const fmt = n => Number(n).toFixed(1);
+    const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
+    label = `${lastScored}<span>Final</span>`;
+    games = s.schedule[lastScored].map(g => `<a class="ss-game" href="${link}">
+      ${g.homeScore > g.awayScore ? row(g.home, g.homeScore, true) + row(g.away, g.awayScore, false) : row(g.away, g.awayScore, g.awayScore > g.homeScore) + row(g.home, g.homeScore, false)}</a>`).join('');
+  }
   el.innerHTML = `<div class="wrap ss-wrap">
-    <a class="ss-label" href="season.html?year=${year}">${wk}<span>Final</span></a>
-    <div class="ss-games">${s.schedule[wk].map(g => `<a class="ss-game" href="season.html?year=${year}">
-      ${g.homeScore > g.awayScore ? row(g.home, g.homeScore, true) + row(g.away, g.awayScore, false) : row(g.away, g.awayScore, g.awayScore > g.homeScore) + row(g.home, g.homeScore, false)}</a>`).join('')}</div>
+    <a class="ss-label" href="${link}">${label}</a>
+    <div class="ss-games">${games}</div>
   </div>`;
 }
 

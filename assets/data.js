@@ -14000,6 +14000,10 @@ const DRAFT_ORDER = {
   ]
 };
 
+// Thursday of NFL Week 1, per season. The homepage scoreboard switches to the next
+// fantasy week's matchups at 6:00 AM ET on that week's Thursday.
+const NFL_WEEK1_THURSDAY = { "2026": "2026-09-10" };
+
 // Season payouts shown in the standings table. weeklyHigh is paid during the season;
 // the rest is paid once the season has a champion. place = 1st/2nd/3rd prize money.
 // 2025: Burns and Sizemore split the 1st and 2nd prizes ($1,450) 800/650 before the title game.

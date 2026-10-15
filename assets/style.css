@@ -1694,3 +1694,5 @@ tbody td{ padding: 7px 12px; }
   .standings-mini-headers .full-label{ display:none; }
   .standings-mini-headers .short-label{ display:inline; }
 }
+.ss-rec{ color: var(--text-soft); font-size: 0.74rem; }
+.ss-game .ss-team:only-child{ }
