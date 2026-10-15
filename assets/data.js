@@ -14000,6 +14000,14 @@ const DRAFT_ORDER = {
   ]
 };
 
+// Season payouts shown in the standings table. weeklyHigh is paid during the season;
+// the rest is paid once the season has a champion. place = 1st/2nd/3rd prize money.
+// 2025: Burns and Sizemore split the 1st and 2nd prizes ($1,450) 800/650 before the title game.
+const PAYOUT_RULES = {
+  "2025": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [800, 650, 200] },
+  "2026": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [1000, 450, 200] }
+};
+
 // Dues paid, by team key, per season. Add a year entry as owners pay up.
 const PAID_STATUS = {
   "2026": ["Thacker", "West", "Hickman", "Garton", "Cummings", "Sizemore", "Burns", "Wright", "Salameh", "Clay"]

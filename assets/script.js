@@ -1029,8 +1029,17 @@ function renderSeasonDetail(containerId){
 
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
-  const showPayouts = year === '2026';
-  const WEEKLY_HIGH_PAYOUT = 25;
+  const payRules = (typeof PAYOUT_RULES !== 'undefined' && PAYOUT_RULES[year]) || null;
+  const showPayouts = !!payRules;
+  const seasonDone = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
+  const endOfSeasonPay = {};
+  if(payRules && seasonDone){
+    const add = (owner, amt) => { if(owner && amt){ const k = lastNameOf(owner); endOfSeasonPay[k] = (endOfSeasonPay[k] || 0) + amt; } };
+    (s.standings || []).slice(0, payRules.playoffTeams || 0).forEach(r => add(r.owner, payRules.playoffBerth || 0));
+    [s.champion, s.second, s.third].forEach((p, i) => add(p && p.owner, (payRules.place || [])[i] || 0));
+    const topKey = Object.keys(seasonPts).sort((a, b) => seasonPts[b].pf - seasonPts[a].pf)[0];
+    if(topKey && payRules.seasonTopScorer) endOfSeasonPay[topKey] = (endOfSeasonPay[topKey] || 0) + payRules.seasonTopScorer;
+  }
 
   // Week-over-week rank movement, shown only for the current (latest) season once 2+ weeks are played.
   const isLatestSeason = year === Object.keys(SEASONS).sort((a,b) => b - a)[0];
@@ -1062,7 +1071,7 @@ function renderSeasonDetail(containerId){
       medianWins: mr.w, medianStr: `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`,
       allPlayWins: ap.w, allPlayStr: `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`,
       topWeeklyScorer: highs,
-      payout: highs * WEEKLY_HIGH_PAYOUT,
+      payout: payRules ? highs * (payRules.weeklyHigh || 0) + (endOfSeasonPay[lastNameOf(t.owner)] || 0) : 0,
     };
   });
 
