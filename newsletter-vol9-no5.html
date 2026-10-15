@@ -40,6 +40,12 @@
   .nl-comp-owner{ font-weight:400; font-size:0.85rem; color:var(--text-soft); margin-left:4px; }
   .nl-comp .nl-comp-nfl{ display:flex; align-items:center; gap:8px; margin:4px 0 10px; }
   .nl-comp .nl-comp-nfl img{ width:28px; height:28px; object-fit:contain; flex:none; }
+  @media (max-width: 600px){
+    .nl-comp{ display:flex; flex-direction:column; }
+    .nl-comp h3{ order:1; }
+    .nl-comp .nl-record{ order:2; float:none; margin:0 0 6px; }
+    .nl-comp p{ order:3; }
+  }
   .nl-stat-highlight{ background:#EEF3FD; border-left:3px solid var(--blue); padding:10px 16px; margin:16px 0; font-size:0.92rem; border-radius:0 6px 6px 0; }
   table.nl-standings th, table.nl-standings td{ text-align:center; }
   table.nl-standings td.name-cell{ text-align:left; }
