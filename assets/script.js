@@ -1573,8 +1573,10 @@ function renderMarchMadness(containerId){
   if(!el || typeof MARCH_MADNESS === 'undefined') return;
   const years = Object.keys(MARCH_MADNESS).sort((a,b) => b - a);
   const params = new URLSearchParams(window.location.search);
+  // Ties on points are broken by record (correct picks), per the page's tiebreaker rule.
+  const wins = x => x.s.correct.reduce((a, b) => a + b, 0);
   const mmRank = pool => Object.entries(pool.entries).map(([name, e]) => ({ name, e, s: mmScore(pool, e) }))
-    .sort((a,b) => b.s.total - a.s.total || a.name.localeCompare(b.name));
+    .sort((a,b) => b.s.total - a.s.total || wins(b) - wins(a) || a.name.localeCompare(b.name));
 
   // Landing view: one card per tournament, newest first, like the Seasons page.
   if(!params.get('year') || !MARCH_MADNESS[params.get('year')]){
@@ -1601,7 +1603,7 @@ function renderMarchMadness(containerId){
   const pot = rows.length * (pool.entryFee || 0);
   const pay = (pool.payouts && pool.payouts[pot]) || [];
   let rank = 0;
-  rows.forEach((x, i) => { if(i === 0 || x.s.total !== rows[i-1].s.total) rank = i + 1; x.rank = rank; x.pay = pay[rank - 1] || 0; });
+  rows.forEach((x, i) => { if(i === 0 || x.s.total !== rows[i-1].s.total || wins(x) !== wins(rows[i-1])) rank = i + 1; x.rank = rank; x.pay = pay[rank - 1] || 0; });
   const seed = rows.length ? rows[0].s.seed : {};
   const team = t => `<span class="mm-seed">${seed[t] || ''}</span> ${t}`;
   const actualF4 = new Set(MM_REGIONS.map(r => R[r][3][0]));

@@ -17214,9 +17214,8 @@ const MARCH_MADNESS = {
     }
   },
   "2023": {
-    // Played on ESPN Tournament Challenge with ESPN's standard scoring: no upset bonus.
-    points: [10, 20, 40, 80, 160, 320],
-    upsetBonus: false,
+    // Played on ESPN Tournament Challenge; scored here with the league's 2026 rules (points + upset bonus).
+    points: [2, 3, 5, 8, 13, 21],
     // First-round pods split Thu/Fri and played their second-round game two days later;
     // Sweet 16/Elite 8: East+West Thu/Sat, South+Midwest Fri/Sun.
     days: ["Mar 16", "Mar 17", "Mar 18", "Mar 19", "Mar 23", "Mar 24", "Mar 25", "Mar 26", "Apr 1", "Apr 3"],
