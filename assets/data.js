@@ -15898,22 +15898,23 @@ const CURRENT_RULES = [
     { label: "FLEX", value: "RB, WR or TE", vote: "2013-7" },
     { label: "Bench", value: "5" },
     { label: "IR", value: "2", vote: "2023-1" },
-    { label: "Kicker, D/ST", value: "Not used", vote: "2019-1" },
-    { label: "Keepers", value: "None", vote: "2021-2" }
+    { label: "Kicker", value: "Not used", vote: "2018-6" },
+    { label: "D/ST", value: "Not used", vote: "2019-1" },
+    { label: "Keepers", value: "None", vote: "2020-4" }
   ]},
   { group: "Scoring", items: [
     { label: "Receptions", value: "0.5 PPR", vote: "2018-9" }
   ]},
   { group: "Draft", items: [
-    { label: "Format", value: "Snake", vote: "2023-3" },
+    { label: "Format", value: "Snake", vote: "2013-1" },
     { label: "Order", value: "Random", vote: "2015-2" },
     { label: "Slot swaps", value: "Allowed", vote: "2018-5" },
     { label: "Trading future picks", value: "Not allowed", vote: "2016-4" }
   ]},
   { group: "Season & Playoffs", items: [
     { label: "Regular season", value: "14 weeks", vote: "2021-1" },
-    { label: "Playoff teams", value: "6", vote: "2024-4" },
-    { label: "Seeding", value: "1–5 by record, 6th by points", vote: "2023-5" },
+    { label: "Playoff teams", value: "6" },
+    { label: "Seeding", value: "1–5 by record, 6th by points", vote: "2022-2" },
     { label: "Byes", value: "Seeds 1 and 2" },
     { label: "Matchups", value: "One week per round", vote: "2015-1" },
     { label: "Reseeding", value: "Top seed plays lowest seed left", vote: "2024-6" }
