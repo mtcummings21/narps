@@ -1705,3 +1705,7 @@ tbody td{ padding: 7px 12px; }
 .archive-links a:hover{ text-decoration:underline; }
 .nav-card .place{ display:inline-block; width:2.4em; color: var(--text-soft); font-size:0.74rem; font-weight:600; }
 .champ-tag{ display:inline-block; padding:1px 8px; border-radius:999px; background:#E9C46A; color:#3A2C05; font-size:0.66rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; vertical-align:1px; }
+
+.teams-table td.num, .teams-table th:nth-child(n+3){ text-align:right; }
+.teams-table td.name-cell a{ color: var(--navy); text-decoration:none; font-weight:700; }
+.teams-table td.name-cell a:hover{ text-decoration:underline; }

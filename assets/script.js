@@ -1316,12 +1316,17 @@ function renderTeamsList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
   const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
-  el.innerHTML = `<div class="card-grid">` + sorted.map(t => `
-    <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
-      <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Season${t.seasons === 1 ? '' : 's'}`}</div>
-      <h3>${t.owner}</h3>
-      <p>${t.team} · ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
-    </a>`).join('') + `</div>`;
+  el.innerHTML = `<div class="table-scroll"><table class="teams-table">
+    <thead><tr><th>Owner</th><th>Team</th><th>Seasons</th><th>Titles</th><th>Playoffs</th><th>Record</th><th>Win%</th></tr></thead>
+    <tbody>${sorted.map(t => `<tr>
+      <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}">${t.owner}</a></td>
+      <td>${t.team}</td>
+      <td class="num">${t.seasons}</td>
+      <td class="num">${t.champs || '–'}</td>
+      <td class="num">${t.playoffApp}</td>
+      <td class="num">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
+      <td class="num">${fmtPct(t.winPct)}</td>
+    </tr>`).join('')}</tbody></table></div>`;
 }
 
 function renderTeamDetail(containerId){
@@ -1419,7 +1424,7 @@ function renderTeamDetail(containerId){
       const seasonDone = s.champion && s.champion.owner && s.champion.owner !== 'TBD';
       if(seasonDone){
         const place = finalPlacements(s)[lastName(t.owner)];
-        finish = place === 1 ? '🥇 <span class="champ-tag">Champion</span>' : place === 2 ? '🥈 2nd' : place === 3 ? '🥉 3rd Place' : `${ord(place)} place`;
+        finish = place === 1 ? '🥇 <span class="champ-tag">Champion</span>' : place === 2 ? '🥈 2nd Place' : place === 3 ? '🥉 3rd Place' : `${ord(place)} place`;
       } else {
         finish = `${ord(s.standings.indexOf(row) + 1)} (in progress)`;
       }
