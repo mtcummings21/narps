@@ -2832,58 +2832,113 @@ function renderDraftHistory(containerId){
 function renderRulesHistory(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
-  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year).map(y => String(y.year));
-  const params = new URLSearchParams(window.location.search);
-  const requestedYear = params.get('year');
-  const year = (requestedYear && years.includes(requestedYear)) ? requestedYear : years[0];
-  const yearData = RULES_HISTORY.find(y => String(y.year) === year);
+  document.title = 'Rules & Bylaws | League of NARPS';
 
-  document.title = `${year} Rules & Bylaws | League of NARPS`;
+  // Give every vote a stable id: <year>-<n>, n counting through all of that year's rounds.
+  const years = RULES_HISTORY.slice().sort((a,b) => b.year - a.year);
+  const all = [];
+  years.forEach(y => {
+    let n = 0;
+    y.rounds.forEach(r => r.votes.forEach(v => { n++; all.push({ ...v, year: y.year, round: r.label, id: `${y.year}-${n}` }); }));
+  });
 
-  const yearSwitcher = `<div style="margin-bottom:24px;">
-    <select id="rules-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
-      ${years.map(y => `<option value="${y}" ${y === year ? 'selected' : ''}>${y}</option>`).join('')}
-    </select>
+  const status = v => {
+    if(v.passed === true) return 'passed';
+    if(v.passed === false) return 'nochange';
+    if(/tie|runoff|no majority/i.test(v.result || '')) return 'tie';
+    if(/moot/i.test(v.result || '')) return 'nochange';
+    return 'passed';
+  };
+  const statusLabel = { passed: 'Passed', nochange: 'No change', tie: 'Tie / Runoff' };
+  const counts = v => v.options.map(o => { const m = o.match(/\((\d+)\)\s*$/); return m ? +m[1] : 0; });
+  const split = v => {
+    const c = counts(v).filter(x => x > 0).sort((a,b) => b - a);
+    return c.length ? c.join('–') : '';
+  };
+  const share = v => { const c = counts(v); const t = c.reduce((a,b) => a + b, 0); return t ? Math.max(...c) / t : 0; };
+
+  // ----- Current rules -----
+  const payYear = typeof PAYOUT_RULES !== 'undefined' ? Object.keys(PAYOUT_RULES).sort().pop() : null;
+  const pay = payYear ? PAYOUT_RULES[payYear] : null;
+  const money = n => '$' + Number(n).toLocaleString('en-US');
+  const groups = (typeof CURRENT_RULES !== 'undefined' ? CURRENT_RULES : []).slice();
+  if(pay){
+    groups.push({ group: 'Payouts', items: [
+      { label: '1st / 2nd / 3rd', value: pay.place.map(money).join(' / ') },
+      { label: 'Weekly high score', value: money(pay.weeklyHigh) },
+      { label: 'Season top scorer', value: money(pay.seasonTopScorer) },
+      { label: 'Playoff berth', value: `${money(pay.playoffBerth)} each` }
+    ]});
+  }
+  const currentHtml = groups.length ? `
+    <h3 class="rules-h">Current Rules</h3>
+    <div class="cr-grid">${groups.map(g => `
+      <div class="cr-group">
+        <div class="cr-title">${g.group}</div>
+        <dl>${g.items.map(it => `
+          <div class="cr-item"><dt>${it.label}</dt><dd>${it.value}${it.vote ? ` <a class="cr-src" href="#vote-${it.vote}" data-vote="${it.vote}">${it.vote.split('-')[0]}</a>` : ''}</dd></div>`).join('')}
+        </dl>
+      </div>`).join('')}
+    </div>` : '';
+
+  // ----- Vote history -----
+  const cats = {};
+  all.forEach(v => { cats[v.category] = (cats[v.category] || 0) + 1; });
+  const catOrder = Object.keys(cats).sort((a,b) => cats[b] - cats[a]);
+  const chips = `<div class="vt-filters" role="group" aria-label="Filter by topic">
+    <button type="button" class="vt-chip active" data-cat="">All <span>${all.length}</span></button>
+    ${catOrder.map(c => `<button type="button" class="vt-chip" data-cat="${c}">${c} <span>${cats[c]}</span></button>`).join('')}
   </div>`;
 
-  const outcomePill = (v) => {
-    if(v.passed === true) return `<span class="rule-pill rule-passed">Passed</span>`;
-    if(v.passed === false) return `<span class="rule-pill rule-rejected">Rejected</span>`;
-    return `<span class="rule-pill rule-plurality">Voted</span>`;
-  };
-
-  const roundsHtml = yearData ? yearData.rounds.map(r => {
-    const outcomeRank = (v) => v.passed === true ? 0 : v.passed === false ? 1 : 2;
-    const sortedVotes = r.votes.slice().sort((a, b) => outcomeRank(a) - outcomeRank(b));
-    const votesHtml = sortedVotes.map(v => {
-      const outcomeClass = v.passed === true ? 'vote-row--passed' : v.passed === false ? 'vote-row--rejected' : 'vote-row--voted';
-      return `
-      <div class="vote-row ${outcomeClass}">
-        <div class="vote-row-main">
-          <span class="vote-category">${v.category}</span>
-          <p class="vote-question">${v.question}</p>
-          <p class="vote-options">${v.options.join(' &nbsp;·&nbsp; ')}</p>
-          ${v.result ? `<p class="vote-result">${v.result}</p>` : ''}
-          ${v.note ? `<p class="vote-note">${v.note}</p>` : ''}
-        </div>
-        ${outcomePill(v)}
-      </div>
-    `;
-    }).join('');
-    return `<div class="rules-round">
-      <h4 class="rules-round-label">${r.label}</h4>
-      <div class="vote-list">${votesHtml}</div>
+  const rows = years.map(y => {
+    const votes = all.filter(v => v.year === y.year);
+    return `<div class="vt-year" data-year="${y.year}">
+      <div class="vt-year-label">${y.year}</div>
+      ${votes.map(v => {
+        const st = status(v);
+        return `<details class="vt-row" id="vote-${v.id}" data-cat="${v.category}">
+          <summary>
+            <span class="vt-cat">${v.category}</span>
+            <span class="vt-title">${v.short || v.question}</span>
+            <span class="vt-result">${v.result || ''}</span>
+            <span class="vt-split">${split(v) ? `${split(v)}<i style="--w:${Math.round(share(v)*100)}%"></i>` : ''}</span>
+            <span class="vt-status vt-${st}">${statusLabel[st]}</span>
+          </summary>
+          <div class="vt-detail">
+            <p class="vt-q">${v.question}</p>
+            <ul class="vt-opts">${v.options.map(o => `<li>${o}</li>`).join('')}</ul>
+            ${v.note ? `<p class="vt-note">${v.note}</p>` : ''}
+            <p class="vt-round">${v.round}</p>
+          </div>
+        </details>`;
+      }).join('')}
     </div>`;
-  }).join('') : '<p class="muted">No rule changes recorded for this year.</p>';
+  }).join('');
 
-  el.innerHTML = yearSwitcher + roundsHtml;
+  el.innerHTML = currentHtml + `
+    <h3 class="rules-h" style="margin-top:44px;">Vote History</h3>
+    ${chips}
+    <div class="vt-list">${rows}</div>`;
 
-  const select = document.getElementById('rules-year-select');
-  if(select){
-    select.addEventListener('change', () => {
-      window.location.href = `rules.html?year=${select.value}`;
-    });
-  }
+  el.querySelectorAll('.vt-chip').forEach(btn => btn.addEventListener('click', () => {
+    el.querySelectorAll('.vt-chip').forEach(b => b.classList.toggle('active', b === btn));
+    const cat = btn.dataset.cat;
+    el.querySelectorAll('.vt-row').forEach(r => { r.hidden = !!cat && r.dataset.cat !== cat; });
+    el.querySelectorAll('.vt-year').forEach(y => { y.hidden = !y.querySelector('.vt-row:not([hidden])'); });
+  }));
+
+  const openVote = id => {
+    const row = document.getElementById('vote-' + id);
+    if(!row) return;
+    if(row.hidden){ const all = el.querySelector('.vt-chip[data-cat=""]'); if(all) all.click(); }
+    row.open = true;
+    row.scrollIntoView({ block: 'center' });
+  };
+  el.querySelectorAll('.cr-src').forEach(a => a.addEventListener('click', e => { e.preventDefault(); openVote(a.dataset.vote); history.replaceState(null, '', '#vote-' + a.dataset.vote); }));
+  if(location.hash.startsWith('#vote-')) openVote(location.hash.slice(6));
+  // Old links like rules.html?year=2018 jump to that year.
+  const yr = new URLSearchParams(location.search).get('year');
+  if(yr && !location.hash){ const y = el.querySelector(`.vt-year[data-year="${yr}"]`); if(y) y.scrollIntoView(); }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
