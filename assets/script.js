@@ -2999,8 +2999,11 @@ function renderScoreStrip(containerId){
   if(showUpcoming){
     const rec = {};
     (s.standings || []).forEach(r => { rec[r.team] = `${r.w}-${r.l}${r.t ? '-' + r.t : ''}`; });
-    const row = team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
-    label = `${nextWk}<span>This week</span>`;
+    const live = (typeof LIVE_SCORES !== 'undefined' && LIVE_SCORES[year] && LIVE_SCORES[year][nextWk]) || null;
+    const row = live
+      ? team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts">${Number(live[team] || 0).toFixed(1)}</span></span>`
+      : team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
+    label = `${nextWk}<span>${live ? 'In progress' : 'This week'}</span>`;
     games = s.schedule[nextWk].map(g => `<a class="ss-game" href="${link}">${row(g.away)}${row(g.home)}</a>`).join('');
   } else {
     const fmt = n => Number(n).toFixed(1);
