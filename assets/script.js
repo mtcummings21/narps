@@ -1578,17 +1578,17 @@ function renderMarchMadness(containerId){
   const mmRank = pool => Object.entries(pool.entries).map(([name, e]) => ({ name, e, s: mmScore(pool, e) }))
     .sort((a,b) => b.s.total - a.s.total || wins(b) - wins(a) || a.name.localeCompare(b.name));
 
-  // Landing view: one card per tournament, newest first, like the Seasons page.
+  // Landing view: one card per tournament, newest first, styled like the Super Bowl Squares cards.
   if(!params.get('year') || !MARCH_MADNESS[params.get('year')]){
-    el.innerHTML = `<h3>Tournaments</h3><div class="card-grid">${years.map(y => {
-      const top = mmRank(MARCH_MADNESS[y]);
-      return `<a class="nav-card" href="march-madness.html?year=${y}">
-        <h3>${y}</h3>
-        <p style="margin:0;">
-          <span class="place">1st</span><strong>${top[0].name}</strong><br>
-          <span class="place">2nd</span>${top[1].name}<br>
-          <span class="place">3rd</span>${top[2].name}
-        </p>
+    const logo = t => (typeof NCAA_LOGO_ID !== 'undefined' && NCAA_LOGO_ID[t]) ? `<img class="sb-logo" src="https://a.espncdn.com/i/teamlogos/ncaa/500/${NCAA_LOGO_ID[t]}.png" alt="" loading="lazy" onerror="this.remove()">` : '';
+    el.innerHTML = `<h3>Tournaments</h3><div class="sb-list">${years.map(y => {
+      const p = MARCH_MADNESS[y], top = mmRank(p), champ = p.results.Champion;
+      const finalists = [champ, ...p.results.F4.filter(t => t !== champ)];
+      const team = t => `<div class="sb-card-team${t === champ ? ' won' : ''}">${logo(t)}<span>${t}</span><strong>${p.final ? p.final[t] : ''}</strong></div>`;
+      return `<a class="nav-card sb-card" href="march-madness.html?year=${y}">
+        <div class="sb-card-head">${p.logo ? `<img class="sb-card-logo" src="${p.logo}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ''}<div><span class="sb-card-name">${y} Final Four</span>${p.site ? `<span class="muted">${p.site}</span>` : ''}</div></div>
+        ${finalists.map(team).join('')}
+        <dl class="sb-card-winners">${['1st', '2nd', '3rd'].map((pl, i) => top[i] ? `<dt>${pl}</dt><dd>${top[i].name}</dd>` : '').join('')}</dl>
       </a>`;
     }).join('')}</div>`;
     return;

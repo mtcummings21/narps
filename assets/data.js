@@ -17126,8 +17126,14 @@ const SUPER_BOWL_SQUARES = {
 // Results and each entry use the same shape: per region [R64 winners(8), R32(4), S16(2), E8(1)],
 // F4 = [East/South semifinal winner, West/Midwest semifinal winner], Champion. Scores are computed on the page.
 // upsetBonus: false turns off the seed-difference bonus for that year (it's on by default).
+// logo, site and final (title-game score by team) feed the tournament cards on the landing page.
+// ESPN team ids for title-game logos: https://a.espncdn.com/i/teamlogos/ncaa/500/{id}.png
+const NCAA_LOGO_ID = { "Connecticut": 41, "Michigan": 130, "San Diego St.": 21 };
 const MARCH_MADNESS = {
   "2026": {
+    logo: "https://content.sportslogos.net/logos/85/2536/full/ncaa_mens_final_four_logo_primary_2026sportslogosnet9873.png",
+    site: "Indianapolis, IN",
+    final: { "Michigan": 69, "Connecticut": 63 },
     entryFee: 50,
     points: [2, 3, 5, 8, 13, 21],
     // Day each game was played (index into days), same shape as results. First-round pods played their
@@ -17215,6 +17221,9 @@ const MARCH_MADNESS = {
   },
   "2023": {
     // Played on ESPN Tournament Challenge; scored here with the league's 2026 rules (points + upset bonus).
+    logo: "https://content.sportslogos.net/logos/85/2536/full/ncaa_mens_final_four_logo_primary_2023_sportslogosnet-4037.png",
+    site: "Houston, TX",
+    final: { "Connecticut": 76, "San Diego St.": 59 },
     points: [2, 3, 5, 8, 13, 21],
     // First-round pods split Thu/Fri and played their second-round game two days later;
     // Sweet 16/Elite 8: East+West Thu/Sat, South+Midwest Fri/Sun.
