@@ -1167,15 +1167,14 @@ td.pos{ color: var(--text-soft); }
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 22px;
-  box-shadow: var(--shadow);
-  border-top: 3px solid var(--blue);
 }
 .award-card .medal{
-  font-family: var(--mono);
+  font-family: var(--body);
   font-weight:600;
-  font-size: 0.65rem;
-  letter-spacing: normal;
-  color: var(--red);
+  font-size: 0.66rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-soft);
 }
 .award-card h3{
   font-family: var(--display);
@@ -1189,7 +1188,7 @@ td.pos{ color: var(--text-soft); }
   font-family: var(--display);
   font-weight: 700;
   font-size: 2.1rem;
-  color: var(--blue);
+  color: var(--navy);
   line-height: 1;
   margin-bottom: 6px;
 }
@@ -1216,7 +1215,10 @@ td.pos{ color: var(--text-soft); }
 }
 #records-container .award-card{
   padding: 14px 16px;
+  box-shadow: var(--shadow);
+  border-top: 3px solid var(--blue);
 }
+#records-container .award-card .medal{ font-family: var(--mono); text-transform: none; }
 #records-container .award-card .medal{
   font-size: 0.58rem;
   letter-spacing: normal;

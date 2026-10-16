@@ -1165,11 +1165,13 @@ function renderSeasonDetail(containerId){
     }).join('')}
   </ul>` : '';
 
+  // Gold/silver/bronze plaques only once the season has a champion.
+  const decided = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
   el.innerHTML = `
-    ${podium}
+    ${decided ? podium : ''}
     ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
     ${draftSection}
-    <h2 class="section-title" style="margin-top:40px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
+    <h2 class="section-title" style="margin-top:${decided ? 40 : 0}px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
     <div id="season-standings-mount"></div>
     <div class="muted" style="font-size:0.85rem; margin:12px 0 0; line-height:1.6;">
       <p style="margin:0 0 6px;"><strong>Median Record</strong> — an extra win-loss record earned by competing against the league median score of all teams that week, rather than just your direct head-to-head opponent.</p>
