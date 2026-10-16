@@ -15903,6 +15903,7 @@ const CURRENT_RULES = [
     { label: "Keepers", value: "None", vote: "2020-4" }
   ]},
   { group: "Scoring", items: [
+    { label: "Rushing & receiving", value: "0.1 pt per yard" },
     { label: "Receptions", value: "0.5 PPR", vote: "2018-9" }
   ]},
   { group: "Draft", items: [
