@@ -17131,7 +17131,7 @@ const SUPER_BOWL_SQUARES = {
 const NCAA_LOGO_ID = { "Connecticut": 41, "Michigan": 130, "San Diego St.": 21 };
 const MARCH_MADNESS = {
   "2026": {
-    logo: "https://content.sportslogos.net/logos/85/2536/full/ncaa_mens_final_four_logo_primary_2026sportslogosnet9873.png",
+    logo: "assets/final-four-2026.png",
     site: "Indianapolis, IN",
     final: { "Michigan": 69, "Connecticut": 63 },
     entryFee: 50,
@@ -17221,7 +17221,7 @@ const MARCH_MADNESS = {
   },
   "2023": {
     // Played on ESPN Tournament Challenge; scored here with the league's 2026 rules (points + upset bonus).
-    logo: "https://content.sportslogos.net/logos/85/2536/full/ncaa_mens_final_four_logo_primary_2023_sportslogosnet-4037.png",
+    logo: "assets/final-four-2023.png",
     site: "Houston, TX",
     final: { "Connecticut": 76, "San Diego St.": 59 },
     points: [2, 3, 5, 8, 13, 21],
