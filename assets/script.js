@@ -1495,12 +1495,13 @@ function mmScore(pool, entry){
   MM_REGIONS.forEach(r => { field[r] = pool.field[r].map(([t, s]) => { seed[t] = s; return t; }); });
   const R = pool.results, P = pool.points;
   const D = pool.gameDays || null;
+  const bonusOn = pool.upsetBonus !== false;
   const out = { byRound: [0,0,0,0,0,0], correct: [0,0,0,0,0,0], bonus: 0, upsets: [], byDay: (pool.days || []).map(() => 0) };
   const credit = (rd, win, lose, pick, day) => {
     if(pick !== win) return;
     out.byRound[rd] += P[rd]; out.correct[rd]++;
     let pts = P[rd];
-    if(seed[win] > seed[lose]){ const b = seed[win] - seed[lose]; out.bonus += b; pts += b; out.upsets.push({ win, lose, b, rd }); }
+    if(bonusOn && seed[win] > seed[lose]){ const b = seed[win] - seed[lose]; out.bonus += b; pts += b; out.upsets.push({ win, lose, b, rd }); }
     if(day != null && out.byDay.length) out.byDay[day] += pts;
   };
   MM_REGIONS.forEach(r => {
@@ -1528,7 +1529,7 @@ function renderMarchMadnessRace(pool, rows){
     return { name: x.name, slot: (i % 8) + 1, pts: [0, ...x.s.byDay.map(v => (run += v))], day: x.s.byDay };
   });
   const maxPts = Math.max(...series.map(x => x.pts[x.pts.length - 1]));
-  const step = 20, yMax = Math.ceil(maxPts / step) * step;
+  const step = [20, 50, 100, 200, 250, 500].find(s => maxPts / s <= 10) || 1000, yMax = Math.ceil(maxPts / step) * step;
   const padL = 40, padR = 150, padT = 14, padB = 46;
   const chartW = 760, chartH = 420;
   const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
@@ -1559,7 +1560,7 @@ function renderMarchMadnessRace(pool, rows){
     </g>`;
   }).join('');
   return `<h3>Pool Race</h3>
-    <p class="muted" style="margin-top:-4px;">Running total after each day of the tournament (correct picks plus upset bonuses).</p>
+    <p class="muted" style="margin-top:-4px;">Running total after each day of the tournament (correct picks${pool.upsetBonus === false ? '' : ' plus upset bonuses'}).</p>
     <div class="table-scroll" style="border:0;">
       <svg class="mm-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; max-width:${chartW}px; height:auto; min-width:600px;" role="img" aria-label="March Madness pool points by tournament day">
         ${grid}${xLabels}${lines}
@@ -1584,13 +1585,15 @@ function renderMarchMadness(containerId){
   const seed = rows.length ? rows[0].s.seed : {};
   const team = t => `<span class="mm-seed">${seed[t] || ''}</span> ${t}`;
   const actualF4 = new Set(MM_REGIONS.map(r => R[r][3][0]));
+  const bonusOn = pool.upsetBonus !== false;
+  const yearSwitcher = years.length > 1 ? `<select id="mm-year" class="sb-year" aria-label="Tournament year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${y} Tournament</option>`).join('')}</select>` : '';
   const pickTag = (t, ok) => `<span class="mm-pick ${ok ? 'mm-pick--ok' : 'mm-pick--miss'}">${team(t)}</span>`;
 
   const standings = rows.map(x => `<tr>
       <td class="pos">${x.rank}</td>
       <td class="name-cell">${x.name}</td>
       ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
-      <td>${x.s.bonus}</td>
+      ${bonusOn ? `<td>${x.s.bonus}</td>` : ''}
       <td><strong>${x.s.total}</strong></td>
     </tr>`).join('');
 
@@ -1626,6 +1629,7 @@ function renderMarchMadness(containerId){
     ${plaque(rows[2], 'plaque--bronze', 'THIRD PLACE')}
   </div>`;
   el.innerHTML = `
+    ${yearSwitcher}
     ${podium}
     <div class="mm-summary">
       <div><div class="mm-label">${year} National Champion</div><div class="mm-big">${team(R.Champion)}</div></div>
@@ -1633,10 +1637,10 @@ function renderMarchMadness(containerId){
     </div>
     <h3>${year} Standings</h3>
     <div class="table-scroll"><table class="mm-table">
-      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th><th>Upsets</th><th>Total</th></tr></thead>
+      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th>${bonusOn ? '<th>Upsets</th>' : ''}<th>Total</th></tr></thead>
       <tbody>${standings}</tbody>
     </table></div>
-    <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Column points are for correct picks in that round; Upsets is the seed-difference bonus.</p>
+    <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Column points are for correct picks in that round; ${bonusOn ? 'Upsets is the seed-difference bonus.' : `in ${year} rounds were worth ${pool.points.join(' / ')} points, with no upset bonus.`}</p>
     ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
     <div class="table-scroll"><table class="mm-table mm-picks-table">
@@ -1646,11 +1650,13 @@ function renderMarchMadness(containerId){
       </thead>
       <tbody>${picks}</tbody>
     </table></div>
-    <h3>Best Upset Calls</h3>
+    ${bonusOn ? `<h3>Best Upset Calls</h3>
     <div class="table-scroll"><table class="mm-table">
       <thead><tr><th class="mm-center">Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
       <tbody>${upsetRows}</tbody>
-    </table></div>`;
+    </table></div>` : ''}`;
+  const sel = el.querySelector('#mm-year');
+  if(sel) sel.addEventListener('change', e => { const u = new URL(window.location.href); u.searchParams.set('year', e.target.value); window.location.href = u; });
 }
 
 // ---------- Super Bowl Squares ----------

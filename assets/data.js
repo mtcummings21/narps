@@ -17125,6 +17125,7 @@ const SUPER_BOWL_SQUARES = {
 // Field: per region, 16 [team, seed] pairs in bracket order (1v16, 8v9, 5v12, 4v13, 6v11, 3v14, 7v10, 2v15).
 // Results and each entry use the same shape: per region [R64 winners(8), R32(4), S16(2), E8(1)],
 // F4 = [East/South semifinal winner, West/Midwest semifinal winner], Champion. Scores are computed on the page.
+// upsetBonus: false turns off the seed-difference bonus for that year (it's on by default).
 const MARCH_MADNESS = {
   "2026": {
     entryFee: 50,
@@ -17209,6 +17210,141 @@ const MARCH_MADNESS = {
         South: [["Florida", "Clemson", "Vanderbilt", "Nebraska", "VCU", "Illinois", "St. Mary's", "Houston"], ["Florida", "Vanderbilt", "Illinois", "Houston"], ["Florida", "Houston"], ["Houston"]],
         Midwest: [["Michigan", "Georgia", "Texas Tech", "Alabama", "Tennessee", "Virginia", "Santa Clara", "Iowa St."], ["Michigan", "Texas Tech", "Virginia", "Iowa St."], ["Michigan", "Virginia"], ["Michigan"]],
         F4: ["Houston", "Gonzaga"], Champion: "Houston"
+      }
+    }
+  },
+  "2023": {
+    // Played on ESPN Tournament Challenge with ESPN's standard scoring: no upset bonus.
+    points: [10, 20, 40, 80, 160, 320],
+    upsetBonus: false,
+    // First-round pods split Thu/Fri and played their second-round game two days later;
+    // Sweet 16/Elite 8: East+West Thu/Sat, South+Midwest Fri/Sun.
+    days: ["Mar 16", "Mar 17", "Mar 18", "Mar 19", "Mar 23", "Mar 24", "Mar 25", "Mar 26", "Apr 1", "Apr 3"],
+    gameDays: {
+      East:    [[1, 1, 0, 0, 1, 1, 1, 1], [3, 2, 3, 3], [4, 4], [6]],
+      West:    [[0, 0, 1, 1, 1, 1, 0, 0], [2, 3, 3, 2], [4, 4], [6]],
+      South:   [[0, 0, 0, 0, 1, 1, 0, 0], [2, 2, 3, 2], [5, 5], [7]],
+      Midwest: [[0, 0, 1, 1, 1, 1, 0, 0], [2, 3, 3, 2], [5, 5], [7]],
+      F4: [8, 8], Champion: 9
+    },
+    field: {
+      East: [["Purdue", 1], ["Fairleigh Dickinson", 16], ["Memphis", 8], ["Florida Atlantic", 9], ["Duke", 5], ["Oral Roberts", 12], ["Tennessee", 4], ["Louisiana", 13], ["Kentucky", 6], ["Providence", 11], ["Kansas St.", 3], ["Montana St.", 14], ["Michigan St.", 7], ["USC", 10], ["Marquette", 2], ["Vermont", 15]],
+      West: [["Kansas", 1], ["Howard", 16], ["Arkansas", 8], ["Illinois", 9], ["St. Mary's", 5], ["VCU", 12], ["Connecticut", 4], ["Iona", 13], ["TCU", 6], ["Arizona St.", 11], ["Gonzaga", 3], ["Grand Canyon", 14], ["Northwestern", 7], ["Boise St.", 10], ["UCLA", 2], ["UNC Asheville", 15]],
+      South: [["Alabama", 1], ["Texas A&M-CC", 16], ["Maryland", 8], ["West Virginia", 9], ["San Diego St.", 5], ["Charleston", 12], ["Virginia", 4], ["Furman", 13], ["Creighton", 6], ["NC State", 11], ["Baylor", 3], ["UC Santa Barbara", 14], ["Missouri", 7], ["Utah St.", 10], ["Arizona", 2], ["Princeton", 15]],
+      Midwest: [["Houston", 1], ["Northern Kentucky", 16], ["Iowa", 8], ["Auburn", 9], ["Miami (FL)", 5], ["Drake", 12], ["Indiana", 4], ["Kent St.", 13], ["Iowa St.", 6], ["Pittsburgh", 11], ["Xavier", 3], ["Kennesaw St.", 14], ["Texas A&M", 7], ["Penn St.", 10], ["Texas", 2], ["Colgate", 15]]
+    },
+    results: {
+      East:    [["Fairleigh Dickinson", "Florida Atlantic", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Florida Atlantic", "Tennessee", "Kansas St.", "Michigan St."], ["Florida Atlantic", "Kansas St."], ["Florida Atlantic"]],
+      West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Arkansas", "Connecticut", "Gonzaga", "UCLA"], ["Connecticut", "Gonzaga"], ["Connecticut"]],
+      South:   [["Alabama", "Maryland", "San Diego St.", "Furman", "Creighton", "Baylor", "Missouri", "Princeton"], ["Alabama", "San Diego St.", "Creighton", "Princeton"], ["San Diego St.", "Creighton"], ["San Diego St."]],
+      Midwest: [["Houston", "Auburn", "Miami (FL)", "Indiana", "Pittsburgh", "Xavier", "Penn St.", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Miami (FL)", "Texas"], ["Miami (FL)"]],
+      F4: ["San Diego St.", "Connecticut"], Champion: "Connecticut"
+    },
+    entries: {
+      "Jazmin": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "USC", "Marquette"], ["Purdue", "Duke", "Kentucky", "Marquette"], ["Purdue", "Marquette"], ["Marquette"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Connecticut", "Gonzaga"], ["Connecticut"]],
+        South:   [["Alabama", "West Virginia", "San Diego St.", "Virginia", "Creighton", "Baylor", "Utah St.", "Arizona"], ["Alabama", "Virginia", "Creighton", "Utah St."], ["Alabama", "Creighton"], ["Alabama"]],
+        Midwest: [["Houston", "Iowa", "Miami (FL)", "Kent St.", "Pittsburgh", "Xavier", "Penn St.", "Texas"], ["Houston", "Kent St.", "Xavier", "Texas"], ["Houston", "Texas"], ["Houston"]],
+        F4: ["Marquette", "Connecticut"], Champion: "Connecticut"
+      },
+      "Matt Geiger": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Memphis", "Duke", "Kentucky", "Marquette"], ["Duke", "Marquette"], ["Duke"]],
+        West:    [["Kansas", "Arkansas", "VCU", "Connecticut", "Arizona St.", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Connecticut", "Gonzaga"], ["Connecticut"]],
+        South:   [["Alabama", "West Virginia", "Charleston", "Furman", "Creighton", "Baylor", "Utah St.", "Arizona"], ["Alabama", "Charleston", "Creighton", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Kent St.", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Drake", "Xavier", "Texas A&M"], ["Houston", "Xavier"], ["Houston"]],
+        F4: ["Duke", "Connecticut"], Champion: "Duke"
+      },
+      "Martha": {
+        East:    [["Purdue", "Florida Atlantic", "Duke", "Tennessee", "Providence", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Tennessee", "Kansas St.", "Michigan St."], ["Tennessee", "Kansas St."], ["Kansas St."]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "Northwestern"], ["Connecticut", "Gonzaga"], ["Gonzaga"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "NC State", "Baylor", "Utah St.", "Arizona"], ["Maryland", "San Diego St.", "Baylor", "Arizona"], ["San Diego St.", "Baylor"], ["San Diego St."]],
+        Midwest: [["Houston", "Auburn", "Miami (FL)", "Indiana", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Indiana", "Xavier", "Texas A&M"], ["Houston", "Texas A&M"], ["Houston"]],
+        F4: ["Kansas St.", "Houston"], Champion: "Kansas St."
+      },
+      "Big Vic": {
+        East:    [["Purdue", "Florida Atlantic", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kentucky", "Michigan St."], ["Duke", "Kentucky"], ["Duke"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Boise St.", "UCLA"], ["Kansas", "St. Mary's", "Gonzaga", "UCLA"], ["Kansas", "UCLA"], ["Kansas"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "NC State", "Baylor", "Utah St.", "Arizona"], ["Alabama", "Virginia", "Baylor", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Miami (FL)", "Indiana", "Pittsburgh", "Xavier", "Penn St.", "Texas"], ["Houston", "Miami (FL)", "Pittsburgh", "Texas"], ["Miami (FL)", "Texas"], ["Miami (FL)"]],
+        F4: ["Alabama", "Kansas"], Champion: "Alabama"
+      },
+      "Cummings": {
+        East:    [["Purdue", "Memphis", "Duke", "Louisiana", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Marquette"], ["Purdue", "Marquette"], ["Purdue"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Boise St.", "UCLA"], ["Arkansas", "Connecticut", "TCU", "UCLA"], ["Connecticut", "TCU"], ["Connecticut"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "NC State", "Baylor", "Utah St.", "Arizona"], ["Alabama", "San Diego St.", "Baylor", "Utah St."], ["Alabama", "Baylor"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Indiana", "Iowa St.", "Xavier", "Texas A&M", "Texas"], ["Houston", "Indiana", "Iowa St.", "Texas"], ["Houston", "Texas"], ["Texas"]],
+        F4: ["Alabama", "Texas"], Champion: "Alabama"
+      },
+      "Aaron Burns": {
+        East:    [["Purdue", "Florida Atlantic", "Duke", "Tennessee", "Kentucky", "Kansas St.", "USC", "Marquette"], ["Purdue", "Duke", "Kansas St.", "USC"], ["Duke", "USC"], ["Duke"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Connecticut", "UCLA"], ["UCLA"]],
+        South:   [["Alabama", "West Virginia", "Charleston", "Virginia", "Creighton", "Baylor", "Utah St.", "Arizona"], ["Alabama", "Virginia", "Creighton", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Miami (FL)", "Kent St.", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Houston", "Texas"], ["Texas"]],
+        F4: ["Alabama", "UCLA"], Champion: "UCLA"
+      },
+      "Joe Prino": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Marquette"], ["Purdue", "Marquette"], ["Purdue"]],
+        West:    [["Kansas", "Illinois", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Kansas", "Gonzaga"], ["Kansas"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "Creighton", "Baylor", "Utah St.", "Arizona"], ["Alabama", "San Diego St.", "Baylor", "Arizona"], ["Alabama", "Arizona"], ["Arizona"]],
+        Midwest: [["Houston", "Auburn", "Miami (FL)", "Indiana", "Iowa St.", "Xavier", "Texas A&M", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Houston", "Xavier"], ["Houston"]],
+        F4: ["Arizona", "Kansas"], Champion: "Kansas"
+      },
+      "Luke Rapp": {
+        East:    [["Purdue", "Memphis", "Duke", "Louisiana", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Marquette"], ["Duke", "Marquette"], ["Duke"]],
+        West:    [["Kansas", "Arkansas", "VCU", "Connecticut", "Arizona St.", "Gonzaga", "Boise St.", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Kansas", "Gonzaga"], ["Kansas"]],
+        South:   [["Alabama", "West Virginia", "San Diego St.", "Virginia", "Creighton", "Baylor", "Missouri", "Arizona"], ["Alabama", "San Diego St.", "Baylor", "Missouri"], ["Alabama", "Baylor"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Kent St.", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Drake", "Xavier", "Texas"], ["Houston", "Texas"], ["Texas"]],
+        F4: ["Alabama", "Kansas"], Champion: "Alabama"
+      },
+      "Tyler Clay": {
+        East:    [["Purdue", "Memphis", "Duke", "Louisiana", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Marquette"], ["Purdue", "Marquette"], ["Purdue"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "Arizona St.", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "St. Mary's", "Gonzaga", "UCLA"], ["Kansas", "UCLA"], ["UCLA"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "Creighton", "Baylor", "Utah St.", "Arizona"], ["Alabama", "San Diego St.", "Creighton", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Iowa", "Miami (FL)", "Kent St.", "Iowa St.", "Xavier", "Texas A&M", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Houston", "Texas"], ["Texas"]],
+        F4: ["Alabama", "Texas"], Champion: "Alabama"
+      },
+      "Walid Salameh": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Marquette"], ["Purdue", "Marquette"], ["Marquette"]],
+        West:    [["Kansas", "Illinois", "VCU", "Connecticut", "TCU", "Gonzaga", "Boise St.", "UCLA"], ["Kansas", "Connecticut", "Gonzaga", "UCLA"], ["Kansas", "UCLA"], ["UCLA"]],
+        South:   [["Alabama", "West Virginia", "San Diego St.", "Virginia", "Creighton", "Baylor", "Missouri", "Arizona"], ["Alabama", "Virginia", "Baylor", "Arizona"], ["Alabama", "Baylor"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Miami (FL)", "Indiana", "Iowa St.", "Xavier", "Penn St.", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Houston", "Texas"], ["Houston"]],
+        F4: ["Alabama", "UCLA"], Champion: "Alabama"
+      },
+      "Zach Sizemore": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Tennessee", "Kansas St.", "Marquette"], ["Purdue", "Marquette"], ["Marquette"]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Connecticut", "Arizona St.", "Gonzaga", "Boise St.", "UCLA"], ["Kansas", "St. Mary's", "Gonzaga", "UCLA"], ["Kansas", "Gonzaga"], ["Gonzaga"]],
+        South:   [["Alabama", "West Virginia", "Charleston", "Virginia", "NC State", "Baylor", "Missouri", "Arizona"], ["Alabama", "Virginia", "Baylor", "Arizona"], ["Alabama", "Baylor"], ["Alabama"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Indiana", "Iowa St.", "Xavier", "Penn St.", "Texas"], ["Houston", "Indiana", "Xavier", "Texas"], ["Houston", "Xavier"], ["Houston"]],
+        F4: ["Alabama", "Houston"], Champion: "Alabama"
+      },
+      "Pat Hickman": {
+        East:    [["Purdue", "Florida Atlantic", "Duke", "Tennessee", "Kentucky", "Kansas St.", "USC", "Marquette"], ["Purdue", "Tennessee", "Kentucky", "Marquette"], ["Purdue", "Marquette"], ["Marquette"]],
+        West:    [["Kansas", "Illinois", "VCU", "Iona", "TCU", "Gonzaga", "Northwestern", "UCLA"], ["Kansas", "VCU", "TCU", "UCLA"], ["Kansas", "UCLA"], ["Kansas"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "Creighton", "Baylor", "Missouri", "Arizona"], ["Alabama", "Virginia", "Baylor", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Iowa", "Miami (FL)", "Indiana", "Iowa St.", "Xavier", "Texas A&M", "Texas"], ["Houston", "Miami (FL)", "Xavier", "Texas"], ["Houston", "Texas"], ["Houston"]],
+        F4: ["Marquette", "Houston"], Champion: "Houston"
+      },
+      "Ronnie": {
+        East:    [["Purdue", "Memphis", "Duke", "Louisiana", "Providence", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Kansas St.", "Michigan St."], ["Duke", "Kansas St."], ["Kansas St."]],
+        West:    [["Kansas", "Arkansas", "St. Mary's", "Iona", "Arizona St.", "Gonzaga", "Boise St.", "UCLA"], ["Kansas", "Iona", "Gonzaga", "UCLA"], ["Kansas", "Gonzaga"], ["Gonzaga"]],
+        South:   [["Alabama", "West Virginia", "Charleston", "Virginia", "NC State", "Baylor", "Missouri", "Arizona"], ["Alabama", "Charleston", "NC State", "Arizona"], ["Alabama", "Arizona"], ["Arizona"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Kent St.", "Iowa St.", "Xavier", "Penn St.", "Texas"], ["Houston", "Kent St.", "Iowa St.", "Texas"], ["Houston", "Iowa St."], ["Houston"]],
+        F4: ["Arizona", "Houston"], Champion: "Houston"
+      },
+      "Bry": {
+        East:    [["Purdue", "Memphis", "Duke", "Louisiana", "Providence", "Kansas St.", "Michigan St.", "Marquette"], ["Purdue", "Duke", "Providence", "Michigan St."], ["Purdue", "Michigan St."], ["Purdue"]],
+        West:    [["Kansas", "Illinois", "St. Mary's", "Connecticut", "TCU", "Gonzaga", "Boise St.", "UCLA"], ["Illinois", "St. Mary's", "Gonzaga", "UCLA"], ["St. Mary's", "Gonzaga"], ["St. Mary's"]],
+        South:   [["Alabama", "Maryland", "San Diego St.", "Virginia", "NC State", "Baylor", "Utah St.", "Arizona"], ["Alabama", "Virginia", "NC State", "Arizona"], ["Alabama", "Arizona"], ["Arizona"]],
+        Midwest: [["Houston", "Auburn", "Drake", "Indiana", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Indiana", "Xavier", "Texas A&M"], ["Houston", "Xavier"], ["Xavier"]],
+        F4: ["Arizona", "Xavier"], Champion: "Arizona"
+      },
+      "Z Hickman": {
+        East:    [["Purdue", "Memphis", "Duke", "Tennessee", "Kentucky", "Kansas St.", "USC", "Marquette"], ["Memphis", "Tennessee", "Kansas St.", "Marquette"], ["Tennessee", "Marquette"], ["Tennessee"]],
+        West:    [["Kansas", "Illinois", "St. Mary's", "Connecticut", "Arizona St.", "Gonzaga", "Northwestern", "UCLA"], ["Illinois", "Connecticut", "Gonzaga", "UCLA"], ["Illinois", "UCLA"], ["UCLA"]],
+        South:   [["Alabama", "West Virginia", "Charleston", "Furman", "Creighton", "Baylor", "Missouri", "Arizona"], ["Alabama", "Furman", "Baylor", "Arizona"], ["Alabama", "Arizona"], ["Alabama"]],
+        Midwest: [["Houston", "Iowa", "Drake", "Kent St.", "Pittsburgh", "Xavier", "Texas A&M", "Texas"], ["Houston", "Kent St.", "Xavier", "Texas A&M"], ["Houston", "Texas A&M"], ["Texas A&M"]],
+        F4: ["Alabama", "UCLA"], Champion: "UCLA"
       }
     }
   }
