@@ -2872,16 +2872,21 @@ function renderRulesHistory(containerId){
       { label: 'Playoff berth', value: `${money(pay.playoffBerth)} each` }
     ]});
   }
-  const currentHtml = groups.length ? `
+  const src = it => it.vote ? `<a class="cr-src" href="#vote-${it.vote}" data-vote="${it.vote}" title="See the ${it.vote.split('-')[0]} vote">${it.vote.split('-')[0]}</a>` : '';
+  let currentHtml = '';
+  if(groups.length){
+    currentHtml = `
     <h3 class="rules-h">Current Rules</h3>
-    <div class="cr-sheet">${groups.map(g => `
-      <div class="cr-group">
-        <h4 class="cr-title">${g.group}</h4>
-        <dl>${g.items.map(it => `
-          <div class="cr-item"><dt>${it.label}</dt><dd>${it.value}</dd>${it.vote ? `<a class="cr-src" href="#vote-${it.vote}" data-vote="${it.vote}" title="See the ${it.vote.split('-')[0]} vote">${it.vote.split('-')[0]}</a>` : '<span></span>'}</div>`).join('')}
-        </dl>
-      </div>`).join('')}
-    </div>` : '';
+    <div class="ct">
+      <div class="ct-tabs" role="tablist">${groups.map((g,i) => `<button type="button" role="tab" class="ct-tab${i ? '' : ' active'}" data-i="${i}">${g.group}</button>`).join('')}</div>
+      <div class="ct-panels">${groups.map((g,i) => `
+        <div class="ct-panel" data-i="${i}"${i ? ' hidden' : ''}>
+          <h4 class="ct-title">${g.group}</h4>
+          <dl>${g.items.map(it => `<div class="ct-item"><dt>${it.label}</dt><dd>${it.value}</dd>${src(it) || '<span></span>'}</div>`).join('')}</dl>
+        </div>`).join('')}
+      </div>
+    </div>`;
+  }
 
   // ----- Vote history -----
   const cats = {};
@@ -2922,6 +2927,10 @@ function renderRulesHistory(containerId){
     ${chips}
     <div class="vt-list">${rows}</div>`;
 
+  el.querySelectorAll('.ct-tab').forEach(btn => btn.addEventListener('click', () => {
+    el.querySelectorAll('.ct-tab').forEach(b => b.classList.toggle('active', b === btn));
+    el.querySelectorAll('.ct-panel').forEach(p => { p.hidden = p.dataset.i !== btn.dataset.i; });
+  }));
   el.querySelectorAll('.vt-chip').forEach(btn => btn.addEventListener('click', () => {
     el.querySelectorAll('.vt-chip').forEach(b => b.classList.toggle('active', b === btn));
     const cat = btn.dataset.cat;
