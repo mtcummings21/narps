@@ -1573,11 +1573,31 @@ function renderMarchMadness(containerId){
   if(!el || typeof MARCH_MADNESS === 'undefined') return;
   const years = Object.keys(MARCH_MADNESS).sort((a,b) => b - a);
   const params = new URLSearchParams(window.location.search);
-  const year = (params.get('year') && MARCH_MADNESS[params.get('year')]) ? params.get('year') : years[0];
+  const mmRank = pool => Object.entries(pool.entries).map(([name, e]) => ({ name, e, s: mmScore(pool, e) }))
+    .sort((a,b) => b.s.total - a.s.total || a.name.localeCompare(b.name));
+
+  // Landing view: one card per tournament, newest first, like the Seasons page.
+  if(!params.get('year') || !MARCH_MADNESS[params.get('year')]){
+    el.innerHTML = `<h3>Tournaments</h3><div class="card-grid">${years.map(y => {
+      const top = mmRank(MARCH_MADNESS[y]);
+      return `<a class="nav-card" href="march-madness.html?year=${y}">
+        <h3>${y}</h3>
+        <p style="margin:0;">
+          <span class="place">1st</span><strong>${top[0].name}</strong><br>
+          <span class="place">2nd</span>${top[1].name}<br>
+          <span class="place">3rd</span>${top[2].name}
+        </p>
+      </a>`;
+    }).join('')}</div>`;
+    return;
+  }
+
+  const year = params.get('year');
   const pool = MARCH_MADNESS[year];
   const R = pool.results;
-  const rows = Object.entries(pool.entries).map(([name, e]) => ({ name, e, s: mmScore(pool, e) }))
-    .sort((a,b) => b.s.total - a.s.total || a.name.localeCompare(b.name));
+  const rows = mmRank(pool);
+  const sub = document.getElementById('mm-sub');
+  if(sub) sub.innerHTML = `<a href="march-madness.html" style="color:var(--blue); text-decoration:underline;">← All Tournaments</a>`;
   const pot = rows.length * (pool.entryFee || 0);
   const pay = (pool.payouts && pool.payouts[pot]) || [];
   let rank = 0;
@@ -1586,7 +1606,6 @@ function renderMarchMadness(containerId){
   const team = t => `<span class="mm-seed">${seed[t] || ''}</span> ${t}`;
   const actualF4 = new Set(MM_REGIONS.map(r => R[r][3][0]));
   const bonusOn = pool.upsetBonus !== false;
-  const yearSwitcher = years.length > 1 ? `<select id="mm-year" class="sb-year" aria-label="Tournament year">${years.map(y => `<option value="${y}"${y === year ? ' selected' : ''}>${y} Tournament</option>`).join('')}</select>` : '';
   const pickTag = (t, ok) => `<span class="mm-pick ${ok ? 'mm-pick--ok' : 'mm-pick--miss'}">${team(t)}</span>`;
 
   const standings = rows.map(x => `<tr>
@@ -1629,7 +1648,6 @@ function renderMarchMadness(containerId){
     ${plaque(rows[2], 'plaque--bronze', 'THIRD PLACE')}
   </div>`;
   el.innerHTML = `
-    ${yearSwitcher}
     ${podium}
     <div class="mm-summary">
       <div><div class="mm-label">${year} National Champion</div><div class="mm-big">${team(R.Champion)}</div></div>
@@ -1655,8 +1673,6 @@ function renderMarchMadness(containerId){
       <thead><tr><th class="mm-center">Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
       <tbody>${upsetRows}</tbody>
     </table></div>` : ''}`;
-  const sel = el.querySelector('#mm-year');
-  if(sel) sel.addEventListener('change', e => { const u = new URL(window.location.href); u.searchParams.set('year', e.target.value); window.location.href = u; });
 }
 
 // ---------- Super Bowl Squares ----------
