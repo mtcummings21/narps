@@ -15903,14 +15903,17 @@ const CURRENT_RULES = [
     { label: "Keepers", value: "None", vote: "2020-4" }
   ]},
   { group: "Scoring", items: [
+    { label: "Passing TD", value: "4 pts" },
+    { label: "Rushing/receiving TD", value: "6 pts" },
     { label: "Rushing & receiving", value: "0.1 pt per yard" },
-    { label: "Receptions", value: "0.5 PPR", vote: "2018-9" }
+    { label: "Receptions", value: "0.5 PPR", vote: "2018-9" },
+    { label: "2-pt conversion", value: "2 pts (pass, rush or catch)" },
+    { label: "INT or fumble lost", value: "−2 pts" }
   ]},
-  { group: "Draft", items: [
-    { label: "Format", value: "Snake", vote: "2013-1" },
-    { label: "Order", value: "Random", vote: "2015-2" },
-    { label: "Slot swaps", value: "Allowed", vote: "2018-5" },
-    { label: "Trading future picks", value: "Not allowed", vote: "2016-4" }
+  { group: "Transactions", items: [
+    { label: "Free agents", value: "Waivers", vote: "2018-11" },
+    { label: "Limit", value: "None", vote: "2020-2" },
+    { label: "Trade deadline", value: "Wed. after Week 10", vote: "2023-2" }
   ]},
   { group: "Season & Playoffs", items: [
     { label: "Regular season", value: "14 weeks", vote: "2021-1" },
@@ -15920,10 +15923,11 @@ const CURRENT_RULES = [
     { label: "Matchups", value: "One week per round", vote: "2015-1" },
     { label: "Reseeding", value: "Top seed plays lowest seed left", vote: "2024-6" }
   ]},
-  { group: "Transactions", items: [
-    { label: "Free agents", value: "Waivers", vote: "2018-11" },
-    { label: "Limit", value: "None", vote: "2020-2" },
-    { label: "Trade deadline", value: "Wed. after Week 10", vote: "2023-2" }
+  { group: "Draft", items: [
+    { label: "Format", value: "Snake", vote: "2013-1" },
+    { label: "Order", value: "Random", vote: "2015-2" },
+    { label: "Slot swaps", value: "Allowed", vote: "2018-5" },
+    { label: "Trading future picks", value: "Not allowed", vote: "2016-4" }
   ]}
 ];
 
