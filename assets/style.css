@@ -1698,3 +1698,10 @@ tbody td{ padding: 7px 12px; }
 }
 .ss-rec{ color: var(--text-soft); font-size: 0.74rem; }
 .ss-rank{ display:inline-block; min-width:1.9em; margin-right:5px; text-align:right; color: var(--text-soft); font-size: 0.7rem; font-weight: 600; }
+
+.archive-links{ display:flex; flex-wrap:wrap; gap:6px 22px; padding:18px 0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); font-size:0.95rem; }
+.archive-links span{ color: var(--text-soft); font-weight:600; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; align-self:center; margin-right:6px; }
+.archive-links a{ color: var(--navy); font-weight:600; text-decoration:none; }
+.archive-links a:hover{ text-decoration:underline; }
+.nav-card .place{ display:inline-block; width:2.4em; color: var(--text-soft); font-size:0.74rem; font-weight:600; }
+.champ-tag{ display:inline-block; padding:1px 8px; border-radius:999px; background:#E9C46A; color:#3A2C05; font-size:0.66rem; font-weight:700; letter-spacing:0.04em; text-transform:uppercase; vertical-align:1px; }

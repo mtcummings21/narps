@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Records &amp; Awards — League of NARPS</title>
+<title>Records &amp; Awards | League of NARPS</title>
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="stylesheet" href="assets/style.css">
 
@@ -26,10 +26,11 @@
     <nav class="nav" id="site-nav">
       <a href="index.html">Home</a>
       <a href="champions.html">Champions</a>
-      <div class="nav-dropdown" id="history-dropdown">
+      <div class="nav-dropdown nav-dropdown--current" id="history-dropdown">
         <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">League History <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
         <div class="nav-dropdown-menu">
           <a href="standings.html">All-Time Standings</a>
+          <a href="awards.html" aria-current="page">Records &amp; Awards</a>
           <a href="seasons.html">Seasons</a>
           <a href="draft.html">Draft History</a>
           <a href="rules.html">Rules</a>
@@ -37,7 +38,15 @@
       </div>
       <a href="teams.html">Teams</a>
       <a href="newsletters.html">Newsletters</a>
-      <a href="awards.html" aria-current="page">Records</a>
+      <div class="nav-dropdown" id="games-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">Other Games <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+        <div class="nav-dropdown-menu">
+          <a href="survivor.html">NFL Survivor</a>
+          <a href="premier-league.html">Premier Pick 2</a>
+          <a href="super-bowl-squares.html">Super Bowl Squares</a>
+          <a href="march-madness.html">March Madness</a>
+        </div>
+      </div>
     </nav>
   </div>
 </header>
@@ -48,7 +57,7 @@
       <h2 class="section-title">Records &amp; Awards</h2>
       <span class="section-sub">Hall of Fame &amp; Hall of Shame</span>
     </div>
-    <p class="muted" style="max-width:65ch;">The league’s best and worst marks from 15 seasons of box scores.</p>
+    <p class="muted" style="max-width:65ch;">The league’s best and worst marks since 2011. Percentage and per-game marks require at least 10 regular-season games.</p>
     <div class="award-grid" id="awards-container"></div>
   </div>
 </section>

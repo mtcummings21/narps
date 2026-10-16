@@ -326,8 +326,8 @@ function renderStandings(containerId){
 
     const rowFn = isRegular ? standingsRowHTML : playoffRowHTML;
     const footnote = isRegular
-      ? 'Click a column header to sort. Median Record is wins and losses against each week\'s league median score; All-Play Record is what your record would be playing every team every week. Use Columns to show or hide columns. Longest Win Streak is consecutive regular-season wins (carrying across seasons).'
-      : 'Click a column header to sort. Playoff Win% and Championship Game Record reflect career playoff performance only. Use Columns to show or hide columns.';
+      ? 'Median Record: record against each week\'s league median score. All-Play Record: record if you played every team every week. Longest Win Streak counts consecutive regular-season wins across seasons.'
+      : 'Playoff Win% and Championship Game Record cover playoff games only.';
 
     const colDefs = [...theadHtml.matchAll(/<th data-key="([^"]+)"[^>]*>([^<]+)<\/th>/g)].map(m => ({ key: m[1], label: m[2] }));
     const hiddenNow = hidden[mode].filter(k => colDefs.some(c => c.key === k));
@@ -397,8 +397,11 @@ function renderAwards(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
 
-  const byMax = (key) => TEAMS.slice().sort((a,b)=>b[key]-a[key])[0];
-  const byMin = (key) => TEAMS.slice().sort((a,b)=>a[key]-b[key])[0];
+  // Percentage and per-game awards require at least 10 regular-season games.
+  const MIN_GAMES = 10;
+  const qualified = TEAMS.filter(t => (t.gamesW||0) + (t.gamesL||0) + (t.gamesT||0) >= MIN_GAMES);
+  const byMax = (key) => qualified.slice().sort((a,b)=>b[key]-a[key])[0];
+  const byMin = (key) => qualified.slice().sort((a,b)=>a[key]-b[key])[0];
   const byMaxPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>b.playoffWinPct-a.playoffWinPct)[0];
   const byMinPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>a.playoffWinPct-b.playoffWinPct)[0];
 
@@ -408,7 +411,7 @@ function renderAwards(containerId){
   const worstDiff = byMin('diff');
   const bestWinPct = byMax('winPct');
   const worstWinPct = byMin('winPct');
-  const mostTitles = byMax('champs');
+  const mostTitles = TEAMS.slice().sort((a,b)=>b.champs-a.champs)[0];
   const bestOffense = byMax('gameAvgPF');
 
   // longest current title drought among teams with a past title
@@ -435,7 +438,7 @@ function renderAwards(containerId){
     {
       medal: 'Best Point Differential', title: 'Most Dominant Scorer',
       stat: `+${bestDiff.diff}/gm`,
-      body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average — the best margin in NARPS history.`
+      body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average, the best margin in NARPS history.`
     },
     {
       medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
@@ -475,7 +478,7 @@ function renderAwards(containerId){
     {
       medal: 'Championship Drought', title: 'Longest Time Since a Title',
       stat: `${longestDrought.gap} yrs`,
-      body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]} — ${longestDrought.gap} seasons and counting.`
+      body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]}, ${longestDrought.gap} seasons and counting.`
     },
   ];
 
@@ -514,7 +517,7 @@ function renderVolumeDetail(containerId){
   const issues = NEWSLETTERS.filter(n => n.vol === vol).sort((a,b) => a.no - b.no);
   if(!issues.length){ el.innerHTML = `<p>No newsletters found for Volume ${vol}.</p>`; return; }
 
-  document.title = `Volume ${vol} — League of NARPS`;
+  document.title = `Volume ${vol} | League of NARPS`;
   const titleEl = document.getElementById('volume-title');
   if(titleEl) titleEl.textContent = `Volume ${vol}`;
 
@@ -544,7 +547,7 @@ function renderSeasonsList(containerId){
     const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
-      <p style="margin:0;">🏈 Draft Day${draftInfo ? '<br>' + draftInfo.label : ''}</p>
+      <p style="margin:0;">Draft Day${draftInfo ? '<br>' + draftInfo.label : ''}</p>
     </a>`;
   }).join('');
 
@@ -555,15 +558,21 @@ function renderSeasonsList(containerId){
       const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[y]) || null;
       return `<a class="nav-card" href="season.html?year=${y}">
         <h3>${y}</h3>
-        <p style="margin:0;">🏈 Season in progress${draftInfo ? '<br>Draft Day: ' + draftInfo.label : ''}</p>
+        <p style="margin:0;">Season in progress${draftInfo ? '<br>Draft Day: ' + draftInfo.label : ''}</p>
+      </a>`;
+    }
+    if(!s.champion || s.champion.owner === 'TBD'){
+      return `<a class="nav-card" href="season.html?year=${y}">
+        <h3>${y}</h3>
+        <p style="margin:0;">Season in progress</p>
       </a>`;
     }
     return `<a class="nav-card" href="season.html?year=${y}">
       <h3>${y}</h3>
       <p style="margin:0;">
-        🥇 <strong>${s.champion.owner}</strong><br>
-        🥈 ${s.second.owner}<br>
-        🥉 ${s.third.owner}
+        <span class="place">1st</span><strong>${s.champion.owner}</strong><br>
+        <span class="place">2nd</span>${s.second.owner}<br>
+        <span class="place">3rd</span>${s.third.owner}
       </p>
     </a>`;
   }).join('');
@@ -589,7 +598,7 @@ function boxscoreSideTable(teamName, score, players){
     <td class="pos center">${p.pts.toFixed(1)}</td>
   </tr>`).join('');
   return `<div class="table-scroll"><table>
-    <thead><tr><th colspan="3" style="text-align:left;">${teamName} — ${score}</th></tr></thead>
+    <thead><tr><th colspan="3" style="text-align:left;">${teamName} · ${score}</th></tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
 }
@@ -731,7 +740,7 @@ function renderPointsRaceChart(s){
     const lastVal = vals[last];
     const endLabel = lastVal === 0 ? `${teamName} · Leader` : `${teamName} · −${fmtPts(lastVal)}`;
     const pts = vals.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
-    const weekDots = vals.map((v, i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="5" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName} — ${weekNumLabel(weekKeys[i])}: ${v === 0 ? 'leader' : fmtPts(v) + ' behind'} (${fmtPts(pointsHistory[o][i])} pts)</title></circle>`).join('');
+    const weekDots = vals.map((v, i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="5" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName}, ${weekNumLabel(weekKeys[i])}: ${v === 0 ? 'leader' : fmtPts(v) + ' behind'} (${fmtPts(pointsHistory[o][i])} pts)</title></circle>`).join('');
     return `
       <g class="race-team">
         <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
@@ -786,7 +795,7 @@ function renderRaceChart(s, mode){
     const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
     const totalPts = isPoints ? data.pointsHistory[o][ranks.length - 1] : null;
     const endLabel = isPoints ? `${teamName} · ${fmtPts(totalPts)}` : teamName;
-    const weekDots = isPoints ? ranks.map((r, i) => `<circle cx="${xAt(i)}" cy="${yAt(r)}" r="4" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName} — ${weekNumLabel(weekKeys[i])}: ${fmtPts(data.pointsHistory[o][i])} pts (#${r})</title></circle>`).join('') : '';
+    const weekDots = isPoints ? ranks.map((r, i) => `<circle cx="${xAt(i)}" cy="${yAt(r)}" r="4" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName}, ${weekNumLabel(weekKeys[i])}: ${fmtPts(data.pointsHistory[o][i])} pts (#${r})</title></circle>`).join('') : '';
     return `
       <g class="race-team">
         <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
@@ -836,14 +845,14 @@ function renderSeasonDetail(containerId){
   const s = SEASONS[year];
   if(!s){
     if(typeof DRAFT_ORDER !== 'undefined' && DRAFT_ORDER[year]){
-      document.title = `${year} Season — League of NARPS`;
+      document.title = `${year} Season | League of NARPS`;
       const titleEl = document.getElementById('season-title');
       if(titleEl) titleEl.textContent = `${year} Season`;
       const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
       el.innerHTML = `
-        <p class="muted" style="max-width:65ch; margin-bottom:24px;">The ${year} season hasn't kicked off yet — here's the countdown to draft day and this year's draft order.</p>
+        <p class="muted" style="max-width:65ch; margin-bottom:24px;">The ${year} season hasn't kicked off yet. Here's the countdown to draft day and this year's draft order.</p>
         ${draftInfo ? `<div class="countdown-card" style="margin-bottom:32px;">
-          <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
+          <div class="countdown-title">Draft Day: ${draftInfo.label}</div>
           <div id="season-draft-countdown"></div>
         </div>` : ''}
         <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
@@ -857,7 +866,7 @@ function renderSeasonDetail(containerId){
     return;
   }
 
-  document.title = `${year} Season — League of NARPS`;
+  document.title = `${year} Season | League of NARPS`;
   const titleEl = document.getElementById('season-title');
   if(titleEl) titleEl.textContent = `${year} Season`;
 
@@ -1025,8 +1034,8 @@ function renderSeasonDetail(containerId){
     <li><strong>League Team Avg. Points Per Matchup:</strong> ${leagueAvgPPM.toFixed(1)}</li>
     <li><strong>Longest Current Winning Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
     <li><strong>Longest Current Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
-    <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner} — ${highGame.week})` : '—'}</li>
-    <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner} — ${lowGame.week})` : '—'}</li>
+    <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner}, ${highGame.week})` : '—'}</li>
+    <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner}, ${lowGame.week})` : '—'}</li>
   </ul>` : '';
 
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
@@ -1111,7 +1120,7 @@ function renderSeasonDetail(containerId){
     : (typeof DRAFT_HISTORY !== 'undefined' && DRAFT_HISTORY[year] && DRAFT_HISTORY[year].length > 0);
   const draftSection = (!seasonStarted && hasDraftOrder && !hasDraftResults) ? `
     ${draftInfo ? `<div class="countdown-card" style="margin:24px 0 32px;">
-      <div class="countdown-title">Draft Day — ${draftInfo.label}</div>
+      <div class="countdown-title">Draft Day: ${draftInfo.label}</div>
       <div id="season-draft-countdown"></div>
     </div>` : ''}
     <h2 class="section-title" style="margin-top:8px;">Draft Order</h2>
@@ -1147,21 +1156,21 @@ function renderSeasonDetail(containerId){
 
   const raceChartSvg = hasResults ? renderStandingsRaceChart(s, keyByLastName, lastNameOf) : '';
   const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season. Hover a line for the team name.</p>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season.</p>
   ${raceChartSvg}` : '';
   const pointsRaceSvg = hasResults ? renderPointsRaceChart(s) : '';
   const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" style="margin-top:40px;">Points Race</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team trails the season's scoring leader after every week. Hover a line or dot for the exact gap and running point total.</p>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team trails the season's scoring leader after every week.</p>
   ${pointsRaceSvg}` : '';
 
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
   const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
   const topStartersSection = hasTopStarters ? `<h2 class="section-title" style="margin-top:40px;">Top Scoring Starters</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Accumulated points scored so far this season — only counts weeks a player was actually in the starting lineup.</p>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Season points scored while in a starting lineup.</p>
   <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
     ${['QB','RB','WR','TE'].map(pos => {
       const t = topStarters[pos];
-      return t ? `<li><strong>${pos}:</strong> ${t.player} (${t.teamName}) — ${t.pts.toFixed(1)} pts</li>` : `<li><strong>${pos}:</strong> —</li>`;
+      return t ? `<li><strong>${pos}:</strong> ${t.player} (${t.teamName}) · ${t.pts.toFixed(1)}</li>` : `<li><strong>${pos}:</strong> —</li>`;
     }).join('')}
   </ul>` : '';
 
@@ -1169,14 +1178,11 @@ function renderSeasonDetail(containerId){
   const decided = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
   el.innerHTML = `
     ${decided ? podium : ''}
-    ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet — champion and standings will fill in once games are played.</p>` : ''}
+    ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet.</p>` : ''}
     ${draftSection}
     <h2 class="section-title" style="margin-top:${decided ? 40 : 0}px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
     <div id="season-standings-mount"></div>
-    <div class="muted" style="font-size:0.85rem; margin:12px 0 0; line-height:1.6;">
-      <p style="margin:0 0 6px;"><strong>Median Record</strong> — an extra win-loss record earned by competing against the league median score of all teams that week, rather than just your direct head-to-head opponent.</p>
-      <p style="margin:0;"><strong>All-Play Record</strong> — a hypothetical win-loss record that shows what your team's record would be if you played a head-to-head matchup against every other team in your league every single week.</p>
-    </div>
+    <p class="muted" style="font-size:0.85rem; margin:12px 0 0;"><strong>Median Record:</strong> record against each week's league median score. <strong>All-Play Record:</strong> record if you played every team every week.</p>
     ${highlightsSection}
     ${topStartersSection}
     ${raceChartSection}
@@ -1184,7 +1190,7 @@ function renderSeasonDetail(containerId){
     ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
     <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Click a week to expand.${seasonStarted ? ' Bold indicates the winning team.' : ''}</p>
+    ${seasonStarted ? '<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Winners in bold.</p>' : ''}
     ${scheduleWeeks}
   `;
 
@@ -1254,8 +1260,7 @@ function renderSortableStandingsTable(containerId, rows, showPayouts){
       <tbody>${data.map(row => `<tr>
         ${columns.map(c => `<td class="${c.key === 'teamName' ? 'name-cell' : 'pos ' + c.align}">${cellValue(row, c.key)}</td>`).join('')}
       </tr>`).join('')}</tbody>
-    </table></div>
-    <p class="muted" style="font-size:0.82rem; margin-top:10px;">Click a column header to sort.</p>`;
+    </table></div>`;
 
     el.querySelectorAll('thead th').forEach(th => {
       const key = th.dataset.key;
@@ -1304,7 +1309,7 @@ function renderCountdown(containerId, targetDateStr, liveMessage){
   const el = document.getElementById(containerId);
   if(!el) return;
   const target = new Date(targetDateStr).getTime();
-  const message = liveMessage || '🏈 Kickoff is here — let\'s go!';
+  const message = liveMessage || 'Kickoff is here.';
   let timer;
 
   function update(){
@@ -1375,7 +1380,7 @@ function renderHeadlines(containerId){
       <ul class="standings-mini-list">
         ${s.standings.map((t,i) => {
           const pf = seasonPts[lastNameOf(t.owner)] || 0;
-          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}<span class="pts-unit"> pts</span></span></li>`;
+          return `<li><span>${i+1}. ${t.team}</span><span>${t.w}-${t.l}${t.t ? '-'+t.t : ''}</span><span>${pf.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 })}</span></li>`;
         }).join('')}
       </ul>
       <div class="standings-col-more">Full ${latestYear} season, with scores, box scores and charts</div>
@@ -1412,7 +1417,7 @@ function renderTeamsList(containerId){
     <a class="nav-card" href="team.html?team=${encodeURIComponent(t.key)}">
       <div class="card-eyebrow">${t.champs > 0 ? `${t.champs}x Champion` : `${t.seasons} Season${t.seasons === 1 ? '' : 's'}`}</div>
       <h3>${t.owner}</h3>
-      <p>${t.team} — ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
+      <p>${t.team} · ${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''} all-time (${fmtPct(t.winPct)})</p>
     </a>`).join('') + `</div>`;
 }
 
@@ -1424,7 +1429,7 @@ function renderTeamDetail(containerId){
   const t = TEAMS.find(x => x.key === key);
   if(!t){ el.innerHTML = `<p>No team found. <a href="teams.html">Back to all teams</a></p>`; return; }
 
-  document.title = `${t.owner} — League of NARPS`;
+  document.title = `${t.owner} | League of NARPS`;
   const titleEl = document.getElementById('team-title');
   if(titleEl) titleEl.textContent = `${t.owner}`;
   const subEl = document.getElementById('team-subtitle');
@@ -1447,7 +1452,7 @@ function renderTeamDetail(containerId){
     } else {
       mostDraftedHeadline = `${names.length}-way tie`;
       const joined = names.length === 2 ? `${names[0]} & ${names[1]}` : `${names.slice(0,-1).join(', ')} & ${names[names.length-1]}`;
-      mostDraftedSub = `${joined} — ${md.count}x each`;
+      mostDraftedSub = `${joined}, ${md.count}x each`;
     }
   }
 
@@ -1511,7 +1516,7 @@ function renderTeamDetail(containerId){
       const seasonDone = s.champion && s.champion.owner && s.champion.owner !== 'TBD';
       if(seasonDone){
         const place = finalPlacements(s)[lastName(t.owner)];
-        finish = place === 1 ? 'Champion 🏆' : place === 2 ? 'Runner-up' : place === 3 ? 'Third place' : `${ord(place)} place`;
+        finish = place === 1 ? '<span class="champ-tag">Champion</span>' : place === 2 ? 'Runner-up' : place === 3 ? 'Third place' : `${ord(place)} place`;
       } else {
         finish = `${ord(s.standings.indexOf(row) + 1)} (in progress)`;
       }
@@ -1547,7 +1552,6 @@ function renderTeamDetail(containerId){
     <div style="margin:20px 0 40px;">${champGrid}</div>
     ${recordLeaderSection}
     <h2 class="section-title" style="margin-top:40px;">Season by Season</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Only seasons with full data entered so far are shown here.</p>
     ${seasonTable}
   `;
 }
@@ -1631,7 +1635,7 @@ function renderMarchMadnessRace(pool, rows){
     const col = `var(--mm-s${x.slot})`;
     const last = x.pts[x.pts.length - 1];
     const poly = x.pts.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
-    const dots = x.pts.slice(1).map((v, i) => `<circle cx="${xAt(i + 1)}" cy="${yAt(v)}" r="7" fill="transparent"><title>${x.name} — ${days[i]}: +${x.day[i]} (${v} total)</title></circle>`).join('');
+    const dots = x.pts.slice(1).map((v, i) => `<circle cx="${xAt(i + 1)}" cy="${yAt(v)}" r="7" fill="transparent"><title>${x.name}, ${days[i]}: +${x.day[i]} (${v} total)</title></circle>`).join('');
     return `<g class="mm-race-entry">
       <polyline points="${poly}" fill="none" stroke="${col}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" />
       <circle cx="${xAt(days.length)}" cy="${yAt(last)}" r="3.5" fill="${col}" />
@@ -1642,7 +1646,7 @@ function renderMarchMadnessRace(pool, rows){
     </g>`;
   }).join('');
   return `<h3>Pool Race</h3>
-    <p class="muted" style="margin-top:-4px;">Running total after each day of the tournament (correct picks plus upset bonuses). Hover a line for that day's points.</p>
+    <p class="muted" style="margin-top:-4px;">Running total after each day of the tournament (correct picks plus upset bonuses).</p>
     <div class="table-scroll" style="border:0;">
       <svg class="mm-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; max-width:${chartW}px; height:auto; min-width:600px;" role="img" aria-label="March Madness pool points by tournament day">
         ${grid}${xLabels}${lines}
@@ -1882,7 +1886,7 @@ function renderPremierLeagueRace(s){
       const n = spotCount[k], idx = spotSeen[k] = (spotSeen[k] || 0) + 1;
       const dx = n > 1 ? (idx - (n + 1) / 2) * (crest + 4) : 0;
       const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[pt.pick.team] : null;
-      const tip = `${x.name} — Wk ${pt.week}: ${pt.pick.team} (${pt.pick.result}${pt.pick.score ? ' ' + pt.pick.score : ''}) · ${pt.total} pts`;
+      const tip = `${x.name}, Wk ${pt.week}: ${pt.pick.team} (${pt.pick.result}${pt.pick.score ? ' ' + pt.pick.score : ''}) · ${pt.total} pts`;
       const r = crest / 2 + 2;
       return `<g><title>${tip}</title>
         <circle cx="${cx + dx}" cy="${cy}" r="${r}" class="pl-crest-bg" fill="var(--panel)" stroke="${x.color}" stroke-width="2" />
@@ -1986,7 +1990,7 @@ function renderPremierLeaguePointsRace(s){
   const lines = labels.map(({ x, ly }, rank) => {
     const last = x.pts[x.pts.length - 1];
     const poly = x.pts.map(p => `${xAt(p.i)},${yAt(p.pts)}`).join(' ');
-    const dots = x.pts.slice(1).map(p => `<circle cx="${xAt(p.i)}" cy="${yAt(p.pts)}" r="6" fill="transparent"><title>${x.club} — Wk ${p.w}: ${p.res} ${p.score} ${p.home ? 'vs' : 'at'} ${p.opp} · ${p.pts} pts</title></circle>`).join('');
+    const dots = x.pts.slice(1).map(p => `<circle cx="${xAt(p.i)}" cy="${yAt(p.pts)}" r="6" fill="transparent"><title>${x.club}, Wk ${p.w}: ${p.res} ${p.score} ${p.home ? 'vs' : 'at'} ${p.opp} · ${p.pts} pts</title></circle>`).join('');
     const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[x.club] : null;
     const name = (typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[x.club]) || x.club;
     return `<g class="pl-prace-club">
@@ -2001,7 +2005,7 @@ function renderPremierLeaguePointsRace(s){
   }).join('');
 
   return `<h3 style="margin-top:32px;">Points Race</h3>
-    <p class="muted" style="margin-top:-4px;">Each club's running points total by matchweek. Hover a club or its line to highlight it.</p>
+    <p class="muted" style="margin-top:-4px;">Each club's running points total by matchweek.</p>
     <div class="table-scroll" style="border:0;">
       <svg class="pl-prace" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:560px;" role="img" aria-label="Premier League points by matchweek for every club">
         ${grid}${yTitle}${xLabels}${lines}
@@ -2189,7 +2193,7 @@ function renderPremierLeaguePlayer(containerId){
   const rank = 1 + s.players.filter(x => total(x) > pts).length;
   const count = r => p.picks.filter(pk => pk.result === r).length;
 
-  document.title = `${p.name} — Premier Pick 2 — League of NARPS`;
+  document.title = `${p.name} | Premier Pick 2 | League of NARPS`;
   const titleEl = document.getElementById('pl-player-title');
   if(titleEl) titleEl.textContent = p.name;
   const subEl = document.getElementById('pl-player-sub');
@@ -2249,7 +2253,7 @@ function renderSurvivor(containerId){
   const s = SURVIVOR[year];
   if(!s){ el.innerHTML = `<p class="muted">No survivor data yet.</p>`; return; }
 
-  document.title = `${year} NFL Survivor — League of NARPS`;
+  document.title = `${year} NFL Survivor | League of NARPS`;
 
   const yearSwitcher = years.length > 1 ? `<div style="margin-bottom:24px;">
     <select id="survivor-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
@@ -2272,9 +2276,9 @@ function renderSurvivor(containerId){
   </div>` : '';
 
   const leaderboardRows = sorted.map((p, i) => {
-    const result = p.result === 'Winner' ? 'Winner 🏆'
-      : p.result === 'Active' ? 'Active — no picks yet'
-      : `Eliminated — Week ${p.eliminatedWeek}`;
+    const result = p.result === 'Winner' ? '<span class="champ-tag">Winner</span>'
+      : p.result === 'Active' ? 'Active, no picks yet'
+      : `Eliminated Week ${p.eliminatedWeek}`;
     const lossPicks = p.picks.filter(pk => pk.loss);
     const losingPick = lossPicks.length
       ? `<div style="display:flex; gap:6px; justify-content:center; flex-wrap:wrap;">${lossPicks.map(pk => nflLogo(pk.team, { size: 29, loss: true })).join('')}</div>`
@@ -2342,7 +2346,7 @@ function renderSurvivor(containerId){
       const pk = p.picks.find(x => x.week === w);
       if(!pk){
         if(year === '2026' && p.result === 'Eliminated' && p.eliminatedWeek != null && w > p.eliminatedWeek){
-          return `<td class="pos center" title="Eliminated — Week ${p.eliminatedWeek}" style="color:var(--red); font-weight:700; font-size:1.1rem;">X</td>`;
+          return `<td class="pos center" title="Eliminated Week ${p.eliminatedWeek}" style="color:var(--red); font-weight:700; font-size:1.1rem;">X</td>`;
         }
         return `<td class="pos center">—</td>`;
       }
@@ -2372,7 +2376,7 @@ function renderSurvivor(containerId){
     ${champCard}
     ${leaderboardSection}
     <h2 class="section-title" style="margin-top:40px;">Weekly Picks</h2>
-    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through — two losses means elimination.</p>
+    <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Every pick each player made, week by week. Losses are struck through. Two losses and you're out.</p>
     ${lockNote}
     ${picksTable}
   `;
@@ -2659,7 +2663,7 @@ function buildRecordCards(){
   // Unique team keys represented in a tier — used to flag "leader" status on team pages.
   const tierKeys = (tier) => Array.from(new Set(tier.items.map(it => it.key).filter(Boolean)));
 
-  const rankLine = (place, tier, fmt) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${(fmt||fmtNum)(tier.value)} — ${joinNames(tierNames(tier))}</div>` : '';
+  const rankLine = (place, tier, fmt) => tier ? `<div class="rank-line"><span class="rank-num">${place}</span>${(fmt||fmtNum)(tier.value)} · ${joinNames(tierNames(tier))}</div>` : '';
 
   const buildCard = (medal, title, entries, opts) => {
     opts = opts || {};
@@ -2716,23 +2720,23 @@ function buildRecordCards(){
   }));
 
   const cards = [
-    buildCard('Regular Season', 'Most Regular Season Wins', regWinEntries, { body: n => `${n} — most regular season wins in league history.` }),
-    buildCard('Regular Season', 'Most Regular Season Points', regPtsEntries, { body: n => `${n} — most total regular season points scored, career.` }),
-    buildCard('Single Season', 'Most Wins in a Season', seasonWinEntries, { body: n => `${n} — most regular season wins in a single year.` }),
-    buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { forceDecimal: true, body: n => `${n} — most total regular season points in a single year.` }),
-    buildCard('Single Season', 'Most Scoring Titles', scoringTitleEntries, { body: n => `${n} — led the league in points scored the most times.` }),
-    buildCard('Weekly', 'Most Weekly Scoring Titles', weeklyTitleEntries, { body: n => `${n} — most weeks leading the league in scoring, career.` }),
-    buildCard('Playoffs', 'Most Playoff Appearances', playoffAppEntries, { body: n => `${n} — most playoff appearances in league history.` }),
-    buildCard('Playoffs', 'Most Playoff Wins', playoffWinEntries, { body: n => `${n} — most playoff wins in league history.` }),
-    buildCard('Playoffs', 'Most Playoff Points', playoffPtsEntries, { body: n => `${n} — most total points scored across all playoff games.` }),
-    buildCard('Championships', 'Most Championships', champEntries, { body: n => `${n} — most league titles won.` }),
-    buildCard('Championships', 'Most Top-3 Finishes', top3Entries, { body: n => `${n} — most 1st, 2nd, or 3rd place finishes.` }),
-    buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { forceDecimal: true, body: n => `${n} — highest single-week score in league history.` }),
-    buildCard('Single Game', 'Lowest Scoring Week (Regular Season)', lowScoreEntries, { dir: 'asc', body: n => `${n} — lowest single-week score in league history.` }),
-    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { forceDecimal: true, body: n => `${n} — largest margin of victory in a single game, regular season.` }),
-    buildCard('Consistency', 'Most 100+ Point Weeks (Regular Season)', hundredEntries, { body: n => `${n} — most weeks scoring 100+ points, career.` }),
-    buildCard('Streaks', 'Longest Regular Season Winning Streak', winStreakEntries, { body: n => `${n} — longest run of consecutive regular season wins, can span multiple seasons.` }),
-    buildCard('Streaks', 'Longest Regular Season Losing Streak', lossStreakEntries, { body: n => `${n} — longest run of consecutive regular season losses, can span multiple seasons.` }),
+    buildCard('Regular Season', 'Most Regular Season Wins', regWinEntries, { body: n => `${n}: most regular season wins in league history.` }),
+    buildCard('Regular Season', 'Most Regular Season Points', regPtsEntries, { body: n => `${n}: most total regular season points scored, career.` }),
+    buildCard('Single Season', 'Most Wins in a Season', seasonWinEntries, { body: n => `${n}: most regular season wins in a single year.` }),
+    buildCard('Single Season', 'Most Points Scored in a Season', seasonPtsEntries, { forceDecimal: true, body: n => `${n}: most total regular season points in a single year.` }),
+    buildCard('Single Season', 'Most Scoring Titles', scoringTitleEntries, { body: n => `${n}: led the league in points scored the most times.` }),
+    buildCard('Weekly', 'Most Weekly Scoring Titles', weeklyTitleEntries, { body: n => `${n}: most weeks leading the league in scoring, career.` }),
+    buildCard('Playoffs', 'Most Playoff Appearances', playoffAppEntries, { body: n => `${n}: most playoff appearances in league history.` }),
+    buildCard('Playoffs', 'Most Playoff Wins', playoffWinEntries, { body: n => `${n}: most playoff wins in league history.` }),
+    buildCard('Playoffs', 'Most Playoff Points', playoffPtsEntries, { body: n => `${n}: most total points scored across all playoff games.` }),
+    buildCard('Championships', 'Most Championships', champEntries, { body: n => `${n}: most league titles won.` }),
+    buildCard('Championships', 'Most Top-3 Finishes', top3Entries, { body: n => `${n}: most 1st, 2nd, or 3rd place finishes.` }),
+    buildCard('Single Game', 'Highest Scoring Week (Regular Season)', highScoreEntries, { forceDecimal: true, body: n => `${n}: highest single-week score in league history.` }),
+    buildCard('Single Game', 'Lowest Scoring Week (Regular Season)', lowScoreEntries, { dir: 'asc', body: n => `${n}: lowest single-week score in league history.` }),
+    buildCard('Single Game', 'Biggest Blowout (Regular Season)', blowoutDisplayEntries, { forceDecimal: true, body: n => `${n}: largest margin of victory in a single game, regular season.` }),
+    buildCard('Consistency', 'Most 100+ Point Weeks (Regular Season)', hundredEntries, { body: n => `${n}: most weeks scoring 100+ points, career.` }),
+    buildCard('Streaks', 'Longest Regular Season Winning Streak', winStreakEntries, { body: n => `${n}: longest run of consecutive regular season wins, can span multiple seasons.` }),
+    buildCard('Streaks', 'Longest Regular Season Losing Streak', lossStreakEntries, { body: n => `${n}: longest run of consecutive regular season losses, can span multiple seasons.` }),
   ];
 
   const categoryOrder = ['Regular Season', 'Single Season', 'Weekly', 'Playoffs', 'Championships', 'Single Game', 'Consistency', 'Streaks'];
@@ -2836,7 +2840,7 @@ function renderDraftHistory(containerId){
   const requestedYear = params.get('year');
   const year = (requestedYear && DRAFT_HISTORY[requestedYear]) ? requestedYear : years[0];
 
-  document.title = `${year} Draft — League of NARPS`;
+  document.title = `${year} Draft | League of NARPS`;
 
   const yearSwitcher = `<div style="margin-bottom:24px;">
     <select id="draft-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
@@ -2883,8 +2887,7 @@ function renderDraftHistory(containerId){
         <th data-key="owner">Owner</th>
       </tr></thead>
       <tbody>${rows}</tbody>
-    </table></div>
-    <p class="muted" style="font-size:0.82rem;margin-top:10px;">Click a column header to sort — by round/pick (default) or by team.</p>`;
+    </table></div>`;
 
     tableEl.querySelectorAll('thead th').forEach(th => {
       const key = th.dataset.key;
@@ -2922,7 +2925,7 @@ function renderRulesHistory(containerId){
   const year = (requestedYear && years.includes(requestedYear)) ? requestedYear : years[0];
   const yearData = RULES_HISTORY.find(y => String(y.year) === year);
 
-  document.title = `${year} Rules & Bylaws — League of NARPS`;
+  document.title = `${year} Rules & Bylaws | League of NARPS`;
 
   const yearSwitcher = `<div style="margin-bottom:24px;">
     <select id="rules-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">

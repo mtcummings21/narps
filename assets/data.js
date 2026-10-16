@@ -15895,106 +15895,106 @@ const RULES_HISTORY = [
           {
             "category": "Draft",
             "question": "What type of draft should we use?",
-            "options": ["Snake — 80% (8)", "Auction — 20% (2)"],
+            "options": ["Snake: 80% (8)", "Auction: 20% (2)"],
             "result": "Snake",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "How many keepers should we have for the 2014 season?",
-            "options": ["1 — 50% (5)", "2 — 40% (4)", "3 — 0% (0)", "None — 10% (1)"],
+            "options": ["1: 50% (5)", "2: 40% (4)", "3: 0% (0)", "None: 10% (1)"],
             "result": "1 keeper",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "How many transactions should be allowed per week?",
-            "options": ["2 — 33.33% (3)", "3 — 22.22% (2)", "Unlimited — 44.44% (4)"],
+            "options": ["2: 33.33% (3)", "3: 22.22% (2)", "Unlimited: 44.44% (4)"],
             "result": "Unlimited",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "What type of draft shall we use for NEXT season (if we have keepers)?",
-            "options": ["Random — 33.33% (3)", "Inverse of standings — 33.33% (3)", "Lottery — 33.33% (3)"],
-            "result": "Three-way tie (Random, Inverse of standings, Lottery each 33.33%) — no majority",
+            "options": ["Random: 33.33% (3)", "Inverse of standings: 33.33% (3)", "Lottery: 33.33% (3)"],
+            "result": "Three-way tie (Random, Inverse of standings, Lottery each 33.33%): no majority",
             "passed": null
           }
         ]
       },
       {
-        "label": "Fantasy Football 2013 — Round 2",
+        "label": "Fantasy Football 2013, Round 2",
         "votes": [
           {
             "category": "Roster",
             "question": "How many transactions should be allowed per week?",
-            "options": ["2 — 60% (6)", "Unlimited — 40% (4)"],
+            "options": ["2: 60% (6)", "Unlimited: 40% (4)"],
             "result": "2",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "What draft order selection should be implemented until keepers are reset?",
-            "options": ["Lottery — 40% (4)", "Inverse of Standings — 40% (4)", "Random — 20% (2)"],
-            "result": "Tied — Lottery and Inverse of Standings each 40% (Random eliminated with 20%)",
+            "options": ["Lottery: 40% (4)", "Inverse of Standings: 40% (4)", "Random: 20% (2)"],
+            "result": "Tied: Lottery and Inverse of Standings each 40% (Random eliminated with 20%)",
             "passed": null
           },
           {
             "category": "Roster",
             "question": "What position should be added to the roster? (Note: the RB/WR slot will be removed.)",
-            "options": ["FLEX (RB, WR, or TE) — 80% (8)", "OP (RB, WR, TE, or QB) — 20% (2)"],
+            "options": ["FLEX (RB, WR, or TE): 80% (8)", "OP (RB, WR, TE, or QB): 20% (2)"],
             "result": "FLEX (RB, WR, or TE)",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "After ___ year(s) ALL keepers shall be RESET.",
-            "options": ["1 — 20% (2)", "2 — 40% (4)", "3 — 40% (4)"],
-            "result": "Tied — 2 years and 3 years each 40% (1 year got 20%)",
+            "options": ["1: 20% (2)", "2: 40% (4)", "3: 40% (4)"],
+            "result": "Tied: 2 years and 3 years each 40% (1 year got 20%)",
             "passed": null
           }
         ]
       },
       {
-        "label": "Fantasy Football 2013 — Round 3",
+        "label": "Fantasy Football 2013, Round 3",
         "votes": [
           {
             "category": "Membership",
             "question": "How many teams shall be in the league?",
-            "options": ["10 — 70% (7)", "12 — 30% (3)"],
+            "options": ["10: 70% (7)", "12: 30% (3)"],
             "result": "10 teams",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "Keepers should be reset the beginning of the _____ season?",
-            "options": ["2016 — 60% (6)", "2017 — 40% (4)"],
+            "options": ["2016: 60% (6)", "2017: 40% (4)"],
             "result": "2016",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "What draft order selection shall be used until keepers are reset?",
-            "options": ["Inverse of Standings — 50% (5)", "Lottery — 50% (5)"],
-            "result": "Tied — Inverse of Standings and Lottery each 50%",
+            "options": ["Inverse of Standings: 50% (5)", "Lottery: 50% (5)"],
+            "result": "Tied: Inverse of Standings and Lottery each 50%",
             "passed": null
           },
           {
             "category": "Roster",
             "question": "ESPN does not allow for a limit of transactions per week; transactions can only be limited on a per-year basis (most in a season: 31 in 2012; fewest: 6 in 2011). Teams shall be limited to ____ transactions per year?",
-            "options": ["No limit — 40% (4)", "20 — 30% (3)", "15 — 20% (2)", "10 — 10% (1)"],
-            "result": "No majority (No limit led with 40%) — advanced to a runoff",
+            "options": ["No limit: 40% (4)", "20: 30% (3)", "15: 20% (2)", "10: 10% (1)"],
+            "result": "No majority (No limit led with 40%): advanced to a runoff",
             "passed": null
           }
         ]
       },
       {
-        "label": "Fantasy Football 2013 — Transactions Runoff",
+        "label": "Fantasy Football 2013, Transactions Runoff",
         "votes": [
           {
             "category": "Roster",
             "question": "How many transactions should teams be limited to in a season?",
-            "options": ["20 — 60% (6)", "No limit — 40% (4)"],
+            "options": ["20: 60% (6)", "No limit: 40% (4)"],
             "result": "20 transactions per season",
             "passed": true
           }
@@ -16011,29 +16011,29 @@ const RULES_HISTORY = [
           {
             "category": "Membership",
             "question": "Are you in favor of expanding the League to include a total of twelve (12) members?",
-            "options": ["YES — 55.56% (5)", "NO — 44.44% (4)"],
-            "result": "YES — expand to 12 members",
+            "options": ["YES: 55.56% (5)", "NO: 44.44% (4)"],
+            "result": "YES: expand to 12 members",
             "passed": true
           },
           {
             "category": "Playoffs",
             "question": "Are you in favor of changing to a two-week playoff matchup (the result of a two-week playoff matchup would be a shortened regular season)?",
-            "options": ["YES — 2 week playoff matchup — 55.56% (5)", "NO — 1 week playoff matchup — 44.44% (4)"],
-            "result": "YES — 2-week playoff matchup",
+            "options": ["YES: 2 week playoff matchup, 55.56% (5)", "NO: 1 week playoff matchup, 44.44% (4)"],
+            "result": "YES: 2-week playoff matchup",
             "passed": true
           },
           {
             "category": "Playoffs",
             "question": "What should be the last week of the playoffs?",
-            "options": ["15 — 33.33% (3)", "16 — 66.67% (6)", "17 — 0% (0)"],
+            "options": ["15: 33.33% (3)", "16: 66.67% (6)", "17: 0% (0)"],
             "result": "Week 16",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "What type of transaction system should be used?",
-            "options": ["No Waivers — 44.44% (4)", "Waivers — 44.44% (4)", "Auction — 11.11% (1)"],
-            "result": "Tied — No Waivers and Waivers each 44.44% (Auction got 11.11%)",
+            "options": ["No Waivers: 44.44% (4)", "Waivers: 44.44% (4)", "Auction: 11.11% (1)"],
+            "result": "Tied: No Waivers and Waivers each 44.44% (Auction got 11.11%)",
             "passed": null
           }
         ]
@@ -16044,15 +16044,15 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "What type of transaction system should we use?",
-            "options": ["Waivers — 55.56% (5)", "No Waivers — 44.44% (4)"],
+            "options": ["Waivers: 55.56% (5)", "No Waivers: 44.44% (4)"],
             "result": "Waivers",
             "passed": true
           },
           {
             "category": "Finances",
             "question": "Do you favor increasing fees from $20 to $30, for which the first year $5 from each member will be used to purchase a trophy for the League?",
-            "options": ["YES — 55.56% (5)", "NO — 44.44% (4)"],
-            "result": "YES — dues increased to $30",
+            "options": ["YES: 55.56% (5)", "NO: 44.44% (4)"],
+            "result": "YES: dues increased to $30",
             "passed": true
           }
         ]
@@ -16063,26 +16063,26 @@ const RULES_HISTORY = [
     "year": 2015,
     "rounds": [
       {
-        "label": "Fantasy Football 2015 — Round 1",
+        "label": "Fantasy Football 2015, Round 1",
         "votes": [
           {
             "category": "Playoffs",
             "question": "Use a 1-week playoff matchup (regular season ends Week 13) or a 2-week playoff matchup (regular season ends Week 10)?",
-            "options": ["1-week — 82% (9)", "2-week — 18% (2)"],
+            "options": ["1-week: 82% (9)", "2-week: 18% (2)"],
             "result": "1-week playoff matchups",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "How should the draft order be determined this year?",
-            "options": ["Random — 73% (8)", "Inverse of standings — 27% (3)"],
+            "options": ["Random: 73% (8)", "Inverse of standings: 27% (3)"],
             "result": "Random",
             "passed": true
           },
           {
             "category": "Scoring",
             "question": "Change kicker scoring so all FGs made are worth a flat 3 points (previously 4 pts for 40–49 yds, 5 pts for 50+ yds), plus -1 point for any missed PAT?",
-            "options": ["Approve — 73% (8)", "Disapprove — 27% (3)"],
+            "options": ["Approve: 73% (8)", "Disapprove: 27% (3)"],
             "result": "Approved",
             "passed": true
           }
@@ -16099,49 +16099,49 @@ const RULES_HISTORY = [
           {
             "category": "Finances",
             "question": "Increase league dues to $50 or $100, or remain at $25? (An increase would add weekly payouts to the top-scoring team.)",
-            "options": ["$25 — 27% (3)", "$50 — 18% (2)", "$100 — 55% (6)"],
+            "options": ["$25: 27% (3)", "$50: 18% (2)", "$100: 55% (6)"],
             "result": "$100",
             "passed": true
           },
           {
             "category": "Roster",
-            "question": "Keepers were eliminated this season — are you in favor of implementing keepers for the following year, and if so how many?",
-            "options": ["No Keepers — 27% (3)", "1 — 45% (5)", "2 — 27% (3)", "Other — 0%"],
+            "question": "Keepers were eliminated this season; are you in favor of implementing keepers for the following year, and if so how many?",
+            "options": ["No Keepers: 27% (3)", "1: 45% (5)", "2: 27% (3)", "Other: 0%"],
             "result": "1 keeper",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "If we choose to allow keepers, how many years do you want to do keepers?",
-            "options": ["1 — 55% (6)", "2 — 45% (5)", "3 — 0%"],
+            "options": ["1: 55% (6)", "2: 45% (5)", "3: 0%"],
             "result": "1 year",
             "passed": true
           },
           {
             "category": "Draft",
-            "question": "Proposed changes to trading draft picks, to keep the league competitive and fair — which would you like implemented this season?",
-            "options": ["Keep things the way they are — 27% (3)", "DO NOT allow draft picks to be traded — 45% (5)", "Only allow one draft pick to be traded — 27% (3)", "No picks between rounds 1–4 can be traded — 0%"],
+            "question": "Proposed changes to trading draft picks, to keep the league competitive and fair; which would you like implemented this season?",
+            "options": ["Keep things the way they are: 27% (3)", "DO NOT allow draft picks to be traded: 45% (5)", "Only allow one draft pick to be traded: 27% (3)", "No picks between rounds 1–4 can be traded: 0%"],
             "result": "Draft picks could not be traded",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "Teams are currently allowed 25 transactions per season (including playoffs). In favor of increasing, and if so to how many?",
-            "options": ["Remain at 25 — 55% (6)", "30 — 18% (2)", "35 — 0%", "No Limit — 27% (3)"],
+            "options": ["Remain at 25: 55% (6)", "30: 18% (2)", "35: 0%", "No Limit: 27% (3)"],
             "result": "Remain at 25",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "Teams are currently allowed 2 IR spots. In favor of increasing to 3?",
-            "options": ["2 (remain) — 64% (7)", "3 — 36% (4)"],
+            "options": ["2 (remain): 64% (7)", "3: 36% (4)"],
             "result": "Remain at 2",
             "passed": false
           },
           {
             "category": "Finances",
             "question": "Which championship trophy are you in favor of purchasing?",
-            "options": ["Bronze at $125 — 55% (6)", "Silver at $165 — 45% (5)"],
+            "options": ["Bronze at $125: 55% (6)", "Silver at $165: 45% (5)"],
             "result": "Bronze at $125",
             "passed": true
           }
@@ -16158,14 +16158,14 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Keep transactions at 25 per season (including playoffs) or increase to 30?",
-            "options": ["25 — 30% (3)", "30 — 70% (7)"],
+            "options": ["25: 30% (3)", "30: 70% (7)"],
             "result": "30",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "Should we use a snake draft or an auction draft?",
-            "options": ["Snake — 90% (9)", "Auction — 10% (1)"],
+            "options": ["Snake: 90% (9)", "Auction: 10% (1)"],
             "result": "Snake",
             "passed": false
           }
@@ -16182,7 +16182,7 @@ const RULES_HISTORY = [
           {
             "category": "Membership",
             "question": "Remain at twelve (12) owners or expand to fourteen (14)?",
-            "options": ["12 — 73% (8)", "14 — 27% (3)"],
+            "options": ["12: 73% (8)", "14: 27% (3)"],
             "result": "12",
             "passed": false,
             "note": "League stayed at 12 owners; the 14-team playoff-size question was rendered moot."
@@ -16197,28 +16197,28 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Do you want to allow keepers, and if so how many?",
-            "options": ["No Keepers — 27% (3)", "1 — 55% (6)", "2 — 18% (2)"],
+            "options": ["No Keepers: 27% (3)", "1: 55% (6)", "2: 18% (2)"],
             "result": "1 keeper",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "If we allow keepers, for how many years should it be?",
-            "options": ["1 — 55% (6)", "2 — 36% (4)", "3 — 9% (1)"],
+            "options": ["1: 55% (6)", "2: 36% (4)", "3: 9% (1)"],
             "result": "1 year",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "Should we allow draft position swapping (teams swap entire draft slot with another team)?",
-            "options": ["Yes — 64% (7)", "No — 36% (4)"],
+            "options": ["Yes: 64% (7)", "No: 36% (4)"],
             "result": "Yes",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "Should we remove the Kicker position?",
-            "options": ["Yes — 64% (7)", "No — 36% (4)"],
+            "options": ["Yes: 64% (7)", "No: 36% (4)"],
             "result": "Yes",
             "passed": true,
             "note": "Kicker dropped from rosters starting the following season."
@@ -16226,15 +16226,15 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Should we remove the Defense/Special Teams position?",
-            "options": ["Yes — 27% (3)", "No — 73% (8)"],
+            "options": ["Yes: 27% (3)", "No: 73% (8)"],
             "result": "No",
             "passed": false,
-            "note": "D/ST survived this vote — see 2019, where it was eliminated on a second try."
+            "note": "D/ST survived this vote: see 2019, where it was eliminated on a second try."
           },
           {
             "category": "Roster",
             "question": "If we remove the K or D/ST position, should we add another position?",
-            "options": ["QB — 0%", "RB — 0%", "WR — 9% (1)", "TE — 0%", "Flex — 73% (8)", "Do not add another position — 18% (2)"],
+            "options": ["QB: 0%", "RB: 0%", "WR: 9% (1)", "TE: 0%", "Flex: 73% (8)", "Do not add another position: 18% (2)"],
             "result": "Flex",
             "passed": true,
             "note": "This is the origin of the league's second FLEX spot."
@@ -16242,7 +16242,7 @@ const RULES_HISTORY = [
           {
             "category": "Scoring",
             "question": "How many points should a reception be worth?",
-            "options": ["0.2 — 0%", "0.5 — 82% (9)", "1.0 — 18% (2)"],
+            "options": ["0.2: 0%", "0.5: 82% (9)", "1.0: 18% (2)"],
             "result": "0.5 PPR",
             "passed": true,
             "note": "This is the origin vote for the league's still-current 0.5 PPR scoring."
@@ -16250,14 +16250,14 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "How many transactions should each team be allowed per season (including playoffs)?",
-            "options": ["30 (current) — 18% (2)", "35 — 45% (5)", "40 — 36% (4)"],
+            "options": ["30 (current): 18% (2)", "35: 45% (5)", "40: 36% (4)"],
             "result": "35",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "For free agent acquisitions, should we use Waivers or a Free Agent Auction?",
-            "options": ["Waivers — 100% (11)", "Free Agent Auction — 0%"],
+            "options": ["Waivers: 100% (11)", "Free Agent Auction: 0%"],
             "result": "Waivers",
             "passed": true
           }
@@ -16274,22 +16274,22 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Should we eliminate the D/ST position?",
-            "options": ["Yes — 64% (7)", "No — 36% (4)"],
+            "options": ["Yes: 64% (7)", "No: 36% (4)"],
             "result": "Yes",
             "passed": true,
-            "note": "Finished the job the 2018 survey didn't — D/ST dropped from rosters."
+            "note": "Finished the job the 2018 survey didn't: D/ST dropped from rosters."
           },
           {
             "category": "Roster",
             "question": "Should we keep or remove the second FLEX position?",
-            "options": ["Keep — 91% (10)", "Remove — 9% (1)"],
+            "options": ["Keep: 91% (10)", "Remove: 9% (1)"],
             "result": "Keep",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "Should we increase transactions from 35 to 40?",
-            "options": ["35 (stay) — 55% (6)", "40 — 45% (5)"],
+            "options": ["35 (stay): 55% (6)", "40: 45% (5)"],
             "result": "Stayed at 35",
             "passed": false
           }
@@ -16301,26 +16301,26 @@ const RULES_HISTORY = [
     "year": 2020,
     "rounds": [
       {
-        "label": "Round 1 — Preseason Rules Vote",
+        "label": "Round 1, Preseason Rules Vote",
         "votes": [
           {
             "category": "Draft",
             "question": "Should we use an auction draft?",
-            "options": ["Yes — 36% (4)", "No — 64% (7)"],
+            "options": ["Yes: 36% (4)", "No: 64% (7)"],
             "result": "No",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "Should we eliminate transaction limits?",
-            "options": ["Yes — 55% (6)", "No — 45% (5)"],
+            "options": ["Yes: 55% (6)", "No: 45% (5)"],
             "result": "Yes",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "How many IR spots should we add? (currently 2)",
-            "options": ["0 — 9% (1)", "1 — 45% (5)", "2 — 45% (5)"],
+            "options": ["0: 9% (1)", "1: 45% (5)", "2: 45% (5)"],
             "result": "Effectively +1 (IR went to 3 total, confirmed by the 2021 survey)",
             "passed": null,
             "note": "Statistical tie between adding 1 and adding 2; league settled on 3 total IR slots."
@@ -16328,68 +16328,68 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Should we have one keeper going into the 2021 season?",
-            "options": ["Yes — 45% (5)", "No — 55% (6)"],
+            "options": ["Yes: 45% (5)", "No: 55% (6)"],
             "result": "No",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "Should we add one Individual Defensive Player (IDP) roster spot?",
-            "options": ["Yes — 27% (3)", "No — 73% (8)"],
+            "options": ["Yes: 27% (3)", "No: 73% (8)"],
             "result": "No",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "Should we change one FLEX position to a SUPERFLEX position?",
-            "options": ["Yes — 27% (3)", "No — 73% (8)"],
+            "options": ["Yes: 27% (3)", "No: 73% (8)"],
             "result": "No",
             "passed": false
           },
           {
             "category": "Contingency",
             "question": "How many weeks should constitute a League of NARPS season if the NFL cancels its season?",
-            "options": ["7 — 0%", "8 — 18% (2)", "9 — 18% (2)", "10 — 55% (6)", "Other — 9% (1)"],
+            "options": ["7: 0%", "8: 18% (2)", "9: 18% (2)", "10: 55% (6)", "Other: 9% (1)"],
             "result": "10 weeks",
             "passed": null
           },
           {
             "category": "Contingency",
             "question": "If the NFL season is cancelled before LoN's playoffs, what payout should the top 3 records receive?",
-            "options": ["No Payout — 18% (2)", "Partial Payout — 45% (5)", "Full Payout — 36% (4)"],
+            "options": ["No Payout: 18% (2)", "Partial Payout: 45% (5)", "Full Payout: 36% (4)"],
             "result": "Partial Payout",
             "passed": null
           }
         ]
       },
       {
-        "label": "Round 2 — COVID Contingency Vote",
+        "label": "Round 2, COVID Contingency Vote",
         "votes": [
           {
             "category": "Contingency",
             "question": "If the NFL season were cancelled during the LoN playoffs, should final standings be determined by highest remaining seed?",
-            "options": ["Yes — 82% (9)", "No — 18% (2)"],
+            "options": ["Yes: 82% (9)", "No: 18% (2)"],
             "result": "Yes",
             "passed": true
           },
           {
             "category": "Contingency",
             "question": "If ≥10 weeks were completed and playoffs were not, should the top 3 teams get a full or partial payout?",
-            "options": ["Full Payout — 45% (5)", "Partial Payout — 55% (6)"],
+            "options": ["Full Payout: 45% (5)", "Partial Payout: 55% (6)"],
             "result": "Partial Payout",
             "passed": true
           },
           {
             "category": "Finances",
             "question": "If Partial Payout, what should the split be?",
-            "options": ["75% split ($325/$225/$75) — 36% (4)", "50% split ($250/$150/$50) — 64% (7)", "25% split ($125/$75/$25) — 0%"],
-            "result": "50% split — $250 / $150 / $50",
+            "options": ["75% split ($325/$225/$75): 36% (4)", "50% split ($250/$150/$50): 64% (7)", "25% split ($125/$75/$25): 0%"],
+            "result": "50% split: $250 / $150 / $50",
             "passed": true
           },
           {
             "category": "Finances",
             "question": "What should happen with the remaining partial-payout money?",
-            "options": ["Divide equally and return to members — 45% (5)", "Roll it over into next season's winnings — 55% (6)"],
+            "options": ["Divide equally and return to members: 45% (5)", "Roll it over into next season's winnings: 55% (6)"],
             "result": "Roll over into next season",
             "passed": true
           }
@@ -16406,14 +16406,14 @@ const RULES_HISTORY = [
           {
             "category": "Schedule",
             "question": "The NFL expanded to 17 games. Should the League of NARPS add a 14th regular-season week?",
-            "options": ["Yes — 73% (8)", "No — 27% (3)"],
+            "options": ["Yes: 73% (8)", "No: 27% (3)"],
             "result": "Yes",
             "passed": true
           },
           {
             "category": "Roster",
             "question": "Should the League of NARPS have a keeper for the 2022 season?",
-            "options": ["Yes — 45% (5)", "No — 55% (6)"],
+            "options": ["Yes: 45% (5)", "No: 55% (6)"],
             "result": "No",
             "passed": false,
             "note": "Keepers stayed off after this vote."
@@ -16421,7 +16421,7 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Last year we expanded IR from 2 to 3 slots. Remain at 3, or move back to 2?",
-            "options": ["2 — 36% (4)", "3 — 64% (7)"],
+            "options": ["2: 36% (4)", "3: 64% (7)"],
             "result": "Remain at 3",
             "passed": true
           }
@@ -16438,14 +16438,14 @@ const RULES_HISTORY = [
           {
             "category": "Schedule",
             "question": "Which week should the trade deadline be? (cutoff = the following Wednesday; 14-week regular season)",
-            "options": ["Week 8 — 18% (2)", "Week 9 — 45% (5)", "Week 10 — 36% (4)"],
+            "options": ["Week 8: 18% (2)", "Week 9: 45% (5)", "Week 10: 36% (4)"],
             "result": "Week 9",
             "passed": null
           },
           {
             "category": "Playoffs",
             "question": "Should the 6th playoff seed be the highest-points-scored team among those outside the top 5 records?",
-            "options": ["Yes — 82% (9)", "No — 18% (2)"],
+            "options": ["Yes: 82% (9)", "No: 18% (2)"],
             "result": "Yes",
             "passed": true,
             "note": "Origin vote for the league's still-current 6-seed-by-points playoff rule."
@@ -16453,14 +16453,14 @@ const RULES_HISTORY = [
           {
             "category": "Scoring",
             "question": "How many points should a reception be worth?",
-            "options": ["0.5 — 64% (7)", "1.0 — 36% (4)"],
+            "options": ["0.5: 64% (7)", "1.0: 36% (4)"],
             "result": "0.5 PPR (reaffirmed)",
             "passed": true
           },
           {
             "category": "Finances",
             "question": "How much should the entry fee be?",
-            "options": ["$100 — 45% (5)", "$200 — 55% (6)"],
+            "options": ["$100: 45% (5)", "$200: 55% (6)"],
             "result": "$200",
             "passed": true
           }
@@ -16472,7 +16472,7 @@ const RULES_HISTORY = [
           {
             "category": "Finances",
             "question": "Runoff on the season payout structure: Proposal 1 or Proposal 3?",
-            "options": ["Proposal 1 — 30% (3)", "Proposal 3 — 70% (7)"],
+            "options": ["Proposal 1: 30% (3)", "Proposal 3: 70% (7)"],
             "result": "Proposal 3",
             "passed": true,
             "note": "Follow-up runoff vote; exact proposal text wasn't preserved in the archived export."
@@ -16490,21 +16490,21 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "How many IR slots should we have? (previously 3, expanded during COVID)",
-            "options": ["1 — 27% (3)", "2 — 73% (8)"],
+            "options": ["1: 27% (3)", "2: 73% (8)"],
             "result": "2",
             "passed": true
           },
           {
             "category": "Schedule",
             "question": "Should the trade deadline move to the Wednesday after Week 10, or stay after Week 9?",
-            "options": ["Week 9 — 36% (4)", "Week 10 — 64% (7)"],
+            "options": ["Week 9: 36% (4)", "Week 10: 64% (7)"],
             "result": "Week 10",
             "passed": true
           },
           {
             "category": "Draft",
             "question": "Should we use a Snake Draft or an Auction Draft?",
-            "options": ["Auction — 9% (1)", "Snake — 91% (10)"],
+            "options": ["Auction: 9% (1)", "Snake: 91% (10)"],
             "result": "Snake",
             "passed": false,
             "note": "Auction rejected in a landslide."
@@ -16512,14 +16512,14 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "Should the Tight End position be converted to a Wide Receiver/Tight End position?",
-            "options": ["Remain TE — 55% (6)", "Convert to WR/TE — 45% (5)"],
+            "options": ["Remain TE: 55% (6)", "Convert to WR/TE: 45% (5)"],
             "result": "Remain TE",
             "passed": false
           },
           {
             "category": "Playoffs",
             "question": "Do you wish to keep the current playoff qualifications (seeds 1–5 by record, 6-seed by points)?",
-            "options": ["Yes — 73% (8)", "No — 27% (3)"],
+            "options": ["Yes: 73% (8)", "No: 27% (3)"],
             "result": "Yes",
             "passed": true,
             "note": "Reaffirms the 2022 6-seed-by-points rule."
@@ -16527,8 +16527,8 @@ const RULES_HISTORY = [
           {
             "category": "Playoffs",
             "question": "(Contingency, rendered moot) If qualifications changed, which proposal?",
-            "options": ["Top 6 by record only — 27% (3)", "Top 6 by record + 7th seed by points (#1 seed bye) — 73% (8)"],
-            "result": "Moot — current format was kept",
+            "options": ["Top 6 by record only: 27% (3)", "Top 6 by record + 7th seed by points (#1 seed bye): 73% (8)"],
+            "result": "Moot: current format was kept",
             "passed": null
           }
         ]
@@ -16539,33 +16539,33 @@ const RULES_HISTORY = [
     "year": 2024,
     "rounds": [
       {
-        "label": "LoN 2024 Survey — Round 1",
+        "label": "LoN 2024 Survey, Round 1",
         "votes": [
           {
             "category": "Roster",
             "question": "Should we convert the TE position to a WR/TE position?",
-            "options": ["Convert to WR/TE — 45% (5)", "Remain TE — 55% (6)"],
+            "options": ["Convert to WR/TE: 45% (5)", "Remain TE: 55% (6)"],
             "result": "Remain TE",
             "passed": false
           },
           {
             "category": "Scoring",
             "question": "Should TEs receive 0.75 points per reception?",
-            "options": ["Change to 0.75 — 27% (3)", "Remain at 0.5 — 73% (8)"],
+            "options": ["Change to 0.75: 27% (3)", "Remain at 0.5: 73% (8)"],
             "result": "Remain at 0.5",
             "passed": false
           },
           {
             "category": "Standings",
             "question": "Should we add a median-scoring record (top/bottom 6 scorers each week get a W/L added to head-to-head record)?",
-            "options": ["Add Median Scoring Record — 27% (3)", "Do Not Add — 73% (8)"],
+            "options": ["Add Median Scoring Record: 27% (3)", "Do Not Add: 73% (8)"],
             "result": "Do Not Add",
             "passed": false
           },
           {
             "category": "Playoffs",
             "question": "Should we expand the playoffs to 7 teams?",
-            "options": ["Yes — 36% (4)", "No — 64% (7)"],
+            "options": ["Yes: 36% (4)", "No: 64% (7)"],
             "result": "No",
             "passed": false,
             "note": "Playoffs stayed at 6 teams."
@@ -16574,23 +16574,23 @@ const RULES_HISTORY = [
             "category": "Playoffs",
             "question": "Vote on playoff reseeding format (4-way; no majority triggers a runoff)",
             "options": [
-              "Highest seed plays lowest remaining seed — 36% (4)",
-              "Highest seed picks their opponent (rounds 1–2) — 9% (1)",
-              "Top half of seeds choose their opponent — 18% (2)",
-              "No playoff reseeding — 36% (4)"
+              "Highest seed plays lowest remaining seed: 36% (4)",
+              "Highest seed picks their opponent (rounds 1–2): 9% (1)",
+              "Top half of seeds choose their opponent: 18% (2)",
+              "No playoff reseeding: 36% (4)"
             ],
-            "result": "Tie between reseeding and no-reseeding — runoff required",
+            "result": "Tie between reseeding and no-reseeding: runoff required",
             "passed": null
           }
         ]
       },
       {
-        "label": "LoN 2024 Survey 2 — Reseeding Runoff",
+        "label": "LoN 2024 Survey 2, Reseeding Runoff",
         "votes": [
           {
             "category": "Playoffs",
             "question": "Runoff: highest seed plays lowest remaining seed, or no playoff reseeding?",
-            "options": ["Highest seed plays lowest remaining seed — 70% (7)", "No playoff reseeding — 30% (3)"],
+            "options": ["Highest seed plays lowest remaining seed: 70% (7)", "No playoff reseeding: 30% (3)"],
             "result": "Highest seed plays lowest remaining seed",
             "passed": true,
             "note": "Playoff reseeding adopted starting with the 2024 postseason."
@@ -16608,14 +16608,14 @@ const RULES_HISTORY = [
           {
             "category": "Draft",
             "question": "Should the 2026 draft order be set by final standings (champion picks first, then 2nd, 3rd, etc.)?",
-            "options": ["Yes — 36% (4)", "No — 64% (7)"],
+            "options": ["Yes: 36% (4)", "No: 64% (7)"],
             "result": "No",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "For the 2025 season, should we convert a TE position to a WR/TE position?",
-            "options": ["Yes (WR/TE) — 45% (5)", "No (TE) — 55% (6)"],
+            "options": ["Yes (WR/TE): 45% (5)", "No (TE): 55% (6)"],
             "result": "No (TE)",
             "passed": false
           }
@@ -16632,28 +16632,28 @@ const RULES_HISTORY = [
           {
             "category": "Roster",
             "question": "How many IR slots should there be?",
-            "options": ["1 — 45.45% (5)", "2 — 54.55% (6)"],
+            "options": ["1: 45.45% (5)", "2: 54.55% (6)"],
             "result": "Remain at 2",
             "passed": false
           },
           {
             "category": "Scoring",
             "question": "Should we use 0.5 PPR or 1.0 PPR?",
-            "options": ["0.5 — 72.73% (8)", "1.0 — 27.27% (3)"],
+            "options": ["0.5: 72.73% (8)", "1.0: 27.27% (3)"],
             "result": "Remain at 0.5 PPR",
             "passed": false
           },
           {
             "category": "Roster",
             "question": "Should we convert TE to TE/WR?",
-            "options": ["TE — 72.73% (8)", "TE/WR — 27.27% (3)"],
+            "options": ["TE: 72.73% (8)", "TE/WR: 27.27% (3)"],
             "result": "Remain TE",
             "passed": false
           },
           {
             "category": "Playoffs",
             "question": "Should we use playoff reseeding (seeds are reordered in the 2nd round so the highest seed plays the lowest seed)? If no, then we use the normal bracket setup (#1 seed plays winner of #4/5 seed and #2 seed plays winner of #3/6 seed). We voted for playoff reseeding in 2024 but it has not come into play.",
-            "options": ["Use Playoff Reseeding — 63.64% (7)", "Do Not Use Playoff Reseeding — 36.36% (4)"],
+            "options": ["Use Playoff Reseeding: 63.64% (7)", "Do Not Use Playoff Reseeding: 36.36% (4)"],
             "result": "Use Playoff Reseeding (status quo maintained)",
             "passed": false,
             "note": "Reaffirms the playoff reseeding rule adopted in 2024; it still has not come into play in an actual bracket."
