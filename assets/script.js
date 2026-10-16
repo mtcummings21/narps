@@ -1611,10 +1611,10 @@ function renderMarchMadness(containerId){
   const pickTag = (t, ok) => `<span class="mm-pick ${ok ? 'mm-pick--ok' : 'mm-pick--miss'}">${team(t)}</span>`;
 
   // Standings: click a column header to sort by it, click again to flip (same pattern as season standings).
-  const cols = [{ k: 'rank', l: '#' }, { k: 'name', l: 'Entry' },
+  const cols = [{ k: 'rank', l: '#' }, { k: 'name', l: 'Entry' }, { k: 'record', l: 'Record' },
     ...['R64', 'R32', 'S16', 'E8', 'F4', 'Champ'].map((l, i) => ({ k: 'r' + i, l })),
     ...(bonusOn ? [{ k: 'bonus', l: 'Upsets' }] : []), { k: 'total', l: 'Total' }];
-  const val = (x, k) => k === 'rank' ? x.rank : k === 'name' ? x.name : k === 'bonus' ? x.s.bonus : k === 'total' ? x.s.total : x.s.byRound[+k.slice(1)];
+  const val = (x, k) => k === 'rank' ? x.rank : k === 'name' ? x.name : k === 'record' ? wins(x) : k === 'bonus' ? x.s.bonus : k === 'total' ? x.s.total : x.s.byRound[+k.slice(1)];
   let sortKey = 'rank', sortDir = 'asc';
   const drawStandings = () => {
     const wrap = el.querySelector('#mm-standings');
@@ -1628,6 +1628,7 @@ function renderMarchMadness(containerId){
       <tbody>${d.map(x => `<tr>
         <td class="pos">${x.rank}</td>
         <td class="name-cell">${x.name}</td>
+        <td>${wins(x)}-${63 - wins(x)}</td>
         ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
         ${bonusOn ? `<td>${x.s.bonus}</td>` : ''}
         <td><strong>${x.s.total}</strong></td>
@@ -1680,7 +1681,7 @@ function renderMarchMadness(containerId){
     </div>
     <h3>${year} Standings</h3>
     <div class="table-scroll" id="mm-standings"></div>
-    <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Column points are for correct picks in that round; ${bonusOn ? 'Upsets is the seed-difference bonus.' : `in ${year} rounds were worth ${pool.points.join(' / ')} points, with no upset bonus.`}</p>
+    <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Record is correct picks out of 63 games; round columns are points for correct picks in that round; ${bonusOn ? 'Upsets is the seed-difference bonus.' : `in ${year} rounds were worth ${pool.points.join(' / ')} points, with no upset bonus.`}</p>
     ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
     <div class="table-scroll"><table class="mm-table mm-picks-table">
