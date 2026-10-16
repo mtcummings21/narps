@@ -1610,13 +1610,36 @@ function renderMarchMadness(containerId){
   const bonusOn = pool.upsetBonus !== false;
   const pickTag = (t, ok) => `<span class="mm-pick ${ok ? 'mm-pick--ok' : 'mm-pick--miss'}">${team(t)}</span>`;
 
-  const standings = rows.map(x => `<tr>
-      <td class="pos">${x.rank}</td>
-      <td class="name-cell">${x.name}</td>
-      ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
-      ${bonusOn ? `<td>${x.s.bonus}</td>` : ''}
-      <td><strong>${x.s.total}</strong></td>
-    </tr>`).join('');
+  // Standings: click a column header to sort by it, click again to flip (same pattern as season standings).
+  const cols = [{ k: 'rank', l: '#' }, { k: 'name', l: 'Entry' },
+    ...['R64', 'R32', 'S16', 'E8', 'F4', 'Champ'].map((l, i) => ({ k: 'r' + i, l })),
+    ...(bonusOn ? [{ k: 'bonus', l: 'Upsets' }] : []), { k: 'total', l: 'Total' }];
+  const val = (x, k) => k === 'rank' ? x.rank : k === 'name' ? x.name : k === 'bonus' ? x.s.bonus : k === 'total' ? x.s.total : x.s.byRound[+k.slice(1)];
+  let sortKey = 'rank', sortDir = 'asc';
+  const drawStandings = () => {
+    const wrap = el.querySelector('#mm-standings');
+    const d = rows.slice().sort((a, b) => {
+      const av = val(a, sortKey), bv = val(b, sortKey);
+      const c = typeof av === 'string' ? av.localeCompare(bv) : av - bv;
+      return (sortDir === 'asc' ? c : -c) || a.rank - b.rank || a.name.localeCompare(b.name);
+    });
+    wrap.innerHTML = `<table class="mm-table mm-standings">
+      <thead><tr>${cols.map(c => `<th data-key="${c.k}"${c.k === sortKey ? ` class="sorted-${sortDir}"` : ''}>${c.l}</th>`).join('')}</tr></thead>
+      <tbody>${d.map(x => `<tr>
+        <td class="pos">${x.rank}</td>
+        <td class="name-cell">${x.name}</td>
+        ${x.s.byRound.map(v => `<td>${v}</td>`).join('')}
+        ${bonusOn ? `<td>${x.s.bonus}</td>` : ''}
+        <td><strong>${x.s.total}</strong></td>
+      </tr>`).join('')}</tbody>
+    </table>`;
+    wrap.querySelectorAll('thead th').forEach(th => th.addEventListener('click', () => {
+      const k = th.dataset.key;
+      if(k === sortKey) sortDir = sortDir === 'asc' ? 'desc' : 'asc';
+      else { sortKey = k; sortDir = (k === 'rank' || k === 'name') ? 'asc' : 'desc'; }
+      drawStandings();
+    }));
+  };
 
   const picks = rows.map(x => {
     const f4 = MM_REGIONS.map(r => x.e[r][3][0]);
@@ -1656,10 +1679,7 @@ function renderMarchMadness(containerId){
       <div><div class="mm-label">Final Four</div><div>${MM_REGIONS.map(r => team(R[r][3][0])).join(' · ')}</div></div>
     </div>
     <h3>${year} Standings</h3>
-    <div class="table-scroll"><table class="mm-table">
-      <thead><tr><th>#</th><th>Entry</th><th>R64</th><th>R32</th><th>S16</th><th>E8</th><th>F4</th><th>Champ</th>${bonusOn ? '<th>Upsets</th>' : ''}<th>Total</th></tr></thead>
-      <tbody>${standings}</tbody>
-    </table></div>
+    <div class="table-scroll" id="mm-standings"></div>
     <p class="muted" style="font-size:0.8rem;">${rows.length} entries. Column points are for correct picks in that round; ${bonusOn ? 'Upsets is the seed-difference bonus.' : `in ${year} rounds were worth ${pool.points.join(' / ')} points, with no upset bonus.`}</p>
     ${renderMarchMadnessRace(pool, rows)}
     <h3>Final Four Picks</h3>
@@ -1675,6 +1695,7 @@ function renderMarchMadness(containerId){
       <thead><tr><th class="mm-center">Upset</th><th>Round</th><th>Bonus</th><th>Called by</th></tr></thead>
       <tbody>${upsetRows}</tbody>
     </table></div>` : ''}`;
+  drawStandings();
 }
 
 // ---------- Super Bowl Squares ----------

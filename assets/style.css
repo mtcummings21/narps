@@ -1597,6 +1597,7 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .mm-race .mm-race-entry:hover polyline{ stroke-width:3.5; }
 .mm-podium{ margin-top:28px; }
 .mm-table th.mm-center{ text-align:center; }
+.mm-page .mm-standings thead th{ cursor:pointer; }
 
 /* Week-over-week rank movement on the current season standings */
 .rank-with-move{ display:inline-flex; align-items:baseline; gap:6px; white-space:nowrap; }
