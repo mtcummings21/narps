@@ -1714,16 +1714,16 @@ tbody td{ padding: 7px 12px; }
 
 /* ---------- Rules page ---------- */
 .rules-h{ font-family: var(--display); font-size:1.45rem; color: var(--navy); margin: 28px 0 14px; }
-.cr-grid{ columns: 3 290px; column-gap:14px; }
-.cr-group{ background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding:16px 18px; break-inside: avoid; margin-bottom:14px; }
-.cr-title{ font-size:0.68rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase; color: var(--text-soft); margin-bottom:8px; }
+.cr-sheet{ background: var(--panel); border:1px solid var(--line); border-radius: var(--radius); padding: 6px 28px 10px; columns: 2 380px; column-gap: 56px; column-rule: 1px solid var(--line); }
+.cr-group{ break-inside: avoid; padding: 18px 0 6px; }
+.cr-title{ margin:0 0 4px; font-family: var(--body); font-size:0.7rem; font-weight:700; letter-spacing:0.07em; text-transform:uppercase; color: var(--red); }
 .cr-group dl{ margin:0; }
-.cr-item{ display:grid; grid-template-columns: 9.5em 1fr; gap:10px; padding:6px 0; border-top:1px solid var(--line); font-size:0.9rem; }
-.cr-item:first-child{ border-top:none; }
+.cr-item{ display:grid; grid-template-columns: 11em 1fr auto; align-items:baseline; gap:12px; padding:7px 0; border-bottom:1px solid var(--line); font-size:0.94rem; }
+.cr-group .cr-item:last-child{ border-bottom:none; }
 .cr-item dt{ color: var(--text-soft); }
-.cr-item dd{ margin:0; color: var(--text); font-weight:600; }
-.cr-src{ margin-left:4px; font-size:0.72rem; font-weight:600; color: var(--text-soft); text-decoration:none; border:1px solid var(--line); border-radius:4px; padding:0 4px; white-space:nowrap; }
-.cr-src:hover{ color: var(--navy); border-color: var(--text-soft); }
+.cr-item dd{ margin:0; color: var(--navy); font-weight:600; }
+.cr-src{ font-size:0.74rem; color: var(--text-soft); text-decoration:none; font-variant-numeric: tabular-nums; }
+.cr-src:hover{ color: var(--navy); text-decoration:underline; }
 
 .vt-filters{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:14px; }
 .vt-chip{ font: inherit; font-size:0.8rem; font-weight:600; padding:5px 11px; border-radius:999px; border:1px solid var(--line); background: var(--panel); color: var(--text); cursor:pointer; }
@@ -1760,5 +1760,6 @@ tbody td{ padding: 7px 12px; }
   .vt-split{ display:none; }
   .vt-status{ grid-column:2; grid-row:1 / span 3; align-self:center; }
   .vt-detail{ padding-left:14px; }
-  .cr-item{ grid-template-columns: 8em 1fr; }
+  .cr-sheet{ padding: 4px 16px 8px; }
+  .cr-item{ grid-template-columns: 8.5em 1fr auto; font-size:0.9rem; }
 }

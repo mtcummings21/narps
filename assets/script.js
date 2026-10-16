@@ -2864,19 +2864,21 @@ function renderRulesHistory(containerId){
   const groups = (typeof CURRENT_RULES !== 'undefined' ? CURRENT_RULES : []).slice();
   if(pay){
     groups.push({ group: 'Payouts', items: [
-      { label: '1st / 2nd / 3rd', value: pay.place.map(money).join(' / ') },
+      { label: '1st place', value: money(pay.place[0]) },
+      { label: '2nd place', value: money(pay.place[1]) },
+      { label: '3rd place', value: money(pay.place[2]) },
       { label: 'Weekly high score', value: money(pay.weeklyHigh) },
-      { label: 'Season top scorer', value: money(pay.seasonTopScorer) },
+      { label: 'Season points leader', value: money(pay.seasonTopScorer) },
       { label: 'Playoff berth', value: `${money(pay.playoffBerth)} each` }
     ]});
   }
   const currentHtml = groups.length ? `
     <h3 class="rules-h">Current Rules</h3>
-    <div class="cr-grid">${groups.map(g => `
+    <div class="cr-sheet">${groups.map(g => `
       <div class="cr-group">
-        <div class="cr-title">${g.group}</div>
+        <h4 class="cr-title">${g.group}</h4>
         <dl>${g.items.map(it => `
-          <div class="cr-item"><dt>${it.label}</dt><dd>${it.value}${it.vote ? ` <a class="cr-src" href="#vote-${it.vote}" data-vote="${it.vote}">${it.vote.split('-')[0]}</a>` : ''}</dd></div>`).join('')}
+          <div class="cr-item"><dt>${it.label}</dt><dd>${it.value}</dd>${it.vote ? `<a class="cr-src" href="#vote-${it.vote}" data-vote="${it.vote}" title="See the ${it.vote.split('-')[0]} vote">${it.vote.split('-')[0]}</a>` : '<span></span>'}</div>`).join('')}
         </dl>
       </div>`).join('')}
     </div>` : '';
