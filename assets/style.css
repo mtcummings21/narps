@@ -1709,3 +1709,5 @@ tbody td{ padding: 7px 12px; }
 .teams-table td.num, .teams-table th:nth-child(n+3){ text-align:right; }
 .teams-table td.name-cell a{ color: var(--navy); text-decoration:none; font-weight:700; }
 .teams-table td.name-cell a:hover{ text-decoration:underline; }
+.teams-table tbody tr{ cursor:pointer; }
+.teams-table tbody tr:hover td{ background: var(--bg); }

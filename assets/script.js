@@ -1318,7 +1318,7 @@ function renderTeamsList(containerId){
   const sorted = TEAMS.slice().sort((a,b) => lastNameOf(a.owner).localeCompare(lastNameOf(b.owner)));
   el.innerHTML = `<div class="table-scroll"><table class="teams-table">
     <thead><tr><th>Owner</th><th>Team</th><th>Seasons</th><th>Titles</th><th>Playoffs</th><th>Record</th><th>Win%</th></tr></thead>
-    <tbody>${sorted.map(t => `<tr>
+    <tbody>${sorted.map(t => `<tr data-href="team.html?team=${encodeURIComponent(t.key)}">
       <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}">${t.owner}</a></td>
       <td>${t.team}</td>
       <td class="num">${t.seasons}</td>
@@ -1327,6 +1327,11 @@ function renderTeamsList(containerId){
       <td class="num">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>
       <td class="num">${fmtPct(t.winPct)}</td>
     </tr>`).join('')}</tbody></table></div>`;
+  // Whole row opens the team page (the name stays a real link for keyboard/new-tab use).
+  el.querySelectorAll('tr[data-href]').forEach(tr => tr.addEventListener('click', e => {
+    if(e.target.closest('a')) return;
+    window.location.href = tr.dataset.href;
+  }));
 }
 
 function renderTeamDetail(containerId){
