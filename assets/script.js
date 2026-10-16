@@ -393,103 +393,6 @@ function renderStandings(containerId){
 }
 
 // ---------- Awards ----------
-function renderAwards(containerId){
-  const el = document.getElementById(containerId);
-  if(!el) return;
-
-  // Percentage and per-game awards require at least 10 regular-season games.
-  const MIN_GAMES = 10;
-  const qualified = TEAMS.filter(t => (t.gamesW||0) + (t.gamesL||0) + (t.gamesT||0) >= MIN_GAMES);
-  const byMax = (key) => qualified.slice().sort((a,b)=>b[key]-a[key])[0];
-  const byMin = (key) => qualified.slice().sort((a,b)=>a[key]-b[key])[0];
-  const byMaxPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>b.playoffWinPct-a.playoffWinPct)[0];
-  const byMinPlayoff = TEAMS.filter(t=>t.playoffApp >= 5).sort((a,b)=>a.playoffWinPct-b.playoffWinPct)[0];
-
-  const medAp = computeAllTimeMedianAllPlay();
-  const highScore = TEAMS.map(t => ({ ...t, highScore: medAp[t.key].highScore })).sort((a,b) => b.highScore - a.highScore)[0];
-  const bestDiff = byMax('diff');
-  const worstDiff = byMin('diff');
-  const bestWinPct = byMax('winPct');
-  const worstWinPct = byMin('winPct');
-  const mostTitles = TEAMS.slice().sort((a,b)=>b.champs-a.champs)[0];
-  const bestOffense = byMax('gameAvgPF');
-
-  // longest current title drought among teams with a past title
-  const lastTitleYear = {};
-  CHAMPIONS.forEach(c => { lastTitleYear[c.key] = Math.max(lastTitleYear[c.key]||0, c.year); });
-  let droughtCandidates = TEAMS.filter(t=>t.champs>0).map(t => ({t, gap: LATEST_SEASON - lastTitleYear[t.key]}));
-  droughtCandidates.sort((a,b)=>b.gap-a.gap);
-  const longestDrought = droughtCandidates[0];
-
-  // never-champion with most playoff appearances (bad luck award)
-  const badLuck = TEAMS.filter(t=>t.champs===0).sort((a,b)=>b.playoffApp-a.playoffApp)[0];
-
-  const cards = [
-    {
-      medal: 'Single-Game Record', title: 'Highest Score Ever',
-      stat: `${highScore.highScore} pts`,
-      body: `${highScore.owner} (${highScore.team}) put up the biggest single-game total in league history.`
-    },
-    {
-      medal: 'Hall of Fame', title: 'Most Championships',
-      stat: `${mostTitles.champs} titles`,
-      body: `${mostTitles.owner} leads the league with ${mostTitles.champs} championships across ${mostTitles.seasons} seasons.`
-    },
-    {
-      medal: 'Best Point Differential', title: 'Most Dominant Scorer',
-      stat: `+${bestDiff.diff}/gm`,
-      body: `${bestDiff.owner} outscores opponents by ${bestDiff.diff} points per game on average, the best margin in NARPS history.`
-    },
-    {
-      medal: 'Worst Point Differential', title: 'Running Up the Score (Against Them)',
-      stat: `${worstDiff.diff}/gm`,
-      body: `${worstDiff.owner} has been outscored by ${Math.abs(worstDiff.diff)} points per game on average, the toughest margin in the league.`
-    },
-    {
-      medal: 'Best Winning Percentage', title: 'Most Consistent Winner',
-      stat: fmtPct(bestWinPct.winPct),
-      body: `${bestWinPct.owner} has the best all-time regular-record winning percentage in the league.`
-    },
-    {
-      medal: 'Worst Winning Percentage', title: 'Cellar Dweller',
-      stat: fmtPct(worstWinPct.winPct),
-      body: `${worstWinPct.owner} carries the league's toughest all-time record.`
-    },
-    {
-      medal: 'Clutch Factor', title: 'Best Playoff Win%',
-      stat: fmtPct(byMaxPlayoff.playoffWinPct),
-      body: `${byMaxPlayoff.owner} turns it on in the postseason, winning ${fmtPct(byMaxPlayoff.playoffWinPct)} of playoff games (min. 5 appearances).`
-    },
-    {
-      medal: 'Choke Artist', title: 'Worst Playoff Win%',
-      stat: fmtPct(byMinPlayoff.playoffWinPct),
-      body: `${byMinPlayoff.owner} has struggled most once the postseason arrives (min. 5 appearances).`
-    },
-    {
-      medal: 'Best Offense', title: 'Highest Career Scoring Average',
-      stat: `${bestOffense.gameAvgPF} pts/gm`,
-      body: `${bestOffense.owner} has the highest career average points per game in NARPS history.`
-    },
-    {
-      medal: 'Bad Beat', title: 'Playoff Regular, Zero Rings',
-      stat: `${badLuck.playoffApp} appearances`,
-      body: `${badLuck.owner} has made the playoffs ${badLuck.playoffApp} times without ever winning it all.`
-    },
-    {
-      medal: 'Championship Drought', title: 'Longest Time Since a Title',
-      stat: `${longestDrought.gap} yrs`,
-      body: `${longestDrought.t.owner} last won it all in ${lastTitleYear[longestDrought.t.key]}, ${longestDrought.gap} seasons and counting.`
-    },
-  ];
-
-  el.innerHTML = cards.map(c => `<div class="award-card">
-    <div class="medal">${c.medal}</div>
-    <h3>${c.title}</h3>
-    <div class="headline-stat">${c.stat}</div>
-    <p>${c.body}</p>
-  </div>`).join('');
-}
-
 // ---------- Newsletters ----------
 // ---------- Newsletters ----------
 function renderVolumesList(containerId){
@@ -1462,7 +1365,7 @@ function renderTeamDetail(containerId){
     'Twest': 'West', 'Walid': 'Salameh', 'Sonny': 'Wright', 'Garton': 'Garton' };
   const survivorYears = (typeof SURVIVOR !== 'undefined') ? Object.keys(SURVIVOR).sort((a,b) => a - b)
     .filter(y => (SURVIVOR[y].players || []).some(p => p.result === 'Winner' && SURVIVOR_NAME_TO_KEY[p.name] === key)) : [];
-  const survivorCard = `<div class="award-card"><div class="medal">NFL Survivor Titles</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length ? `<a href="survivor.html?year=${survivorYears[survivorYears.length - 1]}" style="color:inherit;">${survivorYears.join(', ')}</a>` : 'No survivor wins yet'}</p></div>`;
+  const survivorCard = `<div class="award-card"><div class="medal">NFL Survivor Titles</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length ? `<a href="survivor.html?year=${survivorYears[survivorYears.length - 1]}" style="color:inherit;">${survivorYears.join(', ')}</a>` : (key === 'Geiger' ? 'No survivor wins' : 'No survivor wins yet')}</p></div>`;
 
   const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
 
@@ -1483,7 +1386,7 @@ function renderTeamDetail(containerId){
 
   const statCards = `<div class="card-grid" style="margin-bottom:32px;">
     <div class="award-card"><div class="medal">Career Record</div><div class="headline-stat">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</div><p>${fmtPct(t.winPct)} win rate across ${t.seasons} seasons</p></div>
-    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : 'None yet'}</p></div>
+    <div class="award-card"><div class="medal">Championships</div><div class="headline-stat">${t.champs}</div><p>${titles.length ? titles.map(x=>x.year).join(', ') : (key === 'Geiger' ? 'None' : 'None yet')}</p></div>
     <div class="award-card"><div class="medal">Top 3 Finishes</div><div class="headline-stat">${top3Count}</div>${top3Badges}</div>
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
@@ -1501,7 +1404,7 @@ function renderTeamDetail(containerId){
         <div class="champ-ribbon">${t.owner.toUpperCase()}</div>
         <div class="champ-pennant-year">${c.year}</div>
       </div>
-    </div>`).join('')}</div>` : `<p class="muted">No championships yet.</p>`;
+    </div>`).join('')}</div>` : `<p class="muted">${key === 'Geiger' ? 'No championships.' : 'No championships yet.'}</p>`;
 
   const lastName = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
   const years = Object.keys(SEASONS).sort((a,b) => b - a);
@@ -1516,7 +1419,7 @@ function renderTeamDetail(containerId){
       const seasonDone = s.champion && s.champion.owner && s.champion.owner !== 'TBD';
       if(seasonDone){
         const place = finalPlacements(s)[lastName(t.owner)];
-        finish = place === 1 ? '<span class="champ-tag">Champion</span>' : place === 2 ? 'Runner-up' : place === 3 ? 'Third place' : `${ord(place)} place`;
+        finish = place === 1 ? '🥇 <span class="champ-tag">Champion</span>' : place === 2 ? '🥈 2nd' : place === 3 ? '🥉 3rd Place' : `${ord(place)} place`;
       } else {
         finish = `${ord(s.standings.indexOf(row) + 1)} (in progress)`;
       }
