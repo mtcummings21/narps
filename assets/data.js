@@ -16947,7 +16947,8 @@ const PREMIER_LEAGUE = {
         { week: 3, team: "Manchester City",   opponent: "Coventry City",  venue: "H", score: "1–0", result: "W" },
         { week: 4, team: "Crystal Palace",    opponent: "Ipswich Town",   venue: "H", score: "2–3", result: "L" },
         { week: 5, team: "Nottingham Forest", opponent: "Coventry City",  venue: "H", score: "0–1", result: "L" },
-        { week: 6, team: "Brighton",          opponent: "Sunderland",     venue: "A", score: "2–0", result: "W" }
+        { week: 6, team: "Brighton",          opponent: "Sunderland",     venue: "A", score: "2–0", result: "W" },
+        { week: 7, team: "Hull City",         opponent: "Fulham",         venue: "A" }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
@@ -16955,7 +16956,8 @@ const PREMIER_LEAGUE = {
         { week: 3, team: "Nottingham Forest", opponent: "Tottenham",      venue: "H", score: "0–0", result: "D" },
         { week: 4, team: "Aston Villa",       opponent: "Nottingham Forest", venue: "H", score: "1–2", result: "L" },
         { week: 5, team: "Hull City",         opponent: "Newcastle United", venue: "A", score: "1–2", result: "L" },
-        { week: 6, team: "Crystal Palace",    opponent: "Nottingham Forest", venue: "H", score: "3–1", result: "W" }
+        { week: 6, team: "Crystal Palace",    opponent: "Nottingham Forest", venue: "H", score: "3–1", result: "W" },
+        { week: 7, team: "Coventry City",     opponent: "Tottenham",      venue: "A" }
       ]}
     ]
   }
