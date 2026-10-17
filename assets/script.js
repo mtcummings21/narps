@@ -3059,9 +3059,25 @@ function renderPLScoreStrip(containerId){
   const wk = weeks[weeks.length - 1];
   const short = t => (typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[t]) || t;
   const row = (team, goals, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${plLogo(team, 16)} ${short(team)}</span><span class="ss-pts">${goals}</span></span>`;
+  // While a matchweek is partly played, show every fixture: finished games with scores,
+  // the rest with their kickoff time (viewer's local time).
+  const fx = (pl.fixtures && pl.fixtures[wk]) || [];
+  const done = pl.results[wk];
+  const partial = fx.length > done.length;
+  const kick = new Intl.DateTimeFormat('en-US', { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+  const finished = ([home, hg, ag, away]) => `<a class="ss-game ss-game--pl" href="premier-league-schedule.html">
+      ${ag > hg ? row(away, ag, true) + row(home, hg, false) : row(home, hg, hg > ag) + row(away, ag, false)}</a>`;
+  const games = partial
+    ? fx.map(([t, home, away]) => {
+        const r = done.find(x => x[0] === home && x[3] === away);
+        if(r) return finished(r);
+        const [day, ...tm] = kick.format(new Date(t)).replace(',', '').split(' ');
+        const up = (team, txt) => `<span class="ss-team"><span class="ss-name">${plLogo(team, 16)} ${short(team)}</span><span class="ss-pts ss-rec">${txt}</span></span>`;
+        return `<a class="ss-game ss-game--pl" href="premier-league-schedule.html">${up(home, day)}${up(away, tm.join(' '))}</a>`;
+      }).join('')
+    : done.map(finished).join('');
   el.innerHTML = `<div class="wrap ss-wrap">
-    <a class="ss-label" href="premier-league-schedule.html">Matchweek ${wk}<span>Full time</span></a>
-    <div class="ss-games">${pl.results[wk].map(([home, hg, ag, away]) => `<a class="ss-game ss-game--pl" href="premier-league-schedule.html">
-      ${ag > hg ? row(away, ag, true) + row(home, hg, false) : row(home, hg, hg > ag) + row(away, ag, false)}</a>`).join('')}</div>
+    <a class="ss-label" href="premier-league-schedule.html">Matchweek ${wk}<span>${partial ? 'In progress' : 'Full time'}</span></a>
+    <div class="ss-games">${games}</div>
   </div>`;
 }
