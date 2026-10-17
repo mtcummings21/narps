@@ -16940,7 +16940,11 @@ const PREMIER_LEAGUE = {
         ["Coventry City", 4, 1, "Newcastle United"]
       ],
       7: [
-        ["Everton", 0, 2, "Chelsea"]
+        ["Everton", 0, 2, "Chelsea"],
+        ["Brentford", 1, 2, "Liverpool"],
+        ["Fulham", 1, 0, "Hull City"],
+        ["Manchester City", 3, 2, "Ipswich Town"],
+        ["Newcastle United", 0, 1, "Aston Villa"]
       ]
     },
     players: [
@@ -16951,7 +16955,7 @@ const PREMIER_LEAGUE = {
         { week: 4, team: "Crystal Palace",    opponent: "Ipswich Town",   venue: "H", score: "2–3", result: "L" },
         { week: 5, team: "Nottingham Forest", opponent: "Coventry City",  venue: "H", score: "0–1", result: "L" },
         { week: 6, team: "Brighton",          opponent: "Sunderland",     venue: "A", score: "2–0", result: "W" },
-        { week: 7, team: "Hull City",         opponent: "Fulham",         venue: "A" }
+        { week: 7, team: "Hull City",         opponent: "Fulham",         venue: "A", score: "0–1", result: "L" }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
