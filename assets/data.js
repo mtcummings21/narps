@@ -16944,7 +16944,10 @@ const PREMIER_LEAGUE = {
         ["Brentford", 1, 2, "Liverpool"],
         ["Fulham", 1, 0, "Hull City"],
         ["Manchester City", 3, 2, "Ipswich Town"],
-        ["Newcastle United", 0, 1, "Aston Villa"]
+        ["Newcastle United", 0, 1, "Aston Villa"],
+        ["Bournemouth", 2, 0, "Sunderland"],
+        ["Brighton", 5, 0, "Crystal Palace"],
+        ["Leeds United", 1, 1, "Manchester United"]
       ]
     },
     players: [
