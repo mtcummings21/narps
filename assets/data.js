@@ -14009,7 +14009,14 @@ const NFL_WEEK1_THURSDAY = { "2026": "2026-09-10" };
 // strip switches to finals on its own and these numbers are no longer used.
 const LIVE_SCORES = {
   "2026": {
-    "Week 6": { "Fantasy Football Team": 5.2, "ACLiens": 31.5, "The Deplorables": 2.9 }
+    "Week 6": {
+      "Kareem Pie": 92.8, "Lincoln Legends": 76.7,
+      "George's Gangstas": 106.1, "Fantasy Football Team": 68.5,
+      "Route 2 Ravers": 60.5, "ACLiens": 100.5,
+      "Business as Usual": 56.3, "The Deplorables": 94.3,
+      "Money Badgers": 78.0, "Prino's Powerhouse": 57.5,
+      "Free Agents": 67.3, "Arabian Stallions": 73.7
+    }
   }
 };
 
