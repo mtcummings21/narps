@@ -3034,7 +3034,15 @@ function renderScoreStrip(containerId){
       ? team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts">${Number(live[team] || 0).toFixed(1)}</span></span>`
       : team => `<span class="ss-team"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts ss-rec">${rec[team] || ''}</span></span>`;
     label = `${nextWk}<span>${live ? 'In progress' : 'This week'}</span>`;
-    games = s.schedule[nextWk].map(g => `<a class="ss-game" href="${link}">${row(g.away)}${row(g.home)}</a>`).join('');
+    const done = (typeof LIVE_FINAL !== 'undefined' && LIVE_FINAL[year] && LIVE_FINAL[year][nextWk]) || [];
+    const finalRow = (team, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts">${Number(live[team] || 0).toFixed(1)}</span></span>`;
+    games = s.schedule[nextWk].map(g => {
+      if(live && (done.includes(g.away) || done.includes(g.home))){
+        const a = live[g.away] || 0, h = live[g.home] || 0;
+        return `<a class="ss-game" href="${link}">${h > a ? finalRow(g.home, true) + finalRow(g.away, false) : finalRow(g.away, a > h) + finalRow(g.home, false)}</a>`;
+      }
+      return `<a class="ss-game" href="${link}">${row(g.away)}${row(g.home)}</a>`;
+    }).join('');
   } else {
     const fmt = n => Number(n).toFixed(1);
     const row = (team, pts, won) => `<span class="ss-team${won ? ' won' : ''}"><span class="ss-name">${rk(team)}${team}</span><span class="ss-pts">${fmt(pts)}</span></span>`;
