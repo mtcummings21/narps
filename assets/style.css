@@ -1784,3 +1784,5 @@ tbody td{ padding: 7px 12px; }
 :root[data-theme="dark"] .title-logo{ background:#fff; border-radius:8px; padding:4px; box-sizing:content-box; height:34px; }
 @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .title-logo{ background:#fff; border-radius:8px; padding:4px; box-sizing:content-box; height:34px; } }
 @media (max-width: 760px){ .title-logo{ height:32px; } }
+.ts-table td, .ts-table th{ text-align:left; }
+.ts-table td.num, .ts-table th.num{ text-align:right; }

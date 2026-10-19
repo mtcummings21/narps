@@ -1052,7 +1052,14 @@ function renderSeasonDetail(containerId){
     const top = {};
     ['QB', 'RB', 'WR', 'TE'].forEach(pos => {
       byPos[pos].sort((a,b) => b.pts - a.pts);
-      top[pos] = byPos[pos][0] || null;
+      // Leader(s) and runner(s)-up, keeping ties together.
+      const r = n => Math.round(n * 10) / 10;
+      const list = byPos[pos];
+      const first = list.length ? r(list[0].pts) : null;
+      const leaders = list.filter(t => r(t.pts) === first);
+      const rest = list.filter(t => r(t.pts) < first);
+      const second = rest.length ? r(rest[0].pts) : null;
+      top[pos] = leaders.length ? { first: leaders, second: rest.filter(t => r(t.pts) === second) } : null;
     });
     return top;
   }
@@ -1070,12 +1077,15 @@ function renderSeasonDetail(containerId){
   const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
   const topStartersSection = hasTopStarters ? `<h2 class="section-title" style="margin-top:40px;">Top Scoring Starters</h2>
   <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Season points scored while in a starting lineup.</p>
-  <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
-    ${['QB','RB','WR','TE'].map(pos => {
+  <div class="table-scroll" style="max-width:820px; margin-bottom:32px;"><table class="ts-table">
+    <thead><tr><th>Pos</th><th>1st</th><th class="num">Pts</th><th>2nd</th><th class="num">Pts</th></tr></thead>
+    <tbody>${['QB','RB','WR','TE'].map(pos => {
       const t = topStarters[pos];
-      return t ? `<li><strong>${pos}:</strong> ${t.player} (${t.teamName}) · ${t.pts.toFixed(1)}</li>` : `<li><strong>${pos}:</strong> —</li>`;
-    }).join('')}
-  </ul>` : '';
+      if(!t) return `<tr><td><strong>${pos}</strong></td><td>—</td><td></td><td>—</td><td></td></tr>`;
+      const names = arr => arr.map(x => `${x.player} <span class="muted">(${x.teamName})</span>`).join('<br>');
+      return `<tr><td><strong>${pos}</strong></td><td>${names(t.first)}</td><td class="num"><strong>${t.first[0].pts.toFixed(1)}</strong></td><td>${t.second.length ? names(t.second) : '—'}</td><td class="num">${t.second.length ? t.second[0].pts.toFixed(1) : ''}</td></tr>`;
+    }).join('')}</tbody>
+  </table></div>` : '';
 
   // Gold/silver/bronze plaques only once the season has a champion.
   const decided = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
