@@ -729,7 +729,8 @@ function attachBoxscores(){
     const season = SEASONS[year];
     if(!season || !season.schedule) return;
     Object.keys(BOXSCORES[year]).forEach(week => {
-      const games = season.schedule[week];
+      // Keys are schedule weeks ("Week 1") or playoff round keys ("round1", "thirdPlace").
+      const games = season.schedule[week] || ((season.playoffs || {})[week] || {}).games;
       if(!games) return;
       BOXSCORES[year][week].forEach((bs, i) => {
         if(games[i] && bs) games[i].boxscore = bs;
@@ -993,11 +994,14 @@ function renderSeasonDetail(containerId){
     const r = (s.playoffs || {})[rk];
     if(!r) return '';
     const byes = r.byes ? `<p class="muted" style="font-size:0.85rem;">Bye: ${r.byes.map(b=>`${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
-    return `<h3 style="font-family:var(--display); font-size:1.3rem; margin:24px 0 10px;">${r.label}</h3>
-    <div class="table-scroll"><table>
+    const body = r.games.some(g => g.boxscore)
+      ? r.games.map(g => g.boxscore ? matchupCard(g) : `<div class="table-scroll"><table><tbody>${matchupRow(g)}</tbody></table></div>`).join('')
+      : `<div class="table-scroll"><table>
       <thead><tr><th>Away</th><th></th><th></th><th></th><th>Home</th></tr></thead>
       <tbody>${r.games.map(matchupRow).join('')}</tbody>
-    </table></div>
+    </table></div>`;
+    return `<h3 style="font-family:var(--display); font-size:1.3rem; margin:24px 0 10px;">${r.label}</h3>
+    ${body}
     ${byes}`;
   }).join('');
 
