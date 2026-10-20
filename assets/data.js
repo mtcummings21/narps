@@ -16961,7 +16961,8 @@ const PREMIER_LEAGUE = {
         ["Bournemouth", 2, 0, "Sunderland"],
         ["Brighton", 5, 0, "Crystal Palace"],
         ["Leeds United", 1, 1, "Manchester United"],
-        ["Nottingham Forest", 0, 1, "Arsenal"]
+        ["Nottingham Forest", 0, 1, "Arsenal"],
+        ["Tottenham", 3, 1, "Coventry City"]
       ]
     },
     players: [
@@ -16981,7 +16982,7 @@ const PREMIER_LEAGUE = {
         { week: 4, team: "Aston Villa",       opponent: "Nottingham Forest", venue: "H", score: "1–2", result: "L" },
         { week: 5, team: "Hull City",         opponent: "Newcastle United", venue: "A", score: "1–2", result: "L" },
         { week: 6, team: "Crystal Palace",    opponent: "Nottingham Forest", venue: "H", score: "3–1", result: "W" },
-        { week: 7, team: "Coventry City",     opponent: "Tottenham",      venue: "A" }
+        { week: 7, team: "Coventry City",     opponent: "Tottenham",      venue: "A", score: "1–3", result: "L" }
       ]}
     ]
   }
