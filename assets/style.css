@@ -1868,3 +1868,59 @@ button.bk-game.bk-active{ border-color: var(--red); box-shadow: 0 0 0 1px var(--
 .bk-hint{ font-size: 0.85rem; margin: 6px 0 0; }
 .bk-box-title{ font-family: var(--display); font-size: 1.1rem; margin: 18px 0 10px; color: var(--navy); }
 .bk-box-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+/* Season page: week picker */
+.week-picker{ display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; }
+.week-btn{
+  min-width: 38px; padding: 7px 10px; font: inherit; font-family: var(--mono); font-size: 0.8rem; font-weight: 600;
+  color: var(--text-soft); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer;
+}
+.week-btn.upcoming{ opacity: 0.6; }
+.week-btn:hover, .week-btn:focus-visible{ color: var(--navy); border-color: var(--navy); outline: none; }
+.week-btn.active{ color: #FFFFFF; background: var(--ink); border-color: var(--ink); opacity: 1; }
+.week-panel[hidden]{ display: none; }
+
+/* Rules page: "Show older votes" */
+.vt-more{
+  display: block; width: 100%; margin: 14px 0 0; padding: 12px; font: inherit; font-weight: 600; font-size: 0.88rem;
+  color: var(--navy); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer;
+}
+.vt-more:hover, .vt-more:focus-visible{ border-color: var(--navy); outline: none; }
+.vt-more[hidden], .vt-year[hidden]{ display: none; }
+
+/* Player names, year links and number columns on team, player and season pages */
+.player-link, .year-link{ color: inherit; text-decoration: none; border-bottom: 1px solid var(--line); }
+.player-link:hover, .player-link:focus-visible, .year-link:hover, .year-link:focus-visible{ color: var(--red); border-bottom-color: var(--red); outline: none; }
+#team-detail-container th.num, #team-detail-container td.num,
+#player-container th.num, #player-container td.num{ text-align: right; font-variant-numeric: tabular-nums; }
+.h2h-res{
+  display: inline-block; min-width: 18px; padding: 1px 5px; margin-right: 4px; border-radius: 4px;
+  font-family: var(--mono); font-size: 0.7rem; font-weight: 700; text-align: center;
+}
+.h2h-w{ color: #146C3B; background: rgba(31,158,90,0.14); }
+.h2h-l{ color: #A11D2B; background: rgba(214,40,57,0.12); }
+.h2h-t{ color: var(--text-soft); background: var(--line); }
+:root[data-theme="dark"] .h2h-w{ color: #3ccf85; }
+:root[data-theme="dark"] .h2h-l{ color: #ff6b6b; }
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .h2h-w{ color: #3ccf85; }
+  :root:not([data-theme="light"]) .h2h-l{ color: #ff6b6b; }
+}
+
+/* Player page search */
+.player-search{ margin: 0 0 28px; max-width: 420px; }
+.player-search input{
+  width: 100%; padding: 10px 14px; font: inherit; font-size: 0.95rem; color: var(--text);
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+}
+.player-search input:focus{ outline: none; border-color: var(--navy); }
+.player-search-msg{ font-size: 0.85rem; margin: 8px 0 0; }
+.sr-only{ position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* Box scores: bench rows under the starters */
+tr.bs-bench-head td{
+  font-family: var(--mono); font-size: 0.72rem; font-weight: 600; color: var(--text-soft);
+  background: var(--bg); border-top: 2px solid var(--line);
+}
+tr.bs-bench td{ color: var(--text-soft); }
+tr.bs-bench .player-link{ border-bottom-color: transparent; }
