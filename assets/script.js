@@ -740,6 +740,21 @@ function attachBoxscores(){
   _boxscoresAttached = true;
 }
 
+// "← 2024 · All Seasons · 2026 →" beside the season title.
+function renderSeasonPrevNext(year){
+  const nav = document.getElementById('season-nav');
+  if(!nav || typeof SEASONS === 'undefined') return;
+  const years = Object.keys(SEASONS).map(Number).sort((a,b) => a - b);
+  const y = Number(year);
+  const prev = years.filter(v => v < y).pop();
+  const next = years.find(v => v > y);
+  nav.innerHTML = [
+    prev ? `<a class="back-link" href="season.html?year=${prev}">← ${prev}</a>` : '',
+    `<a class="back-link" href="seasons.html">All Seasons</a>`,
+    next ? `<a class="back-link" href="season.html?year=${next}">${next} →</a>` : '',
+  ].filter(Boolean).join('');
+}
+
 function renderSeasonDetail(containerId){
   attachBoxscores();
   const el = document.getElementById(containerId);
@@ -752,6 +767,7 @@ function renderSeasonDetail(containerId){
       document.title = `${year} Season | League of NARPS`;
       const titleEl = document.getElementById('season-title');
       if(titleEl) titleEl.textContent = `${year} Season`;
+      renderSeasonPrevNext(year);
       const draftInfo = (typeof DRAFT_DATES !== 'undefined' && DRAFT_DATES[year]) || null;
       el.innerHTML = `
         <p class="muted" style="max-width:65ch; margin-bottom:24px;">The ${year} season hasn't kicked off yet. Here's the countdown to draft day and this year's draft order.</p>
@@ -773,6 +789,7 @@ function renderSeasonDetail(containerId){
   document.title = `${year} Season | League of NARPS`;
   const titleEl = document.getElementById('season-title');
   if(titleEl) titleEl.textContent = `${year} Season`;
+  renderSeasonPrevNext(year);
 
   const seasonStarted = (s.standings || []).some(t => (t.w||0) + (t.l||0) + (t.t||0) > 0);
 
@@ -933,7 +950,7 @@ function renderSeasonDetail(containerId){
   });
 
   const hasResults = allScoresCount > 0;
-  const highlightsSection = hasResults ? `<h2 class="section-title" style="margin-top:40px;">${year} Season Highlights</h2>
+  const highlightsSection = hasResults ? `<h2 class="section-title" id="highlights" style="margin-top:40px;">${year} Season Highlights</h2>
   <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
     <li><strong>League Team Avg. Points Per Matchup:</strong> ${leagueAvgPPM.toFixed(1)}</li>
     <li><strong>Longest Current Winning Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
@@ -1069,17 +1086,17 @@ function renderSeasonDetail(containerId){
   }
 
   const raceChartSvg = hasResults ? renderStandingsRaceChart(s, keyByLastName, lastNameOf) : '';
-  const raceChartSection = raceChartSvg ? `<h2 class="section-title" style="margin-top:40px;">Standings Race</h2>
+  const raceChartSection = raceChartSvg ? `<h2 class="section-title" id="standings-race" style="margin-top:40px;">Standings Race</h2>
   <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Each team's rank after every week of the season.</p>
   ${raceChartSvg}` : '';
   const pointsRaceSvg = hasResults ? renderPointsRaceChart(s) : '';
-  const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" style="margin-top:40px;">Points Race</h2>
+  const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" id="points-race" style="margin-top:40px;">Points Race</h2>
   <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team is ahead of the season's lowest scorer after every week.</p>
   ${pointsRaceSvg}` : '';
 
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
   const hasTopStarters = topStarters && Object.values(topStarters).some(v => v);
-  const topStartersSection = hasTopStarters ? `<h2 class="section-title" style="margin-top:40px;">Top Scoring Starters</h2>
+  const topStartersSection = hasTopStarters ? `<h2 class="section-title" id="top-starters" style="margin-top:40px;">Top Scoring Starters</h2>
   <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Season points scored while in a starting lineup.</p>
   <div class="table-scroll" style="max-width:820px; margin-bottom:32px;"><table class="ts-table">
     <thead><tr><th>Pos</th><th>1st</th><th class="num">Pts</th><th>2nd</th><th class="num">Pts</th></tr></thead>
@@ -1093,20 +1110,30 @@ function renderSeasonDetail(containerId){
 
   // Gold/silver/bronze plaques only once the season has a champion.
   const decided = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
+  const jumpLinks = seasonStarted ? [
+    ['standings', 'Standings', true],
+    ['highlights', 'Highlights', !!highlightsSection],
+    ['top-starters', 'Top Starters', !!topStartersSection],
+    ['standings-race', 'Standings Race', !!raceChartSection],
+    ['points-race', 'Points Race', !!pointsRaceSection],
+    ['playoffs', 'Playoffs', !!playoffRounds],
+    ['schedule', 'Schedule', true],
+  ].filter(j => j[2]).map(([id, label]) => `<a href="#${id}">${label}</a>`).join('') : '';
   el.innerHTML = `
+    ${jumpLinks ? `<nav class="season-jump" aria-label="Jump to section">${jumpLinks}</nav>` : ''}
     ${decided ? podium : ''}
     ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet.</p>` : ''}
     ${draftSection}
-    <h2 class="section-title" style="margin-top:${decided ? 40 : 0}px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
+    <h2 class="section-title" id="standings" style="margin-top:${decided ? 40 : 0}px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
     <div id="season-standings-mount"></div>
     <p class="muted" style="font-size:0.85rem; margin:12px 0 0;"><strong>Median Record:</strong> record against each week's league median score. <strong>All-Play Record:</strong> record if you played every team every week.</p>
     ${highlightsSection}
     ${topStartersSection}
     ${raceChartSection}
     ${pointsRaceSection}
-    ${playoffRounds ? `<h2 class="section-title" style="margin-top:40px;">Playoffs</h2>
+    ${playoffRounds ? `<h2 class="section-title" id="playoffs" style="margin-top:40px;">Playoffs</h2>
     ${playoffRounds}` : ''}
-    <h2 class="section-title" style="margin-top:40px;">Full Schedule</h2>
+    <h2 class="section-title" id="schedule" style="margin-top:40px;">Full Schedule</h2>
     ${seasonStarted ? '<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Winners in bold.</p>' : ''}
     ${scheduleWeeks}
   `;
@@ -1391,7 +1418,7 @@ function renderTeamDetail(containerId){
     .filter(y => (SURVIVOR[y].players || []).some(p => p.result === 'Winner' && SURVIVOR_NAME_TO_KEY[p.name] === key)) : [];
   const survivorCard = `<div class="award-card"><div class="medal">NFL Survivor Titles</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length ? `<a href="survivor.html?year=${survivorYears[survivorYears.length - 1]}" style="color:inherit;">${survivorYears.join(', ')}</a>` : (key === 'Geiger' ? 'No survivor wins' : 'No survivor wins yet')}</p></div>`;
 
-  const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
+  const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat headline-stat--name">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
 
   // Every 1st/2nd/3rd place finish, shown as medal badges: all 1sts, then 2nds, then 3rds (oldest first within each).
   const lnTop = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
@@ -1613,7 +1640,7 @@ function renderMarchMadness(containerId){
   const R = pool.results;
   const rows = mmRank(pool);
   const sub = document.getElementById('mm-sub');
-  if(sub) sub.innerHTML = `<a href="march-madness.html" style="color:var(--blue); text-decoration:underline;">← All Tournaments</a>`;
+  if(sub) sub.innerHTML = `<a class="back-link" href="march-madness.html">← All Tournaments</a>`;
   const pot = rows.length * (pool.entryFee || 0);
   const pay = (pool.payouts && pool.payouts[pot]) || [];
   let rank = 0;

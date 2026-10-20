@@ -1786,3 +1786,29 @@ tbody td{ padding: 7px 12px; }
 @media (max-width: 760px){ .title-logo{ height:32px; } }
 .ts-table td, .ts-table th{ text-align:left; }
 .ts-table td.num, .ts-table th.num{ text-align:right; }
+
+/* Back links ("← All Teams", season prev/next) styled like the nav */
+.back-link{ color: var(--navy); font-weight: 600; text-decoration: none; }
+.back-link:hover, .back-link:focus-visible{ color: var(--red); }
+.season-nav{ display: inline-flex; flex-wrap: wrap; gap: 14px; }
+
+/* Season page: jump-to-section row */
+.season-jump{ display: flex; flex-wrap: wrap; gap: 8px; margin: -8px 0 28px; }
+.season-jump a{
+  font-family: var(--mono); font-size: 0.75rem; font-weight: 600;
+  color: var(--text-soft); text-decoration: none;
+  padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
+}
+.season-jump a:hover, .season-jump a:focus-visible{ color: var(--navy); border-color: var(--navy); }
+#season-detail-container h2[id]{ scroll-margin-top: 96px; }
+
+/* Team page: player names in stat cards at a size that fits */
+.award-card .headline-stat--name{ font-size: 1.35rem; line-height: 1.2; }
+
+/* Homepage hero: shorter on phones so the season and standings come up sooner */
+@media (max-width: 560px){
+  .hero{ padding: 36px 0 20px; }
+  .hero h1{ font-size: 2.2rem; margin-bottom: 10px; }
+  .hero p.lede{ font-size: 0.98rem; margin-bottom: 18px; }
+  .season-cta{ padding: 10px 16px; }
+}
