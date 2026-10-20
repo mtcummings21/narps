@@ -581,8 +581,8 @@ function renderStandingsRaceChart(s, keyByLastName, lastNameOf){
   return renderRaceChart(s, 'standings');
 }
 
-// Points Race: each team's cumulative points behind that week's scoring leader.
-// Y axis is actual points behind (0 = leader, at the top).
+// Points Race: each team's cumulative points ahead of that week's lowest scorer.
+// Y axis is actual points ahead (0 = last place, at the bottom), so the leader climbs.
 function renderPointsRaceChart(s){
   const data = computeWeeklyRanks(s);
   if(!data || data.weekKeys.length < RACE_CHART_MIN_WEEKS) return '';
@@ -591,22 +591,22 @@ function renderPointsRaceChart(s){
   const fmtPts = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const round1 = (v) => Math.round(v * 10) / 10;
 
-  // behind[owner][i] = leader's cumulative points after week i minus this owner's
-  const leaderPts = weekKeys.map((_, i) => Math.max(...owners.map(o => pointsHistory[o][i])));
-  const behind = {};
-  owners.forEach(o => { behind[o] = pointsHistory[o].map((p, i) => round1(leaderPts[i] - p)); });
+  // ahead[owner][i] = this owner's cumulative points after week i minus the lowest scorer's
+  const floorPts = weekKeys.map((_, i) => Math.min(...owners.map(o => pointsHistory[o][i])));
+  const ahead = {};
+  owners.forEach(o => { ahead[o] = pointsHistory[o].map((p, i) => round1(p - floorPts[i])); });
 
-  // Y scale: 0 at top down to a rounded-up max deficit, with ~5 evenly spaced ticks
-  const maxBehind = Math.max(1, ...owners.map(o => Math.max(...behind[o])));
-  const step = [5, 10, 20, 25, 50, 100, 200, 250, 500].find(st => maxBehind / st <= 6) || 1000;
-  const yMax = Math.ceil(maxBehind / step) * step;
+  // Y scale: 0 at the bottom up to a rounded-up max lead, with ~5 evenly spaced ticks
+  const maxAhead = Math.max(1, ...owners.map(o => Math.max(...ahead[o])));
+  const step = [5, 10, 20, 25, 50, 100, 200, 250, 500].find(st => maxAhead / st <= 6) || 1000;
+  const yMax = Math.ceil(maxAhead / step) * step;
 
   const padL = 56, padR = 220, padT = 16, padB = 30;
   const chartW = 860, chartH = 60 + teamCount * 26;
   const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
   const xStep = weekKeys.length > 1 ? innerW / (weekKeys.length - 1) : 0;
   const xAt = (i) => padL + i * xStep;
-  const yAt = (v) => padT + (v / yMax) * innerH;
+  const yAt = (v) => padT + innerH - (v / yMax) * innerH;
 
   const ownerColor = {};
   owners.forEach((o, i) => { ownerColor[o] = RACE_CHART_COLORS[i % RACE_CHART_COLORS.length]; });
@@ -616,15 +616,15 @@ function renderPointsRaceChart(s){
   for(let v = 0; v <= yMax; v += step) ticks.push(v);
   const yGrid = ticks.map(v => `
     <line x1="${padL}" y1="${yAt(v)}" x2="${padL+innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
-    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v === 0 ? '0' : '−' + v}</text>`).join('');
-  const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points behind leader</text>`;
+    <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v === 0 ? '0' : '+' + v}</text>`).join('');
+  const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points ahead of last place</text>`;
   const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${weekNumLabel(wk)}</text>`).join('');
 
   // End-of-line labels, nudged apart so teams bunched near each other stay readable
   const last = weekKeys.length - 1;
   const labelGap = 13;
   const labels = owners
-    .map(o => ({ o, y: yAt(behind[o][last]) }))
+    .map(o => ({ o, y: yAt(ahead[o][last]) }))
     .sort((a, b) => a.y - b.y);
   labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + labelGap); });
   const overflow = labels.length ? labels[labels.length-1].ly - (padT + innerH + 4) : 0;
@@ -638,12 +638,12 @@ function renderPointsRaceChart(s){
   labels.forEach(l => { labelY[l.o] = l.ly; });
 
   const teamPaths = owners.map(o => {
-    const vals = behind[o];
+    const vals = ahead[o];
     const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
     const lastVal = vals[last];
-    const endLabel = lastVal === 0 ? `${teamName} · Leader` : `${teamName} · −${fmtPts(lastVal)}`;
+    const endLabel = lastVal === 0 ? `${teamName} · Last` : `${teamName} · +${fmtPts(lastVal)}`;
     const pts = vals.map((v, i) => `${xAt(i)},${yAt(v)}`).join(' ');
-    const weekDots = vals.map((v, i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="5" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName}, ${weekNumLabel(weekKeys[i])}: ${v === 0 ? 'leader' : fmtPts(v) + ' behind'} (${fmtPts(pointsHistory[o][i])} pts)</title></circle>`).join('');
+    const weekDots = vals.map((v, i) => `<circle cx="${xAt(i)}" cy="${yAt(v)}" r="5" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName}, ${weekNumLabel(weekKeys[i])}: ${v === 0 ? 'last place' : fmtPts(v) + ' ahead of last'} (${fmtPts(pointsHistory[o][i])} pts)</title></circle>`).join('');
     return `
       <g class="race-team">
         <polyline points="${pts}" fill="none" stroke="${ownerColor[o]}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
@@ -1074,7 +1074,7 @@ function renderSeasonDetail(containerId){
   ${raceChartSvg}` : '';
   const pointsRaceSvg = hasResults ? renderPointsRaceChart(s) : '';
   const pointsRaceSection = pointsRaceSvg ? `<h2 class="section-title" style="margin-top:40px;">Points Race</h2>
-  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team trails the season's scoring leader after every week.</p>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">How far each team is ahead of the season's lowest scorer after every week.</p>
   ${pointsRaceSvg}` : '';
 
   const topStarters = hasResults ? computeTopStartersByPosition(s) : null;
