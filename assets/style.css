@@ -1812,3 +1812,59 @@ tbody td{ padding: 7px 12px; }
   .hero p.lede{ font-size: 0.98rem; margin-bottom: 18px; }
   .season-cta{ padding: 10px 16px; }
 }
+
+/* ---------- Season page: playoff bracket (desktop only; phones keep the list) ---------- */
+.bracket-wrap{ display: none; }
+@media (min-width: 900px){
+  .bracket-wrap{ display: block; }
+  .playoffs-list.has-bracket{ display: none; }
+}
+.bracket{
+  display: grid;
+  grid-template-rows: auto repeat(4, minmax(44px, auto)) auto;
+  column-gap: 0;
+  row-gap: 10px;
+  margin-top: 8px;
+}
+.bk-col-head{
+  grid-row: 1;
+  font-family: var(--display); font-weight: 700; font-size: 1.05rem; color: var(--navy);
+  padding-bottom: 4px;
+}
+.bk-col-head span{ display: block; font-family: var(--mono); font-weight: 500; font-size: 0.72rem; color: var(--text-soft); margin-top: 2px; }
+.bk-cell{ display: flex; align-items: center; }
+.bk-game{
+  width: 100%; padding: 0; margin: 0; font: inherit; text-align: left; color: var(--text);
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  overflow: hidden;
+}
+button.bk-game{ cursor: pointer; transition: border-color 0.15s ease, box-shadow 0.15s ease; }
+button.bk-game:hover, button.bk-game:focus-visible{ border-color: var(--navy); outline: none; }
+button.bk-game.bk-active{ border-color: var(--red); box-shadow: 0 0 0 1px var(--red); }
+.bk-game.bk-final{ border-top: 3px solid #B8860B; }
+.bk-team{
+  display: grid; grid-template-columns: 22px 1fr auto; align-items: center; gap: 8px;
+  padding: 8px 12px; font-size: 0.85rem; color: var(--text-soft);
+}
+.bk-team + .bk-team{ border-top: 1px solid var(--line); }
+.bk-team.bk-win{ color: var(--navy); font-weight: 700; }
+.bk-seed{ font-family: var(--mono); font-size: 0.72rem; color: var(--text-soft); font-weight: 500; }
+.bk-name{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.bk-score{ font-family: var(--mono); font-size: 0.82rem; }
+.bk-link{ position: relative; }
+.bk-link--straight::before{
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; border-top: 2px solid var(--line);
+}
+.bk-link--join::before{
+  content: ""; position: absolute; left: 0; width: 50%; top: 25%; bottom: 25%;
+  border: 2px solid var(--line); border-left: none; border-radius: 0 4px 4px 0;
+}
+.bk-link--join::after{
+  content: ""; position: absolute; left: 50%; right: 0; top: 50%; border-top: 2px solid var(--line);
+}
+.bk-third{ grid-row: 6; }
+.bk-third-head{ font-family: var(--mono); font-size: 0.72rem; color: var(--text-soft); margin: 0 0 6px; }
+.bk-byes{ font-size: 0.85rem; margin: 14px 0 0; }
+.bk-hint{ font-size: 0.85rem; margin: 6px 0 0; }
+.bk-box-title{ font-family: var(--display); font-size: 1.1rem; margin: 18px 0 10px; color: var(--navy); }
+.bk-box-grid{ display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }

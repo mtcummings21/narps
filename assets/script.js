@@ -740,6 +740,106 @@ function attachBoxscores(){
   _boxscoresAttached = true;
 }
 
+// ---------- Playoff bracket (desktop) ----------
+// Columns for each round present (Round 1, Round 2, Championship), with connector
+// lines between them and the 3rd place game under the championship. Round 1 games
+// are reordered so each lines up with the Round 2 game its winner played in.
+// Clicking a game that has a box score shows it under the bracket.
+function renderPlayoffBracket(s){
+  const p = s.playoffs || {};
+  if(!p.round1 || !p.round3) return '';
+  const seedOf = (team, mgr) => {
+    const i = (s.standings || []).findIndex(r => r.owner === mgr || r.team === team);
+    return i >= 0 ? i + 1 : '';
+  };
+  const winnerOf = g => g.awayScore > g.homeScore ? g.away : (g.homeScore > g.awayScore ? g.home : null);
+  const splitLabel = (label, fallback) => {
+    const m = (label || '').match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+    const head = (m ? m[1] : (label || fallback)).split('/').pop().trim();
+    return { title: head || fallback, sub: m ? m[2] : '' };
+  };
+
+  const r2 = p.round2 ? p.round2.games : null;
+  let r1 = p.round1.games.slice();
+  if(r2){
+    r1 = r2.map(g2 => r1.find(g1 => [g2.away, g2.home].includes(winnerOf(g1)))).filter(Boolean);
+    p.round1.games.forEach(g1 => { if(!r1.includes(g1)) r1.push(g1); });
+  }
+
+  const gameBox = (g, roundKey, extraCls = '') => {
+    const idx = (p[roundKey].games || []).indexOf(g);
+    const w = winnerOf(g);
+    const side = (team, mgr, score) => `<div class="bk-team${team === w ? ' bk-win' : ''}">
+        <span class="bk-seed">${seedOf(team, mgr)}</span>
+        <span class="bk-name">${team}</span>
+        <span class="bk-score">${Number(score).toFixed(1)}</span>
+      </div>`;
+    const inner = side(g.away, g.awayMgr, g.awayScore) + side(g.home, g.homeMgr, g.homeScore);
+    return g.boxscore
+      ? `<button type="button" class="bk-game ${extraCls}" data-bk="${roundKey}:${idx}" aria-label="${g.away} vs ${g.home} box score">${inner}</button>`
+      : `<div class="bk-game ${extraCls}">${inner}</div>`;
+  };
+
+  const col = (roundKey, games, rows) => {
+    const lab = splitLabel(p[roundKey].label, roundKey);
+    return `<div class="bk-col-head" style="grid-column:${rows.col};">${lab.title}<span>${lab.sub}</span></div>` +
+      games.map((g, i) => `<div class="bk-cell" style="grid-column:${rows.col}; grid-row:${rows.at[i]};">${gameBox(g, roundKey)}</div>`).join('');
+  };
+
+  let cells = '', cols = '';
+  let c = 1;
+  // Round 1
+  cells += col('round1', r1, { col: c, at: ['2 / 4', '4 / 6'] });
+  cols += 'minmax(0,1fr) ';
+  c++;
+  if(r2){
+    // straight connectors Round 1 -> Round 2 (each Round 2 game also has a bye seed)
+    cells += `<div class="bk-link bk-link--straight" style="grid-column:${c}; grid-row:2 / 4;"></div>
+              <div class="bk-link bk-link--straight" style="grid-column:${c}; grid-row:4 / 6;"></div>`;
+    cols += '28px '; c++;
+    cells += col('round2', r2, { col: c, at: ['2 / 4', '4 / 6'] });
+    cols += 'minmax(0,1fr) '; c++;
+  }
+  // pair connector into the championship
+  cells += `<div class="bk-link bk-link--join" style="grid-column:${c}; grid-row:2 / 6;"></div>`;
+  cols += '28px '; c++;
+  const champ = splitLabel(p.round3.label, 'Championship');
+  cells += `<div class="bk-col-head" style="grid-column:${c};">${champ.title}<span>${champ.sub}</span></div>
+            <div class="bk-cell" style="grid-column:${c}; grid-row:2 / 6;">${gameBox(p.round3.games[0], 'round3', 'bk-final')}</div>
+            ${p.thirdPlace ? `<div class="bk-third" style="grid-column:${c};"><div class="bk-third-head">3rd Place</div>${gameBox(p.thirdPlace.games[0], 'thirdPlace')}</div>` : ''}`;
+  cols += 'minmax(0,1fr)';
+
+  const byes = p.round1.byes ? `<p class="muted bk-byes">Round 1 byes: ${p.round1.byes.map(b => `${b.team} (${b.pts} pts)`).join(', ')}</p>` : '';
+  const anyBox = Object.values(p).some(r => (r.games || []).some(g => g.boxscore));
+  return `<div class="bracket-wrap">
+    <div class="bracket" style="grid-template-columns:${cols};">${cells}</div>
+    ${byes}
+    ${anyBox ? `<p class="muted bk-hint">Select a game to see its box score.</p><div class="bk-boxscore" id="bk-boxscore"></div>` : ''}
+  </div>`;
+}
+
+function wirePlayoffBracket(root, s){
+  const out = root.querySelector('#bk-boxscore');
+  if(!out) return;
+  root.querySelectorAll('.bk-game[data-bk]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const [rk, i] = btn.getAttribute('data-bk').split(':');
+      const g = ((s.playoffs || {})[rk] || {}).games[Number(i)];
+      if(!g || !g.boxscore) return;
+      const wasActive = btn.classList.contains('bk-active');
+      root.querySelectorAll('.bk-game.bk-active').forEach(b => b.classList.remove('bk-active'));
+      if(wasActive){ out.innerHTML = ''; return; }
+      btn.classList.add('bk-active');
+      const label = (s.playoffs[rk].label || '').replace(/^Round \d+\s*\/\s*/, '');
+      out.innerHTML = `<h3 class="bk-box-title">${label}: ${g.away} vs ${g.home}</h3>
+        <div class="bk-box-grid">
+          ${boxscoreSideTable(g.away, g.awayScore, g.boxscore.away)}
+          ${boxscoreSideTable(g.home, g.homeScore, g.boxscore.home)}
+        </div>`;
+    });
+  });
+}
+
 // "← 2024 · All Seasons · 2026 →" beside the season title.
 function renderSeasonPrevNext(year){
   const nav = document.getElementById('season-nav');
@@ -1022,6 +1122,8 @@ function renderSeasonDetail(containerId){
     ${byes}`;
   }).join('');
 
+  const playoffBracket = playoffRounds ? renderPlayoffBracket(s) : '';
+
   const scheduleWeeks = Object.keys(s.schedule).map(wk => {
     const games = s.schedule[wk];
     const hasBoxscores = games.some(g => g.boxscore);
@@ -1132,7 +1234,8 @@ function renderSeasonDetail(containerId){
     ${raceChartSection}
     ${pointsRaceSection}
     ${playoffRounds ? `<h2 class="section-title" id="playoffs" style="margin-top:40px;">Playoffs</h2>
-    ${playoffRounds}` : ''}
+    ${playoffBracket}
+    <div class="playoffs-list${playoffBracket ? ' has-bracket' : ''}">${playoffRounds}</div>` : ''}
     <h2 class="section-title" id="schedule" style="margin-top:40px;">Full Schedule</h2>
     ${seasonStarted ? '<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Winners in bold.</p>' : ''}
     ${scheduleWeeks}
@@ -1143,6 +1246,7 @@ function renderSeasonDetail(containerId){
     renderDraftOrder('season-draft-order', year);
   }
   renderSortableStandingsTable('season-standings-mount', standingsRows, showPayouts);
+  wirePlayoffBracket(el, s);
 }
 
 function renderSortableStandingsTable(containerId, rows, showPayouts){
