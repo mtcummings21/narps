@@ -2052,6 +2052,8 @@ function plLogo(team, size = 20){
   if(!id) return '';
   return `<img class="pl-logo" src="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" alt="" width="${size}" height="${size}" loading="lazy">`;
 }
+function plClubUrl(club){ return `premier-league-club.html?club=${encodeURIComponent(club)}`; }
+function plClubLink(club, html = club){ return `<a class="pl-club-link" href="${plClubUrl(club)}">${html}</a>`; }
 
 // Cumulative points race. Each player's line starts at 0 and steps through the weeks they have a
 // settled pick; each point carries the crest of the club picked that week.
@@ -2219,7 +2221,7 @@ function renderPremierLeaguePointsRace(s){
       ${id ? `<circle class="pl-crest-bg" cx="${labelX}" cy="${ly}" r="${crest / 2 + 1}" fill="var(--panel)" stroke="var(--line)" stroke-width="1" /><image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${labelX - crest / 2 + 2}" y="${ly - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
       <text x="${labelX + crest / 2 + 6}" y="${ly + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="var(--text)">${name} <tspan font-family="var(--mono)" font-weight="700">${last.pts}</tspan></text>
       ${dots}
-      <rect x="${labelX - crest / 2 - 2}" y="${ly - gap / 2}" width="${padR - 30}" height="${gap}" fill="transparent"><title>${x.club}: ${last.pts} pts</title></rect>
+      <a href="${plClubUrl(x.club)}"><rect x="${labelX - crest / 2 - 2}" y="${ly - gap / 2}" width="${padR - 30}" height="${gap}" fill="transparent" style="cursor:pointer;"><title>${x.club}: ${last.pts} pts</title></rect></a>
     </g>`;
   }).join('');
 
@@ -2240,7 +2242,7 @@ function renderPremierLeagueTable(s){
   const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
   const body = rows.map((r, i) => `<tr>
       <td class="pos">${i + 1}</td>
-      <td class="name-cell">${plLogo(r.club, 18)} ${(typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[r.club]) ? `<span class="pl-name-full">${r.club}</span><span class="pl-name-short">${PL_SHORT_NAME[r.club]}</span>` : r.club}</td>
+      <td class="name-cell">${plClubLink(r.club, `${plLogo(r.club, 18)} ${(typeof PL_SHORT_NAME !== 'undefined' && PL_SHORT_NAME[r.club]) ? `<span class="pl-name-full">${r.club}</span><span class="pl-name-short">${PL_SHORT_NAME[r.club]}</span>` : r.club}`)}</td>
       <td><strong>${r.pts}</strong></td>
       <td>${r.p}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
       <td>${r.gf}</td><td>${r.ga}</td><td>${fmtGd(r.gd)}</td>
@@ -2309,9 +2311,9 @@ function renderPremierLeagueSchedule(containerId){
       const r = scoreOf(h, a);
       const mid = r ? `<span class="pl-sched-score">${r[1]} – ${r[2]}</span>` : `<span class="pl-sched-time">${timeFmt.format(d)}</span>`;
       return `${head}<div class="pl-sched-row">
-          <span class="pl-sched-team pl-sched-home"><span class="pl-sched-line"><span class="pl-sched-name">${nameHtml(h)}</span>${plLogo(h, 20)}</span>${chips(h)}</span>
+          <span class="pl-sched-team pl-sched-home"><a class="pl-sched-line pl-club-link" href="${plClubUrl(h)}"><span class="pl-sched-name">${nameHtml(h)}</span>${plLogo(h, 20)}</a>${chips(h)}</span>
           ${mid}
-          <span class="pl-sched-team pl-sched-away"><span class="pl-sched-line">${plLogo(a, 20)}<span class="pl-sched-name">${nameHtml(a)}</span></span>${chips(a)}</span>
+          <span class="pl-sched-team pl-sched-away"><a class="pl-sched-line pl-club-link" href="${plClubUrl(a)}">${plLogo(a, 20)}<span class="pl-sched-name">${nameHtml(a)}</span></a>${chips(a)}</span>
         </div>`;
     }).join('');
     const opts = weeks.map(w => `<option value="${w}"${w === week ? ' selected' : ''}>Week ${w} · ${range(w)}${w === current ? ' · Current' : ''}</option>`).join('');
@@ -2364,13 +2366,15 @@ function renderPremierLeague(containerId){
     if(!pk) return '<td class="muted">—</td>';
     const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
     const detail = pk.opponent ? `<div class="pl-detail">${pk.venue === 'A' ? 'at' : 'vs'} ${pk.opponent}${pk.score ? ' · ' + pk.score : ''}</div>` : '';
-    return `<td>${res} ${plLogo(pk.team, 18)} ${pk.team}${detail}</td>`;
+    return `<td>${res} ${plClubLink(pk.team, `${plLogo(pk.team, 18)} ${pk.team}`)}${detail}</td>`;
   };
   const weekRows = Array.from({ length: maxWeek }, (_, i) => maxWeek - i)
     .map(w => `<tr><td class="pos">${w}</td>${s.players.map(p => pickCell(p, w)).join('')}</tr>`).join('');
 
-  const clubs = [...new Set([...(s.clubs || []), ...s.players.flatMap(p => p.picks.map(pk => pk.team))])].sort();
-  const usageRows = clubs.map(c => `<tr><td class="name-cell">${plLogo(c, 18)} ${c}</td>${s.players.map(p => {
+  // Club Usage follows the current league table order.
+  const tableOrder = plStandingsAfter(s, Math.max(0, ...Object.keys(s.results || {}).map(Number))).map(r => r.club);
+  const clubs = [...new Set([...tableOrder, ...s.players.flatMap(p => p.picks.map(pk => pk.team))])];
+  const usageRows = clubs.map(c => `<tr><td class="name-cell">${plClubLink(c, `${plLogo(c, 18)} ${c}`)}</td>${s.players.map(p => {
     const n = p.picks.filter(pk => pk.team === c).length;
     return `<td${n >= 2 ? ' class="pl-maxed"' : ''}>${n ? n + ' / 2' : '—'}</td>`;
   }).join('')}</tr>`).join('');
@@ -2424,7 +2428,7 @@ function renderPremierLeaguePlayer(containerId){
              pts: used.filter(pk => pk.result).reduce((t, pk) => t + PTS[pk.result], 0) };
   }).sort((a,b) => b.n - a.n || a.club.localeCompare(b.club));
   const clubRows = clubs.map(c => `<tr>
-      <td class="name-cell">${plLogo(c.club, 18)} ${c.club}</td>
+      <td class="name-cell">${plClubLink(c.club, `${plLogo(c.club, 18)} ${c.club}`)}</td>
       <td${c.n >= 2 ? ' class="pl-maxed"' : ''}>${c.n}</td>
       <td>${Math.max(0, 2 - c.n)}</td>
       <td>${c.weeks.length ? c.weeks.join(', ') : '—'}</td>
@@ -2438,7 +2442,7 @@ function renderPremierLeaguePlayer(containerId){
     const res = pk.result ? `<span class="pl-res pl-res--${pk.result}">${pk.result}</span>` : '<span class="pl-res">TBD</span>';
     return `<tr>
       <td class="pos">${pk.week}</td>
-      <td class="name-cell">${plLogo(pk.team, 18)} ${pk.team}</td>
+      <td class="name-cell">${plClubLink(pk.team, `${plLogo(pk.team, 18)} ${pk.team}`)}</td>
       <td>${pk.opponent ? (pk.venue === 'A' ? 'at ' : 'vs ') + pk.opponent : '—'}</td>
       <td>${pk.score || '—'}</td>
       <td>${res}</td>
@@ -2460,6 +2464,104 @@ function renderPremierLeaguePlayer(containerId){
       <tbody>${weekRows}</tbody>
     </table></div>` : '<p class="muted">No picks yet.</p>'}
     <p style="margin-top:24px;"><a href="premier-league.html">&larr; Back to Premier Pick 2</a></p>`;
+}
+
+// Club page: a club's results so far and its remaining fixtures, from PREMIER_LEAGUE[year].fixtures/results.
+function renderPremierLeagueClub(containerId){
+  const el = document.getElementById(containerId);
+  if(!el || typeof PREMIER_LEAGUE === 'undefined') return;
+  const params = new URLSearchParams(window.location.search);
+  const years = Object.keys(PREMIER_LEAGUE).sort((a,b) => b - a);
+  const year = (params.get('year') && PREMIER_LEAGUE[params.get('year')]) ? params.get('year') : years[0];
+  const s = PREMIER_LEAGUE[year];
+  const club = params.get('club');
+  if(!s || !club || !(s.clubs || []).includes(club)){
+    el.innerHTML = `<p class="muted">Club not found. <a href="premier-league-table.html">Back to the League Table</a></p>`;
+    return;
+  }
+
+  document.title = `${club} | Premier Pick 2 | League of NARPS`;
+  const titleEl = document.getElementById('pl-club-title');
+  if(titleEl) titleEl.textContent = club;
+  const subEl = document.getElementById('pl-club-sub');
+  if(subEl) subEl.textContent = `${s.season} Premier League`;
+  const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[club] : null;
+  const crestEl = document.querySelector('.title-logo');
+  if(crestEl && id){ crestEl.src = `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`; crestEl.alt = club; crestEl.classList.add('pl-logo'); }
+
+  const nameHtml = team => {
+    const short = (typeof PL_SHORT_NAME !== 'undefined') ? PL_SHORT_NAME[team] : null;
+    return short ? `<span class="pl-name-full">${team}</span><span class="pl-name-short">${short}</span>` : team;
+  };
+  const opp = (team, home) => `${home ? 'vs' : 'at'} ${plClubLink(team, `${plLogo(team, 18)} ${nameHtml(team)}`)}`;
+  const dateFmt = new Intl.DateTimeFormat('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+  const timeFmt = new Intl.DateTimeFormat('en-US', { hour: 'numeric', minute: '2-digit' });
+
+  // Kickoff lookup so played games can show their date.
+  const kickoff = {};
+  Object.values(s.fixtures || {}).forEach(fx => fx.forEach(([ko, h, a]) => { kickoff[h + '|' + a] = ko; }));
+
+  // Results: every entered match involving the club, in matchweek order.
+  const played = new Set();
+  const results = [];
+  Object.keys(s.results || {}).map(Number).sort((a,b) => a - b).forEach(w => {
+    s.results[w].forEach(([h, hg, ag, a]) => {
+      if(h !== club && a !== club) return;
+      played.add(h + '|' + a);
+      const home = h === club, f = home ? hg : ag, g = home ? ag : hg;
+      results.push({ w, home, opp: home ? a : h, f, g, res: f > g ? 'W' : f === g ? 'D' : 'L', ko: kickoff[h + '|' + a] });
+    });
+  });
+
+  // Remaining fixtures: anything on the schedule without an entered result.
+  const upcoming = [];
+  Object.keys(s.fixtures || {}).map(Number).sort((a,b) => a - b).forEach(w => {
+    s.fixtures[w].forEach(([ko, h, a]) => {
+      if((h !== club && a !== club) || played.has(h + '|' + a)) return;
+      upcoming.push({ w, ko, home: h === club, opp: h === club ? a : h });
+    });
+  });
+  upcoming.sort((a,b) => Date.parse(a.ko) - Date.parse(b.ko));
+
+  const lastWeek = Math.max(0, ...Object.keys(s.results || {}).map(Number));
+  const table = plStandingsAfter(s, lastWeek);
+  const pos = table.findIndex(r => r.club === club) + 1;
+  const r = table[pos - 1];
+  const ord = n => n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ['th','st','nd','rd'][n % 10] || 'th');
+  const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
+  const usage = (s.players || []).map(p => {
+    const wks = p.picks.filter(pk => pk.team === club).map(pk => pk.week);
+    return `<span style="white-space:nowrap;"><span class="pl-pick-chip pl-pick-chip--${p.name}${wks.length >= 2 ? ' pl-pick-chip--max' : ''}">${p.name} ${wks.length}/2</span>${wks.length ? ` <span class="muted" style="font-size:0.8rem;">Wk ${wks.join(', ')}</span>` : ''}</span>`;
+  }).join(' &nbsp; ');
+
+  const resultRows = results.map(x => `<tr>
+      <td class="pos">${x.w}</td>
+      <td>${x.ko ? dateFmt.format(new Date(x.ko)) : '—'}</td>
+      <td class="name-cell">${opp(x.opp, x.home)}</td>
+      <td><strong>${x.f}–${x.g}</strong></td>
+      <td><span class="pl-res pl-res--${x.res}">${x.res}</span></td>
+    </tr>`).join('');
+  const upcomingRows = upcoming.map(x => `<tr>
+      <td class="pos">${x.w}</td>
+      <td>${dateFmt.format(new Date(x.ko))}</td>
+      <td>${timeFmt.format(new Date(x.ko))}</td>
+      <td class="name-cell">${opp(x.opp, x.home)}</td>
+    </tr>`).join('');
+
+  el.innerHTML = `
+    <p class="muted">${r && r.p ? `<strong>${ord(pos)}</strong> · ${r.pts} pts · ${r.w}–${r.d}–${r.l} · GD ${fmtGd(r.gd)} &nbsp;·&nbsp; ` : ''}Picked: ${usage}</p>
+    <h3>Results</h3>
+    ${results.length ? `<div class="table-scroll"><table class="pl-club-table">
+      <thead><tr><th>Wk</th><th>Date</th><th>Opponent</th><th>Score</th><th>Result</th></tr></thead>
+      <tbody>${resultRows}</tbody>
+    </table></div>` : '<p class="muted">No results yet.</p>'}
+    <h3>Upcoming Fixtures</h3>
+    ${upcoming.length ? `<div class="table-scroll"><table class="pl-club-table">
+      <thead><tr><th>Wk</th><th>Date</th><th>Kickoff</th><th>Opponent</th></tr></thead>
+      <tbody>${upcomingRows}</tbody>
+    </table></div>
+    <p class="muted" style="font-size:0.8rem; margin-top:10px;">Kickoff times in your local time zone. Times for later matchweeks are provisional and may move for TV.</p>` : '<p class="muted">No fixtures remaining.</p>'}
+    <p style="margin-top:24px;"><a href="premier-league-table.html">&larr; Back to the League Table</a></p>`;
 }
 
 function renderSurvivor(containerId){
