@@ -1475,10 +1475,15 @@ function renderHeadlines(containerId){
       <div class="standings-col-more">Full ${latestYear} season, with scores, box scores and charts</div>
     </a>` : '';
 
+  // Latest issue in NEWSLETTERS (highest vol, then highest no), so a new issue only needs a data.js entry.
+  const latestNl = (typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : []).slice().sort((a,b) => (b.vol - a.vol) || (b.no - a.no))[0];
+  const newsletterBanner = latestNl ? `
+    <a class="newsletter-banner" href="${latestNl.url}">
+      Read the latest newsletter: Vol. ${latestNl.vol}, No. ${latestNl.no}, “${latestNl.title}”
+    </a>` : '';
+
   el.innerHTML = `
-    <a class="newsletter-banner" href="newsletter-vol9-no5.html">
-      Read the latest newsletter: Vol. 9, No. 5, “NARPS Franchises and their NFL Equivalents”
-    </a>
+    ${newsletterBanner}
     <div class="headlines-card">
       <div class="headlines-split">
         <div class="headlines-col">
