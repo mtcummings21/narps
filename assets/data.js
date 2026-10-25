@@ -14016,13 +14016,13 @@ const NFL_WEEK1_THURSDAY = { "2026": "2026-09-10" };
 // strip switches to finals on its own and these numbers are no longer used.
 const LIVE_SCORES = {
   "2026": {
-    "Week 6": {
-      "Kareem Pie": 100.7, "Lincoln Legends": 88.0,
-      "George's Gangstas": 112.3, "Fantasy Football Team": 88.7,
-      "Route 2 Ravers": 91.9, "ACLiens": 100.5,
-      "Business as Usual": 67.8, "The Deplorables": 96.6,
-      "Money Badgers": 78.0, "Prino's Powerhouse": 57.5,
-      "Free Agents": 67.3, "Arabian Stallions": 73.7
+    "Week 7": {
+      "Kareem Pie": 73.5, "Fantasy Football Team": 60.9,
+      "Lincoln Legends": 76.7, "ACLiens": 86.6,
+      "George's Gangstas": 58.4, "The Deplorables": 60.8,
+      "Route 2 Ravers": 69.3, "Prino's Powerhouse": 103.5,
+      "Business as Usual": 87.5, "Arabian Stallions": 88.7,
+      "Money Badgers": 99.2, "Free Agents": 120.9
     }
   }
 };
@@ -14030,7 +14030,7 @@ const LIVE_SCORES = {
 // Matchups in the live week that are already final (list either team). The homepage strip
 // bolds the winner and puts them on top for these games; the rest stay "in progress".
 const LIVE_FINAL = {
-  "2026": { "Week 6": ["Business as Usual", "Free Agents"] }
+  "2026": { "Week 7": [] }
 };
 
 // Season payouts shown in the standings table. weeklyHigh is paid during the season;
