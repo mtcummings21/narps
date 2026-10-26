@@ -2593,11 +2593,13 @@ function renderSurvivor(containerId){
     return (b.eliminatedWeek || 0) - (a.eliminatedWeek || 0);
   });
 
+  // champion is a name, or an array of names when the last players went out the same week (co-winners)
+  const coChamps = Array.isArray(s.champion) && s.champion.length > 1;
   const champCard = s.champion ? `<div class="trophy-case">
     <div class="plaque">
-      <div class="yr">${year} SURVIVOR CHAMPION</div>
-      <div class="owner">${s.champion}</div>
-      <div class="team">Last one standing</div>
+      <div class="yr">${year} SURVIVOR ${coChamps ? 'CO-CHAMPIONS' : 'CHAMPION'}</div>
+      <div class="owner">${[].concat(s.champion).join(' &amp; ')}</div>
+      <div class="team">${coChamps ? 'Last ones standing' : 'Last one standing'}</div>
     </div>
   </div>` : '';
 
