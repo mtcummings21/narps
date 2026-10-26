@@ -1561,13 +1561,52 @@ function renderTeamDetail(containerId){
     }
   }
 
-  // NFL Survivor titles: survivor entries use short names, mapped here to league franchises.
-  const SURVIVOR_NAME_TO_KEY = { 'Aaron': 'Burns', 'Clay': 'Clay', 'Seth': 'Thacker', 'Z': 'Hickman', 'Z Hickman': 'Hickman',
-    'Zach': 'Sizemore', 'Sizemore': 'Sizemore', 'Cummings': 'Cummings', 'Luke': 'Rapp', 'Geiger': 'Geiger', 'Prino': 'Prino',
+  // Other games (Survivor, March Madness, Super Bowl Squares, Premier Pick 2): entries use short or
+  // full names, mapped here to league franchises. Names not listed (e.g. Pat Hickman, Bry) aren't owners.
+  const OTHER_GAMES_NAME_TO_KEY = { 'Aaron': 'Burns', 'Clay': 'Clay', 'Seth': 'Thacker', 'Z': 'Hickman', 'Z Hickman': 'Hickman',
+    'Zach': 'Sizemore', 'Sizemore': 'Sizemore', 'Cummings': 'Cummings', 'TC': 'Cummings', 'Luke': 'Rapp', 'Geiger': 'Geiger', 'Prino': 'Prino',
     'Twest': 'West', 'Walid': 'Salameh', 'Sonny': 'Wright', 'Garton': 'Garton' };
+  const isOwner = name => OTHER_GAMES_NAME_TO_KEY[name] === key || (TEAMS.find(x => x.owner === name) || {}).key === key;
+  const yearLinks = (page, years) => years.map(y => `<a href="${page}?year=${y}" style="color:inherit;">${y}</a>`).join(', ');
+
   const survivorYears = (typeof SURVIVOR !== 'undefined') ? Object.keys(SURVIVOR).sort((a,b) => a - b)
-    .filter(y => (SURVIVOR[y].players || []).some(p => p.result === 'Winner' && SURVIVOR_NAME_TO_KEY[p.name] === key)) : [];
-  const survivorCard = `<div class="award-card"><div class="medal">NFL Survivor Titles</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length ? `<a href="survivor.html?year=${survivorYears[survivorYears.length - 1]}" style="color:inherit;">${survivorYears.join(', ')}</a>` : (key === 'Geiger' ? 'No survivor wins' : 'No survivor wins yet')}</p></div>`;
+    .filter(y => (SURVIVOR[y].players || []).some(p => p.result === 'Winner' && isOwner(p.name))) : [];
+
+  // March Madness: 1st place in the pool (points, then correct picks), once the tournament has a champion.
+  const mmYears = (typeof MARCH_MADNESS !== 'undefined') ? Object.keys(MARCH_MADNESS).sort((a,b) => a - b).filter(y => {
+    const pool = MARCH_MADNESS[y];
+    if(!pool.results || !pool.results.Champion) return false;
+    const correct = sc => sc.correct.reduce((a, b) => a + b, 0);
+    const rows = Object.entries(pool.entries).map(([name, e]) => ({ name, s: mmScore(pool, e) }))
+      .sort((a,b) => b.s.total - a.s.total || correct(b.s) - correct(a.s));
+    return rows.length > 0 && isOwner(rows[0].name);
+  }) : [];
+
+  // Super Bowl Squares: every quarter won.
+  const sbWins = (typeof SUPER_BOWL_SQUARES !== 'undefined') ? Object.keys(SUPER_BOWL_SQUARES).sort((a,b) => a - b).map(y => {
+    const g = SUPER_BOWL_SQUARES[y];
+    const qs = g.noContest ? [] : (g.scores || []).map((sc, q) => {
+      const r = g.side.digits.indexOf(sc.side % 10), c = g.top.digits.indexOf(sc.top % 10);
+      return (r >= 0 && c >= 0 && isOwner(g.grid[r][c])) ? 'Q' + (q + 1) : null;
+    }).filter(Boolean);
+    return { y, qs };
+  }).filter(w => w.qs.length) : [];
+
+  // Premier Pick 2: season winner, once a season's data sets a champion.
+  const plYears = (typeof PREMIER_LEAGUE !== 'undefined') ? Object.keys(PREMIER_LEAGUE).sort((a,b) => a - b)
+    .filter(y => [].concat(PREMIER_LEAGUE[y].champion || []).some(isOwner)) : [];
+
+  const otherGameCards = [
+    survivorYears.length && `<div class="award-card"><div class="medal">NFL Survivor</div><div class="headline-stat">${survivorYears.length}</div><p>${survivorYears.length === 1 ? 'Title' : 'Titles'}: ${yearLinks('survivor.html', survivorYears)}</p></div>`,
+    mmYears.length && `<div class="award-card"><div class="medal">March Madness</div><div class="headline-stat">${mmYears.length}</div><p>Pool ${mmYears.length === 1 ? 'win' : 'wins'}: ${yearLinks('march-madness.html', mmYears)}</p></div>`,
+    sbWins.length && `<div class="award-card"><div class="medal">Super Bowl Squares</div><div class="headline-stat">${sbWins.reduce((n, w) => n + w.qs.length, 0)}</div><p>Quarters won: ${sbWins.map(w => `<a href="super-bowl-squares.html?year=${w.y}" style="color:inherit;">${w.y} (${w.qs.join(', ')})</a>`).join(', ')}</p></div>`,
+    plYears.length && `<div class="award-card"><div class="medal">Premier Pick 2</div><div class="headline-stat">${plYears.length}</div><p>Season ${plYears.length === 1 ? 'title' : 'titles'}: ${plYears.map(y => PREMIER_LEAGUE[y].season || y).join(', ')}</p></div>`,
+  ].filter(Boolean);
+  const otherGamesSection = `
+    <h2 class="section-title" style="margin-top:40px;">Other Games</h2>
+    ${otherGameCards.length
+      ? `<div class="card-grid">${otherGameCards.join('')}</div>`
+      : `<p class="muted">No wins in Survivor, March Madness, Super Bowl Squares or Premier Pick 2${key === 'Geiger' ? '' : ' yet'}.</p>`}`;
 
   const mostDraftedCard = key !== 'Thacker' ? `<div class="award-card"><div class="medal">Most Drafted Player</div><div class="headline-stat headline-stat--name">${mostDraftedHeadline}</div><p>${mostDraftedSub}</p></div>` : '';
 
@@ -1593,7 +1632,6 @@ function renderTeamDetail(containerId){
     <div class="award-card"><div class="medal">Playoff Record</div><div class="headline-stat">${t.playoffW}-${t.playoffL}</div><p>${fmtPct(t.playoffWinPct)} playoff win rate, ${t.playoffApp} appearances</p></div>
     <div class="award-card"><div class="medal">Scoring</div><div class="headline-stat">${t.gameAvgPF.toFixed(1)}</div><p>pts/gm career average (${(() => { const d = t.diff.toFixed(1); return d === '-0.0' ? '0.0' : (t.diff > 0 ? '+' + d : d); })()} diff/gm)</p></div>
     <div class="award-card"><div class="medal">Scoring Titles</div><div class="headline-stat">${scoringTitleYears.length}</div><p>${scoringTitleYears.length ? scoringTitleYears.join(', ') : 'Never led the league in points scored'}</p></div>
-    ${survivorCard}
     ${mostDraftedCard}
   </div>`;
 
@@ -1723,6 +1761,7 @@ function renderTeamDetail(containerId){
     <h2 class="section-title" style="margin-top:8px;">Championships</h2>
     <div style="margin:20px 0 40px;">${champGrid}</div>
     ${recordLeaderSection}
+    ${otherGamesSection}
     <h2 class="section-title" style="margin-top:40px;">Season by Season</h2>
     ${seasonTable}
     <h2 class="section-title" style="margin-top:40px;">Head-to-Head</h2>
