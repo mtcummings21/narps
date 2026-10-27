@@ -2666,7 +2666,8 @@ function renderSurvivor(containerId){
 
   const hasPicks = sorted.some(p => p.picks.length > 0);
   const actualMaxWeek = hasPicks ? Math.max(...sorted.flatMap(p => p.picks.map(pk => pk.week))) : 0;
-  const maxWeek = year === '2026' ? Math.max(10, actualMaxWeek) : actualMaxWeek;
+  // Pad the in-progress 2026 pool out to Week 10; once it has a champion, stop at the last week played.
+  const maxWeek = (year === '2026' && !s.champion) ? Math.max(10, actualMaxWeek) : actualMaxWeek;
   const weekCols = Array.from({ length: maxWeek }, (_, i) => i + 1);
   const revealTimes = s.weekRevealTimes || {};
   const now = Date.now();
