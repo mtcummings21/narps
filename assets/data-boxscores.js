@@ -758,7 +758,7 @@ const BOXSCORES = {
           {
             "slot": "TE",
             "pos": "TE",
-            "player": "Isiah Likely",
+            "player": "Isaiah Likely",
             "pts": 5.8
           },
           {
