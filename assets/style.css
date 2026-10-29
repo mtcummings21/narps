@@ -743,21 +743,29 @@ h2.section-title{
 
 /* Survivor weekly picks: keep player names on one line, and pin the
    name column while the week columns scroll horizontally. */
+/* All-Time Standings reuses this to pin its Owner / Team column. */
 .picks-name-cell,
 td.picks-name-cell,
-td.name-cell.picks-name-cell{
+td.name-cell.picks-name-cell,
+#standings-table td.name-cell{
   white-space: nowrap;
   position: sticky;
   left: 0;
   z-index: 1;
   background: var(--panel);
 }
-tbody tr:nth-child(even) .picks-name-cell{ background: #F7F9FC; }
+tbody tr:nth-child(even) .picks-name-cell,
+#standings-table tbody tr:nth-child(even) td.name-cell{ background: #F7F9FC; }
 @media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]) tbody tr:nth-child(even) .picks-name-cell{ background: #1A2540; }
+  :root:not([data-theme="light"]) tbody tr:nth-child(even) .picks-name-cell,
+  :root:not([data-theme="light"]) #standings-table tbody tr:nth-child(even) td.name-cell{ background: #1A2540; }
 }
-:root[data-theme="dark"] tbody tr:nth-child(even) .picks-name-cell{ background: #1A2540; }
+:root[data-theme="dark"] tbody tr:nth-child(even) .picks-name-cell,
+:root[data-theme="dark"] #standings-table tbody tr:nth-child(even) td.name-cell{ background: #1A2540; }
 tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
+#standings-table thead th:nth-child(2){ left: 0; z-index: 2; }
+#standings-table td.name-cell,
+#standings-table thead th:nth-child(2){ box-shadow: inset -1px 0 0 var(--line); }
 
 /* ---------- Top Headlines widget ---------- */
 .home-split{
