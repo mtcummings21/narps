@@ -86,7 +86,9 @@ body{
   font-family: var(--body);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  min-height: 100vh; /* with the sticky footer below, keeps the footer at the window's bottom on short pages */
 }
+body > footer{ position: sticky; top: 100vh; }
 
 @media (prefers-reduced-motion: reduce){
   html{ scroll-behavior:auto; }
