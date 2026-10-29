@@ -417,12 +417,21 @@ function renderStandings(containerId){
 
 // ---------- Awards ----------
 // ---------- Newsletters ----------
-// ---------- Newsletters ----------
+// Banner linking the latest issue in NEWSLETTERS (highest vol, then highest no), so a new
+// issue only needs a data.js entry. Used on the homepage and the Newsletters page.
+function latestNewsletterBannerHTML(){
+  const latestNl = (typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : []).slice().sort((a,b) => (b.vol - a.vol) || (b.no - a.no))[0];
+  return latestNl ? `
+    <a class="newsletter-banner" href="${latestNl.url}">
+      Read the latest newsletter: Vol. ${latestNl.vol}, No. ${latestNl.no}, “${latestNl.title}”
+    </a>` : '';
+}
+
 function renderVolumesList(containerId){
   const el = document.getElementById(containerId);
   if(!el) return;
   const vols = Array.from(new Set(NEWSLETTERS.map(n => n.vol))).sort((a,b) => b - a);
-  el.innerHTML = `<div class="card-grid">` + vols.map(v => {
+  el.innerHTML = latestNewsletterBannerHTML() + `<div class="card-grid">` + vols.map(v => {
     const issues = NEWSLETTERS.filter(n => n.vol === v).sort((a,b) => a.no - b.no);
     const years = Array.from(new Set(issues.map(n => n.year))).sort((a,b) => a - b);
     const yearLabel = years.length > 1 ? `${years[0]}–${years[years.length-1]}` : String(years[0]);
@@ -1475,12 +1484,7 @@ function renderHeadlines(containerId){
       <div class="standings-col-more">Full ${latestYear} season, with scores, box scores and charts</div>
     </a>` : '';
 
-  // Latest issue in NEWSLETTERS (highest vol, then highest no), so a new issue only needs a data.js entry.
-  const latestNl = (typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : []).slice().sort((a,b) => (b.vol - a.vol) || (b.no - a.no))[0];
-  const newsletterBanner = latestNl ? `
-    <a class="newsletter-banner" href="${latestNl.url}">
-      Read the latest newsletter: Vol. ${latestNl.vol}, No. ${latestNl.no}, “${latestNl.title}”
-    </a>` : '';
+  const newsletterBanner = latestNewsletterBannerHTML();
 
   el.innerHTML = `
     ${newsletterBanner}
