@@ -1607,7 +1607,7 @@ function renderTeamDetail(containerId){
     plYears.length && `<div class="award-card"><div class="medal">Premier Pick 2</div><div class="headline-stat">${plYears.length}</div><p>Season ${plYears.length === 1 ? 'title' : 'titles'}: ${plYears.map(y => PREMIER_LEAGUE[y].season || y).join(', ')}</p></div>`,
   ].filter(Boolean);
   const otherGamesSection = `
-    <h2 class="section-title" style="margin-top:40px;">Other Games</h2>
+    <h2 class="section-title" id="other-games" style="margin-top:40px;">Other Games</h2>
     ${otherGameCards.length
       ? `<div class="card-grid">${otherGameCards.join('')}</div>`
       : `<p class="muted">No wins in Survivor, March Madness, Super Bowl Squares or Premier Pick 2${key === 'Geiger' ? '' : ' yet'}.</p>`}`;
@@ -1693,7 +1693,7 @@ function renderTeamDetail(containerId){
 
   const leaderCards = buildRecordCards().filter(c => c.leaderKeys.includes(key));
   const recordLeaderSection = leaderCards.length ? `
-    <h2 class="section-title" style="margin-top:40px;">All-Time Record Leader</h2>
+    <h2 class="section-title" id="record-leader" style="margin-top:40px;">All-Time Record Leader</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">${t.owner} currently holds the following league record${leaderCards.length > 1 ? 's' : ''}.</p>
     <div class="award-grid" id="team-leader-grid">${leaderCards.map(c => `<div class="award-card ${c.cls}">
       <div class="medal">${c.medal}</div>
@@ -1760,18 +1760,28 @@ function renderTeamDetail(containerId){
     </tr>`).join('')}</tbody>
   </table></div>` : '';
 
+  const jumpLinks = [
+    ['championships', 'Championships', true],
+    ['record-leader', 'Records', !!recordLeaderSection],
+    ['other-games', 'Other Games', true],
+    ['season-by-season', 'Seasons', true],
+    ['head-to-head', 'Head-to-Head', true],
+    ['top-starters', 'Top Starters', !!startersTable],
+  ].filter(j => j[2]).map(([id, label]) => `<a href="#${id}">${label}</a>`).join('');
+
   el.innerHTML = `
+    <nav class="season-jump" aria-label="Jump to section">${jumpLinks}</nav>
     ${statCards}
-    <h2 class="section-title" style="margin-top:8px;">Championships</h2>
+    <h2 class="section-title" id="championships" style="margin-top:8px;">Championships</h2>
     <div style="margin:20px 0 40px;">${champGrid}</div>
     ${recordLeaderSection}
     ${otherGamesSection}
-    <h2 class="section-title" style="margin-top:40px;">Season by Season</h2>
+    <h2 class="section-title" id="season-by-season" style="margin-top:40px;">Season by Season</h2>
     ${seasonTable}
-    <h2 class="section-title" style="margin-top:40px;">Head-to-Head</h2>
+    <h2 class="section-title" id="head-to-head" style="margin-top:40px;">Head-to-Head</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Record against every other owner. Avg Score is ${t.owner}'s average points for and against in those games.</p>
     ${h2hTable}
-    ${startersTable ? `<h2 class="section-title" style="margin-top:40px;">Top Starters</h2>
+    ${startersTable ? `<h2 class="section-title" id="top-starters" style="margin-top:40px;">Top Starters</h2>
     <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Most points scored while in ${t.owner}'s starting lineup, regular season and playoffs, 2017 onward.</p>
     ${startersTable}` : ''}
   `;

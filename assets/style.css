@@ -1817,7 +1817,8 @@ tbody td{ padding: 7px 12px; }
   padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; background: var(--panel);
 }
 .season-jump a:hover, .season-jump a:focus-visible{ color: var(--navy); border-color: var(--navy); }
-#season-detail-container h2[id]{ scroll-margin-top: 96px; }
+#season-detail-container h2[id],
+.section-title[id]{ scroll-margin-top: 96px; }
 
 /* Team page: player names in stat cards at a size that fits */
 .award-card .headline-stat--name{ font-size: 1.35rem; line-height: 1.2; }
