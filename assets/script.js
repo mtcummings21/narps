@@ -78,6 +78,61 @@ function initThemeToggle(){
   });
 }
 
+// ---------- Site nav (one definition for every page) ----------
+// Each page has an empty <nav id="site-nav">; this fills it. To add or rename a page,
+// edit SITE_NAV only. The current-season link follows the latest year in SEASONS.
+const CURRENT_SEASON_YEAR = (typeof SEASONS !== 'undefined') ? Object.keys(SEASONS).sort((a,b) => b - a)[0] : null;
+const SITE_NAV = [
+  { label: 'Home', href: 'index.html' },
+  CURRENT_SEASON_YEAR && { label: `${CURRENT_SEASON_YEAR} Season`, href: `season.html?year=${CURRENT_SEASON_YEAR}` },
+  { label: 'League History', id: 'history-dropdown', items: [
+    { label: 'Champions', href: 'champions.html' },
+    { label: 'All-Time Standings', href: 'standings.html' },
+    { label: 'Seasons', href: 'seasons.html' },
+    { label: 'Draft History', href: 'draft.html' },
+    { label: 'Players', href: 'player.html' },
+    { label: 'Rules', href: 'rules.html' },
+  ]},
+  { label: 'Teams', href: 'teams.html' },
+  { label: 'Newsletters', href: 'newsletters.html' },
+  { label: 'Other Games', id: 'games-dropdown', items: [
+    { label: 'NFL Survivor', href: 'survivor.html' },
+    { label: 'Premier Pick 2', href: 'premier-league.html' },
+    { label: 'Super Bowl Squares', href: 'super-bowl-squares.html' },
+    { label: 'March Madness', href: 'march-madness.html' },
+  ]},
+].filter(Boolean);
+
+// Which nav link the current page belongs under.
+function currentNavHref(){
+  let page = window.location.pathname.split('/').pop() || 'index.html';
+  if(!page.includes('.')) page += '.html';
+  if(page === 'season.html'){
+    const y = new URLSearchParams(window.location.search).get('year');
+    return (!y || y === CURRENT_SEASON_YEAR) ? `season.html?year=${CURRENT_SEASON_YEAR}` : 'seasons.html';
+  }
+  if(page === 'team.html') return 'teams.html';
+  if(page === 'volume.html' || page.startsWith('newsletter-')) return 'newsletters.html';
+  if(page.startsWith('premier-league')) return 'premier-league.html';
+  return page;
+}
+
+function renderSiteNav(){
+  const nav = document.getElementById('site-nav');
+  if(!nav) return;
+  const active = currentNavHref();
+  const link = item => `<a href="${item.href}"${item.href === active ? ' aria-current="page"' : ''}>${item.label}</a>`;
+  nav.innerHTML = SITE_NAV.map(item => {
+    if(!item.items) return link(item);
+    const isCurrent = item.items.some(i => i.href === active);
+    return `<div class="nav-dropdown${isCurrent ? ' nav-dropdown--current' : ''}" id="${item.id}">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true">${item.label} <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+        <div class="nav-dropdown-menu">${item.items.map(link).join('')}</div>
+      </div>`;
+  }).join('');
+}
+renderSiteNav();
+
 // ---------- Nav toggle (mobile) ----------
 function initNav(){
   const btn = document.querySelector('.nav-toggle');

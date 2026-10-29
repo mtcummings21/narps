@@ -1704,6 +1704,10 @@ tbody td{ padding: 7px 12px; }
 .ss-team.won{ color: var(--text); font-weight:700; }
 .nav-dropdown-toggle{ border-radius: 0; }
 .nav-dropdown--current .nav-dropdown-toggle{ color: var(--navy); background: none; box-shadow: inset 0 -3px 0 var(--red); }
+/* Narrow laptops/tablets: tighter link spacing so the nav stays on one line longer. */
+@media (min-width: 721px) and (max-width: 1000px){
+  .nav a, .nav-dropdown-toggle{ padding-left: 9px; padding-right: 9px; }
+}
 .ss-game--pl{ min-width:196px; }
 .ss-game--pl .ss-pts{ white-space:nowrap; }
 .ss-game--pl .ss-name{ display:inline-flex; align-items:center; gap:6px; }
