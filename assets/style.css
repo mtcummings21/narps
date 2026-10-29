@@ -1144,6 +1144,17 @@ thead th{
 thead th:hover{ background: var(--navy-soft); }
 thead th.sorted-asc::after{ content:" \25B2"; color: var(--blue-lt); font-size:0.6rem; }
 thead th.sorted-desc::after{ content:" \25BC"; color: var(--blue-lt); font-size:0.6rem; }
+
+/* Draft History: year + owner pickers, round dividers, sortable-column cue */
+.draft-toolbar{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:24px; }
+.draft-select{ font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer; }
+#draft-table thead th:not(.sorted-asc):not(.sorted-desc)::after{ content:" \2195"; opacity:0.45; font-size:0.7rem; }
+#draft-table tr.draft-round-row td,
+#draft-table tbody tr.draft-round-row:hover td{
+  background: var(--bg); color: var(--text-soft);
+  font-family: var(--mono); font-size:0.7rem; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  padding-top:10px; padding-bottom:6px; border-top:1px solid var(--line);
+}
 tbody td{
   padding: 10px 14px;
   border-bottom: 1px solid var(--line);

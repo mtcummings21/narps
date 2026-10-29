@@ -3443,9 +3443,18 @@ function renderDraftHistory(containerId){
 
   document.title = `${year} Draft | League of NARPS`;
 
-  const yearSwitcher = `<div style="margin-bottom:24px;">
-    <select id="draft-year-select" style="font-family:var(--mono); font-size:0.85rem; padding:8px 14px; border-radius:8px; border:1px solid var(--line); background:var(--panel); color:var(--text); cursor:pointer;">
+  // Owners in their round-1 draft slot order, for the owner filter.
+  const owners = [...new Set(DRAFT_HISTORY[year].slice().sort((a,b) => a.overall - b.overall).map(p => p.owner))];
+  const requestedOwner = params.get('owner');
+  let ownerFilter = owners.includes(requestedOwner) ? requestedOwner : '';
+
+  const yearSwitcher = `<div class="draft-toolbar">
+    <select id="draft-year-select" class="draft-select" aria-label="Draft year">
       ${years.map(y => `<option value="${y}" ${y === year ? 'selected' : ''}>${y}</option>`).join('')}
+    </select>
+    <select id="draft-owner-select" class="draft-select" aria-label="Filter by owner">
+      <option value="">All owners</option>
+      ${owners.map(o => `<option value="${o}" ${o === ownerFilter ? 'selected' : ''}>${o}</option>`).join('')}
     </select>
   </div>`;
 
@@ -3465,7 +3474,14 @@ function renderDraftHistory(containerId){
 
   function draw(){
     sortData();
-    const rows = data.map(p => `<tr>
+    const shown = ownerFilter ? data.filter(p => p.owner === ownerFilter) : data;
+    // "Round N" divider rows when the full board is in draft order.
+    const showRounds = !ownerFilter && (sortKey === 'overall' || sortKey === 'round');
+    let lastRound = null;
+    const rows = shown.map(p => {
+      const divider = showRounds && p.round !== lastRound ? `<tr class="draft-round-row"><td colspan="8">Round ${p.round}</td></tr>` : '';
+      lastRound = p.round;
+      return `${divider}<tr>
       <td class="pos">${p.round}</td>
       <td class="pos">${p.pick}</td>
       <td class="pos">${p.overall}</td>
@@ -3474,10 +3490,11 @@ function renderDraftHistory(containerId){
       <td class="pos">${p.nflTeam}</td>
       <td class="name-cell">${p.fantasyTeam}</td>
       <td>${p.owner}</td>
-    </tr>`).join('');
+    </tr>`;
+    }).join('');
 
     tableEl.innerHTML = `<div class="table-scroll"><table id="draft-table">
-      <thead><tr>
+      <thead><tr title="Click a column to sort">
         <th data-key="round">Rd</th>
         <th data-key="pick">Pk</th>
         <th data-key="overall">Overall</th>
@@ -3511,7 +3528,17 @@ function renderDraftHistory(containerId){
   const select = document.getElementById('draft-year-select');
   if(select){
     select.addEventListener('change', () => {
-      window.location.href = `draft.html?year=${select.value}`;
+      window.location.href = `draft.html?year=${select.value}${ownerFilter ? '&owner=' + encodeURIComponent(ownerFilter) : ''}`;
+    });
+  }
+  const ownerSelect = document.getElementById('draft-owner-select');
+  if(ownerSelect){
+    ownerSelect.addEventListener('change', () => {
+      ownerFilter = ownerSelect.value;
+      const q = new URLSearchParams(window.location.search);
+      if(ownerFilter) q.set('owner', ownerFilter); else q.delete('owner');
+      history.replaceState(null, '', `draft.html${q.toString() ? '?' + q : ''}`);
+      draw();
     });
   }
 }
