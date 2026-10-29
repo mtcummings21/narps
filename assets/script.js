@@ -3359,7 +3359,7 @@ function renderH2H(containerId){
   <div class="h2h-legend">
     <span><span class="h2h-swatch" style="background:rgba(47,111,237,0.3)"></span> Winning record vs opponent</span>
     <span><span class="h2h-swatch" style="background:rgba(214,40,57,0.25)"></span> Losing record vs opponent</span>
-    <span>Read as: row's record vs. column · computed from all regular season and playoff games, 2011–2025</span>
+    <span>Read as: row's record vs. column · regular-season games only</span>
   </div>`;
 }
 
