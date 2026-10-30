@@ -1150,6 +1150,13 @@ function renderSeasonDetail(containerId){
     <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner}, ${lowGame.week})` : '—'}</li>
   </ul>` : '';
 
+  // Schedule Swap: every team's record if it had played the selected team's opponents, week by week.
+  // A team that would face itself plays the selected team instead. Played regular-season weeks only.
+  const swapOn = hasResults && typeof SCHEDULE_SWAP_YEARS !== 'undefined' && SCHEDULE_SWAP_YEARS.includes(String(year));
+  const swapSection = swapOn ? `<h2 class="section-title" id="schedule-swap" style="margin-top:40px;">Schedule Swap</h2>
+  <p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Pick a team to see every team's record if it had played that team's opponents, in the same weeks. A team that would face itself plays the picked team instead.</p>
+  <div id="schedule-swap-mount" style="margin-bottom:32px;"></div>` : '';
+
   const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
   const paidLastNames = paidKeys.map(k => k.toLowerCase());
   const payRules = (typeof PAYOUT_RULES !== 'undefined' && PAYOUT_RULES[year]) || null;
@@ -1314,6 +1321,7 @@ function renderSeasonDetail(containerId){
   const jumpLinks = seasonStarted ? [
     ['standings', 'Standings', true],
     ['highlights', 'Highlights', !!highlightsSection],
+    ['schedule-swap', 'Schedule Swap', !!swapSection],
     ['top-starters', 'Top Starters', !!topStartersSection],
     ['standings-race', 'Standings Race', !!raceChartSection],
     ['points-race', 'Points Race', !!pointsRaceSection],
@@ -1329,6 +1337,7 @@ function renderSeasonDetail(containerId){
     <div id="season-standings-mount"></div>
     <p class="muted" style="font-size:0.85rem; margin:12px 0 0;"><strong>Median Record:</strong> record against each week's league median score. <strong>All-Play Record:</strong> record if you played every team every week.</p>
     ${highlightsSection}
+    ${swapSection}
     ${topStartersSection}
     ${raceChartSection}
     ${pointsRaceSection}
@@ -1345,6 +1354,7 @@ function renderSeasonDetail(containerId){
     renderDraftOrder('season-draft-order', year);
   }
   renderSortableStandingsTable('season-standings-mount', standingsRows, showPayouts);
+  if(swapOn) renderScheduleSwap('schedule-swap-mount', s, sortedWeekKeys, keyByLastName);
   wirePlayoffBracket(el, s);
   el.querySelectorAll('.week-btn').forEach(btn => btn.addEventListener('click', () => {
     const wk = btn.getAttribute('data-week');
@@ -1352,6 +1362,110 @@ function renderSeasonDetail(containerId){
     el.querySelectorAll('.week-panel').forEach(p => { p.hidden = p.getAttribute('data-week') !== wk; });
     try { const u = new URL(window.location.href); u.searchParams.set('week', wk.replace('Week ', '')); history.replaceState(null, '', u); } catch(e) {}
   }));
+}
+
+// Season page: Schedule Swap table. weekKeys = the season's weeks in order; only weeks with scores count.
+function renderScheduleSwap(containerId, s, weekKeys, keyByLastName){
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const teams = (s.standings || []).map(t => ({ key: lastNameOf(t.owner), team: t.team, owner: t.owner }));
+  const byKey = {};
+  teams.forEach(t => { byKey[t.key] = t; });
+
+  // Per played week: each team's score and opponent.
+  const weeks = [];
+  weekKeys.forEach(wk => {
+    const games = s.schedule[wk] || [];
+    if(Math.max(0, ...games.flatMap(g => [g.awayScore, g.homeScore])) <= 0) return;
+    const score = {}, opp = {};
+    games.forEach(g => {
+      const a = lastNameOf(g.awayMgr), h = lastNameOf(g.homeMgr);
+      score[a] = g.awayScore; score[h] = g.homeScore;
+      opp[a] = h; opp[h] = a;
+    });
+    weeks.push({ wk, score, opp });
+  });
+
+  const rec = (w, l, t) => `${w}-${l}${t ? '-' + t : ''}`;
+  const fmt = n => n.toFixed(1);
+
+  // Actual records and points for/against over the same weeks.
+  const actual = {};
+  teams.forEach(t => {
+    const r = { w: 0, l: 0, t: 0, pf: 0, pa: 0 };
+    weeks.forEach(({ score, opp }) => {
+      const me = score[t.key], them = score[opp[t.key]];
+      if(me === undefined) return;
+      r.pf += me; r.pa += them;
+      if(me > them) r.w++; else if(me < them) r.l++; else r.t++;
+    });
+    actual[t.key] = r;
+  });
+  const games = k => actual[k].w + actual[k].l + actual[k].t;
+  const paAvg = k => games(k) ? actual[k].pa / games(k) : 0;
+  const softOrder = teams.map(t => t.key).sort((a, b) => paAvg(a) - paAvg(b));
+
+  const params = new URLSearchParams(window.location.search);
+  const reqKey = (params.get('sched') || '').toLowerCase();
+  let sel = (teams.find(t => (keyByLastName[t.key] || '').toLowerCase() === reqKey) || teams[0] || {}).key;
+
+  function draw(){
+    const rows = teams.map(t => {
+      let w = 0, l = 0, ti = 0;
+      weeks.forEach(({ score, opp }) => {
+        const faced = opp[sel] === t.key ? sel : opp[sel];
+        const me = score[t.key], them = score[faced];
+        if(me === undefined || them === undefined) return;
+        if(me > them) w++; else if(me < them) l++; else ti++;
+      });
+      const a = actual[t.key];
+      return { ...t, w, l, t: ti, pct: (w + ti / 2) / Math.max(1, w + l + ti), diff: w - a.w, a };
+    }).sort((x, y) => y.pct - x.pct || y.a.pf - x.a.pf);
+
+    const selTeam = byKey[sel];
+    const rank = softOrder.indexOf(sel) + 1;
+    const n = softOrder.length;
+    const ord = k => `${k}${k%100>=11&&k%100<=13?'th':k%10===1?'st':k%10===2?'nd':k%10===3?'rd':'th'}`;
+    const toughness = rank === 1 ? 'the easiest schedule in the league'
+      : rank === n ? 'the toughest schedule in the league'
+      : `the ${ord(rank)}-easiest of ${n}`;
+    const oppList = weeks.map(({ wk, opp }) => `<span style="white-space:nowrap;">${wk.replace('Week ', 'Wk ')} ${(byKey[opp[sel]] || {}).team || opp[sel]}</span>`).join(' · ');
+    const poss = name => /s$/i.test(name) ? `${name}'` : `${name}'s`;
+
+    el.innerHTML = `<div class="draft-toolbar" style="margin-bottom:12px;">
+        <label class="muted" style="display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:0.85rem;"><span style="white-space:nowrap;">Play the schedule of</span>
+          <select class="draft-select" id="schedule-swap-select">
+            ${teams.map(t => `<option value="${t.key}"${t.key === sel ? ' selected' : ''}>${t.team} (${t.owner})</option>`).join('')}
+          </select>
+        </label>
+      </div>
+      <p class="muted" style="font-size:0.85rem; margin:0 0 6px;">${poss(selTeam.team)} opponents have averaged ${fmt(paAvg(sel))} points a game, ${toughness}.</p>
+      <p class="muted" style="font-size:0.8rem; margin:0 0 12px;">${oppList}</p>
+      <div class="table-scroll" style="max-width:720px;"><table>
+        <thead><tr><th>#</th><th>Team</th><th class="center">Swapped Record</th><th class="center">Actual Record</th><th class="center">Change</th></tr></thead>
+        <tbody>${rows.map((r, i) => {
+          const teamKey = keyByLastName[r.key];
+          const link = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${r.team}</a>` : r.team;
+          const chg = r.diff > 0 ? `<span class="rank-move up">+${r.diff}</span>`
+            : r.diff < 0 ? `<span class="rank-move down">&minus;${-r.diff}</span>`
+            : `<span class="rank-move same">&ndash;</span>`;
+          return `<tr${r.key === sel ? ' class="swap-sel"' : ''}>
+            <td class="pos">${i + 1}</td>
+            <td class="name-cell">${link}</td>
+            <td class="pos center"><strong>${rec(r.w, r.l, r.t)}</strong></td>
+            <td class="pos center">${rec(r.a.w, r.a.l, r.a.t)}</td>
+            <td class="pos center">${chg}</td>
+          </tr>`;
+        }).join('')}</tbody>
+      </table></div>`;
+
+    el.querySelector('#schedule-swap-select').addEventListener('change', e => {
+      sel = e.target.value;
+      try { const u = new URL(window.location.href); u.searchParams.set('sched', keyByLastName[sel] || sel); history.replaceState(null, '', u); } catch(err) {}
+      draw();
+    });
+  }
+  if(sel) draw();
 }
 
 function renderSortableStandingsTable(containerId, rows, showPayouts){
