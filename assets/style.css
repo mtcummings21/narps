@@ -1913,9 +1913,6 @@ button.bk-game.bk-active{ border-color: var(--red); box-shadow: 0 0 0 1px var(--
 .week-btn.active{ color: #FFFFFF; background: var(--ink); border-color: var(--ink); opacity: 1; }
 .week-panel[hidden]{ display: none; }
 
-/* Season page: Schedule Swap — the picked team's row */
-#schedule-swap-mount tr.swap-sel td{ background: var(--bg); color: var(--text); font-weight: 700; }
-
 /* Rules page: "Show older votes" */
 .vt-more{
   display: block; width: 100%; margin: 14px 0 0; padding: 12px; font: inherit; font-weight: 600; font-size: 0.88rem;
