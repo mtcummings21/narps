@@ -14011,6 +14011,10 @@ const DRAFT_ORDER = {
 // fantasy week's matchups at 6:00 AM ET on that week's Thursday.
 const NFL_WEEK1_THURSDAY = { "2026": "2026-09-10" };
 
+// Seasons whose Schedule section has a team picker (one team's games, every week).
+// Add a year here to turn it on for that season.
+const TEAM_SCHEDULE_YEARS = ["2026"];
+
 // In-progress scores for the current fantasy week, shown only on the homepage scoreboard
 // strip. Teams not listed show 0.0. Once the week's final scores go into the schedule, the
 // strip switches to finals on its own and these numbers are no longer used.

@@ -1233,7 +1233,16 @@ function renderSeasonDetail(containerId){
         </table></div>`;
     return `<div class="week-panel" data-week="${wk}"${wk === defaultWeek ? '' : ' hidden'}>${body}</div>`;
   };
-  const scheduleWeeks = schedWeeks.length ? `<div class="week-picker" role="tablist" aria-label="Choose a week">
+  // Team picker (seasons in TEAM_SCHEDULE_YEARS): swaps the week view for one team's games, every week.
+  const teamPickerOn = schedWeeks.length && typeof TEAM_SCHEDULE_YEARS !== 'undefined' && TEAM_SCHEDULE_YEARS.includes(String(year));
+  const teamPicker = teamPickerOn ? `<div class="draft-toolbar" style="margin-bottom:12px;">
+      <select class="draft-select" id="schedule-team-select" aria-label="Show one team's schedule">
+        <option value="">All teams, by week</option>
+        ${(s.standings || []).map(t => `<option value="${lastNameOf(t.owner)}">${t.team} (${t.owner})</option>`).join('')}
+      </select>
+    </div>
+    <div id="team-sched-panel" hidden></div>` : '';
+  const scheduleWeeks = schedWeeks.length ? `${teamPicker}<div class="week-picker" role="tablist" aria-label="Choose a week">
       ${schedWeeks.map(wk => `<button type="button" role="tab" class="week-btn${wk === defaultWeek ? ' active' : ''}${weekScored(wk) ? '' : ' upcoming'}" data-week="${wk}" aria-selected="${wk === defaultWeek}">${wk.replace('Week ', '')}</button>`).join('')}
     </div>
     ${schedWeeks.map(weekPanel).join('')}` : '';
@@ -1336,7 +1345,7 @@ function renderSeasonDetail(containerId){
     ${playoffBracket}
     <div class="playoffs-list${playoffBracket ? ' has-bracket' : ''}">${playoffRounds}</div>` : ''}
     <h2 class="section-title" id="schedule" style="margin-top:40px;">Schedule</h2>
-    ${seasonStarted ? '<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Pick a week. Winners in bold; select a game to see its box score.</p>' : ''}
+    ${seasonStarted ? `<p class="muted" style="font-size:0.85rem; margin-bottom:12px;">Pick a ${teamPickerOn ? 'week, or a team to see its whole schedule' : 'week'}. Winners in bold; select a game to see its box score.</p>` : ''}
     ${scheduleWeeks}
   `;
 
@@ -1352,6 +1361,52 @@ function renderSeasonDetail(containerId){
     el.querySelectorAll('.week-panel').forEach(p => { p.hidden = p.getAttribute('data-week') !== wk; });
     try { const u = new URL(window.location.href); u.searchParams.set('week', wk.replace('Week ', '')); history.replaceState(null, '', u); } catch(e) {}
   }));
+
+  const teamSelect = el.querySelector('#schedule-team-select');
+  if(teamSelect){
+    const panel = el.querySelector('#team-sched-panel');
+    const showTeam = mgr => {
+      const weekView = !mgr;
+      el.querySelectorAll('.week-picker').forEach(p => { p.hidden = !weekView; });
+      el.querySelectorAll('.week-panel').forEach(p => { p.hidden = !weekView || p.getAttribute('data-week') !== (el.querySelector('.week-btn.active') || {}).dataset?.week; });
+      panel.hidden = weekView;
+      if(weekView){ panel.innerHTML = ''; return; }
+      let w = 0, l = 0, t = 0;
+      const items = schedWeeks.map(wk => {
+        const g = (s.schedule[wk] || []).find(x => lastNameOf(x.awayMgr) === mgr || lastNameOf(x.homeMgr) === mgr);
+        if(!g) return `<div class="team-sched-wk">${wk} · Bye</div>`;
+        const isAway = lastNameOf(g.awayMgr) === mgr;
+        const mine = isAway ? g.awayScore : g.homeScore, theirs = isAway ? g.homeScore : g.awayScore;
+        let tag = '<span class="muted">Upcoming</span>', game;
+        if(weekScored(wk)){
+          const res = mine > theirs ? 'W' : mine < theirs ? 'L' : 'T';
+          if(res === 'W') w++; else if(res === 'L') l++; else t++;
+          tag = `<span class="rank-move ${res === 'W' ? 'up' : res === 'L' ? 'down' : 'same'}">${res}</span>`;
+        }
+        if(g.boxscore) game = matchupCard(g);
+        else game = `<div class="team-sched-game">
+            <span>${g.away}${weekScored(wk) ? ` ${g.awayScore}` : ''}</span>
+            <span class="muted" style="text-align:center;">at</span>
+            <span style="text-align:right;">${g.home}${weekScored(wk) ? ` ${g.homeScore}` : ''}</span>
+          </div>`;
+        return `<div class="team-sched-wk">${wk} · ${tag}</div>${game}`;
+      }).join('');
+      const row = (s.standings || []).find(r => lastNameOf(r.owner) === mgr) || {};
+      panel.innerHTML = `<p class="muted" style="font-size:0.85rem; margin:0 0 4px;"><strong>${row.team || ''}</strong> · ${w}-${l}${t ? '-' + t : ''}</p>${items}`;
+    };
+    const reqTeam = (new URLSearchParams(window.location.search).get('team') || '').toLowerCase();
+    const reqMgr = Object.keys(keyByLastName).find(k => (keyByLastName[k] || '').toLowerCase() === reqTeam);
+    if(reqMgr && [...teamSelect.options].some(o => o.value === reqMgr)){ teamSelect.value = reqMgr; showTeam(reqMgr); }
+    teamSelect.addEventListener('change', () => {
+      const mgr = teamSelect.value;
+      showTeam(mgr);
+      try {
+        const u = new URL(window.location.href);
+        if(mgr) u.searchParams.set('team', keyByLastName[mgr] || mgr); else u.searchParams.delete('team');
+        history.replaceState(null, '', u);
+      } catch(e) {}
+    });
+  }
 }
 
 function renderSortableStandingsTable(containerId, rows, showPayouts){
