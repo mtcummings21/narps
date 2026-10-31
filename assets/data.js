@@ -961,6 +961,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "The Walking Wounded",
     "url": "newsletter-vol9-no6.html"
+  },
+  {
+    "vol": 9,
+    "no": 7,
+    "year": 2026,
+    "title": "The Mid-Season Review",
+    "url": "newsletter-vol9-no7.html"
   }
 ];
 
