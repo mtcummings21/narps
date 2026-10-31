@@ -94,7 +94,7 @@ const SITE_NAV = [
     { label: 'Rules', href: 'rules.html' },
   ]},
   { label: 'Teams', href: 'teams.html' },
-  { label: 'Newsletters', href: 'newsletters.html' },
+  { label: 'Couch Chronicles', href: 'newsletters.html' },
   { label: 'Other Games', id: 'games-dropdown', items: [
     { label: 'NFL Survivor', href: 'survivor.html' },
     { label: 'Premier Pick 2', href: 'premier-league.html' },
@@ -478,7 +478,7 @@ function latestNewsletterBannerHTML(){
   const latestNl = (typeof NEWSLETTERS !== 'undefined' ? NEWSLETTERS : []).slice().sort((a,b) => (b.vol - a.vol) || (b.no - a.no))[0];
   return latestNl ? `
     <a class="newsletter-banner" href="${latestNl.url}">
-      Read the latest newsletter: Vol. ${latestNl.vol}, No. ${latestNl.no}, “${latestNl.title}”
+      Read the latest issue of The Couch Chronicles: Vol. ${latestNl.vol}, No. ${latestNl.no}, “${latestNl.title}”
     </a>` : '';
 }
 
