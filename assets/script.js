@@ -2255,11 +2255,11 @@ function renderPremierLeagueRace(s){
     `<text x="${xAt(w)}" y="${padT + innerH + 34}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${w === 0 ? 'Start' : 'Wk ' + w}</text>`).join('');
   const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points</text>`;
 
-  // Nudge crests apart horizontally when two players sit on the same spot.
+  // Nudge dots apart horizontally when two players sit on the same spot.
   const spotCount = {};
   series.forEach(x => x.pts.forEach(pt => { const k = pt.week + ':' + pt.total; spotCount[k] = (spotCount[k] || 0) + 1; }));
   const spotSeen = {};
-  const crest = 22;
+  const dotR = 5;
 
   const labelX = padL + innerW + 26;
   const labels = series.map(x => ({ x, y: yAt(x.pts[x.pts.length - 1].total) })).sort((a,b) => a.y - b.y);
@@ -2273,14 +2273,9 @@ function renderPremierLeagueRace(s){
       if(!pt.pick) return `<circle cx="${cx}" cy="${cy}" r="3.5" fill="${x.color}" />`;
       const k = pt.week + ':' + pt.total;
       const n = spotCount[k], idx = spotSeen[k] = (spotSeen[k] || 0) + 1;
-      const dx = n > 1 ? (idx - (n + 1) / 2) * (crest + 4) : 0;
-      const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[pt.pick.team] : null;
+      const dx = n > 1 ? (idx - (n + 1) / 2) * (dotR * 2 + 2) : 0;
       const tip = `${x.name}, Wk ${pt.week}: ${pt.pick.team} (${pt.pick.result}${pt.pick.score ? ' ' + pt.pick.score : ''}) · ${pt.total} pts`;
-      const r = crest / 2 + 2;
-      return `<g><title>${tip}</title>
-        <circle cx="${cx + dx}" cy="${cy}" r="${r}" class="pl-crest-bg" fill="var(--panel)" stroke="${x.color}" stroke-width="2" />
-        ${id ? `<image href="https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png" x="${cx + dx - crest / 2 + 2}" y="${cy - crest / 2 + 2}" width="${crest - 4}" height="${crest - 4}" />` : ''}
-      </g>`;
+      return `<g><title>${tip}</title><circle cx="${cx + dx}" cy="${cy}" r="${dotR}" fill="${x.color}" /></g>`;
     }).join('');
     const last = x.pts[x.pts.length - 1];
     return `<g class="race-team">
