@@ -89,6 +89,17 @@
   .nl-team-meta{ display:flex; flex-wrap:wrap; gap:6px 24px; margin:0 0 14px; font-size:0.95rem; color:var(--text); }
   .nl-team-meta strong{ color:var(--navy); }
   .nl-mvp-round{ color:var(--text-soft); }
+  .nl-hero-cutout img{ border-radius:0; }
+  /* Survivor grid on phones: smaller logos, tighter cells, team names hidden (logo tooltips keep them) so every week fits */
+  @media (max-width: 600px){
+    table.nl-survivor{ table-layout:fixed; font-size:0.72rem; }
+    table.nl-survivor th, table.nl-survivor td{ padding:6px 1px; text-align:center; }
+    table.nl-survivor th{ font-size:0.6rem; }
+    table.nl-survivor th:first-child, table.nl-survivor td:first-child{ width:74px; padding-left:8px; text-align:left; }
+    table.nl-survivor td.picks-name-cell{ position:static; }
+    table.nl-survivor .pick-logo{ width:24px !important; height:24px !important; padding:2px; }
+    table.nl-survivor .pick-name{ display:none; }
+  }
   .nl-toc ol.nl-toc-teams{ columns:2; column-gap:32px; }
   @media (max-width: 600px){ .nl-toc ol.nl-toc-teams{ columns:1; } }
 </style>
@@ -112,8 +123,8 @@
 
 <section class="wrap" style="max-width:820px; margin:0 auto; padding:0 24px;">
 
-  <figure class="nl-hero-img nl-hero-square">
-    <img src="assets/newsletter-vol9-no7-pumpkin.jpg" alt="A jack-o’-lantern carved with the League of NARPS logo" width="1108" height="914">
+  <figure class="nl-hero-img nl-hero-cutout" style="max-width:400px; margin-left:auto; margin-right:auto;">
+    <img src="assets/newsletter-vol9-no7-pumpkin.webp" alt="A jack-o’-lantern carved with the League of NARPS logo" width="800" height="722">
   </figure>
 
   <div class="nl-section">
@@ -133,7 +144,7 @@
       </div>
     </div>
     <p class="nl-lede" style="margin:18px 0 10px;">Every pick each player made, week by week. Losses are struck through. Two losses and you’re out.</p>
-    <div class="table-scroll"><table>
+    <div class="table-scroll"><table class="nl-survivor">
         <thead><tr><th>Player</th><th class="center">Wk 1</th><th class="center">Wk 2</th><th class="center">Wk 3</th><th class="center">Wk 4</th><th class="center">Wk 5</th><th class="center">Wk 6</th><th class="center">Wk 7</th></tr></thead>
         <tbody>
           <tr><td class="name-cell picks-name-cell">Aaron</td><td class="pos center"><span class="pick-logo pick-logo--win" style="width:29px;height:29px;" title="Jaguars (win)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/jax.png" alt="Jaguars (win)" loading="lazy"></span><div class="pick-name">Jaguars</div></td><td class="pos center"><span class="pick-logo pick-logo--win" style="width:29px;height:29px;" title="49ers (win)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/sf.png" alt="49ers (win)" loading="lazy"></span><div class="pick-name">49ers</div></td><td class="pos center"><span class="pick-logo pick-logo--win" style="width:29px;height:29px;" title="Chiefs (win)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/kc.png" alt="Chiefs (win)" loading="lazy"></span><div class="pick-name">Chiefs</div></td><td class="pos center"><span class="pick-logo pick-logo--win" style="width:29px;height:29px;" title="Vikings (win)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/min.png" alt="Vikings (win)" loading="lazy"></span><div class="pick-name">Vikings</div></td><td class="pos center"><span class="pick-logo pick-logo--win" style="width:29px;height:29px;" title="Texans (win)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/hou.png" alt="Texans (win)" loading="lazy"></span><div class="pick-name">Texans</div></td><td class="pos center"><span class="pick-logo pick-logo--loss" style="width:29px;height:29px;" title="Rams (loss)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/lar.png" alt="Rams (loss)" loading="lazy"></span><div class="pick-name">Rams</div></td><td class="pos center"><span class="pick-logo pick-logo--loss" style="width:29px;height:29px;" title="Jets (loss)"><img src="https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png" alt="Jets (loss)" loading="lazy"></span><div class="pick-name">Jets</div></td></tr>
