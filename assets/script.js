@@ -1002,18 +1002,30 @@ function renderSeasonDetail(containerId){
     </div>
   </div>`;
 
+  // Standings stats from every regular-season week up to and including week maxWk (Infinity = whole
+  // season), so the standings table can be shown as it stood after any week.
+  const wkNo = wk => parseInt(String(wk).replace(/\D/g, ''), 10) || 0;
+  function standingStatsThrough(maxWk){
   const seasonPts = {};
   const weeklyHighs = {};
   const medianRecord = {};
   const allPlayRecord = {};
-  Object.values(s.schedule || {}).forEach(games => games.forEach(g => {
+  const record = {};
+  const weeksThrough = Object.keys(s.schedule || {}).filter(wk => wkNo(wk) <= maxWk).map(wk => s.schedule[wk]);
+  weeksThrough.forEach(games => games.forEach(g => {
     const ak = lastNameOf(g.awayMgr), hk = lastNameOf(g.homeMgr);
     if(!seasonPts[ak]) seasonPts[ak] = { pf: 0, pa: 0 };
     if(!seasonPts[hk]) seasonPts[hk] = { pf: 0, pa: 0 };
     seasonPts[ak].pf += g.awayScore; seasonPts[ak].pa += g.homeScore;
     seasonPts[hk].pf += g.homeScore; seasonPts[hk].pa += g.awayScore;
+    if(g.awayScore === 0 && g.homeScore === 0) return; // unplayed placeholder
+    if(!record[ak]) record[ak] = { w: 0, l: 0, t: 0 };
+    if(!record[hk]) record[hk] = { w: 0, l: 0, t: 0 };
+    if(g.awayScore > g.homeScore){ record[ak].w++; record[hk].l++; }
+    else if(g.homeScore > g.awayScore){ record[hk].w++; record[ak].l++; }
+    else { record[ak].t++; record[hk].t++; }
   }));
-  Object.values(s.schedule || {}).forEach(games => {
+  weeksThrough.forEach(games => {
     const weekScores = [];
     games.forEach(g => {
       weekScores.push([lastNameOf(g.awayMgr), g.awayScore]);
@@ -1048,6 +1060,9 @@ function renderSeasonDetail(containerId){
       });
     });
   });
+  return { seasonPts, weeklyHighs, medianRecord, allPlayRecord, record };
+  }
+  const { seasonPts, weeklyHighs, medianRecord, allPlayRecord } = standingStatsThrough(Infinity);
 
   const keyByLastName = {};
   TEAMS.forEach(team => { keyByLastName[lastNameOf(team.owner)] = team.key; });
@@ -1169,16 +1184,13 @@ function renderSeasonDetail(containerId){
   const weeklyRanks = isLatestSeason ? computeWeeklyRanks(s) : null;
   const showMoves = !!(weeklyRanks && weeklyRanks.weekKeys.length >= 2);
 
-  const standingsRows = s.standings.map((t,i) => {
-    let move = null;
-    if(showMoves){
-      const h = weeklyRanks.rankHistory[t.owner] || [];
-      if(h.length >= 2) move = h[h.length - 2] - h[h.length - 1];
-    }
-    const pts = seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
-    const highs = weeklyHighs[lastNameOf(t.owner)] || 0;
-    const mr = medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
-    const ap = allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+  // One standings-table row. stats is a standingStatsThrough() result; final = whole-season view
+  // (adds end-of-season payouts once the season is decided).
+  const standingsRowObj = (t, i, move, stats, final) => {
+    const pts = stats.seasonPts[lastNameOf(t.owner)] || { pf: 0, pa: 0 };
+    const highs = stats.weeklyHighs[lastNameOf(t.owner)] || 0;
+    const mr = stats.medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+    const ap = stats.allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
     const teamKey = keyByLastName[lastNameOf(t.owner)];
     const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
     const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
@@ -1194,9 +1206,54 @@ function renderSeasonDetail(containerId){
       medianWins: mr.w, medianStr: `${mr.w}-${mr.l}${mr.t ? '-'+mr.t : ''}`,
       allPlayWins: ap.w, allPlayStr: `${ap.w}-${ap.l}${ap.t ? '-'+ap.t : ''}`,
       topWeeklyScorer: highs,
-      payout: payRules ? highs * (payRules.weeklyHigh || 0) + (endOfSeasonPay[lastNameOf(t.owner)] || 0) : 0,
+      payout: payRules ? highs * (payRules.weeklyHigh || 0) + (final ? (endOfSeasonPay[lastNameOf(t.owner)] || 0) : 0) : 0,
     };
+  };
+  const fullStats = { seasonPts, weeklyHighs, medianRecord, allPlayRecord };
+  const standingsRows = s.standings.map((t,i) => {
+    let move = null;
+    if(showMoves){
+      const h = weeklyRanks.rankHistory[t.owner] || [];
+      if(h.length >= 2) move = h[h.length - 2] - h[h.length - 1];
+    }
+    return standingsRowObj(t, i, move, fullStats, true);
   });
+
+  // Weekly standings: pick a week to see the table as it stood after it. The latest week shows the
+  // standings above (the official order); earlier weeks are computed from the schedule, ranked by
+  // record (a tie counts half a win) with points scored as the tiebreaker. From 2022 the seed-6 rule
+  // applies: top 5 by record, everyone else by points scored.
+  const standWeeks = Object.keys(s.schedule || {})
+    .filter(wk => (s.schedule[wk] || []).some(g => g.awayScore || g.homeScore))
+    .sort((a,b) => wkNo(a) - wkNo(b));
+  const latestStandWeek = standWeeks[standWeeks.length - 1];
+  const standingsOrderThrough = stats => {
+    const rec = o => stats.record[lastNameOf(o)] || { w: 0, l: 0, t: 0 };
+    const winVal = o => rec(o).w + 0.5 * rec(o).t;
+    const pf = o => (stats.seasonPts[lastNameOf(o)] || { pf: 0 }).pf;
+    const byRecord = s.standings.slice().sort((a,b) => (winVal(b.owner) - winVal(a.owner)) || (pf(b.owner) - pf(a.owner)));
+    if((parseInt(year, 10) || 0) < 2022) return byRecord;
+    return byRecord.slice(0, 5).concat(byRecord.slice(5).sort((a,b) => pf(b.owner) - pf(a.owner)));
+  };
+  const standingsRowsThrough = wk => {
+    if(wk === latestStandWeek) return standingsRows;
+    const stats = standingStatsThrough(wkNo(wk));
+    const order = standingsOrderThrough(stats);
+    const idx = standWeeks.indexOf(wk);
+    const prevRank = {};
+    if(showMoves && idx >= 1) standingsOrderThrough(standingStatsThrough(wkNo(standWeeks[idx - 1]))).forEach((t, i) => { prevRank[t.owner] = i; });
+    return order.map((t, i) => {
+      const r = stats.record[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
+      const g = r.w + r.l + r.t;
+      const row = { team: t.team, owner: t.owner, w: r.w, l: r.l, t: r.t, pct: g ? (r.w + 0.5 * r.t) / g : 0 };
+      return standingsRowObj(row, i, t.owner in prevRank ? prevRank[t.owner] - i : null, stats, false);
+    });
+  };
+  const standingsHeading = seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings';
+  const standingsWeekPicker = standWeeks.length >= 2 ? `<div class="standings-wk-picker" role="tablist" aria-label="Show standings after a week">
+      <span class="standings-wk-label">After week</span>
+      ${standWeeks.map(wk => `<button type="button" role="tab" class="standings-wk-btn${wk === latestStandWeek ? ' active' : ''}" data-swk="${wk}" aria-selected="${wk === latestStandWeek}">${wk.replace('Week ', '')}</button>`).join('')}
+    </div>` : '';
 
   const playoffRounds = ['round1','round2','round3','thirdPlace'].map(rk => {
     const r = (s.playoffs || {})[rk];
@@ -1334,7 +1391,8 @@ function renderSeasonDetail(containerId){
     ${decided ? podium : ''}
     ${!seasonStarted ? `<p class="muted" style="max-width:65ch; margin:16px 0 0;">The ${year} season hasn't kicked off yet.</p>` : ''}
     ${draftSection}
-    <h2 class="section-title" id="standings" style="margin-top:${decided ? 40 : 0}px;">${seasonStarted ? ((s.champion && s.champion.owner === 'TBD') ? 'Current Regular Season Standings' : 'Final Regular Season Standings') : 'Standings'}</h2>
+    <h2 class="section-title" id="standings" style="margin-top:${decided ? 40 : 0}px;">${standingsHeading}</h2>
+    ${standingsWeekPicker}
     <div id="season-standings-mount"></div>
     <p class="muted" style="font-size:0.85rem; margin:12px 0 0;"><strong>Median Record:</strong> record against each week's league median score. <strong>All-Play Record:</strong> record if you played every team every week.</p>
     ${highlightsSection}
@@ -1354,6 +1412,13 @@ function renderSeasonDetail(containerId){
     renderDraftOrder('season-draft-order', year);
   }
   renderSortableStandingsTable('season-standings-mount', standingsRows, showPayouts);
+  el.querySelectorAll('.standings-wk-btn').forEach(btn => btn.addEventListener('click', () => {
+    const wk = btn.getAttribute('data-swk');
+    el.querySelectorAll('.standings-wk-btn').forEach(b => { const on = b === btn; b.classList.toggle('active', on); b.setAttribute('aria-selected', on); });
+    const h = el.querySelector('#standings');
+    if(h) h.textContent = wk === latestStandWeek ? standingsHeading : `Standings After ${wk}`;
+    renderSortableStandingsTable('season-standings-mount', standingsRowsThrough(wk), showPayouts);
+  }));
   wirePlayoffBracket(el, s);
   el.querySelectorAll('.week-btn').forEach(btn => btn.addEventListener('click', () => {
     const wk = btn.getAttribute('data-week');

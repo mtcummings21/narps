@@ -1913,6 +1913,16 @@ button.bk-game.bk-active{ border-color: var(--red); box-shadow: 0 0 0 1px var(--
 .week-btn.active{ color: #FFFFFF; background: var(--ink); border-color: var(--ink); opacity: 1; }
 .week-panel[hidden]{ display: none; }
 
+/* Season page: standings after a chosen week (same look as the schedule week picker) */
+.standings-wk-picker{ display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 0 0 14px; }
+.standings-wk-label{ font-family: var(--mono); font-size: 0.75rem; font-weight: 600; color: var(--text-soft); margin-right: 4px; }
+.standings-wk-btn{
+  min-width: 38px; padding: 7px 10px; font: inherit; font-family: var(--mono); font-size: 0.8rem; font-weight: 600;
+  color: var(--text-soft); background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); cursor: pointer;
+}
+.standings-wk-btn:hover, .standings-wk-btn:focus-visible{ color: var(--navy); border-color: var(--navy); outline: none; }
+.standings-wk-btn.active{ color: #FFFFFF; background: var(--ink); border-color: var(--ink); }
+
 /* Season page: one team's schedule (team picker) */
 #team-sched-panel[hidden], .week-picker[hidden]{ display: none; }
 #team-sched-panel .team-sched-wk{ font-family: var(--mono); font-size: 0.78rem; font-weight: 600; color: var(--text-soft); margin: 14px 0 6px; }
