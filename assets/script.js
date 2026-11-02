@@ -1192,7 +1192,7 @@ function renderSeasonDetail(containerId){
     const mr = stats.medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
     const ap = stats.allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
     const teamKey = keyByLastName[lastNameOf(t.owner)];
-    const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge">Paid</span>` : '';
+    const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge" title="Paid" aria-label="Paid">$</span>` : '';
     const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
     return {
       rank: i + 1,
@@ -1565,7 +1565,7 @@ function renderDraftOrder(containerId, forYear){
   el.innerHTML = `${dateBlock}<div class="draft-order-list">${order.map((p, i) => {
     const hasPage = p.key && p.team !== 'TBD';
     const ownerHTML = hasPage ? `<a href="team.html?team=${encodeURIComponent(p.key)}" class="owner-link">${p.owner}</a>` : p.owner;
-    const paidBadge = paidKeys.includes(p.key) ? `<span class="paid-badge">Paid</span>` : '';
+    const paidBadge = paidKeys.includes(p.key) ? `<span class="paid-badge" title="Paid" aria-label="Paid">$</span>` : '';
     return `
     <div class="draft-order-row">
       <div class="draft-order-pick">${i+1}</div>
