@@ -1185,8 +1185,6 @@ function renderSeasonDetail(containerId){
     <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner}, ${lowGame.week})` : '—'}</li>
   </ul>` : '';
 
-  const paidKeys = (typeof PAID_STATUS !== 'undefined' && PAID_STATUS[year]) || [];
-  const paidLastNames = paidKeys.map(k => k.toLowerCase());
   const payRules = (typeof PAYOUT_RULES !== 'undefined' && PAYOUT_RULES[year]) || null;
   const showPayouts = !!payRules;
   const seasonDone = !!(s.champion && s.champion.owner && s.champion.owner !== 'TBD');
@@ -1212,8 +1210,7 @@ function renderSeasonDetail(containerId){
     const mr = stats.medianRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
     const ap = stats.allPlayRecord[lastNameOf(t.owner)] || { w: 0, l: 0, t: 0 };
     const teamKey = keyByLastName[lastNameOf(t.owner)];
-    const paidBadge = paidLastNames.includes(lastNameOf(t.owner)) ? `<span class="paid-badge" title="Paid" aria-label="Paid">$</span>` : '';
-    const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>${paidBadge}` : `${t.team}${paidBadge}`;
+    const teamLink = teamKey ? `<a href="team.html?team=${encodeURIComponent(teamKey)}" class="owner-link">${t.team}</a>` : t.team;
     return {
       rank: i + 1,
       move,
