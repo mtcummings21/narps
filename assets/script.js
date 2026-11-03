@@ -581,17 +581,26 @@ function matchupRow(g){
   </tr>`;
 }
 
+// Phone box scores show "J. Burrow" instead of "Joe Burrow" (names already starting with initials, like
+// J.K. Dobbins, and team defenses stay as they are).
+function shortPlayerName(n){
+  const parts = (n || '').trim().split(/\s+/);
+  if(parts.length < 2 || parts[0].includes('.') || /D\/ST$/.test(n)) return n;
+  return parts[0][0] + '. ' + parts.slice(1).join(' ');
+}
+
 function boxscoreSideTable(teamName, score, players, bench){
   const line = (p, cls) => `<tr${cls ? ` class="${cls}"` : ''}>
     <td class="pos" style="font-family:var(--mono); font-size:0.78rem; color:var(--text-soft);">${p.slot}</td>
-    <td>${playerLink(p.player)}</td>
+    <td class="bs-name"><a class="player-link" href="${playerHref(p.player)}"><span class="bs-full">${p.player}</span><span class="bs-short">${shortPlayerName(p.player)}</span></a></td>
     <td class="pos center">${p.pts.toFixed(1)}</td>
   </tr>`;
   const rows = players.map(p => line(p)).join('');
   const benchTotal = (bench || []).reduce((a, p) => a + p.pts, 0);
   const benchRows = bench && bench.length ? `<tr class="bs-bench-head"><td colspan="2">Bench</td><td class="pos center">${benchTotal.toFixed(1)}</td></tr>
     ${bench.map(p => line(p, 'bs-bench')).join('')}` : '';
-  return `<div class="table-scroll"><table>
+  return `<div class="table-scroll"><table class="bs-table">
+    <colgroup><col class="bs-col-slot"><col><col class="bs-col-pts"></colgroup>
     <thead><tr><th colspan="3" style="text-align:left;">${teamName} · ${score}</th></tr></thead>
     <tbody>${rows}${benchRows}</tbody>
   </table></div>`;
@@ -605,7 +614,7 @@ function matchupCard(g){
       <span style="color:var(--text-soft); text-align:center;">at</span>
       <span style="${!awayWin ? 'font-weight:700;' : ''} text-align:right;">${g.home} ${g.homeScore}</span>
     </summary>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;">
+    <div class="bs-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;">
       ${boxscoreSideTable(g.away, g.awayScore, g.boxscore.away, g.boxscore.awayBench)}
       ${boxscoreSideTable(g.home, g.homeScore, g.boxscore.home, g.boxscore.homeBench)}
     </div>

@@ -1981,3 +1981,19 @@ tr.bs-bench-head td{
 }
 tr.bs-bench td{ color: var(--text-soft); }
 tr.bs-bench .player-link{ border-bottom-color: transparent; }
+.bs-short{ display: none; }
+/* Box scores on phones: compact rows, short player names and fixed columns so both
+   teams (starters and bench) fit side by side without scrolling */
+@media (max-width: 600px){
+  .bs-grid{ gap: 8px !important; }
+  .bs-table{ table-layout: fixed; font-size: 0.74rem; }
+  .bs-table col.bs-col-slot{ width: 36px; }
+  .bs-table col.bs-col-pts{ width: 38px; }
+  .bs-table thead th{ padding: 7px 6px; font-size: 0.64rem; white-space: normal; }
+  .bs-table tbody td{ padding: 5px 4px; }
+  .bs-table tbody td:first-child{ font-size: 0.64rem !important; padding-left: 6px; }
+  .bs-table tbody td:last-child{ padding-right: 6px; text-align: right; }
+  .bs-table td.bs-name{ overflow: hidden; text-overflow: ellipsis; }
+  .bs-full{ display: none; }
+  .bs-short{ display: inline; }
+}
