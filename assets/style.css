@@ -299,33 +299,6 @@ img{ max-width:100%; display:block; }
   position: relative;
 }
 
-/* Homepage hero: current-season button */
-.season-cta{
-  display: inline-flex;
-  flex-direction: column;
-  gap: 2px;
-  margin: 0;
-  padding: 14px 22px;
-  border-radius: var(--radius-sm);
-  background: #D62839;
-  color: #FFFFFF;
-  text-decoration: none;
-  position: relative;
-  transition: background 0.15s;
-}
-.season-cta:hover{ background: #B01F2E; }
-.season-cta:focus-visible{ outline: 3px solid var(--blue-lt); outline-offset: 3px; }
-.season-cta-main{
-  font-family: var(--display);
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-.season-cta-sub{
-  font-family: var(--body);
-  font-size: 0.85rem;
-  color: rgba(255,255,255,0.85);
-}
-
 .stat-row{
   display:flex;
   flex-wrap:wrap;
@@ -1733,7 +1706,6 @@ tbody td{ padding: 7px 12px; }
 /* Homepage: mobile spacing and one-line team names in the standings box */
 .short-label{ display:none; }
 @media (max-width: 600px){
-  .season-cta{ margin-bottom: 0; }
   .standings-mini-headers, .standings-mini-list li{ grid-template-columns: minmax(0,1fr) 38px 52px; gap: 8px; padding-left: 14px; padding-right: 14px; }
   .standings-mini-list li span:nth-child(1){ white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .standings-mini-list .pts-unit{ display:none; }
@@ -1849,7 +1821,6 @@ tbody td{ padding: 7px 12px; }
   .hero{ padding: 36px 0 20px; }
   .hero h1{ font-size: 2.2rem; margin-bottom: 10px; }
   .hero p.lede{ font-size: 0.98rem; margin-bottom: 18px; }
-  .season-cta{ padding: 10px 16px; }
 }
 
 /* ---------- Season page: playoff bracket (desktop only; phones keep the list) ---------- */
