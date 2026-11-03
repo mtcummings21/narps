@@ -14082,14 +14082,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Tony Pollard runs for 129 yards and a week-high 35.0 points as Z Hickman's Free Agents post the top score, 127.3-99.2 over Tyler Clay's Money Badgers", url: "https://www.pro-football-reference.com/years/2026/week_7.htm" },
-  { title: "Luther Burden III's 130 receiving yards (21.7 points) help Sonny Wright's Gangstas hand the Deplorables their second loss, 92.9-69.8", url: "https://www.pro-football-reference.com/years/2026/week_7.htm" },
-  { title: "Jaxon Smith-Njigba goes for 150 receiving yards and 26.8 points as Luke Rapp's ACLiens beat Tyler Cummings' Legends 113.4-90.4", url: "https://www.pro-football-reference.com/years/2026/week_7.htm" },
-  { title: "Tee Higgins piles up 148 receiving yards and 23.8 points for Joe Prino's Powerhouse in a 103.5-93.4 win over Joe Garton's Route 2 Ravers", url: "https://www.pro-football-reference.com/years/2026/week_7.htm" },
-  { title: "Luke Rapp becomes the fifth franchise to reach 20,000 career points, and Tyler Clay sits just 1.2 points short at 19,998.8", url: "standings.html" },
-  { title: "Five teams sit at 4-3 behind the 5-2 Deplorables and Powerhouse; the Money Badgers fall from 4th to 11th on points, and the 2-5 Ravers hold 6th for a fourth straight week", url: "season.html?year=2026" },
-  { title: "Bench mob: Tyler Cummings leaves Omar Cooper Jr.'s 20.0 on the bench while Cade Otton scores 0, and Walid Salameh sits Dak Prescott's 23.2 in a 116.7-95.3 loss", url: "season.html?year=2026" },
-  { title: "Aaron Burns and Zach Sizemore are the 2026 Survivor co-champions after the Texans and Jets both lose in Week 7", url: "survivor.html" }
+  { title: "Tee Higgins (32.5) and Brock Bowers (24.7) power Joe Prino's Powerhouse to a week-high 148.4 in a rout of Luke Rapp's ACLiens (86.7), and Prino takes 1st for the first time this season", url: "season.html?year=2026&week=8#schedule" },
+  { title: "Joe Burrow's 39.4, the week's top individual score, lifts Seth Thacker's Kareem Pie past the Deplorables 101.3-96.1 and ends Zach Sizemore's six-week run in 1st", url: "season.html?year=2026&week=8#schedule" },
+  { title: "Tyler Allgeier puts up 33.6 from the FLEX, but Michael Penix Jr.'s -1.9 at QB sinks Tyler Clay's Money Badgers in a 98.1-90.6 loss to Sonny Wright's Gangstas", url: "season.html?year=2026&week=8#schedule" },
+  { title: "Kirk Cousins (28.1) and Michael Wilson (22.8) carry Travis West's Business as Usual past Joe Garton's Route 2 Ravers, 114.1-85.5", url: "season.html?year=2026&week=8#schedule" },
+  { title: "Jordan Love's 21.4 leads Aaron Burns' Fantasy Football Team to a 101.3-87.4 win over Walid Salameh's Stallions, wasting D'Andre Swift's 26.9", url: "season.html?year=2026&week=8#schedule" },
+  { title: "Tyler Clay becomes the sixth franchise to reach 20,000 career points, finishing Week 8 at 20,089.4", url: "standings.html" },
+  { title: "Five teams sit at 5-3 behind the 6-2 Powerhouse; Sonny Wright holds 5th on points while Seth Thacker, also 5-3, sits 7th, and the 2-6 Ravers hold 6th for a fifth straight week", url: "season.html?year=2026" },
+  { title: "Bench mob: Z Hickman sits Patrick Mahomes (25.4) and Harold Fannin Jr. (18.4) and still wins, while Tyler Cummings starts Lamar Jackson, Omar Cooper Jr. and Tre Tucker for 0 combined; the Legends' 63.7 is the lowest score of the season", url: "season.html?year=2026&week=8#schedule" }
 ];
 
 const SURVIVOR = {
