@@ -867,6 +867,7 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
   transition: background 0.15s;
 }
 .newsletter-banner:hover{ background: var(--blue); }
+#home-headlines .newsletter-banner{ border: 2px solid var(--red); }
 /* The Couch Chronicles logo: issue mastheads and the archive page */
 .nl-masthead img.nl-cc-logo{ width:100%; max-width:340px; height:auto; mix-blend-mode:normal; }
 .cc-archive-logo{ display:block; width:100%; max-width:300px; height:auto; margin:0 auto 20px; }
