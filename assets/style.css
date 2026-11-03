@@ -952,6 +952,9 @@ tbody tr:hover .picks-name-cell{ background: rgba(214,40,57,0.06); }
 .race-chart .race-team{ opacity: 0.9; transition: opacity 0.15s; }
 .race-chart:hover .race-team{ opacity: 0.15; }
 .race-chart:hover .race-team:hover{ opacity: 1; }
+/* Standings race: desktop chart, swapped for the one-screen phone version under 600px */
+.race-narrow{ display: none; }
+@media (max-width: 600px){ .race-wide{ display: none; } .race-narrow{ display: block; } }
 .standings-tabs{
   display: inline-flex;
   gap: 4px;

@@ -14047,6 +14047,25 @@ const LIVE_FINAL = {
 // Season payouts shown in the standings table. weeklyHigh is paid during the season;
 // the rest is paid once the season has a champion. place = 1st/2nd/3rd prize money.
 // 2025: Burns and Sizemore split the 1st and 2nd prizes ($1,450) 800/650 before the title game.
+// Short team names for the phone-size standings race chart on the season page. Any team not listed
+// drops a leading "The " and is cut to 12 characters with an ellipsis.
+const TEAM_SHORT_NAMES = {
+  "The Deplorables": "Deplorables",
+  "Prino's Powerhouse": "Powerhouse",
+  "George's Gangstas": "Gangstas",
+  "Fantasy Football Team": "FFT",
+  "The Fantasy Football Team": "FFT",
+  "Route 2 Ravers": "Ravers",
+  "Lincoln Legends": "Legends",
+  "Money Badgers": "Badgers",
+  "Arabian Stallions": "Stallions",
+  "The Arabian Stallions": "Stallions",
+  "Business as Usual": "BAU",
+  "Free Agents": "Free Agents",
+  "Kareem Pie": "Kareem Pie",
+  "ACLiens": "ACLiens"
+};
+
 const PAYOUT_RULES = {
   "2022": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [1000, 450, 200] },
   "2023": { weeklyHigh: 25, seasonTopScorer: 100, playoffBerth: 50, playoffTeams: 6, place: [725, 725, 200] }, // 1st and 2nd split $1,450 evenly

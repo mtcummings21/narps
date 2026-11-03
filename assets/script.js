@@ -756,6 +756,15 @@ function renderPointsRaceChart(s){
 
 // mode 'standings': rank by the league's seeding rule. mode 'points': rank by total points scored,
 // with each team's running point total shown in the label and tooltips.
+// Short team name for the phone-size standings race chart: TEAM_SHORT_NAMES (data.js) first, else drop a
+// leading "The " and cut anything longer than 12 characters with an ellipsis.
+function shortTeamName(name){
+  const map = (typeof TEAM_SHORT_NAMES !== 'undefined') ? TEAM_SHORT_NAMES : {};
+  if(map[name]) return map[name];
+  const n = (name || '').replace(/^The\s+/i, '').trim();
+  return n.length > 12 ? n.slice(0, 11).trim() + '…' : n;
+}
+
 function renderRaceChart(s, mode){
   const data = computeWeeklyRanks(s);
   if(!data || data.weekKeys.length < RACE_CHART_MIN_WEEKS) return '';
@@ -765,22 +774,26 @@ function renderRaceChart(s, mode){
   const owners = Object.keys(rankHistory);
   const fmtPts = (v) => v.toLocaleString('en-US', { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 
-  const padL = 36, padR = isPoints ? 200 : 130, padT = 16, padB = 30;
-  const chartW = 860, chartH = 60 + teamCount * 26;
+  const ownerColor = {};
+  owners.forEach((o, i) => { ownerColor[o] = RACE_CHART_COLORS[i % RACE_CHART_COLORS.length]; });
+
+  // z = size config. Wide is the desktop chart (scrolls sideways on small screens); narrow is the
+  // phone version of the standings race: smaller canvas, week numbers only and short team names,
+  // so the whole chart fits on one screen.
+  function draw(z){
+  const padL = z.padL, padR = z.padR, padT = 16, padB = 30;
+  const chartW = z.W, chartH = 60 + teamCount * z.rowH;
   const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
   const xStep = weekKeys.length > 1 ? innerW / (weekKeys.length - 1) : 0;
   const yStep = teamCount > 1 ? innerH / (teamCount - 1) : 0;
   const xAt = (i) => padL + i * xStep;
   const yAt = (rank) => padT + (rank - 1) * yStep;
 
-  const ownerColor = {};
-  owners.forEach((o, i) => { ownerColor[o] = RACE_CHART_COLORS[i % RACE_CHART_COLORS.length]; });
-
   const gridLines = weekKeys.map((wk, i) => `<line x1="${xAt(i)}" y1="${padT}" x2="${xAt(i)}" y2="${padT+innerH}" stroke="var(--line)" stroke-width="1" />`).join('');
   const rankLines = Array.from({length: teamCount}, (_, i) => i+1).map(r =>
     `<line x1="${padL}" y1="${yAt(r)}" x2="${padL+innerW}" y2="${yAt(r)}" stroke="var(--line)" stroke-width="1" />`
   ).join('');
-  const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${weekNumLabel(wk)}</text>`).join('');
+  const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="${z.fAxis}" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${z.short ? parseInt(wk.replace(/\D/g, ''), 10) : weekNumLabel(wk)}</text>`).join('');
 
   const teamPaths = owners.map(o => {
     const ranks = rankHistory[o];
@@ -789,6 +802,7 @@ function renderRaceChart(s, mode){
     const teamName = (s.standings.find(row => row.owner === o) || {}).team || o;
     const totalPts = isPoints ? data.pointsHistory[o][ranks.length - 1] : null;
     const endLabel = isPoints ? `${teamName} · ${fmtPts(totalPts)}` : teamName;
+    const shownLabel = z.short ? shortTeamName(teamName) : endLabel;
     const weekDots = isPoints ? ranks.map((r, i) => `<circle cx="${xAt(i)}" cy="${yAt(r)}" r="4" fill="${ownerColor[o]}" fill-opacity="0.001"><title>${teamName}, ${weekNumLabel(weekKeys[i])}: ${fmtPts(data.pointsHistory[o][i])} pts (#${r})</title></circle>`).join('') : '';
     return `
       <g class="race-team">
@@ -797,16 +811,22 @@ function renderRaceChart(s, mode){
         </polyline>
         <circle cx="${xAt(ranks.length-1)}" cy="${yAt(lastRank)}" r="3.5" fill="${ownerColor[o]}" />
         ${weekDots}
-        <text x="${xAt(ranks.length-1) + 10}" y="${yAt(lastRank) + 4}" font-size="11" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${endLabel}</text>
+        <text x="${xAt(ranks.length-1) + (z.short ? 7 : 10)}" y="${yAt(lastRank) + 4}" font-size="${z.fLabel}" font-family="var(--body)" font-weight="600" fill="${ownerColor[o]}">${shownLabel}</text>
       </g>
     `;
   }).join('');
 
   return `<div class="table-scroll">
-    <svg class="race-chart" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:700px;">
+    <svg class="race-chart" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto;${z.minW ? ` min-width:${z.minW}px;` : ''}">
       ${gridLines}${rankLines}${weekLabels}${teamPaths}
     </svg>
   </div>`;
+  }
+
+  const wide = { W: 860, padL: 36, padR: isPoints ? 200 : 130, rowH: 26, fAxis: 10, fLabel: 11, short: false, minW: 700 };
+  if(isPoints) return draw(wide);
+  const narrow = { W: 360, padL: 14, padR: 84, rowH: 24, fAxis: 10, fLabel: 11, short: true, minW: 0 };
+  return `<div class="race-wide">${draw(wide)}</div><div class="race-narrow">${draw(narrow)}</div>`;
 }
 
 // Merges the lazily-loaded BOXSCORES (from assets/data-boxscores.js) into SEASONS,
