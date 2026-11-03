@@ -1996,4 +1996,14 @@ tr.bs-bench .player-link{ border-bottom-color: transparent; }
   .bs-table td.bs-name{ overflow: hidden; text-overflow: ellipsis; }
   .bs-full{ display: none; }
   .bs-short{ display: inline; }
+  /* Team name and score on one line: the name gives way (with "…") before the score does */
+  .bs-th{ display: flex; gap: 6px; white-space: nowrap; }
+  .bs-th-name{ flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .bs-th-sep{ display: none; }
+  .bs-th-pts{ flex: none; }
+  summary.mu-summary{ grid-template-columns: minmax(0,1fr) auto minmax(0,1fr) !important; gap: 8px !important; padding: 10px !important; }
+  .mu-side{ display: flex; gap: 5px; min-width: 0; white-space: nowrap; }
+  .mu-home{ justify-content: flex-end; }
+  .mu-name{ min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+  .mu-pts{ flex: none; }
 }

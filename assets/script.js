@@ -601,7 +601,7 @@ function boxscoreSideTable(teamName, score, players, bench){
     ${bench.map(p => line(p, 'bs-bench')).join('')}` : '';
   return `<div class="table-scroll"><table class="bs-table">
     <colgroup><col class="bs-col-slot"><col><col class="bs-col-pts"></colgroup>
-    <thead><tr><th colspan="3" style="text-align:left;">${teamName} · ${score}</th></tr></thead>
+    <thead><tr><th colspan="3" style="text-align:left;"><div class="bs-th"><span class="bs-th-name">${teamName}</span><span class="bs-th-sep"> · </span><span class="bs-th-pts">${score}</span></div></th></tr></thead>
     <tbody>${rows}${benchRows}</tbody>
   </table></div>`;
 }
@@ -609,10 +609,10 @@ function boxscoreSideTable(teamName, score, players, bench){
 function matchupCard(g){
   const awayWin = g.awayScore > g.homeScore;
   return `<details style="margin-bottom:8px;">
-    <summary style="cursor:pointer; padding:10px 12px; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:var(--radius); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; font-size:12px;">
-      <span style="${awayWin ? 'font-weight:700;' : ''}">${g.away} ${g.awayScore}</span>
+    <summary class="mu-summary" style="cursor:pointer; padding:10px 12px; background:var(--panel); color:var(--text); border:1px solid var(--line); border-radius:var(--radius); display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; font-size:12px;">
+      <span class="mu-side" style="${awayWin ? 'font-weight:700;' : ''}"><span class="mu-name">${g.away}</span> <span class="mu-pts">${g.awayScore}</span></span>
       <span style="color:var(--text-soft); text-align:center;">at</span>
-      <span style="${!awayWin ? 'font-weight:700;' : ''} text-align:right;">${g.home} ${g.homeScore}</span>
+      <span class="mu-side mu-home" style="${!awayWin ? 'font-weight:700;' : ''} text-align:right;"><span class="mu-name">${g.home}</span> <span class="mu-pts">${g.homeScore}</span></span>
     </summary>
     <div class="bs-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:8px;">
       ${boxscoreSideTable(g.away, g.awayScore, g.boxscore.away, g.boxscore.awayBench)}
