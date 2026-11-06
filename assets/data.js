@@ -17034,7 +17034,8 @@ const PREMIER_LEAGUE = {
         { week: 6, team: "Brighton",          opponent: "Sunderland",     venue: "A", score: "2–0", result: "W" },
         { week: 7, team: "Hull City",         opponent: "Fulham",         venue: "A", score: "0–1", result: "L" },
         { week: 8, team: "Ipswich Town",      opponent: "Nottingham Forest", venue: "H", score: "1–1", result: "D" },
-        { week: 9, team: "Tottenham",         opponent: "Crystal Palace", venue: "H", score: "2–0", result: "W" }
+        { week: 9, team: "Tottenham",         opponent: "Crystal Palace", venue: "H", score: "2–0", result: "W" },
+        { week: 10, team: "Chelsea",          opponent: "Sunderland",     venue: "A" }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
