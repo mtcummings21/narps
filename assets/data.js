@@ -17046,7 +17046,8 @@ const PREMIER_LEAGUE = {
         { week: 6, team: "Crystal Palace",    opponent: "Nottingham Forest", venue: "H", score: "3–1", result: "W" },
         { week: 7, team: "Coventry City",     opponent: "Tottenham",      venue: "A", score: "1–3", result: "L" },
         { week: 8, team: "Coventry City",     opponent: "Fulham",         venue: "H", score: "0–1", result: "L" },
-        { week: 9, team: "Aston Villa",       opponent: "Fulham",         venue: "H", score: "1–1", result: "D" }
+        { week: 9, team: "Aston Villa",       opponent: "Fulham",         venue: "H", score: "1–1", result: "D" },
+        { week: 10, team: "Liverpool",        opponent: "Crystal Palace", venue: "A" }
       ]}
     ]
   }
