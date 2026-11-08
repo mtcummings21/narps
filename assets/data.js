@@ -17021,7 +17021,20 @@ const PREMIER_LEAGUE = {
         ["Hull City", 2, 2, "Ipswich Town"],
         ["Manchester City", 0, 1, "Brighton"],
         ["Tottenham", 2, 0, "Crystal Palace"],
-        ["Aston Villa", 1, 1, "Fulham"]
+        ["Aston Villa", 1, 1, "Fulham"],
+        ["Liverpool", 0, 1, "Arsenal"],
+        ["Newcastle United", 0, 1, "Everton"]
+      ],
+      10: [
+        ["Everton", 3, 1, "Coventry City"],
+        ["Leeds United", 1, 0, "Tottenham"],
+        ["Arsenal", 1, 0, "Hull City"],
+        ["Fulham", 1, 1, "Newcastle United"],
+        ["Nottingham Forest", 3, 1, "Manchester City"],
+        ["Brighton", 2, 0, "Brentford"],
+        ["Crystal Palace", 1, 3, "Liverpool"],
+        ["Ipswich Town", 1, 2, "Bournemouth"],
+        ["Sunderland", 1, 0, "Chelsea"]
       ]
     },
     players: [
@@ -17035,7 +17048,7 @@ const PREMIER_LEAGUE = {
         { week: 7, team: "Hull City",         opponent: "Fulham",         venue: "A", score: "0–1", result: "L" },
         { week: 8, team: "Ipswich Town",      opponent: "Nottingham Forest", venue: "H", score: "1–1", result: "D" },
         { week: 9, team: "Tottenham",         opponent: "Crystal Palace", venue: "H", score: "2–0", result: "W" },
-        { week: 10, team: "Chelsea",          opponent: "Sunderland",     venue: "A" }
+        { week: 10, team: "Chelsea",          opponent: "Sunderland",     venue: "A", score: "0–1", result: "L" }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
@@ -17047,7 +17060,7 @@ const PREMIER_LEAGUE = {
         { week: 7, team: "Coventry City",     opponent: "Tottenham",      venue: "A", score: "1–3", result: "L" },
         { week: 8, team: "Coventry City",     opponent: "Fulham",         venue: "H", score: "0–1", result: "L" },
         { week: 9, team: "Aston Villa",       opponent: "Fulham",         venue: "H", score: "1–1", result: "D" },
-        { week: 10, team: "Liverpool",        opponent: "Crystal Palace", venue: "A" }
+        { week: 10, team: "Liverpool",        opponent: "Crystal Palace", venue: "A", score: "3–1", result: "W" }
       ]}
     ]
   }
