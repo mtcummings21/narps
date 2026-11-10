@@ -14082,14 +14082,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Tee Higgins (32.5) and Brock Bowers (24.7) power Joe Prino's Powerhouse to a week-high 148.4 in a rout of Luke Rapp's ACLiens (86.7), and Prino takes 1st for the first time this season", url: "season.html?year=2026&week=8#schedule" },
-  { title: "Joe Burrow's 39.4, the week's top individual score, lifts Seth Thacker's Kareem Pie past the Deplorables 101.3-96.1 and ends Zach Sizemore's six-week run in 1st", url: "season.html?year=2026&week=8#schedule" },
-  { title: "Tyler Allgeier puts up 33.6 from the FLEX, but Michael Penix Jr.'s -1.9 at QB sinks Tyler Clay's Money Badgers in a 98.1-90.6 loss to Sonny Wright's Gangstas", url: "season.html?year=2026&week=8#schedule" },
-  { title: "Kirk Cousins (28.1) and Michael Wilson (22.8) carry Travis West's Business as Usual past Joe Garton's Route 2 Ravers, 114.1-85.5", url: "season.html?year=2026&week=8#schedule" },
-  { title: "Jordan Love's 21.4 leads Aaron Burns' Fantasy Football Team to a 101.3-87.4 win over Walid Salameh's Stallions, wasting D'Andre Swift's 26.9", url: "season.html?year=2026&week=8#schedule" },
-  { title: "Tyler Clay becomes the sixth franchise to reach 20,000 career points, finishing Week 8 at 20,089.4", url: "standings.html" },
-  { title: "Five teams sit at 5-3 behind the 6-2 Powerhouse; Sonny Wright holds 5th on points while Seth Thacker, also 5-3, sits 7th, and the 2-6 Ravers hold 6th for a fifth straight week", url: "season.html?year=2026" },
-  { title: "Bench mob: Z Hickman sits Patrick Mahomes (25.4) and Harold Fannin Jr. (18.4) and still wins, while Tyler Cummings starts Lamar Jackson, Omar Cooper Jr. and Tre Tucker for 0 combined; the Legends' 63.7 is the lowest score of the season", url: "season.html?year=2026&week=8#schedule" }
+  { title: "Puka Nacua (28.0) and Brock Purdy (25.2) lead Joe Prino's Powerhouse to a week-high 140.0 over Z Hickman's Free Agents (79.9); Prino now owns three of the season's four highest scores and sits alone in 1st at 7-2", url: "season.html?year=2026&week=9#schedule" },
+  { title: "Matthew Golden (27.4) and Bucky Irving (26.5) snap Joe Garton's six-game losing streak as Route 2 Ravers beat Aaron Burns' Fantasy Football Team 102.7-94.0, wasting Jordan Love's week-best 36.1", url: "season.html?year=2026&week=9#schedule" },
+  { title: "Kenneth Walker III's 34.3 carries Sonny Wright's Gangstas past Tyler Cummings' Legends 99.5-88.8 for a third straight win, despite Ja'Marr Chase's 26.5; the Legends have now lost four straight", url: "season.html?year=2026&week=9#schedule" },
+  { title: "Joe Burrow (29.5), Christian Watson (26.6) and Bijan Robinson (23.7) power Seth Thacker's Kareem Pie past Walid Salameh's Stallions 116.6-82.2, and Thacker jumps four spots to 3rd", url: "season.html?year=2026&week=9#schedule" },
+  { title: "CeeDee Lamb's 28.5 leads Travis West's Business as Usual to a third straight win, 83.2-61.4, and Luke Rapp's ACLiens post the lowest score of the season", url: "season.html?year=2026&week=9#schedule" },
+  { title: "Zach Sizemore's Deplorables hang on 80.1-76.3 despite Christian McCaffrey's 21.7, handing Tyler Clay's Money Badgers a third straight loss", url: "season.html?year=2026&week=9#schedule" },
+  { title: "Three teams sit at 6-3 behind the 7-2 Powerhouse; the 3-6 Ravers hold 6th on points for a sixth straight week, while the 5-4 Fantasy Football Team sits 7th", url: "season.html?year=2026" },
+  { title: "Bench mob: Joe Garton sits C.J. Stroud's 35.2 while Jared Goff scores 5.3 and still wins; Sonny Wright starts Ladd McConkey (0.0) and Tucker Kraft (1.4) with two 10-point RBs on his bench", url: "season.html?year=2026&week=9#schedule" }
 ];
 
 const SURVIVOR = {
