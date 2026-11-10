@@ -2308,28 +2308,38 @@ function renderPremierLeagueRace(s){
 
   const maxWeek = Math.max(...series.flatMap(x => x.pts.map(pt => pt.week)));
   const maxPts = Math.max(3, ...series.flatMap(x => x.pts.map(pt => pt.total)));
-  const yMax = Math.ceil(maxPts / 3) * 3;
-  const padL = 40, padR = 90, padT = 24, padB = 46;
-  const chartW = 640, chartH = 310;
+
+  // z = size config. Wide is the desktop chart (scrolls sideways on small screens); narrow is the
+  // phone version: smaller canvas and plain week numbers (thinned out as the season gets longer),
+  // so the whole chart fits on one screen.
+  function draw(z){
+  const padL = z.padL, padR = z.padR, padT = z.padT, padB = z.padB;
+  const chartW = z.W, chartH = z.H;
   const innerW = chartW - padL - padR, innerH = chartH - padT - padB;
+  // Point gridlines every 3 (one win); the phone chart widens the step to keep at most 8 lines.
+  const yStep = z.short ? 3 * Math.max(1, Math.ceil(maxPts / 24)) : 3;
+  const yMax = Math.ceil(maxPts / yStep) * yStep;
+  const yTicks = Array.from({ length: yMax / yStep + 1 }, (_, i) => i * yStep);
   const xAt = w => padL + (maxWeek ? w / maxWeek : 0) * innerW;
   const yAt = v => padT + innerH - (v / yMax) * innerH;
 
-  const yTicks = Array.from({ length: yMax / 3 + 1 }, (_, i) => i * 3);
   const grid = yTicks.map(v => `
     <line x1="${padL}" y1="${yAt(v)}" x2="${padL + innerW}" y2="${yAt(v)}" stroke="var(--line)" stroke-width="1" />
     <text x="${padL - 8}" y="${yAt(v) + 3.5}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${v}</text>`).join('');
-  const xLabels = Array.from({ length: maxWeek + 1 }, (_, w) =>
-    `<text x="${xAt(w)}" y="${padT + innerH + 34}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${w === 0 ? 'Start' : 'Wk ' + w}</text>`).join('');
-  const yTitle = `<text transform="translate(12 ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points</text>`;
+  const xStep = z.short ? Math.max(1, Math.ceil(maxWeek / 12)) : 1;
+  const xLabels = Array.from({ length: maxWeek + 1 }, (_, w) => w)
+    .filter(w => z.short ? (w > 0 && (w % xStep === 0 || w === maxWeek)) : true)
+    .map(w => `<text x="${xAt(w)}" y="${padT + innerH + z.xLabelDy}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${z.short ? w : (w === 0 ? 'Start' : 'Wk ' + w)}</text>`).join('');
+  const xTitle = z.short ? `<text x="${padL + innerW / 2}" y="${chartH - 4}" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Week</text>` : '';
+  const yTitle = `<text transform="translate(${z.yTitleX} ${padT + innerH / 2}) rotate(-90)" font-size="10" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">Points</text>`;
 
   // Nudge dots apart horizontally when two players sit on the same spot.
   const spotCount = {};
   series.forEach(x => x.pts.forEach(pt => { const k = pt.week + ':' + pt.total; spotCount[k] = (spotCount[k] || 0) + 1; }));
   const spotSeen = {};
-  const dotR = 5;
+  const dotR = z.dotR;
 
-  const labelX = padL + innerW + 26;
+  const labelX = padL + innerW + z.labelGap;
   const labels = series.map(x => ({ x, y: yAt(x.pts[x.pts.length - 1].total) })).sort((a,b) => a.y - b.y);
   labels.forEach((l, i) => { l.ly = i === 0 ? l.y : Math.max(l.y, labels[i-1].ly + 20); });
   const labelY = new Map(labels.map(l => [l.x, l.ly]));
@@ -2354,12 +2364,17 @@ function renderPremierLeagueRace(s){
     </g>`;
   }).join('');
 
-  return `<h3>Points Race</h3>
-    <div class="table-scroll" style="border:0;">
-      <svg class="race-chart pl-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto; min-width:520px;" role="img" aria-label="Cumulative points by week">
-        ${grid}${yTitle}${xLabels}${lines}
+  return `<div class="table-scroll" style="border:0;">
+      <svg class="race-chart pl-race" viewBox="0 0 ${chartW} ${chartH}" style="width:100%; height:auto;${z.minW ? ` min-width:${z.minW}px;` : ''}" role="img" aria-label="Cumulative points by week">
+        ${grid}${yTitle}${xLabels}${xTitle}${lines}
       </svg>
     </div>`;
+  }
+
+  const wide = { W: 640, H: 310, padL: 40, padR: 90, padT: 24, padB: 46, xLabelDy: 34, yTitleX: 12, labelGap: 26, dotR: 5, short: false, minW: 520 };
+  const narrow = { W: 360, H: 270, padL: 32, padR: 72, padT: 16, padB: 38, xLabelDy: 18, yTitleX: 9, labelGap: 12, dotR: 4, short: true, minW: 0 };
+  return `<h3>Points Race</h3>
+    <div class="race-wide">${draw(wide)}</div><div class="race-narrow">${draw(narrow)}</div>`;
 }
 
 // League standings after a given matchweek, computed from PREMIER_LEAGUE[year].results.
