@@ -2259,7 +2259,7 @@ const SEASONS = {
       "owner": "Tyler Clay"
     },
     "second": {
-      "team": "The ACLiens",
+      "team": "ACLiens",
       "owner": "Luke Rapp"
     },
     "third": {
@@ -2268,7 +2268,7 @@ const SEASONS = {
     },
     "standings": [
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 9,
         "l": 3,
@@ -2375,7 +2375,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 181,
           "homeScore": 78,
@@ -2414,7 +2414,7 @@ const SEASONS = {
           "awayScore": 131.8,
           "homeScore": 83.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Free Agents",
@@ -2443,7 +2443,7 @@ const SEASONS = {
           "home": "When's Fantasy Baseball?"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 114.2,
           "homeScore": 73.9,
@@ -2477,7 +2477,7 @@ const SEASONS = {
       ],
       "Week 4": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 132.5,
           "homeScore": 108.4,
@@ -2532,7 +2532,7 @@ const SEASONS = {
           "awayScore": 107.6,
           "homeScore": 132.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -2577,7 +2577,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 91.6,
           "homeScore": 101.3,
@@ -2632,7 +2632,7 @@ const SEASONS = {
           "awayScore": 73.7,
           "homeScore": 89.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Plaxicolt's 45",
@@ -2677,7 +2677,7 @@ const SEASONS = {
           "home": "Plaxicolt's 45"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 102,
           "homeScore": 74.2,
@@ -2719,7 +2719,7 @@ const SEASONS = {
           "home": "Prino's Powerhouse"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 122,
           "homeScore": 79,
@@ -2758,7 +2758,7 @@ const SEASONS = {
           "awayScore": 90.7,
           "homeScore": 131.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -2787,7 +2787,7 @@ const SEASONS = {
           "home": "Rookie Sensations"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 106.3,
           "homeScore": 126.4,
@@ -2826,7 +2826,7 @@ const SEASONS = {
           "awayScore": 76.5,
           "homeScore": 136.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Rookie Sensations",
@@ -2877,7 +2877,7 @@ const SEASONS = {
         ],
         "byes": [
           {
-            "team": "The ACLiens",
+            "team": "ACLiens",
             "pts": 139.6
           },
           {
@@ -2895,7 +2895,7 @@ const SEASONS = {
             "awayScore": 77.3,
             "homeScore": 106.6,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           },
           {
             "away": "Money Badgers",
@@ -2916,7 +2916,7 @@ const SEASONS = {
             "awayScore": 157.7,
             "homeScore": 100.9,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           }
         ]
       },
@@ -2938,7 +2938,7 @@ const SEASONS = {
   "2014": {
     "year": 2014,
     "champion": {
-      "team": "The ACLiens",
+      "team": "ACLiens",
       "owner": "Luke Rapp"
     },
     "second": {
@@ -2951,7 +2951,7 @@ const SEASONS = {
     },
     "standings": [
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 9,
         "l": 1,
@@ -3090,7 +3090,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 74.5,
           "homeScore": 72.7,
@@ -3145,7 +3145,7 @@ const SEASONS = {
           "awayScore": 71.7,
           "homeScore": 104.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 3": [
@@ -3158,7 +3158,7 @@ const SEASONS = {
           "home": "Commish's Crusaders"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 102.7,
           "homeScore": 58.9,
@@ -3208,7 +3208,7 @@ const SEASONS = {
           "home": "Money Badgers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 98.9,
           "homeScore": 91.1,
@@ -3274,7 +3274,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 76.4,
           "homeScore": 58.6,
@@ -3316,7 +3316,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 139.9,
           "homeScore": 102.8,
@@ -3355,7 +3355,7 @@ const SEASONS = {
           "awayScore": 73.1,
           "homeScore": 81.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Plaxicolt's 45",
@@ -3440,7 +3440,7 @@ const SEASONS = {
           "home": "Prino's Powerhouse"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 120.1,
           "homeScore": 116.1,
@@ -3455,7 +3455,7 @@ const SEASONS = {
           "awayScore": 70.3,
           "homeScore": 88,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Free Agents",
@@ -3529,7 +3529,7 @@ const SEASONS = {
           "awayScore": 97.9,
           "homeScore": 86.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -3572,7 +3572,7 @@ const SEASONS = {
         ],
         "byes": [
           {
-            "team": "The ACLiens",
+            "team": "ACLiens",
             "pts": 164.7
           },
           {
@@ -3590,7 +3590,7 @@ const SEASONS = {
             "awayScore": 174.4,
             "homeScore": 216,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           },
           {
             "away": "Commish's Crusaders",
@@ -3611,7 +3611,7 @@ const SEASONS = {
             "awayScore": 216.1,
             "homeScore": 236.9,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           }
         ]
       },
@@ -4478,7 +4478,7 @@ const SEASONS = {
   "2016": {
     "year": 2016,
     "champion": {
-      "team": "The ACLiens",
+      "team": "ACLiens",
       "owner": "Luke Rapp"
     },
     "second": {
@@ -4491,7 +4491,7 @@ const SEASONS = {
     },
     "standings": [
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 8,
         "l": 5,
@@ -4598,7 +4598,7 @@ const SEASONS = {
           "home": "That's a Baaaaaaad Man"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 134.5,
           "homeScore": 121.8,
@@ -4640,7 +4640,7 @@ const SEASONS = {
       ],
       "Week 2": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 106.3,
           "homeScore": 68.9,
@@ -4703,7 +4703,7 @@ const SEASONS = {
           "awayScore": 88,
           "homeScore": 98.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -4756,7 +4756,7 @@ const SEASONS = {
           "home": "George's Gangstas"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 73.7,
           "homeScore": 119.8,
@@ -4819,7 +4819,7 @@ const SEASONS = {
           "awayScore": 83.1,
           "homeScore": 123.5,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Winning Is My Forte",
@@ -4872,7 +4872,7 @@ const SEASONS = {
           "home": "Winning Is My Forte"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 128.4,
           "homeScore": 86.6,
@@ -4935,7 +4935,7 @@ const SEASONS = {
           "awayScore": 87.4,
           "homeScore": 116.5,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 8": [
@@ -4985,7 +4985,7 @@ const SEASONS = {
           "awayScore": 110.8,
           "homeScore": 89.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 9": [
@@ -5022,7 +5022,7 @@ const SEASONS = {
           "home": "Plaxicolt's 45"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 80.6,
           "homeScore": 113.3,
@@ -5069,7 +5069,7 @@ const SEASONS = {
           "awayScore": 106.5,
           "homeScore": 97.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Plaxicolt's 45",
@@ -5106,7 +5106,7 @@ const SEASONS = {
           "home": "Huntington Heroes"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 121.7,
           "homeScore": 103.2,
@@ -5153,7 +5153,7 @@ const SEASONS = {
           "awayScore": 110.7,
           "homeScore": 94,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Huntington Heroes",
@@ -5195,7 +5195,7 @@ const SEASONS = {
           "awayScore": 87.2,
           "homeScore": 137.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -5262,7 +5262,7 @@ const SEASONS = {
         ],
         "byes": [
           {
-            "team": "The ACLiens",
+            "team": "ACLiens",
             "pts": 105.5
           },
           {
@@ -5280,7 +5280,7 @@ const SEASONS = {
             "awayScore": 47.8,
             "homeScore": 82.3,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           },
           {
             "away": "The Arabian Stallions",
@@ -5301,7 +5301,7 @@ const SEASONS = {
             "awayScore": 108,
             "homeScore": 114.5,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           }
         ]
       },
@@ -5376,7 +5376,7 @@ const SEASONS = {
         "pct": 0.538
       },
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 7,
         "l": 6,
@@ -5475,7 +5475,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 86,
           "homeScore": 67.4,
@@ -5530,7 +5530,7 @@ const SEASONS = {
           "awayScore": 90.5,
           "homeScore": 100.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 3": [
@@ -5575,7 +5575,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 84.5,
           "homeScore": 126.9,
@@ -5630,7 +5630,7 @@ const SEASONS = {
           "awayScore": 124.5,
           "homeScore": 89.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 5": [
@@ -5680,12 +5680,12 @@ const SEASONS = {
           "awayScore": 74.8,
           "homeScore": 113.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 6": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 106.9,
           "homeScore": 87.4,
@@ -5780,7 +5780,7 @@ const SEASONS = {
           "awayScore": 79.8,
           "homeScore": 73.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 8": [
@@ -5801,7 +5801,7 @@ const SEASONS = {
           "home": "Prino's Powerhouse"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 64.7,
           "homeScore": 54.6,
@@ -5859,7 +5859,7 @@ const SEASONS = {
           "home": "Eddie Lacy's Donut Factory"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 88.9,
           "homeScore": 104.4,
@@ -5930,12 +5930,12 @@ const SEASONS = {
           "awayScore": 68.9,
           "homeScore": 80.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 11": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 82.9,
           "homeScore": 142.8,
@@ -6030,7 +6030,7 @@ const SEASONS = {
           "awayScore": 106.4,
           "homeScore": 81.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 13": [
@@ -6075,7 +6075,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 134.5,
           "homeScore": 125.3,
@@ -6097,7 +6097,7 @@ const SEASONS = {
             "home": "Winning Is My Forte"
           },
           {
-            "away": "The ACLiens",
+            "away": "ACLiens",
             "awayMgr": "Luke Rapp",
             "awayScore": 92,
             "homeScore": 98.5,
@@ -6237,7 +6237,7 @@ const SEASONS = {
         "pct": 0.462
       },
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 6,
         "l": 7,
@@ -6325,7 +6325,7 @@ const SEASONS = {
           "awayScore": 77.6,
           "homeScore": 127.5,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 2": [
@@ -6362,7 +6362,7 @@ const SEASONS = {
           "home": "The Deplorables"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 100.4,
           "homeScore": 97.9,
@@ -6393,7 +6393,7 @@ const SEASONS = {
           "awayScore": 107.2,
           "homeScore": 97.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Kareem Pie",
@@ -6475,7 +6475,7 @@ const SEASONS = {
           "awayScore": 127.3,
           "homeScore": 101.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 5": [
@@ -6493,7 +6493,7 @@ const SEASONS = {
           "awayScore": 84.4,
           "homeScore": 125.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -6562,7 +6562,7 @@ const SEASONS = {
           "home": "O Le'Veon, Where Art Thou?"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 124.5,
           "homeScore": 95.6,
@@ -6593,7 +6593,7 @@ const SEASONS = {
           "awayScore": 87.9,
           "homeScore": 149.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -6670,7 +6670,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 121.8,
           "homeScore": 124.6,
@@ -6717,7 +6717,7 @@ const SEASONS = {
           "awayScore": 119.3,
           "homeScore": 102.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -6770,7 +6770,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 108.9,
           "homeScore": 115.1,
@@ -6817,7 +6817,7 @@ const SEASONS = {
           "awayScore": 140.6,
           "homeScore": 62.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Lincoln Legends",
@@ -6854,7 +6854,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 72.1,
           "homeScore": 120.5,
@@ -6901,7 +6901,7 @@ const SEASONS = {
           "awayScore": 117.3,
           "homeScore": 120.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -7114,7 +7114,7 @@ const SEASONS = {
         "pct": 0.308
       },
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 4,
         "l": 9,
@@ -7125,7 +7125,7 @@ const SEASONS = {
     "schedule": {
       "Week 1": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 87.6,
           "homeScore": 117,
@@ -7196,7 +7196,7 @@ const SEASONS = {
           "awayScore": 134.3,
           "homeScore": 128.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -7257,7 +7257,7 @@ const SEASONS = {
           "home": "The Glue Factory"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 74.9,
           "homeScore": 99.7,
@@ -7288,7 +7288,7 @@ const SEASONS = {
           "awayScore": 125.7,
           "homeScore": 106.5,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -7341,7 +7341,7 @@ const SEASONS = {
           "home": "The Deplorables"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 115.4,
           "homeScore": 51.2,
@@ -7380,7 +7380,7 @@ const SEASONS = {
           "awayScore": 53.2,
           "homeScore": 58.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -7446,7 +7446,7 @@ const SEASONS = {
           "awayScore": 109.3,
           "homeScore": 77.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -7507,7 +7507,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 110.1,
           "homeScore": 101.8,
@@ -7530,7 +7530,7 @@ const SEASONS = {
           "awayScore": 98.7,
           "homeScore": 84.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -7599,7 +7599,7 @@ const SEASONS = {
           "home": "Prino's Powerhouse"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 104.8,
           "homeScore": 116.3,
@@ -7654,7 +7654,7 @@ const SEASONS = {
           "awayScore": 107.7,
           "homeScore": 87.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Lincoln Legends",
@@ -7688,7 +7688,7 @@ const SEASONS = {
           "awayScore": 76.3,
           "homeScore": 91.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -7725,7 +7725,7 @@ const SEASONS = {
       ],
       "Week 13": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 100.1,
           "homeScore": 115.8,
@@ -7943,7 +7943,7 @@ const SEASONS = {
         "pct": 0.462
       },
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 6,
         "l": 7,
@@ -7970,7 +7970,7 @@ const SEASONS = {
     "schedule": {
       "Week 1": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 93.6,
           "homeScore": 99.8,
@@ -8025,7 +8025,7 @@ const SEASONS = {
           "awayScore": 93.4,
           "homeScore": 112.5,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -8083,7 +8083,7 @@ const SEASONS = {
           "awayScore": 89,
           "homeScore": 79.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -8136,7 +8136,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 93.3,
           "homeScore": 67,
@@ -8183,7 +8183,7 @@ const SEASONS = {
           "awayScore": 128.9,
           "homeScore": 103.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -8260,7 +8260,7 @@ const SEASONS = {
           "home": "George's Gangstas"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 90.8,
           "homeScore": 82.1,
@@ -8286,7 +8286,7 @@ const SEASONS = {
           "home": "Route 2 Ravers Reunited"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 58.7,
           "homeScore": 132.6,
@@ -8341,7 +8341,7 @@ const SEASONS = {
           "awayScore": 97.1,
           "homeScore": 95.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Fantasy Football Team",
@@ -8383,7 +8383,7 @@ const SEASONS = {
           "awayScore": 105.7,
           "homeScore": 101.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -8433,7 +8433,7 @@ const SEASONS = {
           "awayScore": 93.6,
           "homeScore": 109.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -8478,7 +8478,7 @@ const SEASONS = {
           "home": "George's Gangstas"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 98.6,
           "homeScore": 88,
@@ -8533,7 +8533,7 @@ const SEASONS = {
           "awayScore": 118.1,
           "homeScore": 69.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -8578,7 +8578,7 @@ const SEASONS = {
           "home": "Lincoln Legends"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 102.7,
           "homeScore": 77.3,
@@ -8796,7 +8796,7 @@ const SEASONS = {
         "pct": 0.429
       },
       {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 5,
         "l": 9,
@@ -8852,7 +8852,7 @@ const SEASONS = {
           "awayScore": 67.3,
           "homeScore": 114.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -8881,7 +8881,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 68.6,
           "homeScore": 115.4,
@@ -8923,7 +8923,7 @@ const SEASONS = {
           "home": "The Fantasy Football Team"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 83.2,
           "homeScore": 98.1,
@@ -8978,7 +8978,7 @@ const SEASONS = {
           "awayScore": 79.9,
           "homeScore": 128.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Free Agents",
@@ -9031,7 +9031,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 114.2,
           "homeScore": 162.5,
@@ -9094,7 +9094,7 @@ const SEASONS = {
           "awayScore": 142.6,
           "homeScore": 117,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -9115,7 +9115,7 @@ const SEASONS = {
       ],
       "Week 7": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 79.2,
           "homeScore": 83.9,
@@ -9210,12 +9210,12 @@ const SEASONS = {
           "awayScore": 101,
           "homeScore": 81.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 9": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 72.2,
           "homeScore": 108,
@@ -9310,7 +9310,7 @@ const SEASONS = {
           "awayScore": 69.8,
           "homeScore": 80.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 11": [
@@ -9331,7 +9331,7 @@ const SEASONS = {
           "home": "The Deplorables"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 120.3,
           "homeScore": 86.4,
@@ -9397,7 +9397,7 @@ const SEASONS = {
           "home": "Kareem Pie"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 69.8,
           "homeScore": 155.4,
@@ -9444,7 +9444,7 @@ const SEASONS = {
           "awayScore": 81.8,
           "homeScore": 91.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -9502,7 +9502,7 @@ const SEASONS = {
           "awayScore": 91.8,
           "homeScore": 78.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -9627,7 +9627,7 @@ const SEASONS = {
         "pct": 0.643
       },
     {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 9,
         "l": 5,
@@ -9739,7 +9739,7 @@ const SEASONS = {
           "awayScore": 123.9,
           "homeScore": 96.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Kareem Pie",
@@ -9792,7 +9792,7 @@ const SEASONS = {
           "home": "Kareem Pie"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 99.8,
           "homeScore": 79,
@@ -9855,7 +9855,7 @@ const SEASONS = {
           "awayScore": 84.7,
           "homeScore": 96.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 4": [
@@ -9905,7 +9905,7 @@ const SEASONS = {
           "awayScore": 66,
           "homeScore": 137.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 5": [
@@ -9942,7 +9942,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 99.8,
           "homeScore": 92.6,
@@ -9989,7 +9989,7 @@ const SEASONS = {
           "awayScore": 57.7,
           "homeScore": 91.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -10026,7 +10026,7 @@ const SEASONS = {
           "home": "Money Badgers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 80,
           "homeScore": 99,
@@ -10073,7 +10073,7 @@ const SEASONS = {
           "awayScore": 122.9,
           "homeScore": 75.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -10115,7 +10115,7 @@ const SEASONS = {
           "awayScore": 77.8,
           "homeScore": 82.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Fantasy Football Team",
@@ -10168,7 +10168,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 69,
           "homeScore": 66,
@@ -10231,7 +10231,7 @@ const SEASONS = {
           "awayScore": 86.9,
           "homeScore": 94.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Route 2 Ravers",
@@ -10284,7 +10284,7 @@ const SEASONS = {
           "home": "Route 2 Ravers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 104.9,
           "homeScore": 91.7,
@@ -10347,7 +10347,7 @@ const SEASONS = {
           "awayScore": 114.7,
           "homeScore": 76.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -10400,7 +10400,7 @@ const SEASONS = {
           "home": "George's Gangstas"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 75.4,
           "homeScore": 93.5,
@@ -10427,7 +10427,7 @@ const SEASONS = {
             "awayScore": 123.5,
             "homeScore": 56.8,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           }
         ],
         "byes": [
@@ -10554,7 +10554,7 @@ const SEASONS = {
         "pct": 0.357
       },
     {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 7,
         "l": 7,
@@ -10642,7 +10642,7 @@ const SEASONS = {
           "awayScore": 77.6,
           "homeScore": 86.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Fantasy Football Team",
@@ -10695,7 +10695,7 @@ const SEASONS = {
           "home": "The Fantasy Football Team"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 141.9,
           "homeScore": 71.4,
@@ -10745,7 +10745,7 @@ const SEASONS = {
           "home": "Kareem Pie"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 87.4,
           "homeScore": 59,
@@ -10792,7 +10792,7 @@ const SEASONS = {
           "awayScore": 122.4,
           "homeScore": 99.2,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Kareem Pie",
@@ -10829,7 +10829,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 63.8,
           "homeScore": 108.2,
@@ -10876,7 +10876,7 @@ const SEASONS = {
           "awayScore": 96,
           "homeScore": 79.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Free Agents",
@@ -10913,7 +10913,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 116.5,
           "homeScore": 69.4,
@@ -10955,7 +10955,7 @@ const SEASONS = {
       ],
       "Week 8": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 105.5,
           "homeScore": 151.5,
@@ -11018,7 +11018,7 @@ const SEASONS = {
           "awayScore": 105.7,
           "homeScore": 60.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Lincoln Legends",
@@ -11071,7 +11071,7 @@ const SEASONS = {
           "home": "Lincoln Legends"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 101.7,
           "homeScore": 97.3,
@@ -11134,7 +11134,7 @@ const SEASONS = {
           "awayScore": 109.2,
           "homeScore": 80.8,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Money Badgers",
@@ -11187,7 +11187,7 @@ const SEASONS = {
           "home": "Money Badgers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 128.8,
           "homeScore": 129.9,
@@ -11250,7 +11250,7 @@ const SEASONS = {
           "awayScore": 90,
           "homeScore": 101.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 14": [
@@ -11300,7 +11300,7 @@ const SEASONS = {
           "awayScore": 65.8,
           "homeScore": 130.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ]
     },
@@ -11388,7 +11388,7 @@ const SEASONS = {
   "2024": {
     "year": 2024,
     "champion": {
-      "team": "The ACLiens",
+      "team": "ACLiens",
       "owner": "Luke Rapp"
     },
     "second": {
@@ -11425,7 +11425,7 @@ const SEASONS = {
         "pct": 0.643
       },
     {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 8,
         "l": 6,
@@ -11532,7 +11532,7 @@ const SEASONS = {
           "home": "Route 2 Ravers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 82.5,
           "homeScore": 95.6,
@@ -11579,7 +11579,7 @@ const SEASONS = {
           "awayScore": 90.8,
           "homeScore": 93.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Route 2 Ravers",
@@ -11616,7 +11616,7 @@ const SEASONS = {
           "home": "Kareem Pie"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 107.9,
           "homeScore": 70,
@@ -11663,7 +11663,7 @@ const SEASONS = {
           "awayScore": 102.4,
           "homeScore": 103.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Kareem Pie",
@@ -11705,7 +11705,7 @@ const SEASONS = {
           "awayScore": 76.4,
           "homeScore": 140.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Fantasy Football Team",
@@ -11758,7 +11758,7 @@ const SEASONS = {
           "home": "Money Badgers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 67.2,
           "homeScore": 119,
@@ -11821,7 +11821,7 @@ const SEASONS = {
           "awayScore": 91.7,
           "homeScore": 99.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "George's Gangstas",
@@ -11874,7 +11874,7 @@ const SEASONS = {
           "home": "George's Gangstas"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 126.3,
           "homeScore": 105.2,
@@ -11937,7 +11937,7 @@ const SEASONS = {
           "awayScore": 77.4,
           "homeScore": 74.9,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Deplorables",
@@ -11990,7 +11990,7 @@ const SEASONS = {
           "home": "The Deplorables"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 130.9,
           "homeScore": 73.2,
@@ -12040,7 +12040,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 89.1,
           "homeScore": 103.4,
@@ -12087,7 +12087,7 @@ const SEASONS = {
           "awayScore": 95.9,
           "homeScore": 91.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Free Agents",
@@ -12124,7 +12124,7 @@ const SEASONS = {
           "home": "Lincoln Legends"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 117.2,
           "homeScore": 142.7,
@@ -12171,7 +12171,7 @@ const SEASONS = {
           "awayScore": 98.5,
           "homeScore": 130.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Lincoln Legends",
@@ -12209,7 +12209,7 @@ const SEASONS = {
             "awayScore": 109,
             "homeScore": 119,
             "homeMgr": "Luke Rapp",
-            "home": "The ACLiens"
+            "home": "ACLiens"
           },
           {
             "away": "The Deplorables",
@@ -12235,7 +12235,7 @@ const SEASONS = {
         "label": "Round 2 (Week 16)",
         "games": [
           {
-            "away": "The ACLiens",
+            "away": "ACLiens",
             "awayMgr": "Luke Rapp",
             "awayScore": 99.4,
             "homeScore": 94.7,
@@ -12256,7 +12256,7 @@ const SEASONS = {
         "label": "Round 3 / Championship (Week 17)",
         "games": [
           {
-            "away": "The ACLiens",
+            "away": "ACLiens",
             "awayMgr": "Luke Rapp",
             "awayScore": 139,
             "homeScore": 81.8,
@@ -12344,7 +12344,7 @@ const SEASONS = {
         "pct": 0.429
       },
     {
-        "team": "The ACLiens",
+        "team": "ACLiens",
         "owner": "Luke Rapp",
         "w": 5,
         "l": 9,
@@ -12432,7 +12432,7 @@ const SEASONS = {
           "awayScore": 82.6,
           "homeScore": 85.1,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Deplorables",
@@ -12485,7 +12485,7 @@ const SEASONS = {
           "home": "The Deplorables"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 105,
           "homeScore": 112.5,
@@ -12535,7 +12535,7 @@ const SEASONS = {
           "home": "Business as Usual"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 110,
           "homeScore": 107.6,
@@ -12582,7 +12582,7 @@ const SEASONS = {
           "awayScore": 109.4,
           "homeScore": 85.6,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Business as Usual",
@@ -12619,7 +12619,7 @@ const SEASONS = {
           "home": "The Arabian Stallions"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 94.9,
           "homeScore": 123.7,
@@ -12666,7 +12666,7 @@ const SEASONS = {
           "awayScore": 122.7,
           "homeScore": 91,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "The Arabian Stallions",
@@ -12703,7 +12703,7 @@ const SEASONS = {
           "home": "Free Agents"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 116.9,
           "homeScore": 101.7,
@@ -12745,7 +12745,7 @@ const SEASONS = {
       ],
       "Week 8": [
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 123.4,
           "homeScore": 120.1,
@@ -12808,7 +12808,7 @@ const SEASONS = {
           "awayScore": 118.1,
           "homeScore": 85.3,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Route 2 Ravers",
@@ -12861,7 +12861,7 @@ const SEASONS = {
           "home": "Route 2 Ravers"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 136.2,
           "homeScore": 50.5,
@@ -12924,7 +12924,7 @@ const SEASONS = {
           "awayScore": 81,
           "homeScore": 54.4,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         },
         {
           "away": "Prino's Powerhouse",
@@ -12977,7 +12977,7 @@ const SEASONS = {
           "home": "Prino's Powerhouse"
         },
         {
-          "away": "The ACLiens",
+          "away": "ACLiens",
           "awayMgr": "Luke Rapp",
           "awayScore": 97.6,
           "homeScore": 101.5,
@@ -13040,7 +13040,7 @@ const SEASONS = {
           "awayScore": 114.2,
           "homeScore": 86,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ],
       "Week 14": [
@@ -13090,7 +13090,7 @@ const SEASONS = {
           "awayScore": 83.2,
           "homeScore": 70.7,
           "homeMgr": "Luke Rapp",
-          "home": "The ACLiens"
+          "home": "ACLiens"
         }
       ]
     },
