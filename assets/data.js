@@ -1649,16 +1649,16 @@ const SEASONS = {
         "pct": 0.333
       },
       {
-        "team": "The Last of the Meheecans",
-        "owner": "Luke Rapp",
+        "team": "Free Agents",
+        "owner": "Zachary Hickman",
         "w": 3,
         "l": 9,
         "t": 0,
         "pct": 0.25
       },
       {
-        "team": "Free Agents",
-        "owner": "Zachary Hickman",
+        "team": "The Last of the Meheecans",
+        "owner": "Luke Rapp",
         "w": 3,
         "l": 9,
         "t": 0,
@@ -2316,16 +2316,16 @@ const SEASONS = {
         "pct": 0.5
       },
       {
-        "team": "When's Fantasy Baseball?",
-        "owner": "Zachary Sizemore",
+        "team": "Not Soon Enough",
+        "owner": "Joseph Garton",
         "w": 5,
         "l": 7,
         "t": 0,
         "pct": 0.417
       },
       {
-        "team": "Not Soon Enough",
-        "owner": "Joseph Garton",
+        "team": "When's Fantasy Baseball?",
+        "owner": "Zachary Sizemore",
         "w": 5,
         "l": 7,
         "t": 0,
@@ -3007,6 +3007,14 @@ const SEASONS = {
         "pct": 0.5
       },
       {
+        "team": "Prino's Powerhouse",
+        "owner": "Joe Prino",
+        "w": 4,
+        "l": 6,
+        "t": 0,
+        "pct": 0.4
+      },
+      {
         "team": "Money Badgers",
         "owner": "Tyler Clay",
         "w": 4,
@@ -3017,14 +3025,6 @@ const SEASONS = {
       {
         "team": "George's Gangstas",
         "owner": "George Wright",
-        "w": 4,
-        "l": 6,
-        "t": 0,
-        "pct": 0.4
-      },
-      {
-        "team": "Prino's Powerhouse",
-        "owner": "Joe Prino",
         "w": 4,
         "l": 6,
         "t": 0,
@@ -3686,8 +3686,8 @@ const SEASONS = {
         "pct": 0.538
       },
       {
-        "team": "Commish's Crusaders",
-        "owner": "Tyler Cummings",
+        "team": "The Arabian Stallions",
+        "owner": "Walid Salameh",
         "w": 6,
         "l": 7,
         "t": 0,
@@ -3702,16 +3702,16 @@ const SEASONS = {
         "pct": 0.462
       },
       {
-        "team": "The Arabian Stallions",
-        "owner": "Walid Salameh",
+        "team": "Business as Usual",
+        "owner": "Travis West",
         "w": 6,
         "l": 7,
         "t": 0,
         "pct": 0.462
       },
       {
-        "team": "Business as Usual",
-        "owner": "Travis West",
+        "team": "Commish's Crusaders",
+        "owner": "Tyler Cummings",
         "w": 6,
         "l": 7,
         "t": 0,
@@ -4555,16 +4555,16 @@ const SEASONS = {
         "pct": 0.462
       },
       {
-        "team": "Plaxicolt's 45",
-        "owner": "Matt Geiger",
+        "team": "Winning Is My Forte",
+        "owner": "Aaron Burns",
         "w": 5,
         "l": 8,
         "t": 0,
         "pct": 0.385
       },
       {
-        "team": "Winning Is My Forte",
-        "owner": "Aaron Burns",
+        "team": "Plaxicolt's 45",
+        "owner": "Matt Geiger",
         "w": 5,
         "l": 8,
         "t": 0,
