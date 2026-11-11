@@ -799,8 +799,10 @@ function renderRaceChart(s, mode){
   const yAt = (rank) => padT + (rank - 1) * yStep;
 
   const gridLines = weekKeys.map((wk, i) => `<line x1="${xAt(i)}" y1="${padT}" x2="${xAt(i)}" y2="${padT+innerH}" stroke="var(--line)" stroke-width="1" />`).join('');
+  const placeLabel = (r) => r + (r % 100 >= 11 && r % 100 <= 13 ? 'th' : ({1: 'st', 2: 'nd', 3: 'rd'}[r % 10] || 'th'));
   const rankLines = Array.from({length: teamCount}, (_, i) => i+1).map(r =>
-    `<line x1="${padL}" y1="${yAt(r)}" x2="${padL+innerW}" y2="${yAt(r)}" stroke="var(--line)" stroke-width="1" />`
+    `<line x1="${padL}" y1="${yAt(r)}" x2="${padL+innerW}" y2="${yAt(r)}" stroke="var(--line)" stroke-width="1" />
+    <text x="${padL - 8}" y="${yAt(r) + 3.5}" font-size="${z.fAxis}" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="end">${placeLabel(r)}</text>`
   ).join('');
   const weekLabels = weekKeys.map((wk, i) => `<text x="${xAt(i)}" y="${padT+innerH+20}" font-size="${z.fAxis}" font-family="var(--mono)" fill="var(--text-soft)" text-anchor="middle">${z.short ? parseInt(wk.replace(/\D/g, ''), 10) : weekNumLabel(wk)}</text>`).join('');
 
@@ -832,9 +834,9 @@ function renderRaceChart(s, mode){
   </div>`;
   }
 
-  const wide = { W: 860, padL: 36, padR: isPoints ? 200 : 130, rowH: 26, fAxis: 10, fLabel: 11, short: false, minW: 700 };
+  const wide = { W: 860, padL: 48, padR: isPoints ? 200 : 130, rowH: 26, fAxis: 10, fLabel: 11, short: false, minW: 700 };
   if(isPoints) return draw(wide);
-  const narrow = { W: 360, padL: 14, padR: 84, rowH: 24, fAxis: 10, fLabel: 11, short: true, minW: 0 };
+  const narrow = { W: 360, padL: 38, padR: 84, rowH: 24, fAxis: 10, fLabel: 11, short: true, minW: 0 };
   return `<div class="race-wide">${draw(wide)}</div><div class="race-narrow">${draw(narrow)}</div>`;
 }
 
