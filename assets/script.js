@@ -3130,9 +3130,9 @@ function lastNameOf(n){ return (n || '').trim().split(/\s+/).pop().toLowerCase()
 
 // ---------- Final season placement ----------
 // Final league finish for every team in a completed season, keyed by owner last name.
-// 1st-3rd come from champion/second/third, 4th is the 3rd-place-game loser. Other playoff
-// teams rank by how far they advanced (later elimination round = better), then by
-// regular-season standing. Non-playoff teams follow in regular-season standing order.
+// 1st-3rd come from champion/second/third, 4th is the 3rd-place-game loser. Playoff teams
+// that played in neither game take the next places in seed order (regular-season standing),
+// however far they advanced. Non-playoff teams follow in regular-season standing order.
 function finalPlacements(s){
   const ln = n => (n || '').trim().split(/\s+/).pop().toLowerCase();
   const out = {};
@@ -3156,7 +3156,7 @@ function finalPlacements(s){
     });
   });
   let next = taken.size + 1;
-  Object.keys(elim).sort((a, b) => (elim[b] - elim[a]) || ((standIdx[a] ?? 99) - (standIdx[b] ?? 99)))
+  Object.keys(elim).sort((a, b) => (standIdx[a] ?? 99) - (standIdx[b] ?? 99))
     .forEach(k => { out[k] = next++; taken.add(k); });
   (s.standings || []).forEach(r => { const k = ln(r.owner); if(!taken.has(k)){ out[k] = next++; taken.add(k); } });
   return out;

@@ -1609,14 +1609,6 @@ const SEASONS = {
         "pct": 0.667
       },
       {
-        "team": "Brady's Bunch",
-        "owner": "Tyler Cummings",
-        "w": 6,
-        "l": 6,
-        "t": 0,
-        "pct": 0.5
-      },
-      {
         "team": "The Hulk",
         "owner": "Zachary Sizemore",
         "w": 6,
@@ -1627,6 +1619,14 @@ const SEASONS = {
       {
         "team": "Business as Usual",
         "owner": "Travis West",
+        "w": 6,
+        "l": 6,
+        "t": 0,
+        "pct": 0.5
+      },
+      {
+        "team": "Brady's Bunch",
+        "owner": "Tyler Cummings",
         "w": 6,
         "l": 6,
         "t": 0,
@@ -2263,8 +2263,8 @@ const SEASONS = {
       "owner": "Luke Rapp"
     },
     "third": {
-      "team": "Rookie Sensations",
-      "owner": "George Wright"
+      "team": "Boston TE Party",
+      "owner": "Tyler Cummings"
     },
     "standings": [
       {
@@ -2975,16 +2975,16 @@ const SEASONS = {
         "pct": 0.7
       },
       {
-        "team": "Route 2 Ravers",
-        "owner": "Joseph Garton",
+        "team": "Free Agents",
+        "owner": "Zachary Hickman",
         "w": 6,
         "l": 4,
         "t": 0,
         "pct": 0.6
       },
       {
-        "team": "Free Agents",
-        "owner": "Zachary Hickman",
+        "team": "Route 2 Ravers",
+        "owner": "Joseph Garton",
         "w": 6,
         "l": 4,
         "t": 0,
@@ -3646,6 +3646,14 @@ const SEASONS = {
     },
     "standings": [
       {
+        "team": "Plaxicolt's 45",
+        "owner": "Matt Geiger",
+        "w": 9,
+        "l": 4,
+        "t": 0,
+        "pct": 0.692
+      },
+      {
         "team": "Prino's Powerhouse",
         "owner": "Joe Prino",
         "w": 9,
@@ -3656,14 +3664,6 @@ const SEASONS = {
       {
         "team": "I like to Cha Cha",
         "owner": "Luke Rapp",
-        "w": 9,
-        "l": 4,
-        "t": 0,
-        "pct": 0.692
-      },
-      {
-        "team": "Plaxicolt's 45",
-        "owner": "Matt Geiger",
         "w": 9,
         "l": 4,
         "t": 0,
@@ -4499,6 +4499,14 @@ const SEASONS = {
         "pct": 0.615
       },
       {
+        "team": "King of the NARPS",
+        "owner": "Zachary Sizemore",
+        "w": 8,
+        "l": 5,
+        "t": 0,
+        "pct": 0.615
+      },
+      {
         "team": "The Arabian Stallions",
         "owner": "Walid Salameh",
         "w": 8,
@@ -4517,14 +4525,6 @@ const SEASONS = {
       {
         "team": "Free Agents",
         "owner": "Zachary Hickman",
-        "w": 8,
-        "l": 5,
-        "t": 0,
-        "pct": 0.615
-      },
-      {
-        "team": "King of the NARPS",
-        "owner": "Zachary Sizemore",
         "w": 8,
         "l": 5,
         "t": 0,
@@ -7866,8 +7866,8 @@ const SEASONS = {
       "owner": "Joe Prino"
     },
     "third": {
-      "team": "Lincoln Legends",
-      "owner": "Tyler Cummings"
+      "team": "The Deplorables",
+      "owner": "Zachary Sizemore"
     },
     "standings": [
       {
