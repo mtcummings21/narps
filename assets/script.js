@@ -1170,8 +1170,8 @@ function renderSeasonDetail(containerId){
   const prevSeason = SEASONS[prevYearKey];
   const prevResultsByMgr = prevSeason ? computeResultsByMgr(prevSeason) : {};
 
-  let longestWinStreak = { owner: null, len: 0 };
-  let longestLossStreak = { owner: null, len: 0 };
+  let longestWinStreak = { owners: [], len: 0 };  // every team tied for the longest current win streak
+  let longestLossStreak = { owners: [], len: 0 };  // every team tied for the longest current loss streak
   const allStreakMgrs = new Set([...Object.keys(resultsByMgr), ...Object.keys(prevResultsByMgr)]);
   allStreakMgrs.forEach(mgr => {
     const cur = trailingStreak(resultsByMgr[mgr] || []);
@@ -1182,16 +1182,23 @@ function renderSeasonDetail(containerId){
       if(prev.type === cur.type) len += prev.len;
     }
     const ownerName = TEAMS.find(t => lastNameOf(t.owner) === mgr)?.owner || mgr;
-    if(cur.type === 'W' && len > longestWinStreak.len) longestWinStreak = { owner: ownerName, len };
-    if(cur.type === 'L' && len > longestLossStreak.len) longestLossStreak = { owner: ownerName, len };
+    if(cur.type === 'W' && len > longestWinStreak.len) longestWinStreak = { owners: [ownerName], len };
+    else if(cur.type === 'W' && len === longestWinStreak.len) longestWinStreak.owners.push(ownerName);
+    if(cur.type === 'L' && len > longestLossStreak.len) longestLossStreak = { owners: [ownerName], len };
+    else if(cur.type === 'L' && len === longestLossStreak.len) longestLossStreak.owners.push(ownerName);
   });
+
+  // List tied streak teams in current standings order.
+  const standingsIdx = o => { const i = (s.standings || []).findIndex(t => lastNameOf(t.owner) === lastNameOf(o)); return i < 0 ? 99 : i; };
+  longestWinStreak.owners.sort((a, b) => standingsIdx(a) - standingsIdx(b));
+  longestLossStreak.owners.sort((a, b) => standingsIdx(a) - standingsIdx(b));
 
   const hasResults = allScoresCount > 0;
   const highlightsSection = hasResults ? `<h2 class="section-title" id="highlights" style="margin-top:40px;">${year} Season Highlights</h2>
   <ul style="margin:0 0 32px; padding:0; list-style:none; font-size:0.95rem; line-height:2;">
     <li><strong>League Team Avg. Points Per Matchup:</strong> ${leagueAvgPPM.toFixed(1)}</li>
-    <li><strong>Longest Current Winning Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owner ? ` (${longestWinStreak.owner})` : ''}</li>
-    <li><strong>Longest Current Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owner ? ` (${longestLossStreak.owner})` : ''}</li>
+    <li><strong>Longest Current Winning Streak:</strong> ${longestWinStreak.len || '—'}${longestWinStreak.owners.length ? ` (${longestWinStreak.owners.join(', ')})` : ''}</li>
+    <li><strong>Longest Current Losing Streak:</strong> ${longestLossStreak.len || '—'}${longestLossStreak.owners.length ? ` (${longestLossStreak.owners.join(', ')})` : ''}</li>
     <li><strong>Highest Weekly Score:</strong> ${highGame ? `${highGame.score.toFixed(1)} (${highGame.owner}, ${highGame.week})` : '—'}</li>
     <li><strong>Lowest Weekly Score:</strong> ${lowGame ? `${lowGame.score.toFixed(1)} (${lowGame.owner}, ${lowGame.week})` : '—'}</li>
   </ul>` : '';
