@@ -968,6 +968,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "The Mid-Season Review",
     "url": "newsletter-vol9-no7.html"
+  },
+  {
+    "vol": 9,
+    "no": 8,
+    "year": 2026,
+    "title": "The Great Escape",
+    "url": "newsletter-vol9-no8.html"
   }
 ];
 
