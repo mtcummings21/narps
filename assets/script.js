@@ -200,26 +200,6 @@ function renderTrophyCase(containerId, limit){
   }).join('');
 }
 
-// ---------- Homepage hero stats ----------
-// Total regular-season games played across all seasons to date (excludes playoffs
-// and excludes unplayed/placeholder 0-0 weeks of an in-progress season). Rendered
-// live so the homepage stat never needs a manual update after adding a week's results.
-function totalRegularSeasonGamesPlayed(){
-  let count = 0;
-  Object.values(SEASONS || {}).forEach(s => {
-    Object.values(s.schedule || {}).forEach(games => {
-      games.forEach(g => { if(!(g.awayScore === 0 && g.homeScore === 0)) count++; });
-    });
-  });
-  return count;
-}
-
-function renderTotalGamesStat(elId){
-  const el = document.getElementById(elId);
-  if(!el) return;
-  el.textContent = totalRegularSeasonGamesPlayed().toLocaleString('en-US');
-}
-
 // ---------- Standings table ----------
 function fmtPct(v){ return v == null ? '—' : (v*100).toFixed(1)+'%'; }
 
@@ -293,7 +273,7 @@ function standingsRowHTML(t, i){
   return `<tr>
     <td class="pos">${i+1}</td>
     <td class="name-cell"><a href="team.html?team=${encodeURIComponent(t.key)}" class="owner-link">${t.owner}</a><div class="muted" style="font-size:0.78rem;font-family:var(--body);font-weight:400;">${t.team}</div></td>
-    <td class="pos">${t.seasons} yrs</td>
+    <td class="pos">${t.seasons} ${t.seasons === 1 ? 'yr' : 'yrs'}</td>
     <td>${t.champs > 0 ? `<span class="pill">${t.champs}★</span>` : '—'}</td>
     <td class="pos">${t.playoffApp}</td>
     <td class="num grp-l">${t.gamesW}-${t.gamesL}${t.gamesT ? '-'+t.gamesT : ''}</td>

@@ -139,6 +139,10 @@ img{ max-width:100%; display:block; }
   display: block;
   flex: 0 0 auto;
 }
+/* The logo art has a white background, so in dark mode it sits on a rounded white chip
+   (same treatment as .title-logo) instead of showing as a hard-edged white box. */
+:root[data-theme="dark"] .brand-logo{ background:#fff; border-radius:8px; padding:3px 6px; box-sizing:border-box; }
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .brand-logo{ background:#fff; border-radius:8px; padding:3px 6px; box-sizing:border-box; } }
 .brand small{
   font-family: var(--mono);
   font-weight: 600;
