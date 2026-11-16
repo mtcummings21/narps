@@ -3900,3 +3900,360 @@ function renderPLScoreStrip(containerId){
     <div class="ss-games">${games}</div>
   </div>`;
 }
+
+
+// =====================================================================================
+// Site-wide search, "My Team" highlighting and pinned table columns.
+// All three are data-driven: they read TEAMS / SEASONS / NEWSLETTERS / SITE_NAV and the
+// rendered page, so adding a week, season, owner or page needs no changes here.
+// =====================================================================================
+
+// ---------- My Team (pick a franchise once; its rows are highlighted site-wide) ----------
+const MY_TEAM_STORAGE_KEY = 'lon-my-team';
+function getMyTeamKey(){
+  try {
+    const k = window.localStorage.getItem(MY_TEAM_STORAGE_KEY);
+    return (k && typeof TEAMS !== 'undefined' && TEAMS.some(t => t.key === k)) ? k : null;
+  } catch(e) { return null; }
+}
+function setMyTeamKey(key){
+  try {
+    if(key) window.localStorage.setItem(MY_TEAM_STORAGE_KEY, key);
+    else window.localStorage.removeItem(MY_TEAM_STORAGE_KEY);
+  } catch(e) { /* storage unavailable: the choice just won't persist */ }
+}
+// Owners in the current season's standings, in team-name order.
+function activeTeams(){
+  if(typeof TEAMS === 'undefined' || typeof SEASONS === 'undefined' || !CURRENT_SEASON_YEAR) return [];
+  const cur = {};
+  ((SEASONS[CURRENT_SEASON_YEAR] || {}).standings || []).forEach(r => { cur[lastNameOf(r.owner)] = r.team; });
+  return TEAMS.filter(t => lastNameOf(t.owner) in cur)
+    .map(t => ({ key: t.key, owner: t.owner, team: cur[lastNameOf(t.owner)] || t.team }))
+    .sort((a, b) => a.team.replace(/^the /i, '').localeCompare(b.team.replace(/^the /i, '')));
+}
+function shortTeamName(name){
+  return (typeof TEAM_SHORT_NAMES !== 'undefined' && TEAM_SHORT_NAMES[name]) || name;
+}
+// Every name a franchise can appear under: owner, last name, and each team name it has used.
+function myTeamNames(key){
+  const t = TEAMS.find(x => x.key === key);
+  if(!t) return new Set();
+  const last = lastNameOf(t.owner);
+  const names = new Set([t.owner, t.key, t.team, shortTeamName(t.team)]);
+  Object.values(SEASONS || {}).forEach(s => (s.standings || []).forEach(r => {
+    if(lastNameOf(r.owner) !== last) return;
+    names.add(r.owner); names.add(r.team); names.add(shortTeamName(r.team));
+  }));
+  names.delete(''); names.delete(undefined);
+  return new Set([...names].map(n => String(n).trim().toLowerCase()));
+}
+
+function renderMyTeamNav(){
+  const nav = document.getElementById('site-nav');
+  const teams = activeTeams();
+  if(!nav || !teams.length) return;
+  let dd = document.getElementById('myteam-dropdown');
+  if(!dd){
+    dd = document.createElement('div');
+    dd.className = 'nav-dropdown';
+    dd.id = 'myteam-dropdown';
+    dd.innerHTML = `<button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-haspopup="true"><span class="myteam-name"><span class="myteam-star" aria-hidden="true"></span><span class="myteam-label"></span></span> <span class="nav-caret" aria-hidden="true">&#9662;</span></button>
+      <div class="nav-dropdown-menu"></div>`;
+    nav.appendChild(dd);
+    dd.querySelector('.nav-dropdown-menu').addEventListener('click', e => {
+      const btn = e.target.closest('button[data-myteam]');
+      if(!btn) return;
+      setMyTeamKey(btn.dataset.myteam || null);
+      renderMyTeamNav();
+      applyMyTeamHighlight();
+    });
+  }
+  const key = getMyTeamKey();
+  const mine = teams.find(t => t.key === key);
+  dd.classList.toggle('myteam-set', !!mine);
+  dd.querySelector('.myteam-star').textContent = mine ? '★' : '☆';
+  dd.querySelector('.myteam-label').textContent = mine ? shortTeamName(mine.team) : 'My Team';
+  const toggle = dd.querySelector('.nav-dropdown-toggle');
+  toggle.setAttribute('aria-label', mine ? `My team: ${mine.team}. Change my team` : 'Choose my team');
+  toggle.title = mine ? `My team: ${mine.team}` : 'Choose my team';
+  dd.querySelector('.nav-dropdown-menu').innerHTML =
+    `<div class="myteam-hint">${mine ? 'Highlighted across the site' : 'Pick your team to highlight it across the site'}</div>` +
+    (mine ? `<a href="team.html?team=${encodeURIComponent(mine.key)}">Go to my team page</a>` : '') +
+    teams.map(t => `<button type="button" class="myteam-opt${t.key === key ? ' selected' : ''}" data-myteam="${t.key}" aria-pressed="${t.key === key}">
+        <span>${t.team}</span><small>${t.owner}</small></button>`).join('') +
+    (mine ? `<button type="button" class="myteam-opt myteam-clear" data-myteam="">Clear my team</button>` : '');
+}
+
+function applyMyTeamHighlight(){
+  document.querySelectorAll('.my-team').forEach(e => e.classList.remove('my-team'));
+  const key = getMyTeamKey();
+  if(!key) return;
+  // On the owner's own team page every row is theirs, so highlighting would add nothing.
+  const page = window.location.pathname.split('/').pop() || 'index.html';
+  if(page.startsWith('team') && !page.startsWith('teams') && new URLSearchParams(window.location.search).get('team') === key) return;
+  const names = myTeamNames(key);
+  const isMine = txt => names.has(String(txt || '').replace(/^\s*\d+\.\s*/, '').trim().toLowerCase());
+  const teamOfLink = a => { try { return new URL(a.href).searchParams.get('team'); } catch(e) { return null; } };
+
+  // Table rows: a link to the team page decides it; otherwise an exact name in a cell.
+  document.querySelectorAll('table:not(.bs-table):not(.h2h-grid):not(.sb-grid) > tbody > tr').forEach(tr => {
+    const links = tr.querySelectorAll('a[href*="team.html?team="]');
+    let mine;
+    if(links.length) mine = [...links].some(a => teamOfLink(a) === key);
+    else mine = [...tr.children].some(td => isMine(td.textContent) ||
+      [...td.querySelectorAll('*')].some(el => !el.children.length && isMine(el.textContent)));
+    if(mine) tr.classList.add('my-team');
+  });
+  // Head-to-head grid: only the owner's row label, so the win/loss colours stay readable.
+  document.querySelectorAll('table.h2h-grid > tbody > tr > :first-child').forEach(c => { if(isMine(c.textContent)) c.classList.add('my-team'); });
+  // Homepage standings card, score strip, schedule matchups.
+  document.querySelectorAll('.standings-col li').forEach(li => { if(li.firstElementChild && isMine(li.firstElementChild.textContent)) li.classList.add('my-team'); });
+  document.querySelectorAll('.ss-team').forEach(el => {
+    const n = el.querySelector('.ss-name'); if(!n) return;
+    const own = [...n.childNodes].filter(x => x.nodeType === 3).map(x => x.textContent).join('');
+    if(isMine(own)) el.classList.add('my-team');
+  });
+  document.querySelectorAll('.mu-side').forEach(el => { const n = el.querySelector('.mu-name'); if(n && isMine(n.textContent)) el.classList.add('my-team'); });
+  // Race charts: thicken the owner's line and draw it on top.
+  document.querySelectorAll('g.race-team').forEach(g => {
+    const title = g.querySelector('polyline > title');
+    if(!title || !isMine(title.textContent.split(' \u00b7 ')[0])) return; // points race titles read "Team · +12.3"
+    g.classList.add('my-team');
+    if(g.parentNode.lastElementChild !== g) g.parentNode.appendChild(g);
+  });
+}
+
+// ---------- Pinned first column on tables that scroll sideways ----------
+// Keeps the row's name (team, player, owner, year) in view while the stats scroll.
+// The pinned column is the first "name" column, or the first column when there is none.
+function pinTableColumns(){
+  document.querySelectorAll('.table-scroll, .h2h-wrap').forEach(wrap => {
+    const table = wrap.querySelector('table');
+    if(!table || table.id === 'standings-table' || table.classList.contains('sb-grid') || table.classList.contains('bs-table')) return;
+    if(table.querySelector('.picks-name-cell')) return; // already pinned in CSS
+    const rows = [...table.querySelectorAll(':scope > thead > tr, :scope > tbody > tr')];
+    const sample = [...table.querySelectorAll(':scope > tbody > tr')].find(r => r.children.length > 1 && ![...r.children].some(c => c.colSpan > 1));
+    const overflowing = wrap.scrollWidth > wrap.clientWidth + 4;
+    let idx = -1;
+    if(sample && overflowing){
+      // A name column counts only near the start of the row (some tables end with one).
+      idx = [...sample.children].findIndex(c => c.classList.contains('name-cell'));
+      if(idx < 0 || idx > 3) idx = 0;
+      // A very wide name column would leave no room for the stats: don't pin it.
+      if(sample.children[idx].getBoundingClientRect().width > wrap.clientWidth * 0.6) idx = -1;
+    }
+    rows.forEach(r => {
+      const plain = ![...r.children].some(c => c.colSpan > 1);
+      [...r.children].forEach((c, i) => c.classList.toggle('pin-col', plain && i === idx));
+    });
+  });
+}
+
+// Re-run both whenever a page re-renders part of itself (week pickers, sorting, filters).
+function initMyTeamAndPins(){
+  let queued = false;
+  const run = () => { queued = false; applyMyTeamHighlight(); pinTableColumns(); };
+  const schedule = () => { if(!queued){ queued = true; requestAnimationFrame(run); } };
+  run();
+  window.addEventListener('load', schedule);
+  window.addEventListener('resize', schedule);
+  if(typeof MutationObserver !== 'undefined'){
+    new MutationObserver(schedule).observe(document.body, { childList: true, subtree: true });
+  }
+  // Opening a box score or switching weeks reveals tables that had no width before.
+  document.addEventListener('toggle', schedule, true);
+  document.addEventListener('click', schedule);
+}
+
+// ---------- Site-wide search ----------
+function searchNorm(s){
+  return String(s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/[.'’]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+}
+// Owners, teams (current and past names), seasons, drafts, pages and newsletters.
+function buildSearchIndex(){
+  const items = [];
+  const add = (label, sub, href, type, rank) => items.push({ label, sub, href, type, rank, n: searchNorm(label), ns: searchNorm(sub) });
+  if(typeof TEAMS !== 'undefined'){
+    const cur = {};
+    activeTeams().forEach(t => { cur[t.key] = t.team; });
+    TEAMS.forEach(t => {
+      const href = `team.html?team=${encodeURIComponent(t.key)}`;
+      const team = cur[t.key] || t.team;
+      add(t.owner, team, href, 'Owner', 0);
+      add(team, t.owner, href, 'Team', 0);
+      const past = {};
+      Object.entries(typeof SEASONS !== 'undefined' ? SEASONS : {}).forEach(([y, s]) => (s.standings || []).forEach(r => {
+        if(lastNameOf(r.owner) === lastNameOf(t.owner) && r.team && r.team !== team) (past[r.team] = past[r.team] || []).push(y);
+      }));
+      Object.entries(past).forEach(([name, years]) => {
+        years.sort();
+        const span = years.length > 1 ? `${years[0]}–${years[years.length - 1]}` : years[0];
+        add(name, `${t.owner} · ${span}`, href, 'Past team', 2);
+      });
+    });
+  }
+  if(typeof SEASONS !== 'undefined'){
+    Object.keys(SEASONS).sort((a, b) => b - a).forEach(y => {
+      add(`${y} Season`, 'Standings, scores and playoffs', `season.html?year=${y}`, 'Season', 1);
+      if(typeof DRAFT_RESULTS_YEARS === 'undefined' || DRAFT_RESULTS_YEARS.includes(String(y))) add(`${y} Draft`, 'Pick-by-pick results', `draft.html?year=${y}`, 'Draft', 1);
+    });
+  }
+  if(typeof CHAMPIONS !== 'undefined') CHAMPIONS.forEach(c => add(`${c.year} Champion`, `${c.owner} · ${c.team}`, `season.html?year=${c.year}#playoffs`, 'Champion', 2));
+  SITE_NAV.forEach(item => (item.items || [item]).forEach(p => add(p.label, '', p.href, 'Page', 1)));
+  add('All-Time Records', '', 'standings.html#records', 'Page', 1);
+  add('Head-to-Head Records', '', 'standings.html#head-to-head', 'Page', 1);
+  if(typeof NEWSLETTERS !== 'undefined') NEWSLETTERS.slice().reverse().forEach(nl => {
+    const issue = `Vol. ${nl.vol}, No. ${nl.no}`;
+    const titled = nl.title && !/^vol\./i.test(nl.title) && !/newsletter$/i.test(nl.title);
+    add(titled ? nl.title : issue, titled ? `${issue} · ${nl.year}` : String(nl.year), nl.url, 'Newsletter', 2);
+  });
+  return items;
+}
+// NFL players come from the draft and box-score files, which most pages don't load.
+// They are fetched the first time search is opened, then indexed.
+function loadScriptOnce(src){
+  loadScriptOnce.cache = loadScriptOnce.cache || {};
+  if(!loadScriptOnce.cache[src]){
+    loadScriptOnce.cache[src] = new Promise(resolve => {
+      const s = document.createElement('script');
+      s.src = src; s.onload = () => resolve(true); s.onerror = () => resolve(false);
+      document.head.appendChild(s);
+    });
+  }
+  return loadScriptOnce.cache[src];
+}
+function buildPlayerSearchItems(){
+  const seen = {};
+  const note = (name, pos) => {
+    const k = normPlayerName(name);
+    if(!k) return;
+    if(!seen[k]) seen[k] = { name, pos: pos || '' };
+    else if(pos && !seen[k].pos) seen[k].pos = pos;
+  };
+  if(typeof BOXSCORES !== 'undefined') Object.values(BOXSCORES).forEach(weeks => Object.values(weeks).forEach(games => (games || []).forEach(g => {
+    ['away', 'home', 'awayBench', 'homeBench'].forEach(side => (g && g[side] || []).forEach(p => note(p.player, p.pos)));
+  })));
+  if(typeof DRAFT_HISTORY !== 'undefined') Object.values(DRAFT_HISTORY).forEach(list => list.forEach(d => note(d.player, d.position)));
+  return Object.values(seen).map(p => ({ label: p.name, sub: p.pos, href: playerHref(p.name), type: 'Player', rank: 3, n: searchNorm(p.name), ns: '' }));
+}
+// Every query word must start a word in the label (or its sub-line). Lower score is better.
+function searchScore(item, q, words){
+  if(item.n === q) return 0;
+  if(item.n.startsWith(q)) return 1;
+  const lw = item.n.split(' '), sw = item.ns.split(' ');
+  let inSub = false;
+  for(const w of words){
+    if(lw.some(x => x.startsWith(w))) continue;
+    if(sw.some(x => x.startsWith(w))){ inSub = true; continue; }
+    return -1;
+  }
+  return inSub ? 3 : 2;
+}
+function runSiteSearch(index, query, limit){
+  const q = searchNorm(query);
+  if(!q) return [];
+  const words = q.split(' ');
+  const hits = [];
+  index.forEach(item => { const s = searchScore(item, q, words); if(s >= 0) hits.push({ item, s }); });
+  hits.sort((a, b) => (a.s - b.s) || (a.item.rank - b.item.rank) || (a.item.label.length - b.item.label.length) || a.item.label.localeCompare(b.item.label));
+  return hits.slice(0, limit || 10).map(h => h.item);
+}
+
+function initSiteSearch(){
+  const wrap = document.querySelector('.site-header .wrap');
+  if(!wrap || document.querySelector('.header-tools')) return;
+  // Search and the theme toggle share one group so the header keeps its three-part layout.
+  const tools = document.createElement('div');
+  tools.className = 'header-tools';
+  const openBtn = document.createElement('button');
+  openBtn.type = 'button';
+  openBtn.className = 'search-open';
+  openBtn.setAttribute('aria-label', 'Search the site');
+  openBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>';
+  tools.appendChild(openBtn);
+  const theme = wrap.querySelector('.theme-toggle');
+  wrap.appendChild(tools);
+  if(theme) tools.appendChild(theme);
+
+  let overlay, input, list, status, index = null, results = [], active = 0, playersState = 'idle';
+  const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const render = () => {
+    const q = input.value.trim();
+    results = q ? runSiteSearch(index, q, 10) : [];
+    active = 0;
+    list.innerHTML = results.map((r, i) => `<li role="option" id="search-opt-${i}" aria-selected="${i === 0}"><a href="${esc(r.href)}"${/^https?:/.test(r.href) ? ' target="_blank" rel="noopener"' : ''}>
+        <span class="search-main"><span class="search-label">${esc(r.label)}</span>${r.sub ? `<span class="search-sub">${esc(r.sub)}</span>` : ''}</span>
+        <span class="search-type">${r.type}</span></a></li>`).join('');
+    input.setAttribute('aria-activedescendant', results.length ? 'search-opt-0' : '');
+    status.textContent = !q ? (playersState === 'loading' ? 'Loading players…' : 'Search owners, teams, players, seasons, drafts and newsletters.')
+      : results.length ? '' : (playersState === 'loading' ? 'Still loading players…' : `No matches for “${q}”.`);
+    status.hidden = !status.textContent;
+  };
+  const setActive = i => {
+    if(!results.length) return;
+    active = (i + results.length) % results.length;
+    [...list.children].forEach((li, n) => li.setAttribute('aria-selected', n === active));
+    input.setAttribute('aria-activedescendant', `search-opt-${active}`);
+    list.children[active].scrollIntoView({ block: 'nearest' });
+  };
+  const loadPlayers = () => {
+    if(playersState !== 'idle') return;
+    playersState = 'loading';
+    Promise.all([
+      typeof DRAFT_HISTORY === 'undefined' ? loadScriptOnce('assets/data-draft-history.js') : true,
+      typeof BOXSCORES === 'undefined' ? loadScriptOnce('assets/data-boxscores.js') : true,
+    ]).then(() => {
+      playersState = 'done';
+      index = index.concat(buildPlayerSearchItems());
+      if(overlay && !overlay.hidden) render();
+    });
+  };
+  const close = () => { if(overlay && !overlay.hidden){ overlay.hidden = true; document.documentElement.classList.remove('search-open-lock'); openBtn.focus(); } };
+  const open = () => {
+    if(!overlay){
+      overlay = document.createElement('div');
+      overlay.className = 'search-overlay';
+      overlay.innerHTML = `<div class="search-panel" role="dialog" aria-modal="true" aria-label="Search the site">
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>
+            <input type="search" class="search-input" placeholder="Search the league" autocomplete="off" autocapitalize="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results" aria-label="Search the league">
+            <button type="button" class="search-close" aria-label="Close search">Esc</button>
+          </div>
+          <p class="search-status"></p>
+          <ul class="search-results" id="search-results" role="listbox"></ul>
+        </div>`;
+      document.body.appendChild(overlay);
+      input = overlay.querySelector('.search-input');
+      list = overlay.querySelector('.search-results');
+      status = overlay.querySelector('.search-status');
+      index = buildSearchIndex();
+      input.addEventListener('input', render);
+      input.addEventListener('keydown', e => {
+        if(e.key === 'ArrowDown'){ e.preventDefault(); setActive(active + 1); }
+        else if(e.key === 'ArrowUp'){ e.preventDefault(); setActive(active - 1); }
+        else if(e.key === 'Enter' && results[active]){ e.preventDefault(); list.children[active].querySelector('a').click(); }
+      });
+      overlay.addEventListener('click', e => { if(e.target === overlay || e.target.closest('.search-close')) close(); });
+      // A result on the page you're already on (e.g. another season) still needs the panel to close.
+      list.addEventListener('click', e => { if(e.target.closest('a')) setTimeout(close, 0); });
+    }
+    overlay.hidden = false;
+    document.documentElement.classList.add('search-open-lock');
+    input.value = '';
+    loadPlayers();
+    render();
+    input.focus();
+  };
+  openBtn.addEventListener('click', open);
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape') close();
+    const typing = /^(input|textarea|select)$/i.test((e.target.tagName || '')) || e.target.isContentEditable;
+    if(!typing && !e.metaKey && !e.ctrlKey && !e.altKey && e.key === '/'){ e.preventDefault(); open(); }
+  });
+}
+
+renderMyTeamNav();
+document.addEventListener('DOMContentLoaded', () => {
+  initSiteSearch();
+  initMyTeamAndPins();
+});
