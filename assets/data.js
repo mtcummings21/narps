@@ -14089,14 +14089,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Puka Nacua (28.0) and Brock Purdy (25.2) lead Joe Prino's Powerhouse to a week-high 140.0 over Z Hickman's Free Agents (79.9); Prino now owns three of the season's four highest scores and sits alone in 1st at 7-2", url: "season.html?year=2026&week=9#schedule" },
-  { title: "Matthew Golden (27.4) and Bucky Irving (26.5) snap Joe Garton's six-game losing streak as Route 2 Ravers beat Aaron Burns' Fantasy Football Team 102.7-94.0, wasting Jordan Love's week-best 36.1", url: "season.html?year=2026&week=9#schedule" },
-  { title: "Kenneth Walker III's 34.3 carries Sonny Wright's Gangstas past Tyler Cummings' Legends 99.5-88.8 for a third straight win, despite Ja'Marr Chase's 26.5; the Legends have now lost four straight", url: "season.html?year=2026&week=9#schedule" },
-  { title: "Joe Burrow (29.5), Christian Watson (26.6) and Bijan Robinson (23.7) power Seth Thacker's Kareem Pie past Walid Salameh's Stallions 116.6-82.2, and Thacker jumps four spots to 3rd", url: "season.html?year=2026&week=9#schedule" },
-  { title: "CeeDee Lamb's 28.5 leads Travis West's Business as Usual to a third straight win, 83.2-61.4, and Luke Rapp's ACLiens post the lowest score of the season", url: "season.html?year=2026&week=9#schedule" },
-  { title: "Zach Sizemore's Deplorables hang on 80.1-76.3 despite Christian McCaffrey's 21.7, handing Tyler Clay's Money Badgers a third straight loss", url: "season.html?year=2026&week=9#schedule" },
-  { title: "Three teams sit at 6-3 behind the 7-2 Powerhouse; the 3-6 Ravers hold 6th on points for a sixth straight week, while the 5-4 Fantasy Football Team sits 7th", url: "season.html?year=2026" },
-  { title: "Bench mob: Joe Garton sits C.J. Stroud's 35.2 while Jared Goff scores 5.3 and still wins; Sonny Wright starts Ladd McConkey (0.0) and Tucker Kraft (1.4) with two 10-point RBs on his bench", url: "season.html?year=2026&week=9#schedule" }
+  { title: "Jahmyr Gibbs (40.7), Deebo Samuel Sr. (24.4) and Isaiah Likely (23.2) power Zach Sizemore's Deplorables to a week-high 151.3 over Joe Garton's Route 2 Ravers (84.0), the second-highest score of the season, and Sizemore takes back 1st", url: "season.html?year=2026&week=10#schedule" },
+  { title: "George Pickens (38.0), Chuba Hubbard (31.7) and Ja'Marr Chase (28.6) snap Tyler Cummings' four-game skid as Lincoln Legends post a season-best 147.9 against Aaron Burns' Fantasy Football Team (96.4) and jump four spots to 8th", url: "season.html?year=2026&week=10#schedule" },
+  { title: "Emmett Johnson (32.1), Trevor Lawrence (26.7) and Parker Washington (24.7) carry Sonny Wright's Gangstas past Luke Rapp's ACLiens 129.1-81.2 for a fourth straight win, with Saquon Barkley and Kenneth Walker III on the bench", url: "season.html?year=2026&week=10#schedule" },
+  { title: "Christian McCaffrey's 44.3, the best game by any player this week, ends Tyler Clay's three-game losing streak as the Money Badgers top Walid Salameh's Stallions 97.8-88.7", url: "season.html?year=2026&week=10#schedule" },
+  { title: "Joe Burrow's 33.0 gets Seth Thacker's Kareem Pie past Z Hickman's Free Agents 85.7-84.6, the closest game of the week, for a third straight win", url: "season.html?year=2026&week=10#schedule" },
+  { title: "Chase Brown (24.3) and CeeDee Lamb (16.7) lead Travis West's Business as Usual to a fourth straight win, 83.8-75.4, ending Joe Prino's three-game run despite Brock Purdy's 31.5", url: "season.html?year=2026&week=10#schedule" },
+  { title: "Four teams are now 7-3, and Sizemore leads them on points; Hickman holds 5th by 1.2 points over Burns, whose Fantasy Football Team takes 6th on points from the Ravers after six straight weeks", url: "season.html?year=2026" },
+  { title: "Bench mob: Z Hickman sits Patrick Mahomes' 35.3 and starts Drake Maye (2.9) in a 1.1-point loss; Walid Salameh benches Dak Prescott (34.3) and Cam Skattebo (25.7) in a nine-point loss", url: "season.html?year=2026&week=10#schedule" }
 ];
 
 const SURVIVOR = {
