@@ -17043,6 +17043,15 @@ const PREMIER_LEAGUE = {
         ["Ipswich Town", 1, 2, "Bournemouth"],
         ["Sunderland", 1, 0, "Chelsea"],
         ["Manchester United", 4, 4, "Aston Villa"]
+      ],
+      11: [
+        ["Manchester City", 1, 1, "Fulham"],
+        ["Bournemouth", 2, 0, "Nottingham Forest"],
+        ["Aston Villa", 0, 0, "Sunderland"],
+        ["Chelsea", 1, 4, "Leeds United"],
+        ["Coventry City", 3, 2, "Crystal Palace"],
+        ["Tottenham", 2, 0, "Ipswich Town"],
+        ["Newcastle United", 2, 2, "Arsenal"]
       ]
     },
     players: [
@@ -17057,7 +17066,7 @@ const PREMIER_LEAGUE = {
         { week: 8, team: "Ipswich Town",      opponent: "Nottingham Forest", venue: "H", score: "1–1", result: "D" },
         { week: 9, team: "Tottenham",         opponent: "Crystal Palace", venue: "H", score: "2–0", result: "W" },
         { week: 10, team: "Chelsea",          opponent: "Sunderland",     venue: "A", score: "0–1", result: "L" },
-        { week: 11, team: "Aston Villa",      opponent: "Sunderland",     venue: "H", score: null, result: null }
+        { week: 11, team: "Aston Villa",      opponent: "Sunderland",     venue: "H", score: "0–0", result: "D" }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
@@ -17070,7 +17079,7 @@ const PREMIER_LEAGUE = {
         { week: 8, team: "Coventry City",     opponent: "Fulham",         venue: "H", score: "0–1", result: "L" },
         { week: 9, team: "Aston Villa",       opponent: "Fulham",         venue: "H", score: "1–1", result: "D" },
         { week: 10, team: "Liverpool",        opponent: "Crystal Palace", venue: "A", score: "3–1", result: "W" },
-        { week: 11, team: "Bournemouth",      opponent: "Nottingham Forest", venue: "H", score: null, result: null }
+        { week: 11, team: "Bournemouth",      opponent: "Nottingham Forest", venue: "H", score: "2–0", result: "W" }
       ]}
     ]
   }
