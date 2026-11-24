@@ -14089,14 +14089,14 @@ const PAID_STATUS = {
 // Homepage "Top Headlines" widget — general NFL news, unrelated to league
 // history. Update this list periodically to keep it current.
 const NFL_HEADLINES = [
-  { title: "Jahmyr Gibbs (40.7), Deebo Samuel Sr. (24.4) and Isaiah Likely (23.2) power Zach Sizemore's Deplorables to a week-high 151.3 over Joe Garton's Route 2 Ravers (84.0), the second-highest score of the season, and Sizemore takes back 1st", url: "season.html?year=2026&week=10#schedule" },
-  { title: "George Pickens (38.0), Chuba Hubbard (31.7) and Ja'Marr Chase (28.6) snap Tyler Cummings' four-game skid as Lincoln Legends post a season-best 147.9 against Aaron Burns' Fantasy Football Team (96.4) and jump four spots to 8th", url: "season.html?year=2026&week=10#schedule" },
-  { title: "Emmett Johnson (32.1), Trevor Lawrence (26.7) and Parker Washington (24.7) carry Sonny Wright's Gangstas past Luke Rapp's ACLiens 129.1-81.2 for a fourth straight win, with Saquon Barkley and Kenneth Walker III on the bench", url: "season.html?year=2026&week=10#schedule" },
-  { title: "Christian McCaffrey's 44.3, the best game by any player this week, ends Tyler Clay's three-game losing streak as the Money Badgers top Walid Salameh's Stallions 97.8-88.7", url: "season.html?year=2026&week=10#schedule" },
-  { title: "Joe Burrow's 33.0 gets Seth Thacker's Kareem Pie past Z Hickman's Free Agents 85.7-84.6, the closest game of the week, for a third straight win", url: "season.html?year=2026&week=10#schedule" },
-  { title: "Chase Brown (24.3) and CeeDee Lamb (16.7) lead Travis West's Business as Usual to a fourth straight win, 83.8-75.4, ending Joe Prino's three-game run despite Brock Purdy's 31.5", url: "season.html?year=2026&week=10#schedule" },
-  { title: "Four teams are now 7-3, and Sizemore leads them on points; Hickman holds 5th by 1.2 points over Burns, whose Fantasy Football Team takes 6th on points from the Ravers after six straight weeks", url: "season.html?year=2026" },
-  { title: "Bench mob: Z Hickman sits Patrick Mahomes' 35.3 and starts Drake Maye (2.9) in a 1.1-point loss; Walid Salameh benches Dak Prescott (34.3) and Cam Skattebo (25.7) in a nine-point loss", url: "season.html?year=2026&week=10#schedule" }
+  { title: "Dak Prescott's 35.9, the best game by any player this week, and Chuba Hubbard's 26.0 give Tyler Cummings' Lincoln Legends a 109.8-66.2 rout of Zach Sizemore's Deplorables, Lincoln's first back-to-back wins of the season", url: "season.html?year=2026&week=11#schedule" },
+  { title: "Emmett Johnson (22.3) and Ladd McConkey (18.2) push Sonny Wright's Gangstas past Joe Prino 98.5-87.5 for a fifth straight win, and George's Gangstas take sole possession of 1st at 8-3", url: "season.html?year=2026&week=11#schedule" },
+  { title: "Patrick Mahomes (24.8) and Travis Kelce (22.4) lead Z Hickman's Free Agents to a week-high 112.2, worth $25, and end Travis West's four-game winning streak as Business as Usual manage just 69.4", url: "season.html?year=2026&week=11#schedule" },
+  { title: "Cam Ward (22.1), DJ Moore (19.1) and George Kittle (16.9) lift Aaron Burns' Fantasy Football Team past Luke Rapp's ACLiens 104.0-77.7, and Rapp drops a fourth straight", url: "season.html?year=2026&week=11#schedule" },
+  { title: "Ashton Jeanty's 25.4 gets Tyler Clay's Money Badgers past Seth Thacker's Kareem Pie 81.8-77.0, the closest game of the week, ending Kareem Pie's three-game winning streak", url: "season.html?year=2026&week=11#schedule" },
+  { title: "Javonte Williams (22.6), C.J. Stroud (20.3) and Breece Hall (17.5) carry Joe Garton's Route 2 Ravers past Walid Salameh's Stallions 101.4-81.0, Salameh's fifth straight loss", url: "season.html?year=2026&week=11#schedule" },
+  { title: "The Deplorables' 66.2 is their lowest score of the season, and they fall to 2nd behind the Gangstas; Fantasy Football Team holds the 6th seed by 8.1 points over the Ravers with three weeks left", url: "season.html?year=2026" },
+  { title: "Bench mob: Joe Prino sits Brock Purdy's 22.2 and starts Jayden Daniels (16.9) despite Jonah Coleman's 32.9; Luke Rapp starts J.K. Dobbins (0.0) with Justice Hill's 15.6 on the bench; Walid Salameh benches Mike Evans (19.9)", url: "season.html?year=2026&week=11#schedule" }
 ];
 
 const SURVIVOR = {
