@@ -10771,6 +10771,1094 @@ const BOXSCORES = {
           }
         ]
       }
+    ],
+    "Week 11": [
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Joe Burrow",
+            "pts": 19.9
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "David Montgomery",
+            "pts": 13.9
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Emari Demercado",
+            "pts": 3.9
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Nico Collins",
+            "pts": 13.3
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Jordyn Tyson",
+            "pts": 1.5
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Mike Gesicki",
+            "pts": 10.2
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Jaylen Waddle",
+            "pts": 7.6
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Jalen Coker",
+            "pts": 6.7
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Tyler Shough",
+            "pts": 14.2
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Christian McCaffrey",
+            "pts": 13.2
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Ashton Jeanty",
+            "pts": 25.4
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Emeka Egbuka",
+            "pts": 2.8
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Josh Downs",
+            "pts": 7.9
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Tyler Warren",
+            "pts": 2.7
+          },
+          {
+            "slot": "FLEX",
+            "pos": "TE",
+            "player": "Trey McBride",
+            "pts": 10.3
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Keenan Allen",
+            "pts": 5.3
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Bijan Robinson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Christian Watson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Kyle Pitts Sr.",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Bryce Young",
+            "pts": 15.8
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "DeMario Douglas",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Jeremiyah Love",
+            "pts": 0
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Marvin Harrison Jr.",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Rachaad White",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Tyler Allgeier",
+            "pts": 2.3
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Caleb Douglas",
+            "pts": 4
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Alec Pierce",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "RJ Harvey",
+            "pts": 0
+          }
+        ]
+      },
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Patrick Mahomes",
+            "pts": 24.8
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Tony Pollard",
+            "pts": 11
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Ollie Gordon II",
+            "pts": 7.7
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Tetairoa McMillan",
+            "pts": 16.1
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "DK Metcalf",
+            "pts": 0.7
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Travis Kelce",
+            "pts": 22.4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "RB",
+            "player": "Derrick Henry",
+            "pts": 17.1
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Zay Flowers",
+            "pts": 12.4
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Kirk Cousins",
+            "pts": 7.4
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Chase Brown",
+            "pts": 6.1
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Mike Washington Jr.",
+            "pts": 4.2
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "CeeDee Lamb",
+            "pts": 24.7
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Malik Nabers",
+            "pts": 15
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Darren Waller",
+            "pts": 5.7
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Xavier Hutchinson",
+            "pts": 2.3
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Treylon Burks",
+            "pts": 4
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Drake Maye",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Harold Fannin Jr.",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Kaelon Black",
+            "pts": 2
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Wan'Dale Robinson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Pat Freiermuth",
+            "pts": 6.5
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Jordan Addison",
+            "pts": 0
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Quinshon Judkins",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Rhamondre Stevenson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Dallas Goedert",
+            "pts": 4.3
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Denzel Boston",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Audric Estime",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "QB",
+            "player": "Jalen Hurts",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Josh Jacobs",
+            "pts": 0
+          }
+        ]
+      },
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Geno Smith",
+            "pts": 19.4
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Omarion Hampton",
+            "pts": 9.8
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Cam Skattebo",
+            "pts": 4.3
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Amon-Ra St. Brown",
+            "pts": 12.2
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Rashee Rice",
+            "pts": 8.3
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Sam LaPorta",
+            "pts": 7.7
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Rome Odunze",
+            "pts": 6.5
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Khalil Shakir",
+            "pts": 12.8
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "C.J. Stroud",
+            "pts": 20.3
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Jonathan Taylor",
+            "pts": 4.7
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Bucky Irving",
+            "pts": 17.5
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Xavier Worthy",
+            "pts": 10.8
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Malik Washington",
+            "pts": 5.6
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Mark Andrews",
+            "pts": 2.4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "RB",
+            "player": "Javonte Williams",
+            "pts": 22.6
+          },
+          {
+            "slot": "FLEX",
+            "pos": "RB",
+            "player": "Breece Hall",
+            "pts": 17.5
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Matthew Stafford",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Michael Mayer",
+            "pts": 0.9
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "AJ Barner",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Mike Evans",
+            "pts": 19.9
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Jadarian Price",
+            "pts": 0
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Matthew Golden",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Jared Goff",
+            "pts": 20.2
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Juwan Johnson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Demarcus Robinson",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Mack Hollins",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Romeo Doubs",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Jaylin Noel",
+            "pts": 0
+          }
+        ]
+      },
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Jayden Daniels",
+            "pts": 16.9
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Jaylen Warren",
+            "pts": 3.9
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Jonah Coleman",
+            "pts": 32.9
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Carnell Tate",
+            "pts": 12.8
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Ryan Flournoy",
+            "pts": 1.6
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Dawson Knox",
+            "pts": 4.1
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Tee Higgins",
+            "pts": 11.3
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Adonai Mitchell",
+            "pts": 4
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Trevor Lawrence",
+            "pts": 12.7
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Saquon Barkley",
+            "pts": 13.5
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Emmett Johnson",
+            "pts": 22.3
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Ladd McConkey",
+            "pts": 18.2
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Luther Burden III",
+            "pts": 2.3
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Chig Okonkwo",
+            "pts": 8.6
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "DeVonta Smith",
+            "pts": 6.6
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Parker Washington",
+            "pts": 14.3
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Kyren Williams",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Brock Purdy",
+            "pts": 22.2
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "KC Concepcion",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Makai Lemon",
+            "pts": 0.8
+          },
+          {
+            "slot": "IR",
+            "pos": "TE",
+            "player": "Brock Bowers",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Jacory Croskey-Merritt",
+            "pts": 14.7
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Blake Corum",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Tucker Kraft",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Antonio Williams",
+            "pts": 16.7
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Seth McGowan",
+            "pts": 1.3
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Sione Vaki",
+            "pts": 1.1
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Kenneth Walker III",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "De'Zhaun Stribling",
+            "pts": 0
+          }
+        ]
+      },
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Josh Allen",
+            "pts": 12
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Jahmyr Gibbs",
+            "pts": 25.8
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Bhayshul Tuten",
+            "pts": 6.8
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Deebo Samuel Sr.",
+            "pts": 6.2
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Tank Dell",
+            "pts": 4.2
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Isaiah Likely",
+            "pts": 4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "RB",
+            "player": "Rico Dowdle",
+            "pts": 5.4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "RB",
+            "player": "Kyle Monangai",
+            "pts": 1.8
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Dak Prescott",
+            "pts": 35.9
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Chuba Hubbard",
+            "pts": 26
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "D'Andre Swift",
+            "pts": 10.9
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "George Pickens",
+            "pts": 20.3
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Elic Ayomanor",
+            "pts": 4.2
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Brenton Strange",
+            "pts": 3.1
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Ja'Marr Chase",
+            "pts": 5.6
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Tre' Harris",
+            "pts": 3.8
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Drake London",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Courtland Sutton",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Aaron Jones Sr.",
+            "pts": 10.8
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Alvin Kamara",
+            "pts": 6.7
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Chris Godwin Jr.",
+            "pts": 2.8
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Davante Adams",
+            "pts": 0
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Dalton Kincaid",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Zach Charbonnet",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Bo Nix",
+            "pts": 11.5
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Tre Tucker",
+            "pts": 6
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Samaje Perine",
+            "pts": 11.7
+          },
+          {
+            "slot": "IR",
+            "pos": "QB",
+            "player": "Lamar Jackson",
+            "pts": 0
+          },
+          {
+            "slot": "IR",
+            "pos": "WR",
+            "player": "Omar Cooper Jr.",
+            "pts": 0
+          }
+        ]
+      },
+      {
+        "away": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Caleb Williams",
+            "pts": 14.3
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "J.K. Dobbins",
+            "pts": 0
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Braelon Allen",
+            "pts": 8.9
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Chris Olave",
+            "pts": 14.7
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Jameson Williams",
+            "pts": 17.3
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "Colston Loveland",
+            "pts": 10.4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Jakobi Meyers",
+            "pts": 10.5
+          },
+          {
+            "slot": "FLEX",
+            "pos": "TE",
+            "player": "Dalton Schultz",
+            "pts": 1.6
+          }
+        ],
+        "home": [
+          {
+            "slot": "QB",
+            "pos": "QB",
+            "player": "Cam Ward",
+            "pts": 22.1
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "James Cook III",
+            "pts": 16.2
+          },
+          {
+            "slot": "RB",
+            "pos": "RB",
+            "player": "Travis Etienne Jr.",
+            "pts": 7.6
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "Justin Jefferson",
+            "pts": 10.2
+          },
+          {
+            "slot": "WR",
+            "pos": "WR",
+            "player": "DJ Moore",
+            "pts": 19.1
+          },
+          {
+            "slot": "TE",
+            "pos": "TE",
+            "player": "George Kittle",
+            "pts": 16.9
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Garrett Wilson",
+            "pts": 5.4
+          },
+          {
+            "slot": "FLEX",
+            "pos": "WR",
+            "player": "Stefon Diggs",
+            "pts": 6.5
+          }
+        ],
+        "awayBench": [
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Jaxon Smith-Njigba",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "A.J. Brown",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Jordan Mason",
+            "pts": 4.2
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Woody Marks",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Justice Hill",
+            "pts": 15.6
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Dameon Pierce",
+            "pts": 0
+          }
+        ],
+        "homeBench": [
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "Hunter Henry",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "TE",
+            "player": "T.J. Hockenson",
+            "pts": 8.5
+          },
+          {
+            "slot": "BE",
+            "pos": "QB",
+            "player": "Jordan Love",
+            "pts": 0
+          },
+          {
+            "slot": "BE",
+            "pos": "WR",
+            "player": "Germie Bernard",
+            "pts": 7
+          },
+          {
+            "slot": "BE",
+            "pos": "RB",
+            "player": "Kenny Gainwell",
+            "pts": 7.9
+          },
+          {
+            "slot": "IR",
+            "pos": "RB",
+            "player": "Jonathon Brooks",
+            "pts": 0
+          }
+        ]
+      }
     ]
   },
   "2025": {
