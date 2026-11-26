@@ -975,6 +975,13 @@ const NEWSLETTERS = [
     "year": 2026,
     "title": "The Great Escape",
     "url": "newsletter-vol9-no8.html"
+  },
+  {
+    "vol": 9,
+    "no": 9,
+    "year": 2026,
+    "title": "Happy Thanksgiving",
+    "url": "newsletter-vol9-no9.html"
   }
 ];
 
