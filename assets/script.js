@@ -2272,6 +2272,11 @@ function renderSuperBowlSquares(containerId){
 }
 
 // ---------- Premier League pick'em ----------
+// Premier Pick 2 pick tally: initials plus two pips (filled = times picked).
+function plPickChip(name, n, opts = {}){
+  const pips = [0, 1].map(i => `<span class="pl-pip${i < n ? ' pl-pip--on' : ''}"></span>`).join('');
+  return `<span class="pl-pick-chip${name ? ` pl-pick-chip--${name}` : ''}${opts.now ? ' pl-pick-chip--now' : ''}${n >= 2 ? ' pl-pick-chip--max' : ''}"${opts.title ? ` title="${opts.title}"` : ''}>${name ? name + ' ' : ''}<span class="pl-pips" aria-label="${n} of 2">${pips}</span></span>`;
+}
 function plLogo(team, size = 20){
   const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[team] : null;
   if(!id) return '';
@@ -2535,7 +2540,7 @@ function renderPremierLeagueSchedule(containerId){
     };
     const chips = team => {
       const u = usage(team, week);
-      return u.length ? `<span class="pl-chips">${u.map(x => `<span class="pl-pick-chip pl-pick-chip--${x.name}${x.now ? ' pl-pick-chip--now' : ''}${x.n >= 2 ? ' pl-pick-chip--max' : ''}" title="${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}">${x.name} ${x.n}/2</span>`).join('')}</span>` : '';
+      return u.length ? `<span class="pl-chips">${u.map(x => plPickChip(x.name, x.n, { now: x.now, title: `${x.name} has picked ${team} ${x.n} of 2 times${x.now ? ' (picked this week)' : ''}` })).join('')}</span>` : '';
     };
     let lastDay = '';
     const rows = games.map(([ko, h, a]) => {
@@ -2559,7 +2564,7 @@ function renderPremierLeagueSchedule(containerId){
         <button type="button" class="pl-sched-step" data-step="1" ${week === weeks[weeks.length - 1] ? 'disabled' : ''} aria-label="Next matchweek">&rarr;</button>
       </div>
       <div class="pl-sched">${rows}</div>
-      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone${tzName ? ` (${tzName})` : ''}. Kickoff times for later matchweeks are provisional and may move for TV.<br><span class="pl-pick-chip pl-pick-chip--TC pl-pick-chip--now">TC 1/2</span> <span class="pl-pick-chip pl-pick-chip--BD pl-pick-chip--now">BD 1/2</span> picked this week &nbsp; <span class="pl-pick-chip pl-pick-chip--TC">TC 1/2</span> <span class="pl-pick-chip pl-pick-chip--BD">BD 1/2</span> picked in another week &nbsp; <span class="pl-pick-chip pl-pick-chip--max">2/2</span> used up</p>`;
+      <p class="muted" style="font-size:0.8rem; margin-top:14px;">Times shown in your local time zone${tzName ? ` (${tzName})` : ''}. Kickoff times for later matchweeks are provisional and may move for TV.<br>${plPickChip('TC', 1, { now: true })} ${plPickChip('BD', 1, { now: true })} picked this week &nbsp; ${plPickChip('TC', 1)} ${plPickChip('BD', 1)} picked in another week &nbsp; ${plPickChip('', 2)} used up</p>`;
     el.querySelector('#pl-week-select').addEventListener('change', e => go(parseInt(e.target.value, 10)));
     el.querySelectorAll('.pl-sched-step').forEach(b => b.addEventListener('click', () => go(week + parseInt(b.dataset.step, 10))));
   }
@@ -2766,7 +2771,7 @@ function renderPremierLeagueClub(containerId){
   const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
   const usage = (s.players || []).map(p => {
     const wks = p.picks.filter(pk => pk.team === club).map(pk => pk.week);
-    return `<span style="white-space:nowrap;"><span class="pl-pick-chip pl-pick-chip--${p.name}${wks.length >= 2 ? ' pl-pick-chip--max' : ''}">${p.name} ${wks.length}/2</span>${wks.length ? ` <span class="muted" style="font-size:0.8rem;">Wk ${wks.join(', ')}</span>` : ''}</span>`;
+    return `<span style="white-space:nowrap;">${plPickChip(p.name, wks.length, { now: true })}${wks.length ? ` <span class="muted" style="font-size:0.8rem;">Wk ${wks.join(', ')}</span>` : ''}</span>`;
   }).join(' &nbsp; ');
 
   const resultRows = results.map(x => `<tr>
