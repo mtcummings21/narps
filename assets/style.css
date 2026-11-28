@@ -1508,7 +1508,8 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-chips{ display:inline-flex; gap:3px; }
 .pl-pick-chip{ --pc: var(--blue); display:inline-flex; align-items:center; gap:3px; font-family: var(--mono); font-size:0.6rem; font-weight:700; line-height:1.3; color: var(--text-soft); white-space:nowrap; }
 .pl-pick-chip--now, .pl-pick-chip--color{ color: var(--pc); }
-.pl-pick-chip--now .pl-pips{ padding-bottom:2px; border-bottom:1.5px solid var(--pc); }
+.pl-pips{ position:relative; transform: translateY(-0.14em); }
+.pl-pick-chip--now .pl-pips::after{ content:''; position:absolute; left:0; right:0; bottom:-3px; border-bottom:1.5px solid var(--pc); }
 .pl-pips{ display:inline-flex; gap:2px; }
 .pl-pip{ width:6px; height:6px; box-sizing:border-box; border-radius:50%; border:1px solid var(--pc); }
 .pl-pip--on{ background: var(--pc); }
