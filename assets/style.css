@@ -1660,7 +1660,7 @@ h1, h2, h3, .section-title, .hero h1, .memorial-name{ font-stretch: 78%; }
 .pl-table td.pos{ width:1%; text-align:right; padding-right:4px; }
 .pl-table td.name-cell{ padding-right:16px; }
 .pl-table td.name-cell .pl-logo{ vertical-align:-4px; }
-.pl-table th:nth-child(n+3), .pl-table td:nth-child(n+3){ min-width:26px; padding-left:6px; padding-right:6px; }
+.pl-table th:nth-child(n+3), .pl-table td:nth-child(n+3){ min-width:34px; padding-left:8px; padding-right:8px; }
 @media (max-width: 560px){
   .pl-table thead th{ padding:7px 5px; }
   .pl-table tbody td{ padding:4px 5px; }
