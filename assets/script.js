@@ -2275,7 +2275,7 @@ function renderSuperBowlSquares(containerId){
 // Premier Pick 2 pick tally: initials plus two pips (filled = times picked).
 function plPickChip(name, n, opts = {}){
   const pips = [0, 1].map(i => `<span class="pl-pip${i < n ? ' pl-pip--on' : ''}"></span>`).join('');
-  return `<span class="pl-pick-chip${name ? ` pl-pick-chip--${name}` : ''}${opts.now ? ' pl-pick-chip--now' : ''}${n >= 2 ? ' pl-pick-chip--max' : ''}"${opts.title ? ` title="${opts.title}"` : ''}>${name ? name + ' ' : ''}<span class="pl-pips" aria-label="${n} of 2">${pips}</span></span>`;
+  return `<span class="pl-pick-chip${name ? ` pl-pick-chip--${name}` : ''}${opts.now ? ' pl-pick-chip--now' : ''}${opts.color ? ' pl-pick-chip--color' : ''}${n >= 2 ? ' pl-pick-chip--max' : ''}"${opts.title ? ` title="${opts.title}"` : ''}>${name ? name + ' ' : ''}<span class="pl-pips" aria-label="${n} of 2">${pips}</span></span>`;
 }
 function plLogo(team, size = 20){
   const id = (typeof PL_LOGO_ID !== 'undefined') ? PL_LOGO_ID[team] : null;
@@ -2771,7 +2771,7 @@ function renderPremierLeagueClub(containerId){
   const fmtGd = v => v > 0 ? '+' + v : v < 0 ? '−' + Math.abs(v) : '0';
   const usage = (s.players || []).map(p => {
     const wks = p.picks.filter(pk => pk.team === club).map(pk => pk.week);
-    return `<span style="white-space:nowrap;">${plPickChip(p.name, wks.length, { now: true })}${wks.length ? ` <span class="muted" style="font-size:0.8rem;">Wk ${wks.join(', ')}</span>` : ''}</span>`;
+    return `<span style="white-space:nowrap;">${plPickChip(p.name, wks.length, { color: true })}${wks.length ? ` <span class="muted" style="font-size:0.8rem;">Wk ${wks.join(', ')}</span>` : ''}</span>`;
   }).join(' &nbsp; ');
 
   const resultRows = results.map(x => `<tr>
