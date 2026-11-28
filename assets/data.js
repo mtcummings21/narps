@@ -17080,7 +17080,7 @@ const PREMIER_LEAGUE = {
         { week: 9, team: "Tottenham",         opponent: "Crystal Palace", venue: "H", score: "2–0", result: "W" },
         { week: 10, team: "Chelsea",          opponent: "Sunderland",     venue: "A", score: "0–1", result: "L" },
         { week: 11, team: "Aston Villa",      opponent: "Sunderland",     venue: "H", score: "0–0", result: "D" },
-        { week: 12, team: "Brentford",        opponent: "Manchester United", venue: "A", score: null, result: null }
+        { week: 12, team: "Leeds United",     opponent: "Coventry City",  venue: "H", score: null, result: null }
       ]},
       { name: "BD", picks: [
         { week: 1, team: "Tottenham",         opponent: "Brentford",      venue: "A", score: "0–3", result: "L" },
