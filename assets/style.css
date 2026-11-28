@@ -1538,8 +1538,8 @@ td.pl-maxed{ color: var(--red); font-weight:700; }
 .pl-prace:hover .pl-prace-club:hover{ opacity: 1; }
 .pl-prace .pl-prace-club:hover polyline{ stroke: var(--blue); stroke-opacity: 1; stroke-width: 3; }
 .pl-prace .pl-prace-club:hover .pl-prace-end{ fill: var(--blue); }
-/* Pick tally: TC blue, BD green; "used up" red wins */
-.pl-pick-chip--BD{ --pc:#1f9d55; }
+/* Pick tally: TC blue, BD red; "used up" red wins */
+.pl-pick-chip--BD{ --pc: var(--red); }
 .pl-pick-chip--max{ --pc: var(--red); color: var(--red); }
 .pl-club-link{ color: inherit; text-decoration:none; }
 .pl-club-link:hover, .pl-club-link:focus-visible{ color: var(--navy); text-decoration:underline; }
